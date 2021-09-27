@@ -1,19 +1,12 @@
 {
-  "name": "mediasoup-custom",
+  "name": "sfu",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "watch": "watchify public/index.js -o public/bundle.js -v",
-    "lint": "npx prettier --write .",
-    "docker-build": "docker build --tag dirvann/mediasoup-video-rooms .",
-    "docker-run": "docker run --name dirvann-mediasoup-rooms -p 10000-10100:10000-10100 -p 3016:3016 dirvann/mediasoup-video-rooms",
-    "docker-start": "docker start dirvann-mediasoup-rooms",
-    "docker-stop": "docker stop dirvann-mediasoup-rooms",
-    "compile-mediasoup-client": "npx browserify mediasoup-client-compile.js -o public/modules/mediasoupclient.min.js"
+    "compile-mediasoup-client": "npx browserify mediasoup-client-compile.js -o public/modules/MediasoupClient.min.js"
   },
   "author": "",
   "license": "ISC",
@@ -23,8 +16,5 @@
     "mediasoup": "^3.8.2",
     "mediasoup-client": "^3.6.37",
     "socket.io": "^4.1.3"
-  },
-  "devDependencies": {
-    "prettier": "2.3.2"
   }
 }
