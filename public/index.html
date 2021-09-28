@@ -10,17 +10,18 @@
         <script src="modules/EventEmitter.min.js"></script>
         <script src="https://kit.fontawesome.com/d2f1016e6f.js" crossorigin="anonymous"></script>
         <script src="RoomClient.js"></script>
-
-        <link href="modules/bootstrap.min.css" rel="stylesheet" />
-        <script src="modules/bootstrap.bundle.min.js"></script>
     </head>
     <body>
         <div class="container">
             <div id="login">
                 <br />
-                <i class="fas fa-server"> Room: </i><input id="roomidInput" value="123" type="text" />
+                <i class="fas fa-server"> Room:  </i>
+                <input id="roomidInput" value="123" type="text" />
+
                 <!--<button id="createRoom" onclick="createRoom(roomid.value)" label="createRoom">Create Room</button>-->
-                <i class="fas fa-user"> User: </i><input id="nameInput" value="user" type="text" />
+                <i class="fas fa-user"> User:  </i>
+                <input id="nameInput" value="user" type="text" />
+
                 <button id="joinButton" onclick="joinRoom(nameInput.value, roomidInput.value)">
                     <i class="fas fa-sign-in-alt"></i> Join
                 </button>
