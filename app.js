@@ -6,9 +6,9 @@ const mediasoup = require('mediasoup')
 
 const app = express()
 
-const Room = require('./Room')
-const Peer = require('./Peer')
-const config = require('./config')
+const Room = require('./helpers/Room')
+const Peer = require('./helpers/Peer')
+const config = require('./config/config')
 
 const options = {
     key: fs.readFileSync(path.join(__dirname, config.sslKey), 'utf-8'),
@@ -18,7 +18,7 @@ const options = {
 const httpsServer = https.createServer(options, app)
 const io = require('socket.io')(httpsServer)
 
-app.use(express.static(path.join(__dirname, '..', 'public')))
+app.use(express.static(path.join(__dirname, 'client')))
 
 httpsServer.listen(config.listenPort, () => console.log('Listening on https://' + config.listenIp + ':' + config.listenPort))
 

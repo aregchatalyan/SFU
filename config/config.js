@@ -21,8 +21,8 @@ const getLocalIp = () => {
 module.exports = {
     listenIp: '0.0.0.0',
     listenPort: 3030,
-    sslCrt: '../ssl/cert.pem',
-    sslKey: '../ssl/key.pem',
+    sslCrt: './ssl/cert.pem',
+    sslKey: './ssl/key.pem',
 
     mediasoup: {
         // Worker settings
@@ -71,7 +71,7 @@ module.exports = {
             listenIps: [
                 {
                     ip: '0.0.0.0',
-                    announcedIp: getLocalIp() // replace by public IP address
+                    announcedIp: getLocalIp() // replace by client IP address
                 }
             ],
             maxIncomingBitrate: 1500000,

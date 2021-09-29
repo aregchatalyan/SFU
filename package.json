@@ -4,9 +4,9 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
-    "compile-mediasoup-client": "npx browserify mediasoup-client-compile.js -o public/modules/MediasoupClient.min.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "compile-mediasoup-client": "npx browserify mediasoup-client-compile.js -o client/modules/MediasoupClient.min.js"
   },
   "author": "",
   "license": "ISC",
