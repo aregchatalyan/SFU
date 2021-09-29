@@ -20,12 +20,9 @@ const io = require('socket.io')(httpsServer)
 
 app.use(express.static(path.join(__dirname, '..', 'public')))
 
-process.on('uncaughtException', (err, origin) => {
-    console.error(`Caught exception: ${err}`)
-    process.exit(1)
-});
-
 httpsServer.listen(config.listenPort, () => console.log('Listening on https://' + config.listenIp + ':' + config.listenPort))
+
+process.on('uncaughtException', err => console.error(`Caught exception: ${err}`));
 
 // all mediasoup workers
 let workers = []
