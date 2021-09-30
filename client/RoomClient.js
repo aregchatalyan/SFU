@@ -45,14 +45,12 @@ class RoomClient {
         this._isOpen = false
         this.eventListeners = new Map()
 
-        Object.keys(_EVENTS).forEach(
-            function (evt) {
+        Object.keys(_EVENTS).forEach(function (evt) {
                 this.eventListeners.set(evt, [])
             }.bind(this)
         )
 
-        this.createRoom(room_id).then(
-            async function () {
+        this.createRoom(room_id).then(async function () {
                 await this.join(name, room_id)
                 this.initSockets()
                 this._isOpen = true
@@ -79,8 +77,7 @@ class RoomClient {
                 name,
                 room_id
             })
-            .then(
-                async function (e) {
+            .then(async function (e) {
                     console.log('Joined to room', e)
                     const data = await this.socket.request('getRouterRtpCapabilities')
                     let device = await this.loadDevice(data)
@@ -126,9 +123,7 @@ class RoomClient {
 
             this.producerTransport = device.createSendTransport(data)
 
-            this.producerTransport.on(
-                'connect',
-                async function ({dtlsParameters}, callback, errback) {
+            this.producerTransport.on('connect', async function ({dtlsParameters}, callback, errback) {
                     this.socket
                         .request('connectTransport', {
                             dtlsParameters,
@@ -139,9 +134,7 @@ class RoomClient {
                 }.bind(this)
             )
 
-            this.producerTransport.on(
-                'produce',
-                async function ({kind, rtpParameters}, callback, errback) {
+            this.producerTransport.on('produce', async function ({kind, rtpParameters}, callback, errback) {
                     try {
                         const {producer_id} = await this.socket.request('produce', {
                             producerTransportId: this.producerTransport.id,
@@ -157,9 +150,7 @@ class RoomClient {
                 }.bind(this)
             )
 
-            this.producerTransport.on(
-                'connectionstatechange',
-                function (state) {
+            this.producerTransport.on('connectionstatechange', function (state) {
                     switch (state) {
                         case 'connecting':
                             break
@@ -192,9 +183,7 @@ class RoomClient {
 
             // only one needed
             this.consumerTransport = device.createRecvTransport(data)
-            this.consumerTransport.on(
-                'connect',
-                function ({dtlsParameters}, callback, errback) {
+            this.consumerTransport.on('connect', function ({dtlsParameters}, callback, errback) {
                     this.socket
                         .request('connectTransport', {
                             transport_id: this.consumerTransport.id,
@@ -205,9 +194,7 @@ class RoomClient {
                 }.bind(this)
             )
 
-            this.consumerTransport.on(
-                'connectionstatechange',
-                async function (state) {
+            this.consumerTransport.on('connectionstatechange', async function (state) {
                     switch (state) {
                         case 'connecting':
                             break
@@ -230,9 +217,7 @@ class RoomClient {
     }
 
     initSockets() {
-        this.socket.on(
-            'consumerClosed',
-            function ({consumer_id}) {
+        this.socket.on('consumerClosed', function ({consumer_id}) {
                 console.log('Closing consumer:', consumer_id)
                 this.removeConsumer(consumer_id)
             }.bind(this)
@@ -244,9 +229,7 @@ class RoomClient {
          *  producer_socket_id:
          * }]
          */
-        this.socket.on(
-            'newProducers',
-            async function (data) {
+        this.socket.on('newProducers', async function (data) {
                 console.log('New producers', data)
                 for (let {producer_id} of data) {
                     await this.consume(producer_id)
@@ -254,9 +237,7 @@ class RoomClient {
             }.bind(this)
         )
 
-        this.socket.on(
-            'disconnect',
-            function () {
+        this.socket.on('disconnect', function () {
                 this.exit(true)
             }.bind(this)
         )
@@ -437,16 +418,12 @@ class RoomClient {
                     this.remoteAudioEl.appendChild(elem)
                 }
 
-                consumer.on(
-                    'trackended',
-                    function () {
+                consumer.on('trackended', function () {
                         this.removeConsumer(consumer.id)
                     }.bind(this)
                 )
 
-                consumer.on(
-                    'transportclose',
-                    function () {
+                consumer.on('transportclose', function () {
                         this.removeConsumer(consumer.id)
                     }.bind(this)
                 )
@@ -491,9 +468,7 @@ class RoomClient {
         let producer_id = this.producerLabel.get(type)
         console.log('Close producer', producer_id)
 
-        this.socket.emit('producerClosed', {
-            producer_id
-        })
+        this.socket.emit('producerClosed', {producer_id})
 
         this.producers.get(producer_id).close()
         this.producers.delete(producer_id)
