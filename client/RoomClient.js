@@ -27,7 +27,7 @@ class RoomClient {
         this.producerTransport = null
         this.consumerTransport = null
         this.device = null
-        this.room_id = room_id
+        // this.room_id = room_id
 
         this.isVideoOnFullScreen = false
         this.isDevicesVisible = false
@@ -284,16 +284,16 @@ class RoomClient {
                     video: {
                         width: {
                             min: 640,
-                            ideal: 1920
+                            ideal: 1280
                         },
                         height: {
-                            min: 400,
-                            ideal: 1080
+                            min: 480,
+                            ideal: 720
                         },
-                        deviceId: deviceId
-                        /*aspectRatio: {
-                                        ideal: 1.7777777778
-                                    }*/
+                        deviceId: deviceId,
+                        // aspectRatio: {
+                        //     ideal: 1.7777777778
+                        // }
                     }
                 }
                 break
@@ -522,25 +522,25 @@ class RoomClient {
         }
     }
 
-    pauseProducer(type) {
-        if (!this.producerLabel.has(type)) {
-            console.log('There is no producer for this type ' + type)
-            return
-        }
+    // pauseProducer(type) {
+    //     if (!this.producerLabel.has(type)) {
+    //         console.log('There is no producer for this type ' + type)
+    //         return
+    //     }
+    //
+    //     let producer_id = this.producerLabel.get(type)
+    //     this.producers.get(producer_id).pause()
+    // }
 
-        let producer_id = this.producerLabel.get(type)
-        this.producers.get(producer_id).pause()
-    }
-
-    resumeProducer(type) {
-        if (!this.producerLabel.has(type)) {
-            console.log('There is no producer for this type ' + type)
-            return
-        }
-
-        let producer_id = this.producerLabel.get(type)
-        this.producers.get(producer_id).resume()
-    }
+    // resumeProducer(type) {
+    //     if (!this.producerLabel.has(type)) {
+    //         console.log('There is no producer for this type ' + type)
+    //         return
+    //     }
+    //
+    //     let producer_id = this.producerLabel.get(type)
+    //     this.producers.get(producer_id).resume()
+    // }
 
     removeConsumer(consumer_id) {
         let elem = document.getElementById(consumer_id)
@@ -581,10 +581,9 @@ class RoomClient {
 
     ///////  HELPERS //////////
 
-    async roomInfo() {
-        let info = await this.socket.request('getMyRoomInfo')
-        return info
-    }
+    // async roomInfo() {
+    //     return await this.socket.request('getMyRoomInfo')
+    // }
 
     static get mediaType() {
         return mediaType
@@ -634,7 +633,8 @@ class RoomClient {
 
     handleFS(id) {
         let videoPlayer = document.getElementById(id)
-        videoPlayer.addEventListener('fullscreenchange', (e) => {
+
+        videoPlayer.addEventListener('fullscreenchange', () => {
             if (videoPlayer.controls) return
             let fullscreenElement = document.fullscreenElement
             if (!fullscreenElement) {
@@ -642,7 +642,8 @@ class RoomClient {
                 this.isVideoOnFullScreen = false
             }
         })
-        videoPlayer.addEventListener('webkitfullscreenchange', (e) => {
+
+        videoPlayer.addEventListener('webkitfullscreenchange', () => {
             if (videoPlayer.controls) return
             let webkitIsFullScreen = document.webkitIsFullScreen
             if (!webkitIsFullScreen) {
@@ -650,11 +651,12 @@ class RoomClient {
                 this.isVideoOnFullScreen = false
             }
         })
-        videoPlayer.addEventListener('click', (e) => {
+
+        videoPlayer.addEventListener('click', async () => {
             if (videoPlayer.controls) return
             if (!this.isVideoOnFullScreen) {
                 if (videoPlayer.requestFullscreen) {
-                    videoPlayer.requestFullscreen()
+                    await videoPlayer.requestFullscreen()
                 } else if (videoPlayer.webkitRequestFullscreen) {
                     videoPlayer.webkitRequestFullscreen()
                 } else if (videoPlayer.msRequestFullscreen) {
@@ -664,7 +666,7 @@ class RoomClient {
                 videoPlayer.style.pointerEvents = 'none'
             } else {
                 if (document.exitFullscreen) {
-                    document.exitFullscreen()
+                    await document.exitFullscreen()
                 } else if (document.webkitCancelFullScreen) {
                     document.webkitCancelFullScreen()
                 } else if (document.msExitFullscreen) {
