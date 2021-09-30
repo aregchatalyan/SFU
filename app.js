@@ -188,11 +188,11 @@ io.on('connection', (socket) => {
         cb(roomList.get(socket.room_id).toJson())
     })
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', async () => {
         console.log('Disconnect', {name: `${roomList.get(socket.room_id) && roomList.get(socket.room_id).getPeers().get(socket.id).name}`})
 
         if (!socket.room_id) return
-        roomList.get(socket.room_id).removePeer(socket.id)
+        await roomList.get(socket.room_id).removePeer(socket.id)
     })
 
     socket.on('producerClosed', ({producer_id}) => {

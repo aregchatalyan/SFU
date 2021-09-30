@@ -94,9 +94,9 @@ module.exports = class Peer {
         this.producers.delete(producer_id)
     }
 
-    getProducer(producer_id) {
-        return this.producers.get(producer_id)
-    }
+    // getProducer(producer_id) {
+    //     return this.producers.get(producer_id)
+    // }
 
     close() {
         this.transports.forEach((transport) => transport.close())
