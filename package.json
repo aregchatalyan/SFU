@@ -16,5 +16,8 @@
     "mediasoup": "^3.8.2",
     "mediasoup-client": "^3.6.37",
     "socket.io": "^4.1.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
   }
 }
