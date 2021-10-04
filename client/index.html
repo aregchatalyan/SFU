@@ -14,7 +14,6 @@
     <body>
         <div class="container">
             <div id="login">
-                <br />
                 <i class="fas fa-server"> Room:  </i>
                 <input id="roomidInput" value="123" type="text" />
 
@@ -35,19 +34,11 @@
                     <i class="fas fa-arrow-left"></i> Exit
                 </button>
 
-                <button id="copyButton" class="hidden" onclick="rc.copyURL()">
-                    <i class="far fa-copy"></i> copy URL
-                </button>
-
                 <button id="devicesButton" class="hidden" onclick="rc.showDevices()">
                     <i class="fas fa-cogs"></i> Devices
                 </button>
 
-                <button
-                    id="startAudioButton"
-                    class="hidden"
-                    onclick="rc.produce(RoomClient.mediaType.audio, audioSelect.value)"
-                >
+                <button id="startAudioButton" class="hidden" onclick="rc.produce(RoomClient.mediaType.audio, audioSelect.value)">
                     <i class="fas fa-volume-up"></i> Open audio
                 </button>
 
@@ -55,11 +46,7 @@
                     <i class="fas fa-volume-up"></i> Close audio
                 </button>
 
-                <button
-                    id="startVideoButton"
-                    class="hidden"
-                    onclick="rc.produce(RoomClient.mediaType.video, videoSelect.value)"
-                >
+                <button id="startVideoButton" class="hidden" onclick="rc.produce(RoomClient.mediaType.video, videoSelect.value)">
                     <i class="fas fa-camera"></i> Open video
                 </button>
 

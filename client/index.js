@@ -33,7 +33,8 @@ function joinRoom(name, room_id) {
 }
 
 function roomOpen() {
-  login.className = 'hidden'
+  login.style.display = 'none' // for #login display: flex
+  // login.className = 'hidden'
   reveal(startAudioButton)
   hide(stopAudioButton)
   reveal(startVideoButton)
@@ -41,7 +42,6 @@ function roomOpen() {
   reveal(startScreenButton)
   hide(stopScreenButton)
   reveal(exitButton)
-  reveal(copyButton)
   reveal(devicesButton)
   control.className = ''
   reveal(videoMedia)
