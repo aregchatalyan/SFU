@@ -1,3 +1,1 @@
-const client = require('mediasoup-client')
-
-window.mediasoupClient = client
+window.mediasoupClient = require('mediasoup-client');
