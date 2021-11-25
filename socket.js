@@ -11,9 +11,8 @@ module.exports = (io) => {
 
     let roomList = new Map();
 
-    (async () => await createWorkers())();
 
-    async function createWorkers() {
+    (async () => {
         let {numWorkers} = config.mediasoup;
 
         for (let i = 0; i < numWorkers; i++) {
@@ -38,6 +37,14 @@ module.exports = (io) => {
             //     console.info('mediasoup Worker resource usage [pid:%d]: %o', worker.pid, usage);
             // }, 120000);
         }
+    })();
+
+    const getMediasoupWorker = () => {
+        const worker = workers[nextMediasoupWorkerIdx];
+
+        if (++nextMediasoupWorkerIdx === workers.length) nextMediasoupWorkerIdx = 0;
+
+        return worker;
     }
 
     io.on('connection', (socket) => {
@@ -178,27 +185,4 @@ module.exports = (io) => {
             callback('successfully exited room');
         });
     });
-
-    // TODO remove - never used?
-    // function room() {
-    //     return Object.values(roomList).map((r) => {
-    //         return {
-    //             router: r.router.id,
-    //             peers: Object.values(r.peers).map((p) => {
-    //                 return {
-    //                     name: p.name
-    //                 }
-    //             }),
-    //             id: r.id
-    //         }
-    //     })
-    // }
-
-    function getMediasoupWorker() {
-        const worker = workers[nextMediasoupWorkerIdx];
-
-        if (++nextMediasoupWorkerIdx === workers.length) nextMediasoupWorkerIdx = 0;
-
-        return worker;
-    }
 }
