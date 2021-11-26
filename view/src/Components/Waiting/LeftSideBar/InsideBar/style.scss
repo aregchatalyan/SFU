@@ -1,0 +1,136 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+.insideBar {
+  width: 100%;
+  height: 380px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 16px 24px 0 24px;
+
+  .title {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ed2a26;
+    h6 {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+    }
+    .level {
+      width: 82px;
+      height: 24px;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+
+      span {
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
+  }
+  .container {
+    width: 417px;
+    height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 0;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:hover {
+      &::-webkit-scrollbar {
+        display: block;
+        width: 5px;
+        background-color: none;
+      }
+
+      /* Track */
+      &::-webkit-scrollbar-track {
+        //box-shadow: inset 0 0 5px grey;
+        background: white;
+        border-radius: 5px;
+      }
+
+      /* Handle */
+      &::-webkit-scrollbar-thumb {
+        background: rgb(231, 230, 230);
+        border-radius: 2px;
+      }
+    }
+
+    .content {
+      width: 402px;
+      height: 112px;
+      border-bottom: 1px solid #0000003b;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-top: 16px;
+      .head {
+        width: 100%;
+        height: 48px;
+        display: flex;
+        justify-content: space-between;
+        .text {
+          width: 100%;
+          height: 100%;
+          font-family: Rubik;
+          font-size: 16px;
+          line-height: 24px;
+          font-weight: normal;
+          font-style: normal;
+        }
+        .textSmall {
+          width: 334px;
+          height: 100%;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 16px;
+          line-height: 24px;
+          color: #1c1d1f;
+          margin-right: 36px;
+        }
+      }
+
+      .contentFooter {
+        width: 100%;
+        height: 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        .date {
+          width: 185px;
+          height: 100%;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 16px;
+          line-height: 24px;
+          color: #1c1d1f;
+          opacity: 0.5;
+        }
+        .classMates {
+          width: 41px;
+          height: 100%;
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 300;
+          font-size: 16px;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}
