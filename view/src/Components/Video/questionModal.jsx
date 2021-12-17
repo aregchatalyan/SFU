@@ -9,7 +9,6 @@ import {
   Col,
   Container,
 } from "react-bootstrap";
-import classes from "./style.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserAlt,
@@ -22,6 +21,7 @@ import {
 import Chart from "../Video/Chart";
 
 const QuestionModal = (props) => {
+  const classes = {};
   const [id] = useState(props.currentUser.id);
   const [requset, setRequest] = useState(false);
   const [test, setTest] = useState(false);

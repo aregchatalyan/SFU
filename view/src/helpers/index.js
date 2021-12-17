@@ -1,9 +1,5 @@
-import { io } from "socket.io-client";
-
 let producer = null;
 let isEnumerateDevices = false;
-
-//nameInput.value = 'user_' + Math.round(Math.random() * 1000)
 
 const _EVENTS = {
   exitRoom: "exitRoom",
@@ -21,7 +17,6 @@ const mediaType = {
   screen: "screenType",
 };
 
-let login = false;
 let device = null;
 let consumers = new Map();
 const eventListeners = new Map();
@@ -30,33 +25,8 @@ const producers = new Map();
 
 let consumerTransport = null;
 let producerTransport = null;
-let isVideoOnFullScreen = false;
-let isDevicesVisible = false;
 
-function hide(elem) {
-  elem.className = "hidden";
-}
-
-function reveal(elem) {
-  elem.className = "";
-}
-
-function roomOpen() {
-  // login.className = 'hidden'
-  // reveal(startAudioButton)
-  // hide(stopAudioButton)
-  // reveal(startVideoButton)
-  // hide(stopVideoButton)
-  // reveal(startScreenButton)
-  // hide(stopScreenButton)
-  // reveal(exitButton)
-  // reveal(copyButton)
-  // reveal(devicesButton)
-  // control.className = ''
-  // reveal(videoMedia)
-}
-
-Request = function request(type, data = {}, socket) {
+const Request = function request(type, data = {}, socket) {
   return new Promise((resolve, reject) => {
     socket.emit(type, data, (data) => {
       if (data.error) {
@@ -85,49 +55,6 @@ const loadDevice = async function (routerRtpCapabilities) {
   });
   console.log("Device", device);
   return device;
-};
-const handleFS = function (id) {
-  let videoPlayer = document.getElementById(id);
-  videoPlayer.addEventListener("fullscreenchange", (e) => {
-    if (videoPlayer.controls) return;
-    let fullscreenElement = document.fullscreenElement;
-    if (!fullscreenElement) {
-      videoPlayer.style.pointerEvents = "auto";
-      isVideoOnFullScreen = false;
-    }
-  });
-  videoPlayer.addEventListener("webkitfullscreenchange", (e) => {
-    if (videoPlayer.controls) return;
-    let webkitIsFullScreen = document.webkitIsFullScreen;
-    if (!webkitIsFullScreen) {
-      videoPlayer.style.pointerEvents = "auto";
-      isVideoOnFullScreen = false;
-    }
-  });
-  videoPlayer.addEventListener("click", (e) => {
-    if (videoPlayer.controls) return;
-    if (!isVideoOnFullScreen) {
-      if (videoPlayer.requestFullscreen) {
-        videoPlayer.requestFullscreen();
-      } else if (videoPlayer.webkitRequestFullscreen) {
-        videoPlayer.webkitRequestFullscreen();
-      } else if (videoPlayer.msRequestFullscreen) {
-        videoPlayer.msRequestFullscreen();
-      }
-      isVideoOnFullScreen = true;
-      videoPlayer.style.pointerEvents = "none";
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitCancelFullScreen) {
-        document.webkitCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-      isVideoOnFullScreen = false;
-      videoPlayer.style.pointerEvents = "auto";
-    }
-  });
 };
 
 const initTransports = async function (device, socket) {
@@ -275,8 +202,8 @@ const join = async function (userId, room_id, socket) {
       device = await loadDevice(data);
 
       await initTransports(device, socket);
-      socket.emit("getProducers");
       socket.emit("getUsers");
+      socket.emit("getProducers");
     })
     .catch((err) => {
       console.log("Join error:", err);
@@ -284,14 +211,12 @@ const join = async function (userId, room_id, socket) {
 };
 
 const removeConsumer = function (consumer_id, callback) {
+  console.log("PRODCUER CLOSE : ", consumer_id);
   callback((state) =>
     state.map((elm) => {
       if (elm.consumerId === consumer_id) {
         elm.stream = undefined;
         elm.consumerId = undefined;
-      } else if (elm.screenConsumerId === consumer_id) {
-        elm.screenStream = undefined;
-        elm.screenConsumerId = undefined;
       }
       return elm;
     })
@@ -359,66 +284,72 @@ const getConsumeStream = async function (producerId, socket) {
     kind,
   };
 };
-const consume = async function (
+export const consume = async function (
   producer_id,
   socket,
   producer_socket_id,
-  setUser
+  userList
 ) {
-  getConsumeStream(producer_id, socket).then(function ({
-    consumer,
-    stream,
-    kind,
-  }) {
-    consumers.set(consumer.id, consumer);
-    let elem;
-    if (kind === "video") {
-      setUser((state) =>
-        state.map((elm) => {
-          if (elm.id === producer_socket_id) {
-            if (!elm.stream) {
-              elm.stream = stream;
-              elm.consumerId = consumer.id;
-            } else {
-              elm.screenStream = stream;
-              elm.screenConsumerId = consumer.id;
-            }
-          }
-          return elm;
-        })
-      );
-      //handleFS(elem.id);
-    } else {
-      elem = document.createElement("audio");
-      elem.srcObject = stream;
-      elem.id = consumer.id;
-      elem.playsinline = false;
-      elem.autoplay = true;
-      //remoteAudios.appendChild(elem)
-    }
-
-    consumer.on("trackended", function () {
-      removeConsumer(consumer.id);
-    });
-
-    consumer.on("transportclose", function () {
-      removeConsumer(consumer.id);
-    });
+  const { consumer, stream, kind } = await getConsumeStream(
+    producer_id,
+    socket
+  );
+  consumers.set(consumer.id, consumer);
+  consumer.on("trackended", function () {
+    removeConsumer(consumer.id);
   });
+  consumer.on("transportclose", function () {
+    removeConsumer(consumer.id);
+  });
+  let res;
+
+  if (kind === "video") {
+    res = userList.map((elm) => {
+      if (elm.id === producer_socket_id) {
+        elm.stream = stream;
+        elm.consumerId = consumer.id;
+      }
+      return elm;
+    });
+  }
+  console.log("RES : ", res);
+  return res;
+  // getConsumeStream(producer_id, socket).then(function ({
+  //   consumer,
+  //   stream,
+  //   kind,
+  // }) {
+  //   let elem;
+  //   let res;
+
+  // else {
+  //     elem = document.createElement("audio");
+  //     elem.srcObject = stream;
+  //     elem.id = consumer.id;
+  //     elem.playsinline = false;
+  //     elem.autoplay = true;
+  //     //remoteAudios.appendChild(elem)
+  //   }
+
+  //
+  //   return res;
+  // });
 };
 const events = function (evt) {
   if (eventListeners.has(evt)) {
     eventListeners.get(evt).forEach((callback) => callback());
   }
 };
-const exit = function (offline = false, socket) {
+
+export const exit = function (offline = false, socket, callBack) {
   let clean = function () {
-    login = false;
     consumerTransport.close();
     producerTransport.close();
     socket.off("disconnect");
+    socket.off("newUsers");
     socket.off("newProducers");
     socket.off("consumerClosed");
+    socket.off("userLeft");
   };
 
   if (!offline) {
@@ -427,6 +358,7 @@ const exit = function (offline = false, socket) {
       .catch((e) => console.warn(e))
       .finally(function () {
         clean();
+        callBack();
       });
   } else {
     clean();
@@ -435,24 +367,35 @@ const exit = function (offline = false, socket) {
   events(_EVENTS.exitRoom);
 };
 
-const initSocket = function (socket, setUsers) {
+const initSocket = function (socket, setUsers, setProducers) {
   socket.on("consumerClosed", function ({ consumer_id }) {
     console.log("Closing consumer:", consumer_id);
     removeConsumer(consumer_id, setUsers);
   });
-
   socket.on("newProducers", async function (data) {
-    console.log("New producers", data);
-    for (let { producer_id, producer_socket_id } of data) {
-      await consume(producer_id, socket, producer_socket_id, setUsers);
-    }
+    console.log("New VIdeo", data);
+    setProducers([...data]);
   });
   socket.on("newUsers", async function (data) {
     await setUsers(data);
     console.log("New users", data);
   });
-
+  socket.on("userLeft", async ({ socket_id }) => {
+    setUsers((state) => {
+      const res = [...state].filter((elm) => {
+        if (elm.id === socket_id) {
+          elm.stream = undefined;
+          elm.consumerId = undefined;
+          setProducers([]);
+          return false;
+        }
+        return true;
+      });
+      return res;
+    });
+  });
   socket.on("disconnect", function () {
+    console.log("HELLO");
     exit(true, socket);
   });
 };
@@ -469,11 +412,16 @@ const createRoom = async function (room_id, socket) {
   });
 };
 
-export const joinRoom = async function (userId, room_id, socket, setUsers) {
+export const joinRoom = async function (
+  userId,
+  room_id,
+  socket,
+  setUsers,
+  setProducers
+) {
   await createRoom(room_id, socket).then(async function () {
     await join(userId, room_id, socket);
-    initSocket(socket, setUsers);
-    login = true;
+    initSocket(socket, setUsers, setProducers);
   });
 };
 
@@ -673,6 +621,7 @@ export const produce = async function (
   }
 };
 export const closeProducer = function (type, socket, callback) {
+  console.log("CLOSED : ", socket);
   if (!producerLabel.has(type)) {
     console.log("There is no producer for this type " + type);
     return;
@@ -704,46 +653,5 @@ export const closeProducer = function (type, socket, callback) {
       break;
     default:
       return;
-  }
-};
-const pauseProducer = function (type) {
-  if (!producerLabel.has(type)) {
-    console.log("There is no producer for this type " + type);
-    return;
-  }
-  let producer_id = producerLabel.get(type);
-  producers.get(producer_id).pause();
-};
-const resumeProducer = function (type) {
-  if (!producerLabel.has(type)) {
-    console.log("There is no producer for this type " + type);
-    return;
-  }
-  let producer_id = this.producerLabel.get(type);
-  this.producers.get(producer_id).resume();
-};
-// const roomInfo = async function () {
-//   let info = await this.Request("getMyRoomInfo", {}, socket);
-//   return info;
-// };
-const on = function (evt, callback) {
-  eventListeners.get(evt).push(callback);
-};
-const copyURL = function () {
-  let tmpInput = document.createElement("input");
-  document.body.appendChild(tmpInput);
-  tmpInput.value = window.location.href;
-  tmpInput.select();
-  document.execCommand("copy");
-  document.body.removeChild(tmpInput);
-  console.log("URL copied to clipboard 👍");
-};
-const showDevices = function () {
-  if (!isDevicesVisible) {
-    //reveal(devicesList)
-    isDevicesVisible = true;
-  } else {
-    //hide(devicesList)
-    isDevicesVisible = false;
   }
 };

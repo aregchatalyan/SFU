@@ -9,7 +9,7 @@ export default function TeacherInfo({ teacherInfo }) {
       <div className="profile">
         <div className="about">
           <div className="pic">
-            <img src={teacher} />
+            <img src={teacher} alt="" />
           </div>
           <div className="aboutInfo">
             <span className="name">

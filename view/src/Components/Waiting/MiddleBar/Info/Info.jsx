@@ -1,13 +1,11 @@
 import {
   Conference,
-  Events,
   Follower,
   Friends,
   OnlineLessons,
   Student,
   VideoCourse,
   LiveStream,
-  Webinar,
 } from "../../../theme/Icons";
 import "./style.scss";
 export default function Info({ text, count, type, color }) {
@@ -44,6 +42,7 @@ export default function Info({ text, count, type, color }) {
       icon = <LiveStream />;
       title = "Live Stream :";
       break;
+    default:
   }
   if (type === "medium") {
     res = (

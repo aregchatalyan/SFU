@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { UserInfoContext } from "../../Context/userInfoContext";
 import VideoWrapper from "../VideoContainer";
-import "./style.scss";
+import style from "./style.module.scss";
 
 const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
   const { users } = useContext(UserInfoContext);
-  const lenght = users.length;
+  const lenght = users?.length;
   let mainClass = "videoContainerStandard";
   if (lenght === 3) {
     mainClass = "videoContainerFor3Users";
@@ -13,7 +13,7 @@ const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
     mainClass = "videoContainerFor4Users";
   }
   return (
-    <div className={mainClass}>
+    <div className={style[`${mainClass}`]}>
       {users.map(
         (
           {
@@ -51,7 +51,7 @@ const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
             <VideoWrapper
               id={mainConsumerId}
               key={index}
-              className={`video${lenght === 3 ? index : ""}`}
+              className={style[`video${lenght === 3 ? index : ""}`]}
               stream={mainStream}
               video={video}
               smallStream={smallStream}

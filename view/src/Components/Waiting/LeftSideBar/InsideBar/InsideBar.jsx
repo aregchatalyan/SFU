@@ -2,7 +2,7 @@ import { ShowUsers } from "../../../theme/Icons";
 import "./style.scss";
 const InsideBar = ({ title, type, info, arr, level }) => {
   const infoText =
-    type == "level" ? (
+    type === "level" ? (
       <div className="level">
         <div className={`circle ${level ? level : "unset"}`}></div>
         <span>{info}</span>
@@ -14,7 +14,7 @@ const InsideBar = ({ title, type, info, arr, level }) => {
     );
   const head = (element) => {
     const { text, level } = element;
-    return type == "level" ? (
+    return type === "level" ? (
       <div className="head">
         <div className="text">{text}</div>
       </div>

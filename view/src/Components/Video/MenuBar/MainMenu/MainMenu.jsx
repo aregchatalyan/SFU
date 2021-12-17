@@ -1,4 +1,4 @@
-import { Button } from "../../Button";
+import { Button } from "../../../Button";
 import "./mainMenu.scss";
 export const MainMenu = ({
   microphone,
