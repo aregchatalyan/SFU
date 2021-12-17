@@ -258,7 +258,6 @@ io.on("connection", (socket) => {
         roomList.get(socket.room_id).getPeers().get(socket.id).userId
       }`,
     });
-
     if (!socket.room_id) return;
     await roomList.get(socket.room_id).removePeer(socket.id);
   });
@@ -281,7 +280,6 @@ io.on("connection", (socket) => {
         roomList.get(socket.room_id).getPeers().get(socket.id).userId
       }`,
     });
-
     if (!roomList.has(socket.room_id)) {
       callback({
         error: "not currently in a room",
@@ -291,13 +289,12 @@ io.on("connection", (socket) => {
 
     // close transports
     await roomList.get(socket.room_id).removePeer(socket.id);
+    await roomList.get(socket.room_id);
 
     if (roomList.get(socket.room_id).getPeers().size === 0) {
       roomList.delete(socket.room_id);
     }
-
     socket.room_id = null;
-
     callback("successfully exited room");
   });
 });

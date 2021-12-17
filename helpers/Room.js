@@ -33,6 +33,7 @@ module.exports = class Room {
       peer.producers.forEach((producer) => {
         producerList.push({
           producer_id: producer.id,
+          producer_socket_id: peer.id,
         });
       });
     });
@@ -153,7 +154,6 @@ module.exports = class Room {
         });
 
         this.peers.get(socket_id).removeConsumer(consumer.id);
-
         // tell client consumer is dead
         this.io
           .to(socket_id)
@@ -165,8 +165,10 @@ module.exports = class Room {
   }
 
   async removePeer(socket_id) {
+    console.log("EXIT :::", socket_id);
     this.peers.get(socket_id).close();
     this.peers.delete(socket_id);
+    this.broadCast(socket_id, "userLeft", { socket_id });
   }
 
   closeProducer(socket_id, producer_id) {
