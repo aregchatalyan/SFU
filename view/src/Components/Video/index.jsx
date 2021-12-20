@@ -9,6 +9,7 @@ import style from "./style.module.scss";
 import { DimensionsContext } from "../../App";
 import MenuBar from "./MenuBar";
 import Chat from "../Chat";
+import LessonLog from "../LessonLog";
 
 const Video = (props) => {
   const {
@@ -28,6 +29,8 @@ const Video = (props) => {
   const { width, height } = useContext(DimensionsContext);
   const [isUserListOpened, setIsUserListOpened] = useState(false);
   const [isChateOpened, setIsChateOpened] = useState();
+  const [board, setBoard] = useState(false);
+  const [isLogOpened, setIsLogOpened] = useState(false);
 
   const [microphone, setMicrophone] = useState(props.microphone);
   const [notification, setNotification] = useState(false);
@@ -35,7 +38,6 @@ const Video = (props) => {
   const [question, setQuestion] = useState(false);
   const [hand, setHand] = useState(false);
   const [sendedQuestions, setSendedQuestions] = useState([]);
-  const [board, setBoard] = useState(false);
   const { users } = useContext(UserInfoContext);
 
   const showUser = () => {
@@ -63,6 +65,10 @@ const Video = (props) => {
   const handUp = () => {
     setHand(!hand);
     socket.emit("hand-up", { userId: id, value: !hand });
+  };
+
+  const handleLessonLogOpen = () => {
+    setIsLogOpened(!isLogOpened);
   };
 
   // const seeQuestion = () => {
@@ -138,6 +144,7 @@ const Video = (props) => {
             questionToggle,
             hand,
             handUp,
+            handleLessonLogOpen,
           }}
         />
         <Button
@@ -145,6 +152,7 @@ const Video = (props) => {
           method={handleFullScreen}
           condition={fullScreen}
         />
+        <LessonLog className={isLogOpened ? style.opened : style.closed} />
       </div>
 
       <Chat className={isChateOpened ? style.chat : style.chatHide} />

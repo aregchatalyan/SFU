@@ -8,6 +8,7 @@ export const RightSideMenu = ({
   openRequest,
   hand,
   handUp,
+  handleLessonLogOpen,
 }) => {
   return (
     <div className="right">
@@ -17,7 +18,7 @@ export const RightSideMenu = ({
         condition={true}
         method={openBoard}
       />
-      <Button type="book" condition={true} />
+      <Button type="book" condition={true} method={handleLessonLogOpen} />
       <Button
         type="request"
         condition={true}

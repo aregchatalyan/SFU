@@ -20,6 +20,7 @@ const MenuBar = ({
   questionToggle,
   hand,
   handUp,
+  handleLessonLogOpen,
 }) => {
   const showMenuBar = useMouseMoveTimeOut();
   return (
@@ -44,6 +45,7 @@ const MenuBar = ({
         openRequest={questionToggle}
         hand={hand}
         handUp={handUp}
+        handleLessonLogOpen={handleLessonLogOpen}
       />
     </div>
   );

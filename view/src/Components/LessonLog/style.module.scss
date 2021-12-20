@@ -1,0 +1,216 @@
+.header {
+  width: 100%;
+  height: 64px;
+  background-color: #1c1d1f;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 24px 24px;
+  display: flex;
+  justify-content: space-between;
+  .leftPart {
+    width: 30%;
+    height: 100%;
+    background: green;
+  }
+  .middlePart {
+    width: 30%;
+    height: 100%;
+    background: green;
+  }
+  .rightPart {
+    width: 30%;
+    height: 100%;
+    background: green;
+  }
+}
+.lessonLog {
+  width: 100%;
+  height: calc(100vh - 64px);
+  box-sizing: border-box;
+  padding: 32px 24px;
+  .log {
+    width: 100%;
+    height: calc(100% - 96px);
+    background: #ffffff;
+    border-radius: 16px;
+    box-sizing: border-box;
+    padding: 20px 20px 8px 32px;
+    display: flex;
+    justify-content: space-between;
+    .table {
+      width: 70%;
+      height: 100%;
+      box-sizing: border-box;
+      .thead {
+        width: 100%;
+        height: 96px;
+        display: flex;
+        .logTitle {
+          width: 270px;
+          height: 100%;
+          display: flex;
+          justify-content: flex-start;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 24px;
+          line-height: 32px;
+          color: #1c1d1f;
+        }
+        .titles {
+          height: 100%;
+          width: 104px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-sizing: border-box;
+          padding-top: 4px;
+          .weekDay {
+            margin-bottom: 20px;
+            font-family: Rubik;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 12px;
+            line-height: 16px;
+            color: #1c1d1f;
+          }
+          .day {
+            font-family: Rubik;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+            color: #1c1d1f;
+          }
+        }
+      }
+      .tbody {
+        width: 100%;
+        height: calc(100% - 96px);
+        .row {
+          width: 100%;
+          height: calc(100% / 10);
+          display: flex;
+          .studentInfo {
+            height: 100%;
+            width: 270px;
+            display: flex;
+            align-items: center;
+            .studentPhoto {
+              width: 32px;
+              height: 32px;
+              border-radius: 100%;
+              margin-right: 16px;
+              background: rosybrown;
+            }
+            .studentName {
+              font-family: Rubik;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 16px;
+              line-height: 24px;
+            }
+          }
+        }
+        .atoms {
+          width: 104px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          box-shadow: inset 1px 0px 0px #e7e7e7;
+        }
+        .todaysAtomsTop {
+          border-top-left-radius: 8px;
+          border-top-right-radius: 8px;
+          width: 104px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #f8f8f8;
+          border-right: 1px solid #e7e7e7;
+          border-left: 1px solid #e7e7e7;
+          border-top: 1px solid #e7e7e7;
+          box-sizing: border-box;
+        }
+        .todaysAtomsBottom {
+          border-bottom-left-radius: 8px;
+          border-bottom-right-radius: 8px;
+          width: 104px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #f8f8f8;
+          border-right: 1px solid #e7e7e7;
+          border-left: 1px solid #e7e7e7;
+          border-bottom: 1px solid #e7e7e7;
+          box-sizing: border-box;
+        }
+        .todaysAtoms {
+          width: 104px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          background: #f8f8f8;
+          border-right: 1px solid #e7e7e7;
+          border-left: 1px solid #e7e7e7;
+          box-sizing: border-box;
+        }
+
+        .absend {
+          color: #c02929;
+          width: 32px;
+          height: 32px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          box-sizing: border-box;
+          border-radius: 4px;
+          border: 1px solid #e7e7e7;
+        }
+        .present {
+          color: #047005;
+          width: 32px;
+          height: 32px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          box-sizing: border-box;
+          border-radius: 4px;
+          border: 1px solid #e7e7e7;
+        }
+        .grade {
+          border: 1px solid #55b0f1;
+          color: #55b0f1;
+          width: 32px;
+          height: 32px;
+          box-sizing: border-box;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 14px;
+          box-sizing: border-box;
+          border-radius: 4px;
+        }
+      }
+    }
+    .classMates {
+      width: 26.4%;
+      height: 100%;
+      box-sizing: border-box;
+      border-radius: 8px;
+      border: 1px solid #e7e7e7;
+    }
+  }
+}
