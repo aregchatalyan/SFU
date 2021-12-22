@@ -1,5 +1,4 @@
-import React, { useState, useContext, memo } from "react";
-import QuestionModal from "./questionModal";
+import React, { useState, useContext, memo, useRef } from "react";
 import Board from "../Board";
 import { UserInfoContext } from "../../Context/userInfoContext";
 import { Button } from "../Button";
@@ -8,8 +7,10 @@ import UserList from "../UserList";
 import style from "./style.module.scss";
 import { DimensionsContext } from "../../App";
 import MenuBar from "./MenuBar";
-import Chat from "../Chat";
 import LessonLog from "../LessonLog";
+import { useOutsideClick } from "./hook";
+
+const isTeacher = true;
 
 const Video = (props) => {
   const {
@@ -29,9 +30,13 @@ const Video = (props) => {
   const { width, height } = useContext(DimensionsContext);
   const [isUserListOpened, setIsUserListOpened] = useState(false);
   const [isChateOpened, setIsChateOpened] = useState();
-  const [board, setBoard] = useState(false);
-  const [isLogOpened, setIsLogOpened] = useState(false);
-
+  const [isBoardOpened, setIsBoardOpened] = useState(false);
+  const logRef = useRef(null);
+  const wrapperRef = useRef(null);
+  const { active: isLogOpened, setActive: setIsLogOpened } = useOutsideClick(
+    logRef,
+    wrapperRef
+  );
   const [microphone, setMicrophone] = useState(props.microphone);
   const [notification, setNotification] = useState(false);
   const [questionNotification, setQuestionNotification] = useState(false);
@@ -45,7 +50,6 @@ const Video = (props) => {
     setIsChateOpened(false);
   };
   const showChat = () => {
-    setIsUserListOpened(false);
     setIsChateOpened(!isChateOpened);
   };
 
@@ -67,8 +71,9 @@ const Video = (props) => {
     socket.emit("hand-up", { userId: id, value: !hand });
   };
 
-  const handleLessonLogOpen = () => {
-    setIsLogOpened(!isLogOpened);
+  const goToVideoCall = () => {
+    setIsBoardOpened(false);
+    setIsLogOpened(false);
   };
 
   // const seeQuestion = () => {
@@ -110,24 +115,19 @@ const Video = (props) => {
         className={
           isUserListOpened
             ? style.videoContainerMiddle
-            : isChateOpened
-            ? style.videoContainerSmall
             : style.videoContainerFull
         }
       >
-        {board ? (
-          <Board socket={socket} setBoard={setBoard} />
-        ) : (
-          <UserVideos
-            style={{ width: width / 5 }}
-            {...{
-              users,
-              selfId: userId,
-              selfStream: props.stream,
-              selfScreenStream: screenStream,
-            }}
-          />
-        )}
+        <UserVideos
+          style={{ width: width / 5 }}
+          {...{
+            users,
+            selfId: userId,
+            selfStream: props.stream,
+            selfScreenStream: screenStream,
+          }}
+        />
+
         <MenuBar
           {...{
             showUser,
@@ -137,14 +137,15 @@ const Video = (props) => {
             handleVideoClick,
             showChat,
             handleSharing,
-            board,
-            setBoard,
+            isBoardOpened,
+            setIsBoardOpened,
+            isLogOpened,
+            setIsLogOpened,
             leaveMeeting,
             question,
             questionToggle,
             hand,
             handUp,
-            handleLessonLogOpen,
           }}
         />
         <Button
@@ -152,12 +153,23 @@ const Video = (props) => {
           method={handleFullScreen}
           condition={fullScreen}
         />
-        <LessonLog className={isLogOpened ? style.opened : style.closed} />
+        <LessonLog
+          className={isLogOpened ? style.opened : style.closed}
+          {...{
+            handleFullScreen,
+            goToVideoCall,
+            userId,
+            logRef,
+            wrapperRef,
+            isTeacher,
+          }}
+        />
+        <Board
+          socket={socket}
+          className={isBoardOpened ? style.opened : style.closed}
+          {...{ goToVideoCall }}
+        />
       </div>
-
-      <Chat className={isChateOpened ? style.chat : style.chatHide} />
-
-      {/*  */}
 
       {/* {question ? (
         <QuestionModal

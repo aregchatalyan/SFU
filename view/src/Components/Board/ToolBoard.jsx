@@ -29,7 +29,7 @@ export default function ToolBoard({
   setColorWidth,
   colorWidth,
   setShapeWidth,
-  setBoard,
+  goToVideoCall,
   order,
   undo,
   hash,
@@ -47,7 +47,7 @@ export default function ToolBoard({
 
   return (
     <div>
-      <div className="header">
+      <div className="headers">
         <div className="tools">
           <button
             id="videocall"
@@ -55,9 +55,7 @@ export default function ToolBoard({
             data-placement="top"
             title="Back to videocall"
             className="videoCallBtn"
-            onClick={() => {
-              setBoard(false);
-            }}
+            onClick={goToVideoCall}
           >
             <VideoCall toolType={toolType} colorWidth={colorWidth} />
           </button>

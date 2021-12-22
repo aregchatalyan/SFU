@@ -1,24 +1,30 @@
 import { Button } from "../../../Button";
-import "./rightSideMenuStyle.scss";
+import style from "./style.module.scss";
 
-export const RightSideMenu = ({
-  board,
+const RightSideMenu = ({
+  isBoardOpened,
   openBoard,
+  isLogOpened,
+  openLog,
   request,
   openRequest,
   hand,
   handUp,
-  handleLessonLogOpen,
 }) => {
   return (
-    <div className="right">
+    <div className={style.right}>
       <Button
         type="blackboard"
-        opened={board}
+        opened={isBoardOpened}
         condition={true}
         method={openBoard}
       />
-      <Button type="book" condition={true} method={handleLessonLogOpen} />
+      <Button
+        type="book"
+        opened={isLogOpened}
+        condition={true}
+        method={openLog}
+      />
       <Button
         type="request"
         condition={true}
@@ -29,3 +35,4 @@ export const RightSideMenu = ({
     </div>
   );
 };
+export default RightSideMenu;

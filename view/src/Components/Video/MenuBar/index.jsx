@@ -1,7 +1,7 @@
 import React from "react";
 import { LeftSideMenu } from "./LeftSideMenu/LeftSideMenu";
 import { MainMenu } from "./MainMenu/MainMenu";
-import { RightSideMenu } from "./RightSideMenu/RightSideMenu";
+import RightSideMenu from "./RightSideMenu";
 import style from "./style.module.scss";
 import useMouseMoveTimeOut from "../hook";
 
@@ -14,39 +14,48 @@ const MenuBar = ({
   showChat,
   handleSharing,
   leaveMeeting,
-  board,
-  setBoard,
+  isBoardOpened,
+  setIsBoardOpened,
+  isLogOpened,
+  setIsLogOpened,
   question,
   questionToggle,
   hand,
   handUp,
-  handleLessonLogOpen,
 }) => {
-  const showMenuBar = useMouseMoveTimeOut();
   return (
-    <div className={showMenuBar ? style.controlers : style.controlersHide}>
-      <LeftSideMenu showUser={showUser} />
-      <MainMenu
-        microphone={microphone}
-        microphoneClick={handleMicrophoneClick}
-        video={videoPlayer}
-        videoClick={handleVideoClick}
-        notification={false}
-        msgClick={showChat}
-        shareScreen={handleSharing}
-        leaveMeeting={leaveMeeting}
-      />
-      <RightSideMenu
-        board={board}
-        openBoard={() => {
-          setBoard(!board);
-        }}
-        request={question}
-        openRequest={questionToggle}
-        hand={hand}
-        handUp={handUp}
-        handleLessonLogOpen={handleLessonLogOpen}
-      />
+    <div className={style.controlers}>
+      <div className={style.controllersWrapper}>
+        <LeftSideMenu showUser={showUser} />
+        <MainMenu
+          microphone={microphone}
+          microphoneClick={handleMicrophoneClick}
+          video={videoPlayer}
+          videoClick={handleVideoClick}
+          notification={false}
+          msgClick={showChat}
+          shareScreen={handleSharing}
+          leaveMeeting={leaveMeeting}
+        />
+        <RightSideMenu
+          request={question}
+          openRequest={questionToggle}
+          hand={hand}
+          handUp={handUp}
+          {...{
+            isBoardOpened,
+            openBoard: () => {
+              setIsBoardOpened(!isBoardOpened);
+              setIsLogOpened(false);
+            },
+            isLogOpened,
+            openLog: () => {
+              setIsBoardOpened(false);
+              setIsLogOpened(!isLogOpened);
+            },
+          }}
+        />
+      </div>
     </div>
   );
 };

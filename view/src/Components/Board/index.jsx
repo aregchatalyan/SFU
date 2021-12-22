@@ -19,7 +19,7 @@ import {
   showElements,
 } from "./helpers/helpers";
 
-function Board({ socket, setBoard }) {
+function Board({ socket, setBoard, className, goToVideoCall }) {
   const [path, setPath] = useState([]);
   const [elements, setElements] = useState([]);
   const [texts, setText] = useState([]);
@@ -253,7 +253,7 @@ function Board({ socket, setBoard }) {
   };
 
   return (
-    <div>
+    <div className={className}>
       <ToolBoard
         toolType={toolType}
         setToolType={setToolType}
@@ -262,12 +262,12 @@ function Board({ socket, setBoard }) {
         setColorWidth={setColorWidth}
         colorWidth={colorWidth}
         setShapeWidth={setShapeWidth}
-        setBoard={setBoard}
         order={order}
         undo={handleUndo}
         hash={hash}
         redo={handleRedo}
         reset={handleReset}
+        {...{ goToVideoCall }}
       />
       <canvas
         id="canvas"
