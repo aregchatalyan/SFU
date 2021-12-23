@@ -96,7 +96,7 @@ const ClassMates = ({ lessonLogData, userId, isTeacher }) => {
               type={
                 index === 0
                   ? "first"
-                  : index === lessonLogData.length - 1
+                  : index === classMates.length - 1
                   ? "last"
                   : ""
               }
@@ -148,7 +148,7 @@ const ClassMates = ({ lessonLogData, userId, isTeacher }) => {
               <div className={style.averageNumber}>
                 <span>{avrg}</span>
               </div>
-              <Scales type={index === lessonLogData.length - 1 ? "last" : ""} />
+              <Scales type={index === classMates.length - 1 ? "last" : ""} />
               <div
                 className={
                   userId === id && !isTeacher

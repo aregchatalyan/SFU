@@ -16,19 +16,26 @@ const CommentBox = ({ commentText }) => {
   );
 };
 
-const Table = ({ lessonDays, lessonLogData, start, end, isTeacher }) => {
+const Table = ({
+  lessonDays,
+  lessonLogData,
+  start,
+  end,
+  isTeacher,
+  openModal,
+}) => {
   return (
     <div className={style.table}>
       <div className={style.thead}>
         <div className={style.logTitle}>Grade Book</div>
         {lessonDays
           .filter(({ interval }) => interval >= start && interval <= end)
-          .map(({ interval }) => {
+          .map(({ interval }, key) => {
             const weekDay = moment(interval).format("ddd");
             const day = moment(interval).format("DD");
 
             return (
-              <div className={style.titles}>
+              <div className={style.titles} key={key}>
                 <span className={style.weekDay}>{weekDay}</span>
                 <span className={style.day}>{day}</span>
               </div>
@@ -83,51 +90,10 @@ const Table = ({ lessonDays, lessonLogData, start, end, isTeacher }) => {
                         isTeacher: isTeacher && today === interval,
                         grade,
                         comment,
+                        openModal,
                       }}
-                      className={
-                        grade === "A"
-                          ? style.absend
-                          : grade === "P" || !grade
-                          ? style.present
-                          : style.grade
-                      }
+                      key={key}
                     />
-                    {/* {isTeacher && today === interval ? (
-                      <>
-                        <input
-                          type="tel"
-                          placeholder={grade}
-                          className={
-                            grade === "A"
-                              ? style.absend
-                              : grade === "P" || !grade
-                              ? style.present
-                              : style.grade
-                          }
-                          style={{ textAlign: "center" }}
-                        />
-                      </>
-                    ) : (
-                      <>
-                        <span
-                          className={
-                            grade === "A"
-                              ? style.absend
-                              : grade === "P" || !grade
-                              ? style.present
-                              : style.grade
-                          }
-                        >
-                          {grade}
-                        </span>
-                        {comment && (
-                          <div className={style.commentBar}>
-                            <CommentBox commentText={comment} />
-                            <Icon name={"comment_log"} width={16} height={16} />
-                          </div>
-                        )}
-                      </>
-                    )} */}
                   </div>
                 );
               })}

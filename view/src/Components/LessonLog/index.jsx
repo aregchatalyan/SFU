@@ -7,6 +7,7 @@ import style from "./style.module.scss";
 import first from "../../assets/img/user1.png";
 import second from "../../assets/img/user2.png";
 import third from "../../assets/img/user3.png";
+import { CommentModal, useModalWithCallback } from "../Modal";
 
 const seperate = [
   [1638302400000, 1639094400000],
@@ -162,6 +163,7 @@ const lessonLogData = [
       },
       {
         interval: 1639958400000,
+        grade: "A",
       },
       {
         interval: 1640131200000,
@@ -665,12 +667,16 @@ const LessonLog = ({
   const getLogsByIndex = (index) => {
     setTimeInterval(seperate[index]);
   };
+  const [CommentModal, openModal] = useModalWithCallback();
   return (
     <div className={className}>
       <Header {...{ goToVideoCall, getLogsByIndex, handleFullScreen }} />
       <div className={style.lessonLog} ref={wrapperRef}>
         <div className={style.log} ref={logRef}>
-          <Table {...{ lessonDays, lessonLogData, start, end, isTeacher }} />
+          {CommentModal}
+          <Table
+            {...{ lessonDays, lessonLogData, start, end, isTeacher, openModal }}
+          />
           <ClassMates {...{ lessonLogData, userId, isTeacher }} />
         </div>
       </div>

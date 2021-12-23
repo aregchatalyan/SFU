@@ -10,7 +10,7 @@ import MenuBar from "./MenuBar";
 import LessonLog from "../LessonLog";
 import { useOutsideClick } from "./hook";
 
-const isTeacher = true;
+const isTeacher = false;
 
 const Video = (props) => {
   const {
