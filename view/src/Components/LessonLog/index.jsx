@@ -7,7 +7,7 @@ import style from "./style.module.scss";
 import first from "../../assets/img/user1.png";
 import second from "../../assets/img/user2.png";
 import third from "../../assets/img/user3.png";
-import { CommentModal, useModalWithCallback } from "../Modal";
+import { useModalWithCallback } from "../Modal";
 
 const seperate = [
   [1638302400000, 1639094400000],
@@ -89,12 +89,6 @@ const lessonLogData = [
         grade: "P",
       },
       {
-        interval: 1639267200000,
-        grade: 10,
-      },
-      {
-        interval: 1639440000000,
-        grade: 8,
         comment: "Good job !",
       },
       {

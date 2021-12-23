@@ -7,15 +7,6 @@ import { GradeInput } from "../Input";
 
 const today = 1639958400000;
 
-const CommentBox = ({ commentText }) => {
-  return (
-    <div className={style.commentBox}>
-      <div className={style.commentWrapper}>{commentText}</div>
-      <div className={style.pointer} />
-    </div>
-  );
-};
-
 const Table = ({
   lessonDays,
   lessonLogData,
