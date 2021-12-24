@@ -1,4 +1,4 @@
-import teacher from "../../../img/teacher.png";
+import teacher from "../../../../assets/img/teacher.png";
 import { Rating } from "../../../theme/Icons";
 import Info from "../Info/Info";
 import "./style.scss";

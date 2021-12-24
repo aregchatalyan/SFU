@@ -1,7 +1,7 @@
 import React, { useState, useRef } from "react";
 import Icon from "../Icon";
+import { useOutsideClick } from "../../Video/hook";
 import style from "./style.module.scss";
-import { useOutsideClick } from "../Video/hook";
 
 const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
   return (

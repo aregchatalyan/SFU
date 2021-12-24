@@ -1,9 +1,8 @@
 import React from "react";
 import moment from "moment";
-
+import { GradeInput } from "../core/Input";
 import style from "./style.module.scss";
-import Icon from "../Icon";
-import { GradeInput } from "../Input";
+import Icon from "../core/Icon";
 
 const today = 1639958400000;
 

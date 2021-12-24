@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { consume } from "./helpers";
+import { consume } from "./services";
 
 const getWindowDimensions = () => {
   const { innerWidth: width, innerHeight: height } = window;

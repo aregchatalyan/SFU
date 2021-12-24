@@ -1,5 +1,5 @@
 import React from "react";
-import iconPaths from "../assets/icon/paths.json";
+import iconPaths from "../../../assets/icon/paths.json";
 
 const Icon = ({ name, width, height }) => {
   return (

@@ -1,5 +1,5 @@
 import "./style.scss";
-import user1 from "../../img/user1.png";
+import user1 from "../../../assets/img/user1.png";
 export default function Student({ info, withBorder }) {
   const { name, surname, grade, absentCount, attendingPercent } = info;
   return (

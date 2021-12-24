@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { VideoCall } from "../Board/theme/svg";
-import Icon from "../Icon";
+import Icon from "../core/Icon";
 import style from "./style.module.scss";
 
 const Header = ({ goToVideoCall, getLogsByIndex, handleFullScreen }) => {

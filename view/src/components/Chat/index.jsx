@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Icon from "../Icon";
+import Icon from "../core/Icon";
 import style from "./style.module.scss";
 import MassageConatiner from "./MassageContainer";
 
@@ -16,22 +16,6 @@ const Chat = ({ className, socket, userId, massages }) => {
             />
           );
         })}
-        {/* <MassageConatiner text={"hello world"} isMine={false} />
-        <MassageConatiner text={"hello world"} isMine={false} />
-        <MassageConatiner
-          text={"At out office 3 ppl are infected. We work from home."}
-          isMine={true}
-        />
-        <MassageConatiner text={"hello world"} isMine={true} />
-        <MassageConatiner text={"hello world"} isMine={true} />
-        <MassageConatiner text={"hello world"} isMine={false} />
-        <MassageConatiner text={"hello world"} isMine={false} />
-        <MassageConatiner
-          text={
-            "hello world kajsdh askdfjasldf laksdjfasdf alskdfjas  alskdjafsdf  "
-          }
-          isMine={true}
-        /> */}
       </div>
       <div className={style.actionBar}>
         <div className={style.textAreaWrapper}>

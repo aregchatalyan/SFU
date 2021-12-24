@@ -1,14 +1,14 @@
 import "./App.css";
 import React, { createContext, useEffect } from "react";
 import io from "socket.io-client";
-import Video from "./Components/Video";
+import Video from "./components/Video";
 import { URL } from "./config";
 import { UserInfoContext } from "./Context/userInfoContext";
-import Waiting from "./Components/Waiting";
-import Spinner from "./Components/Spinner";
+import Waiting from "./components/Waiting";
+import Spinner from "./components/Spinner";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { closeProducer, exit, joinRoom, produce } from "./helpers/index";
+import { closeProducer, exit, joinRoom, produce } from "./services";
 import useProducerChange, { useWindowDimensions } from "./hooks";
 
 export const DimensionsContext = createContext({ width: 0, height: 0 });
