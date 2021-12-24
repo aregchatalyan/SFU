@@ -57,6 +57,7 @@ let nextMediasoupWorkerIdx = 0;
  * }
  */
 let roomList = new Map();
+let chatList = new Map();
 
 (async () => await createWorkers())();
 
@@ -80,13 +81,6 @@ async function createWorkers() {
     });
 
     workers.push(worker);
-
-    // log worker resource usage
-    /*setInterval(async () => {
-                const usage = await worker.getResourceUsage();
-
-                console.info('mediasoup Worker resource usage [pid:%d]: %o', worker.pid, usage);
-            }, 120000);*/
   }
 }
 
@@ -296,6 +290,16 @@ io.on("connection", (socket) => {
     }
     socket.room_id = null;
     callback("successfully exited room");
+  });
+
+  socket.on("addMassage", ({ userId, text }) => {
+    roomList.get(socket.room_id).addMsg({ userId, text });
+  });
+
+  socket.on("getMassages", () => {
+    if (!roomList.has(socket.room_id)) return;
+    let massage = roomList.get(socket.room_id).getAllMsgs();
+    socket.emit("newMassage", massage);
   });
 });
 

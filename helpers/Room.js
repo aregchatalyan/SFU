@@ -18,7 +18,15 @@ module.exports = class Room {
 
     this.peers = new Map();
     this.io = io;
+    this.massages = [];
   }
+  addMsg = ({ userId, text }) => {
+    this.massages.push({ userId, text });
+    this.broadCast("", "newMassage", [{ userId, text }]);
+  };
+  getAllMsgs = () => {
+    return this.massages;
+  };
 
   addPeer(peer) {
     this.peers.set(peer.id, peer);
@@ -165,7 +173,6 @@ module.exports = class Room {
   }
 
   async removePeer(socket_id) {
-    console.log("EXIT :::", socket_id);
     this.peers.get(socket_id).close();
     this.peers.delete(socket_id);
     this.broadCast(socket_id, "userLeft", { socket_id });
