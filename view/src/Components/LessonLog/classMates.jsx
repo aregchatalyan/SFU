@@ -40,14 +40,14 @@ const Scales = ({ type }) => {
 };
 
 const ClassMates = ({ lessonLogData, userId, isTeacher }) => {
-  const [topTree, setTopTree] = useState([
+  const [goldObj, silverObj, bronzeObj] = [
     { prizeIcon: gold, avrg: 100 },
     { prizeIcon: silver, avrg: 95 },
     { prizeIcon: bronze, avrg: 90 },
-  ]);
+  ];
+  const [topTree, setTopTree] = useState([goldObj, silverObj, bronzeObj]);
   const [classMates, setClassMates] = useState([]);
 
-  const [goldObj, silverObj, bronzeObj] = topTree;
   useEffect(() => {
     const classMates = [...lessonLogData]
       .sort(({ avrg }, { avrg: avrgComp }) => avrgComp - avrg)

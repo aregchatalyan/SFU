@@ -204,6 +204,7 @@ const join = async function (userId, room_id, socket) {
       await initTransports(device, socket);
       socket.emit("getUsers");
       socket.emit("getProducers");
+      socket.emit("getMassages");
     })
     .catch((err) => {
       console.log("Join error:", err);
@@ -347,6 +348,7 @@ export const exit = function (offline = false, socket, callBack) {
     producerTransport.close();
     socket.off("disconnect");
     socket.off("newUsers");
+    socket.off("newMassage");
     socket.off("newProducers");
     socket.off("consumerClosed");
     socket.off("userLeft");
@@ -367,7 +369,7 @@ export const exit = function (offline = false, socket, callBack) {
   events(_EVENTS.exitRoom);
 };
 
-const initSocket = function (socket, setUsers, setProducers) {
+const initSocket = function (socket, setUsers, setProducers, setMassages) {
   socket.on("consumerClosed", function ({ consumer_id }) {
     console.log("Closing consumer:", consumer_id);
     removeConsumer(consumer_id, setUsers);
@@ -379,6 +381,9 @@ const initSocket = function (socket, setUsers, setProducers) {
   socket.on("newUsers", async function (data) {
     await setUsers(data);
     console.log("New users", data);
+  });
+  socket.on("newMassage", async function (data) {
+    setMassages((state) => [...state, ...data]);
   });
   socket.on("userLeft", async ({ socket_id }) => {
     setUsers((state) => {
@@ -417,11 +422,12 @@ export const joinRoom = async function (
   room_id,
   socket,
   setUsers,
-  setProducers
+  setProducers,
+  setMassages
 ) {
   await createRoom(room_id, socket).then(async function () {
     await join(userId, room_id, socket);
-    initSocket(socket, setUsers, setProducers);
+    initSocket(socket, setUsers, setProducers, setMassages);
   });
 };
 

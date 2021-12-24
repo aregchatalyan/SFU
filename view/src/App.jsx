@@ -25,6 +25,7 @@ function App() {
   const [stream, setStream] = useState();
   const [screenShare, setScreenShare] = useState(false);
   const [screenStream, setScreenStream] = useState();
+  const [massages, setMassages] = useState([]);
 
   // minchev stex sax toshni e
   const [microphone, setMicrophone] = useState(false);
@@ -40,7 +41,14 @@ function App() {
 
   const confirmMiting = (stream, err) => {
     setLoading(true);
-    joinRoom(userId, "R_123", socket, setUserList, setProducers).then(() => {
+    joinRoom(
+      userId,
+      "R_123",
+      socket,
+      setUserList,
+      setProducers,
+      setMassages
+    ).then(() => {
       setLoading(false);
       setIsReady(true);
       setStream(undefined);
@@ -157,19 +165,22 @@ function App() {
           />
         ) : (
           <Video
-            userId={userId}
-            fullScreen={fullScreen}
             microphone={microphone}
-            videoPlayer={videoPlayer}
             handleSharing={shareScreen}
             handleFullScreen={windowFullScreen}
             handleStopAudioOnly={stopAudioOnly}
-            handleVideoClick={handleVideoClick}
-            leaveMeeting={leaveMeeting}
             socket={socket}
-            roomId={roomId}
-            stream={stream}
-            screenStream={screenStream}
+            {...{
+              userId,
+              fullScreen,
+              videoPlayer,
+              roomId,
+              stream,
+              screenStream,
+              massages,
+              handleVideoClick,
+              leaveMeeting,
+            }}
           />
         )}
         {loading ? <Spinner videoLoading={false} /> : null}

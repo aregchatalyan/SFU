@@ -56,4 +56,25 @@
     left: 0;
     overflow: hidden;
   }
+  .chat {
+    width: 450px;
+    height: 770px;
+    position: absolute;
+    bottom: 120px;
+    right: 24px;
+
+    transition: 300ms;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .chatHide {
+    width: 450px;
+    height: 0;
+    position: absolute;
+    bottom: 120px;
+    right: 24px;
+    transition: 300ms;
+    overflow: hidden;
+  }
 }

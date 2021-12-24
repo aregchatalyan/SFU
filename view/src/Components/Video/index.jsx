@@ -9,48 +9,49 @@ import { DimensionsContext } from "../../App";
 import MenuBar from "./MenuBar";
 import LessonLog from "../LessonLog";
 import { useOutsideClick } from "./hook";
+import Chat from "../Chat";
 
-const isTeacher = false;
+const isTeacher = true;
 
-const Video = (props) => {
-  const {
-    userId,
-    videoPlayer,
-    screenStream,
-    audioPermission,
-    handleStopAudioOnly,
-    fullScreen,
-    handleFullScreen,
-    handleVideoClick,
-    socket,
-    handleSharing,
-    leaveMeeting,
-  } = props;
-  const [id] = useState("");
-  const { width, height } = useContext(DimensionsContext);
-  const [isUserListOpened, setIsUserListOpened] = useState(false);
-  const [isChateOpened, setIsChateOpened] = useState();
-  const [isBoardOpened, setIsBoardOpened] = useState(false);
-  const logRef = useRef(null);
+const Video = ({
+  userId,
+  stream,
+  screenStream,
+  audioPermission,
+  handleStopAudioOnly,
+  fullScreen,
+  handleFullScreen,
+  videoPlayer,
+  handleVideoClick,
+  socket,
+  handleSharing,
+  leaveMeeting,
+  microphone: mic,
+  massages,
+}) => {
   const wrapperRef = useRef(null);
+  const logRef = useRef(null);
   const { active: isLogOpened, setActive: setIsLogOpened } = useOutsideClick(
     logRef,
     wrapperRef
   );
-  const [microphone, setMicrophone] = useState(props.microphone);
-  const [notification, setNotification] = useState(false);
-  const [questionNotification, setQuestionNotification] = useState(false);
+  const { width, height } = useContext(DimensionsContext);
+  const { users } = useContext(UserInfoContext);
+  const [isUserListOpened, setIsUserListOpened] = useState(false);
+  const [isBoardOpened, setIsBoardOpened] = useState(false);
+  const [isChateOpened, setIsChateOpened] = useState();
+
+  const [microphone, setMicrophone] = useState(mic);
   const [question, setQuestion] = useState(false);
   const [hand, setHand] = useState(false);
-  const [sendedQuestions, setSendedQuestions] = useState([]);
-  const { users } = useContext(UserInfoContext);
 
   const showUser = () => {
     setIsUserListOpened(!isUserListOpened);
-    setIsChateOpened(false);
   };
-  const showChat = () => {
-    setIsChateOpened(!isChateOpened);
+
+  const goToVideoCall = () => {
+    setIsBoardOpened(false);
+    setIsLogOpened(false);
   };
 
   const handleMicrophoneClick = () => {
@@ -68,42 +69,7 @@ const Video = (props) => {
 
   const handUp = () => {
     setHand(!hand);
-    socket.emit("hand-up", { userId: id, value: !hand });
   };
-
-  const goToVideoCall = () => {
-    setIsBoardOpened(false);
-    setIsLogOpened(false);
-  };
-
-  // const seeQuestion = () => {
-  //   setQuestionNotification(false);
-  // };
-
-  // const questionChecked = (id) => {
-  //   let newSendedQuestions = [...sendedQuestions];
-  //   console.log("questionChecked", sendedQuestions);
-  //   let index = newSendedQuestions.findIndex(
-  //     (sendedQuestion) => sendedQuestion.questionId == id
-  //   );
-  //   console.log("questionCheckedIndex", index);
-  //   if (index >= 0) {
-  //     newSendedQuestions[index].checked = true;
-  //     setSendedQuestions(newSendedQuestions);
-  //   }
-  // };
-
-  // const clearQuestion = (data) => {
-  //   let newSendedQuestion = [...sendedQuestions];
-  //   let index = sendedQuestions.findIndex((sendedQuestion) => {
-  //     if (!sendedQuestion?.questionId) {
-  //       return sendedQuestion.question == data.question;
-  //     }
-  //   });
-  //   newSendedQuestion.splice(index, 1);
-  //   setSendedQuestions(newSendedQuestion);
-  //   console.log("clearQuestion", index, data);
-  // };
 
   return (
     <div className={style.fullScreenWrapper} style={{ width, height }}>
@@ -123,7 +89,7 @@ const Video = (props) => {
           {...{
             users,
             selfId: userId,
-            selfStream: props.stream,
+            selfStream: stream,
             selfScreenStream: screenStream,
           }}
         />
@@ -135,23 +101,28 @@ const Video = (props) => {
             handleMicrophoneClick,
             videoPlayer,
             handleVideoClick,
-            showChat,
             handleSharing,
-            isBoardOpened,
-            setIsBoardOpened,
-            isLogOpened,
-            setIsLogOpened,
             leaveMeeting,
             question,
             questionToggle,
             hand,
             handUp,
+            isBoardOpened,
+            setIsBoardOpened,
+            isLogOpened,
+            setIsLogOpened,
+            isChateOpened,
+            setIsChateOpened,
           }}
         />
         <Button
           type="fullScreen"
           method={handleFullScreen}
           condition={fullScreen}
+        />
+        <Board
+          className={isBoardOpened ? style.opened : style.closed}
+          {...{ goToVideoCall }}
         />
         <LessonLog
           className={isLogOpened ? style.opened : style.closed}
@@ -164,25 +135,11 @@ const Video = (props) => {
             isTeacher,
           }}
         />
-        <Board
-          socket={socket}
-          className={isBoardOpened ? style.opened : style.closed}
-          {...{ goToVideoCall }}
+        <Chat
+          className={isChateOpened ? style.chat : style.chatHide}
+          {...{ socket, userId, massages }}
         />
       </div>
-
-      {/* {question ? (
-        <QuestionModal
-          onCancel={questionToggle}
-          socket={socket}
-          sendedQuestions={sendedQuestions}
-          notification={questionNotification}
-          seeQuestion={seeQuestion}
-          questionChecked={questionChecked}
-          clearQuestion={clearQuestion}
-          currentUser={currentUser}
-        />
-      ) : null} */}
     </div>
   );
 };

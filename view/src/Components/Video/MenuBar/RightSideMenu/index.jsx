@@ -2,14 +2,14 @@ import { Button } from "../../../Button";
 import style from "./style.module.scss";
 
 const RightSideMenu = ({
-  isBoardOpened,
-  openBoard,
-  isLogOpened,
-  openLog,
   request,
   openRequest,
   hand,
   handUp,
+  isBoardOpened,
+  openBoard,
+  isLogOpened,
+  openLog,
 }) => {
   return (
     <div className={style.right}>

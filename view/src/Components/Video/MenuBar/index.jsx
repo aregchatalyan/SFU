@@ -3,7 +3,6 @@ import { LeftSideMenu } from "./LeftSideMenu/LeftSideMenu";
 import { MainMenu } from "./MainMenu/MainMenu";
 import RightSideMenu from "./RightSideMenu";
 import style from "./style.module.scss";
-import useMouseMoveTimeOut from "../hook";
 
 const MenuBar = ({
   showUser,
@@ -14,19 +13,21 @@ const MenuBar = ({
   showChat,
   handleSharing,
   leaveMeeting,
-  isBoardOpened,
-  setIsBoardOpened,
-  isLogOpened,
-  setIsLogOpened,
   question,
   questionToggle,
   hand,
   handUp,
+  isBoardOpened,
+  setIsBoardOpened,
+  isLogOpened,
+  setIsLogOpened,
+  isChateOpened,
+  setIsChateOpened,
 }) => {
   return (
     <div className={style.controlers}>
       <div className={style.controllersWrapper}>
-        <LeftSideMenu showUser={showUser} />
+        <LeftSideMenu {...{ showUser }} />
         <MainMenu
           microphone={microphone}
           microphoneClick={handleMicrophoneClick}
@@ -36,6 +37,12 @@ const MenuBar = ({
           msgClick={showChat}
           shareScreen={handleSharing}
           leaveMeeting={leaveMeeting}
+          {...{
+            openChat: () => {
+              setIsChateOpened(!isChateOpened);
+              setIsLogOpened(false);
+            },
+          }}
         />
         <RightSideMenu
           request={question}

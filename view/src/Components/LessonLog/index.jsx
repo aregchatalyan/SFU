@@ -89,14 +89,21 @@ const lessonLogData = [
         grade: "P",
       },
       {
-        comment: "Good job !",
+        interval: 1639267200000,
+        grade: 10,
+      },
+      {
+        interval: 1639440000000,
+        grade: 8,
       },
       {
         interval: 1639612800000,
         grade: 7,
+        comment: "Helloooooooooooooo men, realy good job.",
       },
       {
         interval: 1639958400000,
+        grade: "A",
       },
       {
         interval: 1640131200000,
