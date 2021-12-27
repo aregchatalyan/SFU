@@ -1,0 +1,113 @@
+.controllersArea {
+  width: 100%;
+  height: 120px;
+  transition: 300ms;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  text-align: center;
+  .controllersWrapperHide {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-bottom: 16px;
+    opacity: 0;
+    transition: 300ms;
+    position: absolute;
+    bottom: 0;
+  }
+  .controllersWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    text-align: center;
+    justify-content: space-around;
+    align-items: flex-end;
+    padding-bottom: 16px;
+    opacity: 1;
+    transition: 300ms;
+    position: absolute;
+    bottom: 0;
+  }
+
+  .controllers {
+    width: 504px;
+    height: 64px;
+    background: rgba(35, 35, 35, 0.5);
+    backdrop-filter: blur(16px);
+    border-radius: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    .inputWrapper {
+      width: 100%;
+      height: 100%;
+      border-radius: 52px;
+      background: rgba(35, 35, 35, 0.5);
+      backdrop-filter: blur(16px);
+      z-index: 1;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      overflow: hidden;
+      transition: 200ms;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .inputWrapperHide {
+      width: 0;
+      height: 100%;
+      background: rgba(35, 35, 35, 0.5);
+      backdrop-filter: blur(16px);
+      z-index: 1;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      overflow: hidden;
+      transition: 200ms;
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    .msginput {
+      width: 376px;
+      height: 48px;
+      background: #353535;
+      border-radius: 56px;
+    }
+    .closeInput {
+      width: 48px;
+      height: 48px;
+      background: rgba(35, 35, 35, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+    }
+    .sendMsg {
+      width: 48px;
+      height: 48px;
+      background: #2a2a2a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+    }
+    .hangUpbutton {
+      width: 104px;
+      height: 48px;
+      background: #c02929;
+      box-shadow: inset 2px 2px 9px rgba(255, 255, 255, 0.25),
+        inset -2px -2px 12px rgba(0, 0, 0, 0.45);
+      border-radius: 28px;
+      &:hover {
+        transform: scale(0.97);
+        transition: 150ms;
+      }
+    }
+  }
+}

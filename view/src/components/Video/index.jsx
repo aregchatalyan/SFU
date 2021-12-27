@@ -5,10 +5,10 @@ import { Button } from "../Button";
 import UserVideos from "../UsersVideoContainer";
 import UserList from "../UserList";
 import style from "./style.module.scss";
-import { DimensionsContext } from "../../App";
+import { DimensionsContext } from "../../Context";
 import MenuBar from "./MenuBar";
 import LessonLog from "../LessonLog";
-import { useOutsideClick } from "./hook";
+import { useOutsideClick } from "../../hooks";
 import Chat from "../Chat";
 
 const isTeacher = true;
