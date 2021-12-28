@@ -2,7 +2,6 @@ import React, { useState, useContext, memo, useRef } from "react";
 import { DimensionsContext, UserInfoContext } from "../../../Context";
 import { useOutsideClick } from "../../../hooks";
 import Board from "../../board";
-import Chat from "../../chat";
 import Controllers from "../../controllers";
 import LessonLog from "../../lessonLog";
 import UserList from "../../userList";
@@ -38,11 +37,10 @@ const VideoCall = ({
   const { users } = useContext(UserInfoContext);
   const [isUserListOpened, setIsUserListOpened] = useState(false);
   const [isBoardOpened, setIsBoardOpened] = useState(false);
-  const [isChateOpened, setIsChateOpened] = useState();
 
   const goToVideoCall = () => {
     setIsBoardOpened(false);
-    setIsChateOpened(false);
+    setIsLogOpened(false);
   };
 
   return (

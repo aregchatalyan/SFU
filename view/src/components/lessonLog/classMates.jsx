@@ -3,7 +3,6 @@ import Icon from "../core/Icon";
 import gold from "../../assets/img/gold.png";
 import silver from "../../assets/img/silver.png";
 import bronze from "../../assets/img/bronze.png";
-
 import style from "./style.module.scss";
 
 const Scales = ({ type }) => {
