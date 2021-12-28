@@ -9,6 +9,7 @@ import style from "./style.module.scss";
 import { useComponentHover } from "../../hooks/useComponenetHover";
 import Chat from "../chat";
 import CustomInput from "../core/Input";
+import SubBar from "./SubBar";
 
 const Controllers = ({
   isUserListOpened,
@@ -22,13 +23,24 @@ const Controllers = ({
   socket,
   userId,
   massages,
-  handlFix,
+  handleSharing,
+  isBoardOpened,
+  setIsBoardOpened,
+  isLogOpened,
+  setIsLogOpened,
 }) => {
   const controllersRef = useRef(null);
   const [isChatFixed, setIsChatFixed] = useState(false);
   const [isInputOpened, setIsInputOpened] = useState(false);
   const isControllersOpened = useComponentHover(controllersRef);
+  const [inputValue, setInputValue] = useState("");
 
+  const sendMsg = () => {
+    if (inputValue.length > 0) {
+      socket.emit("addMassage", { userId, text: inputValue });
+      setInputValue("");
+    }
+  };
   return (
     <div className={style.controllersArea} ref={controllersRef}>
       <div
@@ -49,49 +61,77 @@ const Controllers = ({
               className={style.closeInput}
               onClick={() => setIsInputOpened(false)}
             />
-            <CustomInput className={style.msginput} />
+            <CustomInput
+              className={style.msginput}
+              {...{ inputValue, setInputValue }}
+            />
             <CircleButtonCustom
               iconName="massage_send"
               className={style.sendMsg}
+              onClick={sendMsg}
             />
           </div>
-          <CircleButtonWithHover
-            iconName="videocall_massage"
-            {...{
-              state: isChatFixed || isInputOpened,
-              isInputOpened,
-              handlFix: () => setIsChatFixed(!isChatFixed),
-              onClick: () => setIsInputOpened(true),
-            }}
+          <div
+            className={
+              isInputOpened ? style.buttonWrapperHide : style.buttonWrapper
+            }
           >
-            <Chat {...{ userId, massages }} />
-          </CircleButtonWithHover>
-          <CircleButton
-            iconName="videocall_userlist"
-            {...{
-              state: isUserListOpened,
-              onClick: () => {
-                setIsUserListOpened(!isUserListOpened);
-              },
-            }}
-          />
-          <CircleButtonWhithStates
-            iconName={videoPlayer ? "videocall_video" : "videocall_video_off"}
-            {...{ state: videoPlayer, onClick: handleVideoClick }}
-          />
-          <CustomButtonWithIcon
-            className={style.hangUpbutton}
-            width={24}
-            height={24}
-            iconName="videocall_hangup"
-            onClick={leaveMeeting}
-          />
-          <CircleButtonWhithStates
-            iconName={microphone ? "videocall_voice" : "videocall_voice_off"}
-            {...{ state: microphone, onClick: handleMicrophoneClick }}
-          />
-          <CircleButton iconName="videocall_hand" onClick={() => {}} />
-          <CircleButtonWithHover iconName="videocall_etc" />
+            <CircleButtonWithHover
+              iconName="videocall_massage"
+              {...{
+                state: isChatFixed || isInputOpened,
+                handlFix: () => setIsChatFixed(!isChatFixed),
+                onClick: () => setIsInputOpened(true),
+                showLocker: !isInputOpened,
+                opened: style.msgBar,
+                closed: style.msgBarHide,
+                unLocked: style.lockMsgBar,
+                locked: style.lockMsgBarLocked,
+              }}
+            >
+              <Chat {...{ userId, massages }} />
+            </CircleButtonWithHover>
+            <CircleButton
+              iconName="videocall_userlist"
+              {...{
+                state: isUserListOpened,
+                onClick: () => {
+                  setIsUserListOpened(!isUserListOpened);
+                },
+              }}
+            />
+            <CircleButtonWhithStates
+              iconName={videoPlayer ? "videocall_video" : "videocall_video_off"}
+              {...{ state: videoPlayer, onClick: handleVideoClick }}
+            />
+            <CustomButtonWithIcon
+              className={style.hangUpbutton}
+              width={24}
+              height={24}
+              iconName="videocall_hangup"
+              onClick={leaveMeeting}
+            />
+            <CircleButtonWhithStates
+              iconName={microphone ? "videocall_voice" : "videocall_voice_off"}
+              {...{ state: microphone, onClick: handleMicrophoneClick }}
+            />
+            <CircleButton iconName="videocall_hand" onClick={() => {}} />
+            <CircleButtonWithHover
+              iconName="videocall_etc"
+              {...{ opened: style.etcWrapper, closed: style.etcWrapperHide }}
+              showLocker={false}
+            >
+              <SubBar
+                {...{
+                  handleSharing,
+                  isBoardOpened,
+                  setIsBoardOpened,
+                  isLogOpened,
+                  setIsLogOpened,
+                }}
+              />
+            </CircleButtonWithHover>
+          </div>
         </div>
       </div>
     </div>

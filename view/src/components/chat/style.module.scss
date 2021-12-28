@@ -1,23 +1,24 @@
 .msgContainer {
   width: 354px;
-  height: 100%;
-  background-color: green;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding-bottom: 13px;
+  max-height: 100%;
+  border-radius: 8px 8px 0px 0px;
   box-sizing: border-box;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   .massageWrapper {
     width: 100%;
     box-sizing: border-box;
     padding-left: 24px;
-    margin: 8px 0;
+    margin-top: 16px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: flex-start;
     .text {
-      max-width: 330px;
+      max-width: 100%;
       min-height: 40px;
-      background: #393939;
+      background: rgba(42, 42, 42, 0.25);
       border-radius: 20px;
       display: flex;
       justify-content: flex-end;
@@ -55,14 +56,15 @@
   .myMassageWrapper {
     width: 100%;
     margin-top: 16px;
+    margin-bottom: 8px;
     display: flex;
     justify-content: flex-end;
     box-sizing: border-box;
     padding-right: 16px;
     .text {
-      max-width: 330px;
+      max-width: 100%;
       min-height: 40px;
-      background: #272626;
+      background: rgba(39, 38, 38, 0.5);
       border-radius: 20px;
       display: flex;
       justify-content: flex-end;

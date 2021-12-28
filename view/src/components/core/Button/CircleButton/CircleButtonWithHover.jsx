@@ -9,19 +9,20 @@ export const CircleButtonWithHover = ({
   children,
   state,
   handlFix,
-  isInputOpened,
+  showLocker,
+  opened,
+  closed,
+  locked,
+  unLocked,
 }) => {
   const hoverRef = useRef(null);
   const isHovered = useComponentHover(hoverRef);
   return (
     <div ref={hoverRef}>
-      <div className={isHovered || state ? style.msgBar : style.msgBarHide}>
+      <div className={isHovered || state ? opened : closed}>
         {children}
-        {!isInputOpened && (
-          <button
-            className={state ? style.lockMsgBarLocked : style.lockMsgBar}
-            onClick={handlFix}
-          >
+        {showLocker && (
+          <button className={state ? locked : unLocked} onClick={handlFix}>
             <Icon
               name={state ? "massagebar_locked" : "massagebar_lock"}
               width={20}

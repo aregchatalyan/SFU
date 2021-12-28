@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useRef } from "react";
 import style from "./style.module.scss";
 import MassageConatiner from "./MassageContainer";
+import { useEffect } from "react";
 
 const Chat = ({ userId, massages }) => {
+  const containerRef = useRef(null);
+  useEffect(() => {
+    console.log("REF : ", containerRef);
+    if (containerRef.current) {
+      containerRef.current.scrollTop =
+        containerRef.current.scrollHeight - containerRef.current.clientHeight;
+    }
+  }, [containerRef, massages]);
   return (
-    <div className={style.msgContainer}>
+    <div className={style.msgContainer} ref={containerRef}>
       {massages.map(({ text, userId: msgWriter }, key) => {
         return (
           <MassageConatiner

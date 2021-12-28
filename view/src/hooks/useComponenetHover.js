@@ -10,7 +10,7 @@ export const useComponentHover = (ref) => {
       } else {
         clearTimeout(timeout);
         if (isHovered) {
-          timeout = setTimeout(() => setIsHovered(false), 300);
+          timeout = setTimeout(() => setIsHovered(false), 50);
         }
       }
     };

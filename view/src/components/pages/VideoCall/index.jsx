@@ -81,6 +81,11 @@ const VideoCall = ({
             leaveMeeting,
             microphone,
             handleMicrophoneClick,
+            handleSharing,
+            isBoardOpened,
+            setIsBoardOpened,
+            isLogOpened,
+            setIsLogOpened,
             fullScreen,
             socket,
             userId,
@@ -89,22 +94,13 @@ const VideoCall = ({
         />
         {/* <MenuBar
           {...{
-            microphone,
-            handleMicrophoneClick,
-            videoPlayer,
-            handleVideoClick,
             handleSharing,
-            leaveMeeting,
             question,
             questionToggle,
             hand,
             handUp,
             isBoardOpened,
             setIsBoardOpened,
-            isLogOpened,
-            setIsLogOpened,
-            isChateOpened,
-            setIsChateOpened,
           }}
         /> */}
         {/* <Button
