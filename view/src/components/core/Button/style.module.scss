@@ -64,3 +64,8 @@
     color: white;
   }
 }
+@keyframes progress {
+  0% {
+    stroke-dasharray: 110, 0;
+  }
+}

@@ -1,10 +1,11 @@
 import React from "react";
 import Icon from "../../Icon";
-
 import style from "./style.module.scss";
+
 export { CircleButtonWithHover } from "./CircleButtonWithHover";
 export { CircleButtonWhithStates } from "./CircleButtonWhithStates";
 export { CircleButtonCustom } from "./CircleButtonCustom";
+export { CircleActionButton } from "./CircleActionButton";
 
 const CircleButton = ({ onClick, state, iconName }) => (
   <button

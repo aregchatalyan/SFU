@@ -68,67 +68,6 @@
   }
 }
 
-.msgBar {
-  width: 100%;
-  height: 345px;
-  position: absolute;
-  bottom: 64px;
-  left: 0;
-  transition: 300ms;
-  display: flex;
-  justify-content: center;
-  .lockMsgBar {
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    background: rgba(35, 35, 35, 0.5);
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .lockMsgBarLocked {
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    background: #c02929;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-.msgBarHide {
-  width: 100%;
-  height: 0;
-  position: absolute;
-  bottom: 64px;
-  left: 0;
-  transition: 300ms;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
-  .lockMsgBar {
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
-    background: rgba(35, 35, 35, 0.5);
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-
 .circleButtonWithState {
   width: 48px;
   height: 48px;
@@ -171,5 +110,60 @@
         stroke: white;
       }
     }
+  }
+}
+
+.circleActionButton {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  padding: 0;
+  background-color: transparent;
+  .svgWrapper {
+    width: 48px;
+    height: 48px;
+    fill: none;
+    .svgBackground {
+      fill: rgba(35, 35, 35, 0.4);
+      stroke: #6a6a6a;
+      stroke-width: 1;
+    }
+    .svgCircle {
+      fill: none;
+      stroke: #ed2a26;
+      stroke-width: 1;
+    }
+    .svgHand {
+      fill: #b6b6b6;
+    }
+  }
+  .svgWrapperActive {
+    width: 48px;
+    height: 48px;
+    fill: none;
+    .svgBackground {
+      fill: rgba(35, 35, 35, 0.4);
+      stroke: #6a6a6a;
+      stroke-width: 1;
+    }
+    .svgCircle {
+      fill: none;
+      stroke: #ed2a26;
+      stroke-width: 1;
+      animation: progress 10s ease forwards;
+    }
+    .svgHand {
+      fill: white;
+    }
+  }
+  &:hover {
+    .svgHand {
+      fill: rgb(255, 255, 255);
+    }
+  }
+}
+@keyframes progress {
+  0% {
+    stroke-dasharray: 110, 0;
   }
 }
