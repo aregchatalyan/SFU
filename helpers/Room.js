@@ -28,6 +28,10 @@ module.exports = class Room {
     return this.massages;
   };
 
+  handUp = ({ userId }) => {
+    this.broadCast("", "newHandUp", [{ userId }]);
+  };
+
   addPeer(peer) {
     this.peers.set(peer.id, peer);
     const userList = this.getAllUsers();

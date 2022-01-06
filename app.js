@@ -301,26 +301,12 @@ io.on("connection", (socket) => {
     let massage = roomList.get(socket.room_id).getAllMsgs();
     socket.emit("newMassage", massage);
   });
+
+  socket.on("handUp", ({ userId }) => {
+    roomList.get(socket.room_id).handUp({ userId });
+  });
 });
 
-// TODO remove - never used?
-// function room() {
-//     return Object.values(roomList).map((r) => {
-//         return {
-//             router: r.router.id,
-//             peers: Object.values(r.peers).map((p) => {
-//                 return {
-//                     name: p.name
-//                 }
-//             }),
-//             id: r.id
-//         }
-//     })
-// }
-
-/**
- * Get next mediasoup Worker.
- */
 function getMediasoupWorker() {
   const worker = workers[nextMediasoupWorkerIdx];
 

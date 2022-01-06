@@ -349,6 +349,7 @@ export const exit = function (offline = false, socket, callBack) {
     socket.off("disconnect");
     socket.off("newUsers");
     socket.off("newMassage");
+    socket.off("newHandUp");
     socket.off("newProducers");
     socket.off("consumerClosed");
     socket.off("userLeft");
@@ -369,7 +370,13 @@ export const exit = function (offline = false, socket, callBack) {
   events(_EVENTS.exitRoom);
 };
 
-const initSocket = function (socket, setUsers, setProducers, setMassages) {
+const initSocket = function (
+  socket,
+  setUsers,
+  setProducers,
+  setMassages,
+  setHands
+) {
   socket.on("consumerClosed", function ({ consumer_id }) {
     console.log("Closing consumer:", consumer_id);
     removeConsumer(consumer_id, setUsers);
@@ -385,6 +392,12 @@ const initSocket = function (socket, setUsers, setProducers, setMassages) {
   socket.on("newMassage", async function (data) {
     setMassages((state) => [...state, ...data]);
   });
+
+  socket.on("newHandUp", async function (data) {
+    setHands((state) => [...state, ...data]);
+    console.log("HandUp", data);
+  });
+
   socket.on("userLeft", async ({ socket_id }) => {
     setUsers((state) => {
       const res = [...state].filter((elm) => {
@@ -423,11 +436,12 @@ export const joinRoom = async function (
   socket,
   setUsers,
   setProducers,
-  setMassages
+  setMassages,
+  setHands
 ) {
   await createRoom(room_id, socket).then(async function () {
     await join(userId, room_id, socket);
-    initSocket(socket, setUsers, setProducers, setMassages);
+    initSocket(socket, setUsers, setProducers, setMassages, setHands);
   });
 };
 

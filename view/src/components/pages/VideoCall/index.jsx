@@ -3,6 +3,7 @@ import { DimensionsContext, UserInfoContext } from "../../../Context";
 import { useOutsideClick } from "../../../hooks";
 import Board from "../../board";
 import Controllers from "../../controllers";
+import HandUpRoute from "../../handUpRoute";
 import LessonLog from "../../lessonLog";
 import UserList from "../../userList";
 import UserVideos from "../../usersVideoContainer";
@@ -26,6 +27,8 @@ const VideoCall = ({
   handleSharing,
   leaveMeeting,
   massages,
+  hands,
+  setHands,
 }) => {
   const wrapperRef = useRef(null);
   const logRef = useRef(null);
@@ -90,22 +93,7 @@ const VideoCall = ({
             massages,
           }}
         />
-        {/* <MenuBar
-          {...{
-            handleSharing,
-            question,
-            questionToggle,
-            hand,
-            handUp,
-            isBoardOpened,
-            setIsBoardOpened,
-          }}
-        /> */}
-        {/* <Button
-          type="fullScreen"
-          method={handleFullScreen}
-          condition={fullScreen}
-        /> */}
+
         <Board
           className={isBoardOpened ? style.opened : style.closed}
           {...{ goToVideoCall }}
@@ -121,6 +109,7 @@ const VideoCall = ({
             isTeacher,
           }}
         />
+        <HandUpRoute {...{ hands, setHands }} />
       </div>
     </div>
   );

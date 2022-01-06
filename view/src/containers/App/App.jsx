@@ -22,6 +22,7 @@ const App = () => {
   const [screenShare, setScreenShare] = useState(false);
   const [screenStream, setScreenStream] = useState();
   const [massages, setMassages] = useState([]);
+  const [hands, setHands] = useState([]);
 
   // minchev stex sax toshni e
   const [microphone, setMicrophone] = useState(false);
@@ -43,7 +44,8 @@ const App = () => {
       socket,
       setUserList,
       setProducers,
-      setMassages
+      setMassages,
+      setHands
     ).then(() => {
       setLoading(false);
       setIsReady(true);
@@ -181,6 +183,8 @@ const App = () => {
               screenStream,
               massages,
               leaveMeeting,
+              hands,
+              setHands,
             }}
           />
         )}

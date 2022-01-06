@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.scss";
 
-export const CircleActionButton = () => {
+export const CircleActionButton = ({ onClick }) => {
   const [isClicked, setisClicked] = useState(false);
 
   const handleClick = () => {
@@ -9,7 +9,8 @@ export const CircleActionButton = () => {
     if (!isClicked) {
       setisClicked(true);
       clearTimeout(timeout);
-      timeout = setTimeout(() => setisClicked(false), 10000);
+      timeout = setTimeout(() => setisClicked(false), 7000);
+      onClick();
     }
   };
 
@@ -17,7 +18,6 @@ export const CircleActionButton = () => {
     <button className={style.circleActionButton} onClick={handleClick}>
       <svg
         viewBox="0 0 36 36"
-        class="circular-chart"
         fill="none"
         className={isClicked ? style.svgWrapperActive : style.svgWrapper}
       >
@@ -29,7 +29,7 @@ export const CircleActionButton = () => {
         />
         <path
           className={style.svgCircle}
-          stroke-dasharray="0, 110"
+          strokeDasharray="0, 110"
           d="M18 0.5
           a 17.5 17.5 0 0 1 0 35
           a 17.5 17.5 0 0 1 0 -35"

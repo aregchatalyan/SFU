@@ -42,6 +42,10 @@ const Controllers = ({
       setInputValue("");
     }
   };
+  const handUp = () => {
+    socket.emit("handUp", { userId });
+  };
+
   return (
     <div className={style.controllersArea} ref={controllersRef}>
       <div
@@ -127,7 +131,7 @@ const Controllers = ({
               className={style.handUpBtn}
             /> */}
 
-            <CircleActionButton />
+            <CircleActionButton onClick={handUp} />
 
             <CircleButtonWithHover
               iconName="videocall_etc"
