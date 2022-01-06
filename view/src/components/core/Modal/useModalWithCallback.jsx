@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import style from "./style.module.scss";
 
-export const useModalWithCallback = (params) => {
+export const useModalWithCallback = () => {
   const [prevComment, setprevComment] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [isModalOpened, setIsModalOpened] = useState(false);

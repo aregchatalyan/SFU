@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonWithTextAndIcon } from "../core/Button";
+import { ButtonWithTextAndIcon, ButtonWithSlider } from "../core/Button";
 import style from "./style.module.scss";
 
 const SubBar = ({
@@ -34,7 +34,7 @@ const SubBar = ({
         text="Screen Share"
         onClick={handleSharing}
       />
-      <ButtonWithTextAndIcon iconName="videocall_poll" text="Poll" />
+      <ButtonWithSlider iconName="videocall_poll" text="Poll" />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import Board from "../../board";
 import Controllers from "../../controllers";
 import HandUpRoute from "../../handUpRoute";
 import LessonLog from "../../lessonLog";
+import PollModal from "../../poll";
 import UserList from "../../userList";
 import UserVideos from "../../usersVideoContainer";
 import style from "./style.module.scss";
@@ -110,6 +111,7 @@ const VideoCall = ({
           }}
         />
         <HandUpRoute {...{ hands, setHands }} />
+        <PollModal />
       </div>
     </div>
   );
