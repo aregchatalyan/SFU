@@ -90,32 +90,6 @@
     justify-content: center;
     box-sizing: border-box;
     padding-left: 10px;
-    button {
-      display: flex;
-      align-items: center;
-      background: transparent;
-      display: flex;
-      margin: 6px;
-      span {
-        margin-left: 8px;
-        font-family: Rubik;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 14px;
-        line-height: 20px;
-        color: #b6b6b6;
-      }
-      &:hover {
-        span {
-          color: white;
-        }
-        svg {
-          path {
-            stroke: white;
-          }
-        }
-      }
-    }
   }
   .text {
     width: 100%;

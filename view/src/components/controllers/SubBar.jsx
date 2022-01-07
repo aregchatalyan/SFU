@@ -8,6 +8,7 @@ const SubBar = ({
   setIsBoardOpened,
   isLogOpened,
   setIsLogOpened,
+  PollButtons,
 }) => {
   return (
     <div className={style.subBarWrapper}>
@@ -34,7 +35,11 @@ const SubBar = ({
         text="Screen Share"
         onClick={handleSharing}
       />
-      <ButtonWithSlider iconName="videocall_poll" text="Poll" />
+      <ButtonWithSlider
+        iconName="videocall_poll"
+        text="Poll"
+        {...{ buttons: PollButtons }}
+      />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import Board from "../../board";
 import Controllers from "../../controllers";
 import HandUpRoute from "../../handUpRoute";
 import LessonLog from "../../lessonLog";
-import PollModal from "../../poll";
+import usePollModal, { useCreatePollModal } from "../../poll";
 import UserList from "../../userList";
 import UserVideos from "../../usersVideoContainer";
 import style from "./style.module.scss";
@@ -46,6 +46,9 @@ const VideoCall = ({
     setIsBoardOpened(false);
     setIsLogOpened(false);
   };
+  const [PallModal, PollModalButton, closePollModal] = usePollModal();
+  const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
+    useCreatePollModal();
 
   return (
     <div className={style.fullScreenWrapper} style={{ width, height }}>
@@ -92,6 +95,10 @@ const VideoCall = ({
             socket,
             userId,
             massages,
+            PollButtons: [
+              { cb: closeCreatePollModal, ...PollModalButton },
+              { cb: closePollModal, ...CreatePollModalButton },
+            ],
           }}
         />
 
@@ -111,7 +118,8 @@ const VideoCall = ({
           }}
         />
         <HandUpRoute {...{ hands, setHands }} />
-        <PollModal />
+        {PallModal}
+        {CreatePallModal}
       </div>
     </div>
   );

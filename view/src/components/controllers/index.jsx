@@ -29,6 +29,7 @@ const Controllers = ({
   setIsBoardOpened,
   isLogOpened,
   setIsLogOpened,
+  PollButtons,
 }) => {
   const controllersRef = useRef(null);
   const [isChatFixed, setIsChatFixed] = useState(false);
@@ -145,6 +146,7 @@ const Controllers = ({
                   setIsBoardOpened,
                   isLogOpened,
                   setIsLogOpened,
+                  PollButtons,
                 }}
               />
             </CircleButtonWithHover>
