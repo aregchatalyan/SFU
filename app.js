@@ -8,6 +8,8 @@ const app = express();
 
 const Room = require("./helpers/Room");
 const Peer = require("./helpers/Peer");
+const Question = require("./helpers/Question");
+
 const config = require("./config/config");
 
 const options = {
@@ -38,26 +40,7 @@ process.on("uncaughtException", (err) =>
 let workers = [];
 let nextMediasoupWorkerIdx = 0;
 
-/**
- * roomList
- * {
- *  room_id: Room {
- *      id:
- *      router:
- *      peers: {
- *          id:,
- *          name:,
- *          master: [boolean],
- *          transports: [Map],
- *          producers: [Map],
- *          consumers: [Map],
- *          rtpCapabilities:
- *      }
- *  }
- * }
- */
 let roomList = new Map();
-let chatList = new Map();
 
 (async () => await createWorkers())();
 
@@ -304,6 +287,19 @@ io.on("connection", (socket) => {
 
   socket.on("handUp", ({ userId }) => {
     roomList.get(socket.room_id).handUp({ userId });
+  });
+
+  socket.on("createPoll", ({ userId, question, versions }) => {
+    if (!roomList.has(socket.room_id)) return;
+    roomList
+      .get(socket.room_id)
+      .addQuestion(new Question(userId, question, versions));
+  });
+  socket.on("getPolls", () => {
+    if (!roomList.has(socket.room_id)) return;
+    let question = roomList.get(socket.room_id).getAllPolls();
+    console.log("QUEST : : : ", question);
+    socket.emit("newPoll", question);
   });
 });
 

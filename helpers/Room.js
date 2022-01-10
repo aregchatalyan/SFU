@@ -17,6 +17,7 @@ module.exports = class Room {
       );
 
     this.peers = new Map();
+    this.questions = new Map();
     this.io = io;
     this.massages = [];
   }
@@ -36,6 +37,14 @@ module.exports = class Room {
     this.peers.set(peer.id, peer);
     const userList = this.getAllUsers();
     this.broadCast(peer.id, "newUsers", userList);
+  }
+
+  addQuestion(question) {
+    this.questions.set(question.id, question);
+    console.log("Questions : ", this.questions);
+  }
+  getAllPolls() {
+    return this.questions;
   }
 
   getProducerListForPeer() {

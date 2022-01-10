@@ -1,10 +1,52 @@
-import React from "react";
-import Icon from "../core/Icon";
+import React, { useState, useEffect } from "react";
+import SubmitButton from "../core/Button/SubmitButton";
+import CustomButton from "../core/Button/index";
+import AnswerInput from "../core/Input/AnswerInput";
+import SwitchCheckBox from "../core/Input/SwitchCheckBox";
 import TextArea from "../core/Input/TextArea";
 import useModalWithButton from "../core/Modal";
+import Icon from "../core/Icon";
 import style from "./style.module.scss";
 
-const Children = ({ closeModal }) => {
+const initialValues = {
+  question: "",
+  versions: [
+    { text: "", canBeDelete: false },
+    { text: "", canBeDelete: false },
+  ],
+  anonymus: false,
+};
+
+const Children = ({ socket, closeModal }) => {
+  const [formContext, setFormContext] = useState(initialValues);
+  const [isValid, setIsValid] = useState(false);
+
+  useEffect(() => {
+    if (formContext.question.length > 0) {
+      setIsValid(true);
+      formContext.versions.forEach(({ text }) => {
+        setIsValid((state) => {
+          if (state) {
+            return text.length > 0;
+          } else {
+            return state;
+          }
+        });
+      });
+    } else {
+      setIsValid(false);
+    }
+  }, [formContext]);
+
+  const addVersion = () => {
+    const version = { text: "", canBeDelete: true };
+    setFormContext((state) => {
+      const versions = [...state.versions];
+      versions.push(version);
+      return { ...state, versions };
+    });
+  };
+
   return (
     <div className={style.pollContainer}>
       <div className={style.header}>
@@ -14,15 +56,70 @@ const Children = ({ closeModal }) => {
         </button>
       </div>
       <div className={style.createQuestion}>
-        <TextArea />
+        <span className={style.questionLabel}>Label</span>
+        <TextArea
+          name="question"
+          className={style.questionInput}
+          context={formContext}
+          changeContext={setFormContext}
+        />
+        <div className={style.versionHeader}>
+          <span className={style.versionLabel}>Versions</span>
+          <button className={style.addVersionBtn} onClick={addVersion}>
+            Add Version
+          </button>
+        </div>
+        <div className={style.versionsContainer}>
+          {formContext.versions.map(({ text: value, canBeDelete }, index) => (
+            <AnswerInput
+              {...{
+                name: "versions",
+                value,
+                index,
+                canBeDelete,
+                changeContext: setFormContext,
+              }}
+              key={index}
+            />
+          ))}
+        </div>
+        <SwitchCheckBox
+          {...{
+            name: "anonymus",
+            context: formContext,
+            setContext: setFormContext,
+            label: "Anonymus Poll",
+          }}
+        />
+        <div className={style.actionBar}>
+          <CustomButton
+            text={"Cancel"}
+            onClick={() => {
+              closeModal();
+              setFormContext(initialValues);
+            }}
+            className={style.cancelButton}
+          />
+          <SubmitButton
+            text="Publish Survey"
+            disabled={!isValid}
+            onClick={() => {
+              socket.emit("createPoll", {
+                userId: "123456",
+                ...formContext,
+              });
+              console.log("WORKED");
+            }}
+          />
+        </div>
       </div>
     </div>
   );
 };
 
-export const useCreatePollModal = () =>
+export const useCreatePollModal = ({ socket }) =>
   useModalWithButton({
-    child: ({ closeModal }) => <Children closeModal={closeModal} />,
+    child: ({ closeModal }) => <Children {...{ socket, closeModal }} />,
     modalProps: {
       className: style.pollModalContainer,
     },

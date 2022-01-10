@@ -205,6 +205,7 @@ const join = async function (userId, room_id, socket) {
       socket.emit("getUsers");
       socket.emit("getProducers");
       socket.emit("getMassages");
+      socket.emit("getPolls");
     })
     .catch((err) => {
       console.log("Join error:", err);
@@ -349,6 +350,7 @@ export const exit = function (offline = false, socket, callBack) {
     socket.off("disconnect");
     socket.off("newUsers");
     socket.off("newMassage");
+    socket.off("newPoll");
     socket.off("newHandUp");
     socket.off("newProducers");
     socket.off("consumerClosed");
@@ -389,8 +391,14 @@ const initSocket = function (
     await setUsers(data);
     console.log("New users", data);
   });
+
   socket.on("newMassage", async function (data) {
     setMassages((state) => [...state, ...data]);
+  });
+
+  socket.on("newPoll", function (data) {
+    console.log("New Poll : ", data);
+    // setMassages((state) => [...state, ...data]);
   });
 
   socket.on("newHandUp", async function (data) {

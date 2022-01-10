@@ -4,12 +4,17 @@ const TextArea = ({
   cols = "30",
   rows = "10",
   placeholder = "Placeholder",
+  className,
+  name,
+  context,
+  changeContext,
 }) => {
-  const [inputValue, setInputValue] = useState();
   return (
     <textarea
-      {...{ cols, rows, value: inputValue, placeholder }}
-      onChange={({ target: { value } }) => setInputValue(value)}
+      {...{ cols, rows, value: context[name], placeholder, className }}
+      onChange={({ target: { value } }) => {
+        changeContext((state) => ({ ...state, [name]: value }));
+      }}
     />
   );
 };

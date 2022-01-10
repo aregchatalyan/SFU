@@ -47,10 +47,100 @@
     .createQuestion {
       width: 100%;
       min-height: 200px;
-      max-height: 600px;
-      overflow-y: auto;
+      max-height: 800px;
       &::-webkit-scrollbar {
         display: none;
+      }
+      .questionLabel {
+        width: 42px;
+        height: 24px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #ffffff;
+      }
+      .questionInput {
+        width: 100%;
+        height: 88px;
+        background: #353535;
+        border: 1px solid #6a6a6a;
+        border-radius: 4px;
+        box-sizing: border-box;
+        resize: none;
+        padding: 8px 16px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 24px;
+        color: #b6b6b6;
+        margin-bottom: 32px;
+        &:focus {
+          outline: none;
+        }
+      }
+      .versionHeader {
+        width: 100%;
+        height: 24px;
+        margin-bottom: 24px;
+        display: flex;
+        justify-content: space-between;
+        .versionLabel {
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #ffffff;
+        }
+        .addVersionBtn {
+          width: 92px;
+          height: 24px;
+          background: transparent;
+          border: 0;
+          padding: 0;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #ed2a26;
+          &:focus {
+            outline: none;
+          }
+        }
+      }
+      .versionsContainer {
+        width: 100%;
+        min-height: 104px;
+        max-height: 192px;
+        overflow-y: auto;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+      }
+      .actionBar {
+        width: 100%;
+        height: 128px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        box-sizing: border-box;
+        padding-bottom: 16px;
+        .cancelButton {
+          width: 180px;
+          height: 40px;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          text-align: center;
+          color: #ffffff;
+          background: transparent;
+        }
       }
     }
   }

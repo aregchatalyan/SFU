@@ -10,7 +10,7 @@ import UserList from "../../userList";
 import UserVideos from "../../usersVideoContainer";
 import style from "./style.module.scss";
 
-const isTeacher = false;
+const isTeacher = true;
 
 const VideoCall = ({
   userId,
@@ -48,7 +48,7 @@ const VideoCall = ({
   };
   const [PallModal, PollModalButton, closePollModal] = usePollModal();
   const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
-    useCreatePollModal();
+    useCreatePollModal({ socket, userId });
 
   return (
     <div className={style.fullScreenWrapper} style={{ width, height }}>

@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import CustomButton from "../Button";
+import SubmitButton from "../Button/SubmitButton";
 import style from "./style.module.scss";
 
 export const useModalWithCallback = () => {
@@ -38,22 +40,16 @@ export const useModalWithCallback = () => {
           />
         </div>
         <div className={style.actionBar}>
-          <button
+          <CustomButton
             className={style.cancel}
             onClick={() => setIsModalOpened(false)}
-          >
-            Cancel
-          </button>
-          <button
-            className={
-              prevComment !== inputValue && inputValue.length > 0
-                ? style.submit
-                : style.submitDisabled
-            }
+            text="Cancel"
+          />
+          <SubmitButton
+            text={prevComment.length > 0 ? "Save" : "Add Comment"}
             onClick={addComment}
-          >
-            {prevComment.length > 0 ? "Save" : "Add Comment"}
-          </button>
+            disabled={prevComment === inputValue || inputValue.length === 0}
+          />
         </div>
       </div>
     </div>

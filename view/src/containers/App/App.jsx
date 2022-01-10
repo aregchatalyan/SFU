@@ -97,7 +97,7 @@ const App = () => {
   // xnamqi kariq unecoxner
 
   useEffect(() => {
-    const socket = io(URL);
+    const socket = io(URL, { secure: true });
     setSocket(socket);
     document.addEventListener("fullscreenchange", changeWidth);
     navigator.permissions
