@@ -205,7 +205,8 @@ const join = async function (userId, room_id, socket) {
       socket.emit("getUsers");
       socket.emit("getProducers");
       socket.emit("getMassages");
-      socket.emit("getPolls");
+      socket.emit("getPolls", { userId });
+      console.log("USER ID : : : :", userId);
     })
     .catch((err) => {
       console.log("Join error:", err);
@@ -377,6 +378,7 @@ const initSocket = function (
   setUsers,
   setProducers,
   setMassages,
+  setPolls,
   setHands
 ) {
   socket.on("consumerClosed", function ({ consumer_id }) {
@@ -398,7 +400,21 @@ const initSocket = function (
 
   socket.on("newPoll", function (data) {
     console.log("New Poll : ", data);
-    // setMassages((state) => [...state, ...data]);
+    setPolls((state) => [...data, ...state]);
+  });
+
+  socket.on("newVote", async function (data) {
+    console.log(`NewVote : `, data);
+    setPolls((state) => {
+      const res = [...state].map((elm) => {
+        if (elm.id === data.id) {
+          return data;
+        } else {
+          return elm;
+        }
+      });
+      return [...res];
+    });
   });
 
   socket.on("newHandUp", async function (data) {
@@ -445,11 +461,12 @@ export const joinRoom = async function (
   setUsers,
   setProducers,
   setMassages,
+  setPolls,
   setHands
 ) {
   await createRoom(room_id, socket).then(async function () {
     await join(userId, room_id, socket);
-    initSocket(socket, setUsers, setProducers, setMassages, setHands);
+    initSocket(socket, setUsers, setProducers, setMassages, setPolls, setHands);
   });
 };
 

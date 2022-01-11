@@ -2,7 +2,14 @@ import React from "react";
 import CheckBox from "../Input/CheckBox";
 import style from "./style.module.scss";
 
-const Answer = ({ isVoted, isAnswered, label, percentage }) => {
+const Answer = ({
+  isVoted,
+  isAnswered,
+  label,
+  percentage,
+  onSelect,
+  anonymus,
+}) => {
   return (
     <div className={style.answerWrapper}>
       <div className={style.answerContainer}>
@@ -13,7 +20,7 @@ const Answer = ({ isVoted, isAnswered, label, percentage }) => {
             <span className={style.answerText}>{label}</span>
           )
         ) : (
-          <CheckBox {...{ label }} />
+          <CheckBox {...{ label, onSelect }} />
         )}
         {isAnswered && (
           <div
@@ -22,10 +29,14 @@ const Answer = ({ isVoted, isAnswered, label, percentage }) => {
           />
         )}
         {isAnswered && (
-          <span className={style.percentage}>{`${percentage} %`}</span>
+          <div className={style.percentage}>
+            <span>{`${percentage} %`}</span>
+          </div>
         )}
       </div>
-      <div className={isAnswered ? style.votesOpen : style.votesHide}>
+      <div
+        className={isAnswered && !anonymus ? style.votesOpen : style.votesHide}
+      >
         <span>Voters :</span>
         <div className={style.votersWrapper}> hello</div>
       </div>

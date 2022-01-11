@@ -6,16 +6,12 @@ import style from "./style.module.scss";
 
 export { useCreatePollModal } from "./useCreatePoll";
 
-const question =
-  "Are you agree that Univern is the most popular Education website";
+const Children = ({ polls, closeModal, userId, socket }) => {
+  const handleVote = (questionId) => (versionId) => () => {
+    console.log(`questionId`, questionId);
+    socket.emit("votePoll", { userId, questionId, versionId });
+  };
 
-const answers = [
-  { label: "Yes", answerId: "1", isVoted: true, percentage: 60 },
-  { label: "No", answerId: "2", percentage: 30 },
-  { label: "I don't know", answerId: "3", percentage: 10 },
-];
-
-const Children = ({ closeModal }) => {
   return (
     <div className={style.pollContainer}>
       <div className={style.header}>
@@ -25,24 +21,26 @@ const Children = ({ closeModal }) => {
         </button>
       </div>
       <div className={style.qusetionsContainer}>
-        <Question {...{ question, answers, isAnswered: true }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
-        <Question {...{ question, answers }} />
+        {polls.map(({ id, text: question, ...otherProps }, key) => (
+          <Question
+            {...{
+              question,
+              onVersionSelect: handleVote(id),
+              ...otherProps,
+            }}
+            key={key}
+          />
+        ))}
       </div>
     </div>
   );
 };
 
-const usePollModal = () =>
+const usePollModal = ({ polls, userId, socket }) =>
   useModalWithButton({
-    child: ({ closeModal }) => <Children closeModal={closeModal} />,
+    child: ({ closeModal }) => (
+      <Children {...{ polls, closeModal, userId, socket }} />
+    ),
     modalProps: {
       className: style.pollModalContainer,
     },

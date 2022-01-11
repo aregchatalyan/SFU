@@ -6,12 +6,13 @@ export const ButtonWithSlider = ({ text, iconName, buttons }) => {
   return (
     <div className={style.sliderWrapper}>
       <div className={style.buttons}>
-        {buttons.map(({ onClick, buttonProps, cb }) => (
+        {buttons.map(({ onClick, buttonProps, cb }, key) => (
           <button
             onClick={() => {
               onClick();
               cb();
             }}
+            key={key}
             {...buttonProps}
           />
         ))}

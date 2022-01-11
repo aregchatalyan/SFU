@@ -22,6 +22,7 @@ const App = () => {
   const [screenShare, setScreenShare] = useState(false);
   const [screenStream, setScreenStream] = useState();
   const [massages, setMassages] = useState([]);
+  const [polls, setPolls] = useState([]);
   const [hands, setHands] = useState([]);
 
   // minchev stex sax toshni e
@@ -45,6 +46,7 @@ const App = () => {
       setUserList,
       setProducers,
       setMassages,
+      setPolls,
       setHands
     ).then(() => {
       setLoading(false);
@@ -170,7 +172,6 @@ const App = () => {
             handleSharing={shareScreen}
             handleFullScreen={windowFullScreen}
             handleStopAudioOnly={stopAudioOnly}
-            socket={socket}
             {...{
               userId,
               fullScreen,
@@ -185,6 +186,8 @@ const App = () => {
               leaveMeeting,
               hands,
               setHands,
+              polls,
+              socket,
             }}
           />
         )}

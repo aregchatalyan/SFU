@@ -29,6 +29,7 @@ const VideoCall = ({
   leaveMeeting,
   massages,
   hands,
+  polls,
   setHands,
 }) => {
   const wrapperRef = useRef(null);
@@ -46,7 +47,11 @@ const VideoCall = ({
     setIsBoardOpened(false);
     setIsLogOpened(false);
   };
-  const [PallModal, PollModalButton, closePollModal] = usePollModal();
+  const [PallModal, PollModalButton, closePollModal] = usePollModal({
+    polls,
+    socket,
+    userId,
+  });
   const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
     useCreatePollModal({ socket, userId });
 

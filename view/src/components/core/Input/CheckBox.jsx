@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import Icon from "../Icon";
 import style from "./style.module.scss";
 
-const CheckBox = ({ label, checked, disable }) => {
-  const [isChecked, setisChecked] = useState();
+const CheckBox = ({ label, checked, disable, onSelect }) => {
+  const [isChecked, setisChecked] = useState(false);
   return (
     <button
       onClick={() => {
         if (!disable) {
           setisChecked(!isChecked);
+          onSelect();
         }
       }}
       className={style.checkBoxWrapper}

@@ -289,17 +289,23 @@ io.on("connection", (socket) => {
     roomList.get(socket.room_id).handUp({ userId });
   });
 
-  socket.on("createPoll", ({ userId, question, versions }) => {
+  socket.on("createPoll", ({ userId, question, versions, anonymus }) => {
     if (!roomList.has(socket.room_id)) return;
     roomList
       .get(socket.room_id)
-      .addQuestion(new Question(userId, question, versions));
+      .addQuestion(new Question(userId, question, versions, anonymus));
   });
-  socket.on("getPolls", () => {
+  socket.on("getPolls", ({ userId }) => {
     if (!roomList.has(socket.room_id)) return;
-    let question = roomList.get(socket.room_id).getAllPolls();
-    console.log("QUEST : : : ", question);
+    let question = roomList.get(socket.room_id).getAllPolls({ userId });
     socket.emit("newPoll", question);
+  });
+
+  socket.on("votePoll", ({ userId, questionId, versionId }) => {
+    if (!roomList.has(socket.room_id)) return;
+    roomList
+      .get(socket.room_id)
+      .voteQuestion({ userId, questionId, versionId });
   });
 });
 

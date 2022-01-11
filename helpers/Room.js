@@ -41,10 +41,28 @@ module.exports = class Room {
 
   addQuestion(question) {
     this.questions.set(question.id, question);
-    console.log("Questions : ", this.questions);
+    this.broadCast("", "newPoll", [question.getBroadcastData({ userId: "" })]);
   }
-  getAllPolls() {
-    return this.questions;
+
+  getAllPolls({ userId }) {
+    let questionList = [];
+    this.questions.forEach((question) => {
+      questionList.unshift(question.getBroadcastData({ userId }));
+    });
+    return questionList;
+  }
+  voteQuestion({ userId, questionId, versionId }) {
+    if (!this.questions.has(questionId)) return;
+    const votersIds = this.questions
+      .get(questionId)
+      .vote({ userId, versionId });
+
+    console.log(`VotersIds : `, votersIds);
+    this.broadCastOnlySelected(
+      "newVote",
+      this.questions.get(questionId),
+      votersIds
+    );
   }
 
   getProducerListForPeer() {
@@ -195,16 +213,24 @@ module.exports = class Room {
     this.peers.get(socket_id).closeProducer(producer_id);
   }
 
-  broadCast(socket_id, userId, data) {
+  broadCast(socket_id, connectionName, data) {
     for (let otherID of Array.from(this.peers.keys()).filter(
       (id) => id !== socket_id
     )) {
-      this.send(otherID, userId, data);
+      this.send(otherID, connectionName, data);
     }
   }
 
-  send(socket_id, userId, data) {
-    this.io.to(socket_id).emit(userId, data);
+  broadCastOnlySelected(connectionName, question, usersId = []) {
+    for (const { id, userId } of Array.from(this.peers.values())) {
+      if (usersId.includes(userId)) {
+        this.send(id, connectionName, question.getBroadcastData({ userId }));
+      }
+    }
+  }
+
+  send(socket_id, connectionName, data) {
+    this.io.to(socket_id).emit(connectionName, data);
   }
 
   getPeers() {

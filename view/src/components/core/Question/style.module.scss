@@ -17,6 +17,10 @@
     align-items: center;
     box-sizing: border-box;
     padding: 0 16px;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
 
     span {
       font-family: Rubik;
@@ -26,7 +30,7 @@
       line-height: 24px;
       color: #ffffff;
     }
-    .openedBtn {
+    .opened {
       padding: 0;
       background: transparent;
       svg {
@@ -34,7 +38,7 @@
         transition: 300ms;
       }
     }
-    .closedBtn {
+    .closed {
       padding: 0;
       background: transparent;
     }
@@ -95,19 +99,24 @@
         bottom: 0;
       }
       .percentage {
-        width: 37px;
+        width: 64px;
         height: 24px;
-        font-family: Rubik;
-        font-style: normal;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 24px;
-        color: #ffffff;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
         position: absolute;
         top: 0;
         bottom: 0;
         margin: auto;
         right: 16px;
+        span {
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #ffffff;
+        }
       }
     }
   }

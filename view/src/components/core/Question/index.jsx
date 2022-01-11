@@ -3,22 +3,38 @@ import Icon from "../Icon";
 import Answer from "./answer";
 import style from "./style.module.scss";
 
-const Question = ({ question, answers, isAnswered }) => {
+const Question = ({
+  question,
+  versions,
+  isAnswered,
+  onVersionSelect,
+  anonymus,
+}) => {
   const [isOpened, setisOpened] = useState(false);
   return (
     <div className={style.questionWrapper}>
-      <div className={style.questionComponenet}>
+      <button
+        className={style.questionComponenet}
+        onClick={() => setisOpened(!isOpened)}
+      >
         <span>{question}</span>
-        <button
-          className={isOpened ? style.openedBtn : style.closedBtn}
-          onClick={() => setisOpened(!isOpened)}
-        >
+        <div className={isOpened ? style.opened : style.closed}>
           <Icon name="open_variant" width={24} height={24} />
-        </button>
-      </div>
+        </div>
+      </button>
       <div className={isOpened ? style.answerBarOpen : style.answerBarClose}>
-        {answers.map((elm, key) => (
-          <Answer key={key} {...{ isAnswered, ...elm }} />
+        {versions.map(({ id, text: label, isVoted, percentage }, key) => (
+          <Answer
+            key={key}
+            {...{
+              isAnswered,
+              label,
+              isVoted,
+              percentage,
+              anonymus,
+              onSelect: onVersionSelect(id),
+            }}
+          />
         ))}
       </div>
     </div>
