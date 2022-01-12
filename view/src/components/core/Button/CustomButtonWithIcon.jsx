@@ -11,7 +11,11 @@ export const CustomButtonWithIcon = ({
 }) => {
   return (
     <div className={className}>
-      <button onClick={onClick} className={style.customButtonWithIcon}>
+      <button
+        onClick={onClick}
+        className={style.customButtonWithIcon}
+        style={{ cursor: "pointer" }}
+      >
         <Icon name={iconName} {...{ width, height }} />
       </button>
     </div>

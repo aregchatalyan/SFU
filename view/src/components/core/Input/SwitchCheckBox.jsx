@@ -9,7 +9,11 @@ const SwitchCheckBox = ({ name, context, setContext, label }) => {
           setContext((state) => ({ ...state, [name]: !context[name] }))
         }
         className={style.switchCheckBoxWrapper}
-        style={context[name] ? { background: "#ED2A26", border: 0 } : {}}
+        style={
+          context[name]
+            ? { background: "#ED2A26", border: 0, cursor: "pointer" }
+            : { cursor: "pointer" }
+        }
       >
         <div
           className={style.circle}

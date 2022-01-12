@@ -9,6 +9,7 @@ export const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
       className={
         state ? style.circleButtonWithStateActive : style.circleButtonWithState
       }
+      style={{ cursor: "pointer" }}
     >
       <Icon name={iconName} width={24} height={24} />
     </button>

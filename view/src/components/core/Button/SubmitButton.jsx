@@ -10,6 +10,7 @@ const SubmitButton = ({ disabled = false, onClick, text }) => {
           onClick();
         }
       }}
+      style={{ cursor: "pointer" }}
     >
       {text}
     </button>

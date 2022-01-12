@@ -4,7 +4,11 @@ export { ButtonWithSlider } from "./ButtonWithSlider";
 
 const CustomButton = ({ onClick, text, className, children }) => {
   return (
-    <button onClick={onClick} className={className}>
+    <button
+      onClick={onClick}
+      className={className}
+      style={{ cursor: "pointer" }}
+    >
       {text ? text : children}
     </button>
   );

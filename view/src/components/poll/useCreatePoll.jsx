@@ -10,10 +10,7 @@ import style from "./style.module.scss";
 
 const initialValues = {
   question: "",
-  versions: [
-    { text: "", canBeDelete: false },
-    { text: "", canBeDelete: false },
-  ],
+  versions: [{ text: "" }, { text: "" }],
   anonymus: false,
 };
 
@@ -39,7 +36,7 @@ const Children = ({ socket, closeModal }) => {
   }, [formContext]);
 
   const addVersion = () => {
-    const version = { text: "", canBeDelete: true };
+    const version = { text: "" };
     setFormContext((state) => {
       const versions = [...state.versions];
       versions.push(version);
@@ -51,7 +48,11 @@ const Children = ({ socket, closeModal }) => {
     <div className={style.pollContainer}>
       <div className={style.header}>
         <span>Create a Poll</span>
-        <button onClick={closeModal} className={style.closeBtn}>
+        <button
+          onClick={closeModal}
+          className={style.closeBtn}
+          style={{ cursor: "pointer" }}
+        >
           <Icon name="close_poll_modal" width={24} height={24} />
         </button>
       </div>
@@ -65,18 +66,22 @@ const Children = ({ socket, closeModal }) => {
         />
         <div className={style.versionHeader}>
           <span className={style.versionLabel}>Versions</span>
-          <button className={style.addVersionBtn} onClick={addVersion}>
+          <button
+            className={style.addVersionBtn}
+            onClick={addVersion}
+            style={{ cursor: "pointer" }}
+          >
             Add Version
           </button>
         </div>
         <div className={style.versionsContainer}>
-          {formContext.versions.map(({ text: value, canBeDelete }, index) => (
+          {formContext.versions.map(({ text: value }, index) => (
             <AnswerInput
               {...{
                 name: "versions",
                 value,
                 index,
-                canBeDelete,
+                canBeDelete: formContext.versions.length > 2,
                 changeContext: setFormContext,
               }}
               key={index}
@@ -108,7 +113,8 @@ const Children = ({ socket, closeModal }) => {
                 userId: "123456",
                 ...formContext,
               });
-              console.log("WORKED");
+              setFormContext(initialValues);
+              closeModal();
             }}
           />
         </div>

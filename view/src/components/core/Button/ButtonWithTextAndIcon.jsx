@@ -6,6 +6,7 @@ export const ButtonWithTextAndIcon = ({ active, onClick, iconName, text }) => {
   return (
     <button
       onClick={onClick}
+      style={{ cursor: "pointer" }}
       className={
         active ? style.buttonWithIconAndTextActive : style.buttonWithIconAndText
       }

@@ -9,7 +9,11 @@ export const CircleButtonCustom = ({
   height,
 }) => {
   return (
-    <button onClick={onClick} className={className}>
+    <button
+      onClick={onClick}
+      className={className}
+      style={{ cursor: "pointer" }}
+    >
       <Icon name={iconName} width={width} height={height} />
     </button>
   );

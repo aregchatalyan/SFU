@@ -2,7 +2,12 @@ import React from "react";
 import Icon from "../Icon";
 import style from "./style.module.scss";
 
-export const ButtonWithSlider = ({ text, iconName, buttons }) => {
+export const ButtonWithSlider = ({
+  text,
+  iconName,
+  buttons,
+  cb: closeOthers,
+}) => {
   return (
     <div className={style.sliderWrapper}>
       <div className={style.buttons}>
@@ -11,9 +16,11 @@ export const ButtonWithSlider = ({ text, iconName, buttons }) => {
             onClick={() => {
               onClick();
               cb();
+              closeOthers();
             }}
             key={key}
             {...buttonProps}
+            style={{ cursor: "pointer" }}
           />
         ))}
       </div>

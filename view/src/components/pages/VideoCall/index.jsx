@@ -96,6 +96,8 @@ const VideoCall = ({
             setIsBoardOpened,
             isLogOpened,
             setIsLogOpened,
+            closePollModal,
+            closeCreatePollModal,
             fullScreen,
             socket,
             userId,

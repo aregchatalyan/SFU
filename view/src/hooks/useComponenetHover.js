@@ -18,5 +18,5 @@ export const useComponentHover = (ref) => {
     return () => window.removeEventListener("mousemove", handlMoseMove, false);
   });
 
-  return isHovered;
+  return [isHovered, setIsHovered];
 };

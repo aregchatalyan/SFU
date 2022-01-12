@@ -12,6 +12,7 @@ const CheckBox = ({ label, checked, disable, onSelect }) => {
           onSelect();
         }
       }}
+      style={{ cursor: "pointer" }}
       className={style.checkBoxWrapper}
     >
       {isChecked || checked ? (

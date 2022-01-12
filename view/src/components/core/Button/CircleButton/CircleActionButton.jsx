@@ -15,7 +15,11 @@ export const CircleActionButton = ({ onClick }) => {
   };
 
   return (
-    <button className={style.circleActionButton} onClick={handleClick}>
+    <button
+      className={style.circleActionButton}
+      onClick={handleClick}
+      style={{ cursor: "pointer" }}
+    >
       <svg
         viewBox="0 0 36 36"
         fill="none"

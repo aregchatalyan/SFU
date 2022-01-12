@@ -27,6 +27,8 @@ const Controllers = ({
   handleSharing,
   isBoardOpened,
   setIsBoardOpened,
+  closePollModal,
+  closeCreatePollModal,
   isLogOpened,
   setIsLogOpened,
   PollButtons,
@@ -34,8 +36,9 @@ const Controllers = ({
   const controllersRef = useRef(null);
   const [isChatFixed, setIsChatFixed] = useState(false);
   const [isInputOpened, setIsInputOpened] = useState(false);
-  const isControllersOpened = useComponentHover(controllersRef);
+  const [isControllersOpened] = useComponentHover(controllersRef);
   const [inputValue, setInputValue] = useState("");
+  const [isSubBarOpened, setisSubBarOpened] = useState(false);
 
   const sendMsg = () => {
     if (inputValue.length > 0) {
@@ -90,13 +93,15 @@ const Controllers = ({
               iconName="videocall_massage"
               {...{
                 state: isChatFixed || isInputOpened,
+                isChatFixed,
                 handlFix: () => setIsChatFixed(!isChatFixed),
                 onClick: () => setIsInputOpened(true),
-                showLocker: !isInputOpened,
+                showLocker: true,
                 opened: style.msgBar,
                 closed: style.msgBarHide,
                 unLocked: style.lockMsgBar,
                 locked: style.lockMsgBarLocked,
+                isSubBarOpened,
               }}
             >
               <Chat {...{ userId, massages }} />
@@ -125,18 +130,14 @@ const Controllers = ({
               iconName={microphone ? "videocall_voice" : "videocall_voice_off"}
               {...{ state: microphone, onClick: handleMicrophoneClick }}
             />
-            {/* <CircleButtonCustom
-              iconName="videocall_hand"
-              onClick={() => {}}
-              width={48}
-              className={style.handUpBtn}
-            /> */}
-
             <CircleActionButton onClick={handUp} />
-
             <CircleButtonWithHover
               iconName="videocall_etc"
-              {...{ opened: style.etcWrapper, closed: style.etcWrapperHide }}
+              {...{
+                opened: style.etcWrapper,
+                closed: style.etcWrapperHide,
+                setisSubBarOpened,
+              }}
               showLocker={false}
             >
               <SubBar
@@ -147,6 +148,8 @@ const Controllers = ({
                   isLogOpened,
                   setIsLogOpened,
                   PollButtons,
+                  closePollModal,
+                  closeCreatePollModal,
                 }}
               />
             </CircleButtonWithHover>

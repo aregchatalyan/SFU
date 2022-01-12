@@ -23,19 +23,22 @@ const Question = ({
         </div>
       </button>
       <div className={isOpened ? style.answerBarOpen : style.answerBarClose}>
-        {versions.map(({ id, text: label, isVoted, percentage }, key) => (
-          <Answer
-            key={key}
-            {...{
-              isAnswered,
-              label,
-              isVoted,
-              percentage,
-              anonymus,
-              onSelect: onVersionSelect(id),
-            }}
-          />
-        ))}
+        {versions.map(
+          ({ id, text: label, isVoted, percentage, votes }, key) => (
+            <Answer
+              key={key}
+              {...{
+                isAnswered,
+                label,
+                isVoted,
+                percentage,
+                anonymus,
+                onSelect: onVersionSelect(id),
+                votes,
+              }}
+            />
+          )
+        )}
       </div>
     </div>
   );

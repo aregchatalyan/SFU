@@ -9,6 +9,8 @@ const SubBar = ({
   isLogOpened,
   setIsLogOpened,
   PollButtons,
+  closePollModal,
+  closeCreatePollModal,
 }) => {
   return (
     <div className={style.subBarWrapper}>
@@ -19,6 +21,8 @@ const SubBar = ({
         onClick={() => {
           setIsBoardOpened(!isBoardOpened);
           setIsLogOpened(false);
+          closePollModal(false);
+          closeCreatePollModal(false);
         }}
       />
       <ButtonWithTextAndIcon
@@ -28,6 +32,8 @@ const SubBar = ({
         onClick={() => {
           setIsLogOpened(!isLogOpened);
           setIsBoardOpened(false);
+          closePollModal(false);
+          closeCreatePollModal(false);
         }}
       />
       <ButtonWithTextAndIcon
@@ -38,7 +44,13 @@ const SubBar = ({
       <ButtonWithSlider
         iconName="videocall_poll"
         text="Poll"
-        {...{ buttons: PollButtons }}
+        {...{
+          buttons: PollButtons,
+          cb: () => {
+            setIsBoardOpened(false);
+            setIsLogOpened(false);
+          },
+        }}
       />
     </div>
   );
