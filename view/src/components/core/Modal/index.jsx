@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Modal from "./modal";
-import Icon from "../Icon";
 
 export { useModalWithCallback } from "./useModalWithCallback";
 

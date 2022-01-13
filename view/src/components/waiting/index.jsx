@@ -1,9 +1,9 @@
 import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 import { firstPage } from "../../constant";
 import { toast } from "react-toastify";
-import RightSideBar from "./RightSideBar/RightSideBar";
-import { LeftSideBar } from "./LeftSideBar/LeftSideBar";
-import MiddleBar from "./MiddleBar/MiddleBar";
+import LeftSideBar from "./LeftSideBar";
+import MiddleBar from "./MiddleBar";
+import RightSideBar from "./RightSideBar";
 import "./style.scss";
 
 const courseName =
@@ -279,7 +279,6 @@ const Waiting = (props) => {
     if (audioPermission) {
       setMicrophone(!microphone);
       props.handleControlers("mic", !microphone);
-      // stream.getTracks()[0].enabled = !microphone;
     } else {
       console.log("SIK E ASHXADE");
     }

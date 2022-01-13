@@ -15,7 +15,7 @@ const initialValues = {
 };
 
 const Children = ({ socket, closeModal }) => {
-  const [formContext, setFormContext] = useState(initialValues);
+  const [formContext, setFormContext] = useState({ ...initialValues });
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
@@ -101,7 +101,11 @@ const Children = ({ socket, closeModal }) => {
             text={"Cancel"}
             onClick={() => {
               closeModal();
-              setFormContext(initialValues);
+              setFormContext({
+                question: "",
+                versions: [{ text: "" }, { text: "" }],
+                anonymus: false,
+              });
             }}
             className={style.cancelButton}
           />
@@ -113,7 +117,11 @@ const Children = ({ socket, closeModal }) => {
                 userId: "123456",
                 ...formContext,
               });
-              setFormContext(initialValues);
+              setFormContext({
+                question: "",
+                versions: [{ text: "" }, { text: "" }],
+                anonymus: false,
+              });
               closeModal();
             }}
           />

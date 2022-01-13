@@ -37,7 +37,7 @@ const App = () => {
 
   // hmi methodner@
 
-  const confirmMiting = (stream, err) => {
+  const confirmMiting = () => {
     setLoading(true);
     joinRoom(
       userId,
@@ -102,22 +102,22 @@ const App = () => {
     const socket = io(URL, { secure: true });
     setSocket(socket);
     document.addEventListener("fullscreenchange", changeWidth);
-    navigator.permissions
-      .query({ name: "camera" })
-      .then(function (permissionStatus) {
-        permissionStatus.onchange = function () {
-          if (this.state == "granted" || this.state == "prompt") {
-            setVideoPermission(true);
-            setAudioPermission(true);
-          }
-          if (this.state == "denied") {
-            setVideoPlayer(false);
-            setMicrophone(false);
-            setVideoPermission(false);
-            setAudioPermission(false);
-          }
-        };
-      });
+    // navigator.permissions
+    //   .query({ name: "camera" })
+    //   .then(function (permissionStatus) {
+    //     permissionStatus.onchange = function () {
+    //       if (this.state == "granted" || this.state == "prompt") {
+    //         setVideoPermission(true);
+    //         setAudioPermission(true);
+    //       }
+    //       if (this.state == "denied") {
+    //         setVideoPlayer(false);
+    //         setMicrophone(false);
+    //         setVideoPermission(false);
+    //         setAudioPermission(false);
+    //       }
+    //     };
+    //   });
     return document.removeEventListener("fullscreenchange", changeWidth);
   }, []);
 

@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
 import { UserInfoContext, DimensionsContext } from "../../Context";
-import { ArrowLeft, TreeUsers } from "../theme/Icons";
+import { CustomButtonWithIcon } from "../core/Button";
+import Icon from "../core/Icon";
 import Item from "./Item";
 import style from "./style.module.scss";
 
-const UserList = ({ className, showUser, selfId, videoPlayer }) => {
+const UserList = ({ className, setIsUserListOpened, selfId, videoPlayer }) => {
   const { height } = useContext(DimensionsContext);
   const { users } = useContext(UserInfoContext);
 
@@ -12,11 +13,14 @@ const UserList = ({ className, showUser, selfId, videoPlayer }) => {
     <div className={className}>
       <div className={style.header}>
         <div className={style.headerContent}>
-          <button onClick={showUser}>
-            <ArrowLeft />
-          </button>
+          <CustomButtonWithIcon
+            iconName="arrow_left_userlist"
+            width={24}
+            height={24}
+            onClick={() => setIsUserListOpened(false)}
+          />
           <div className={style.content}>
-            <TreeUsers />
+            <Icon name="users_userlist" width={32} height={32} />
             <span>Members</span>
           </div>
         </div>

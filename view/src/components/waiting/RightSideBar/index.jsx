@@ -1,13 +1,13 @@
-import "./style.scss";
 import Student from "./Student";
+import style from "./style.module.scss";
 
 export default function RightSideBar({ participants }) {
   const [me, ...classmates] = participants;
   return (
-    <div className="rightSideBar">
-      <h5 className="title"> My Information</h5>
+    <div className={style.rightSideBar}>
+      <h5 className={style.title}> My Information</h5>
       <Student info={me} />
-      <h5 className="classmates"> Classmates</h5>
+      <h5 className={style.classmates}> Classmates</h5>
       {classmates.map((elm, index) => {
         return (
           <Student

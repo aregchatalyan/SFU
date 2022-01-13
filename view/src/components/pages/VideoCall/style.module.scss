@@ -77,4 +77,10 @@
     transition: 300ms;
     overflow: hidden;
   }
+  button {
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+  }
 }

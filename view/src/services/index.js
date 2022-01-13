@@ -1,5 +1,5 @@
 let producer = null;
-let isEnumerateDevices = false;
+// let isEnumerateDevices = false;
 
 const _EVENTS = {
   exitRoom: "exitRoom",
@@ -225,37 +225,37 @@ const removeConsumer = function (consumer_id, callback) {
     })
   );
 };
-const getAudioTracks = async function (producerId, socket) {
-  const { rtpCapabilities } = device;
-  const data = await Request(
-    "consume",
-    {
-      rtpCapabilities,
-      consumerTransportId: consumerTransport.id, // might be
-      producerId,
-    },
-    socket
-  );
-  const { id, kind, rtpParameters } = data;
+// const getAudioTracks = async function (producerId, socket) {
+//   const { rtpCapabilities } = device;
+//   const data = await Request(
+//     "consume",
+//     {
+//       rtpCapabilities,
+//       consumerTransportId: consumerTransport.id, // might be
+//       producerId,
+//     },
+//     socket
+//   );
+//   const { id, kind, rtpParameters } = data;
 
-  let codecOptions = {};
-  const consumer = await consumerTransport.consume({
-    id,
-    producerId,
-    kind,
-    rtpParameters,
-    codecOptions,
-  });
+//   let codecOptions = {};
+//   const consumer = await consumerTransport.consume({
+//     id,
+//     producerId,
+//     kind,
+//     rtpParameters,
+//     codecOptions,
+//   });
 
-  const stream = new MediaStream();
-  stream.addTrack(consumer.track);
+//   const stream = new MediaStream();
+//   stream.addTrack(consumer.track);
 
-  return {
-    consumer,
-    stream,
-    kind,
-  };
-};
+//   return {
+//     consumer,
+//     stream,
+//     kind,
+//   };
+// };
 const getConsumeStream = async function (producerId, socket) {
   const { rtpCapabilities } = device;
   const data = await Request(
@@ -470,48 +470,48 @@ export const joinRoom = async function (
   });
 };
 
-function initEnumerateDevices() {
-  // Many browsers, without the consent of getUserMedia, cannot enumerate the devices.
-  if (isEnumerateDevices) return;
+// function initEnumerateDevices() {
+//   // Many browsers, without the consent of getUserMedia, cannot enumerate the devices.
+//   if (isEnumerateDevices) return;
 
-  const constraints = {
-    audio: true,
-    video: true,
-  };
+//   const constraints = {
+//     audio: true,
+//     video: true,
+//   };
 
-  window.navigator.mediaDevices
-    .getUserMedia(constraints)
-    .then((stream) => {
-      enumerateDevices();
-      stream.getTracks().forEach(function (track) {
-        track.stop();
-      });
-    })
-    .catch((err) => {
-      console.error("Access denied for audio/video: ", err);
-    });
-}
+//   window.navigator.mediaDevices
+//     .getUserMedia(constraints)
+//     .then((stream) => {
+//       enumerateDevices();
+//       stream.getTracks().forEach(function (track) {
+//         track.stop();
+//       });
+//     })
+//     .catch((err) => {
+//       console.error("Access denied for audio/video: ", err);
+//     });
+// }
 
-function enumerateDevices() {
-  // Load mediaDevice options
-  window.navigator.mediaDevices.enumerateDevices().then((devices) =>
-    devices.forEach((device) => {
-      let el = null;
-      if ("audioinput" === device.kind) {
-        // el = audioSelect
-      } else if ("videoinput" === device.kind) {
-        //el = videoSelect
-      }
-      if (!el) return;
+// function enumerateDevices() {
+//   // Load mediaDevice options
+//   window.navigator.mediaDevices.enumerateDevices().then((devices) =>
+//     devices.forEach((device) => {
+//       let el = null;
+//       if ("audioinput" === device.kind) {
+//         // el = audioSelect
+//       } else if ("videoinput" === device.kind) {
+//         //el = videoSelect
+//       }
+//       if (!el) return;
 
-      let option = document.createElement("option");
-      option.value = device.deviceId;
-      option.innerText = device.label;
-      el.appendChild(option);
-      isEnumerateDevices = true;
-    })
-  );
-}
+//       let option = document.createElement("option");
+//       option.value = device.deviceId;
+//       option.innerText = device.label;
+//       el.appendChild(option);
+//       isEnumerateDevices = true;
+//     })
+//   );
+// }
 
 export const produce = async function (
   type,

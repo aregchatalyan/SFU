@@ -56,7 +56,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
     keyDown(texts, isTexting, setText, setIsTexting, e);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.addEventListener("keydown", handleKeyDown);
     return () => {
       document.body.removeEventListener("keydown", handleKeyDown);

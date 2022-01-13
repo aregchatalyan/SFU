@@ -29,7 +29,11 @@
       justify-content: center;
       align-items: flex-end;
       button {
-        margin: 5px;
+        width: 48px;
+        height: 48px;
+        border-radius: 100%;
+        background-color: white;
+        margin: 0 4px;
       }
     }
     .placeHolder {
@@ -67,7 +71,7 @@
     }
     .text {
       width: 302px;
-      height: 48px;
+      min-height: 48px;
       font-family: Rubik;
       font-style: normal;
       font-weight: normal;
@@ -81,6 +85,39 @@
       height: 40px;
       display: flex;
       justify-content: space-between;
+      &:focus {
+        outline: none;
+      }
+      .joinBtn {
+        width: 202px;
+        height: 40px;
+        background: #ed2a26;
+        border-radius: 4px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 24px;
+        color: #ffffff;
+      }
+      .goHome {
+        width: 202px;
+        height: 40px;
+        background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #1c1d1f;
+          margin-left: 14px;
+          height: 20px;
+        }
+      }
     }
   }
 }

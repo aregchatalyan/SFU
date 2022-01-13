@@ -240,6 +240,11 @@
             border: 1px solid #b6b6b6;
             background-color: white;
           }
+          &:hover {
+            button {
+              opacity: 1;
+            }
+          }
         }
         .todaysAtomsBottom {
           border-bottom-left-radius: 8px;
@@ -262,6 +267,11 @@
             border: 1px solid #b6b6b6;
             background-color: white;
           }
+          &:hover {
+            button {
+              opacity: 1;
+            }
+          }
         }
         .todaysAtoms {
           width: 104px;
@@ -280,6 +290,11 @@
           .absend {
             border: 1px solid #b6b6b6;
             background-color: white;
+          }
+          &:hover {
+            button {
+              opacity: 1;
+            }
           }
         }
       }

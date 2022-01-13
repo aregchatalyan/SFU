@@ -3,11 +3,13 @@ import style from "./style.module.scss";
 
 const SwitchCheckBox = ({ name, context, setContext, label }) => {
   return (
-    <div className={style.switchCheckBoxContainer}>
-      <button
-        onClick={() =>
-          setContext((state) => ({ ...state, [name]: !context[name] }))
-        }
+    <button
+      className={style.switchCheckBoxContainer}
+      onClick={() =>
+        setContext((state) => ({ ...state, [name]: !context[name] }))
+      }
+    >
+      <div
         className={style.switchCheckBoxWrapper}
         style={
           context[name]
@@ -17,13 +19,11 @@ const SwitchCheckBox = ({ name, context, setContext, label }) => {
       >
         <div
           className={style.circle}
-          style={
-            context[name] ? { transform: "translateX(30px)", top: "2px" } : {}
-          }
+          style={context[name] ? { transform: "translateX(29px)" } : {}}
         />
-      </button>
+      </div>
       {label && <span>{label}</span>}
-    </div>
+    </button>
   );
 };
 
