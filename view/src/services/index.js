@@ -610,14 +610,6 @@ export const produce = async function (
     let elem;
     if (!audio) {
       setStream(stream);
-      //   elem = document.createElement("video");
-      //   elem.srcObject = stream;
-      //   elem.id = producer.id;
-      //   elem.playsinline = false;
-      //   elem.autoplay = true;
-      //   elem.className = "vid";
-      //   document.getElementById("localMedia").appendChild(elem);
-      //   //handleFS(elem.id);
     }
 
     producer.on("trackended", () => {

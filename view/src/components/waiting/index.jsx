@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, memo, useCallback } from "react";
 import { firstPage } from "../../constant";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import LeftSideBar from "./LeftSideBar";
 import MiddleBar from "./MiddleBar";
 import RightSideBar from "./RightSideBar";
@@ -159,94 +160,111 @@ const Waiting = (props) => {
         audio: true,
       },
       function (stream) {
-        setStream(stream);
+        // setStream(stream);
         if (userVideo.current) {
           userVideo.current.srcObject = stream;
         }
-        setVideoPlayer(true);
-        setMicrophone(true);
-        setLoading(false);
+        // setVideoPlayer(true);
+        // setMicrophone(true);
+        // setLoading(false);
       },
-      function (err) {
-        console.log("microphone");
-        navigator.getUserMedia(
-          {
-            audio: true,
-          },
-          function (stream) {
-            toast.error(firstPage.videoPermission, {
-              position: "top-right",
-              autoClose: 4000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: false,
-              progress: undefined,
-            });
-            setStream(stream);
-            if (userVideo.current) {
-              userVideo.current.srcObject = stream;
-            }
-            setVideoPlayer(false);
-            setMicrophone(true);
-            props.handleControlers("video", false);
-            props.handleControlers("mic", true);
-            props.handleVideoPermission();
-            setLoading(false);
-          },
-          function (err) {
-            navigator.getUserMedia(
-              {
-                video: {
-                  width: { min: 144, ideal: 1080, max: 2048 },
-                  height: { min: 144, ideal: 720, max: 1080 },
-                },
-              },
-              function (stream) {
-                toast.error(firstPage.voicePermission, {
-                  position: "top-right",
-                  autoClose: 4000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: false,
-                  progress: undefined,
-                });
-                setStream(stream);
-                if (userVideo.current) {
-                  userVideo.current.srcObject = stream;
-                }
-                setVideoPlayer(true);
-                setMicrophone(false);
-                props.handleControlers("video", true);
-                props.handleControlers("mic", false);
-                props.handleAudioPermission();
-                setLoading(false);
-              },
-              function (err) {
-                toast.error(firstPage.globalPermisiion, {
-                  position: "top-right",
-                  autoClose: 4000,
-                  hideProgressBar: true,
-                  closeOnClick: true,
-                  pauseOnHover: true,
-                  draggable: false,
-                  progress: undefined,
-                });
-                setVideoPlayer(false);
-                setMicrophone(false);
-                props.handleControlers("video", !videoPlayer);
-                props.handleControlers("mic", !microphone);
-                props.handleVideoPermission();
-                props.handleAudioPermission();
-                setLoading(false);
-              }
-            );
-          }
-        );
+      (err) => {
+        console.log("ERR : ", err);
+        toast.error(firstPage.videoPermission, {
+          position: "top-right",
+          autoClose: 4000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: false,
+          progress: undefined,
+          className: "black-background",
+          bodyClassName: "bodyClass",
+        });
       }
+      // function (err) {
+      //   console.log("microphone");
+      //   navigator.getUserMedia(
+      //     {
+      //       audio: true,
+      //     },
+      //     () => {},
+      //     // function (stream) {
+      //     //   toast.error(firstPage.videoPermission, {
+      //     //     position: "top-right",
+      //     //     autoClose: 4000,
+      //     //     hideProgressBar: true,
+      //     //     closeOnClick: true,
+      //     //     pauseOnHover: true,
+      //     //     draggable: false,
+      //     //     progress: undefined,
+      //     //   });
+      //     //   // setStream(stream);
+      //     //   if (userVideo.current) {
+      //     //     userVideo.current.srcObject = stream;
+      //     //   }
+      //     //   // setVideoPlayer(false);
+      //     //   // setMicrophone(true);
+      //     //   // props.handleControlers("video", false);
+      //     //   // props.handleControlers("mic", true);
+      //     //   // props.handleVideoPermission();
+      //     //   // setLoading(false);
+      //     // },
+      //     () => {}
+      //     // function (err) {
+      //     //   navigator.getUserMedia(
+      //     //     {
+      //     //       video: {
+      //     //         width: { min: 144, ideal: 1080, max: 2048 },
+      //     //         height: { min: 144, ideal: 720, max: 1080 },
+      //     //       },
+      //     //     },
+      //     //     function (stream) {
+      //     //       toast.error(firstPage.voicePermission, {
+      //     //         position: "top-right",
+      //     //         autoClose: 4000,
+      //     //         hideProgressBar: true,
+      //     //         closeOnClick: true,
+      //     //         pauseOnHover: true,
+      //     //         draggable: false,
+      //     //         progress: undefined,
+      //     //       });
+      //     //       setStream(stream);
+      //     //       if (userVideo.current) {
+      //     //         userVideo.current.srcObject = stream;
+      //     //       }
+      //     //       setVideoPlayer(true);
+      //     //       setMicrophone(false);
+      //     //       props.handleControlers("video", true);
+      //     //       props.handleControlers("mic", false);
+      //     //       props.handleAudioPermission();
+      //     //       setLoading(false);
+      //     //     },
+      //     //     function (err) {
+      //     //       toast.error(firstPage.globalPermisiion, {
+      //     //         position: "top-right",
+      //     //         autoClose: 4000,
+      //     //         hideProgressBar: true,
+      //     //         closeOnClick: true,
+      //     //         pauseOnHover: true,
+      //     //         draggable: false,
+      //     //         progress: undefined,
+      //     //       });
+      //     //       setVideoPlayer(false);
+      //     //       setMicrophone(false);
+      //     //       props.handleControlers("video", !videoPlayer);
+      //     //       props.handleControlers("mic", !microphone);
+      //     //       props.handleVideoPermission();
+      //     //       props.handleAudioPermission();
+      //     //       setLoading(false);
+      //     //     }
+      //     //   );
+      //     // }
+      //   );
+      // }
     );
   }, [microphone, props, videoPlayer]);
+
   useEffect(() => {
     if (error === false) {
       getStream();
@@ -266,7 +284,7 @@ const Waiting = (props) => {
     setVideoPlayer(!videoPlayer);
     props.handleControlers("video", !videoPlayer);
     if (!videoPlayer) {
-      getStream();
+      // getStream();
     } else {
       var videoTrack = stream.getVideoTracks();
       videoTrack.forEach((track) => {
@@ -303,6 +321,7 @@ const Waiting = (props) => {
         teacherInfo={teacherInfo}
       />
       <RightSideBar participants={participants} />
+      <ToastContainer className="toast" />
     </div>
   );
 };

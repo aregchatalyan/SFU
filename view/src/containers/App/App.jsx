@@ -8,12 +8,21 @@ import { closeProducer, exit, joinRoom, produce } from "../../services";
 import Waiting from "../../components/waiting";
 import Spinner from "../../components/core/Spinner";
 import VideoCall from "../../components/pages/VideoCall";
+import { useNavigationPermission } from "../../hooks";
 
 const App = () => {
+  // params
+
   const { userId } = useParams();
+
+  // hooks
+  const size = useWindowDimensions();
+  const { videoPermission, audioPermission } = useNavigationPermission();
+
+  // state
+
   const [roomId] = useState(1);
   const [users, setUsers] = useState([]);
-  const size = useWindowDimensions();
   const [socket, setSocket] = useState();
   const [loading, setLoading] = useState(false);
   const [isReady, setIsReady] = useState(false);
@@ -28,8 +37,8 @@ const App = () => {
   // minchev stex sax toshni e
   const [microphone, setMicrophone] = useState(false);
   const [fullScreen, setFullScreen] = useState(true);
-  const [videoPermission, setVideoPermission] = useState(true);
-  const [audioPermission, setAudioPermission] = useState(true);
+
+  console.log("PERMISSSION : ", videoPermission, audioPermission);
 
   const { setUserList, setProducers } = useProducerChange(socket, setUsers);
   //minchev stex xnamqi kariq ka
@@ -38,7 +47,7 @@ const App = () => {
   // hmi methodner@
 
   const confirmMiting = () => {
-    setLoading(true);
+    console.log("OKOKOK");
     joinRoom(
       userId,
       "R_123",
@@ -78,11 +87,17 @@ const App = () => {
 
   const handleVideoClick = () => {
     if (!videoPlayer) {
-      produce("videoType", null, socket, setStream);
+      // getNavigationPermission("video")
+      //   .then((stream) => {
+      //     setStream(stream);
+      //     produce("videoType", null, socket, setStream);
+      //     setVideoPlayer(!videoPlayer);
+      //   })
+      //   .catch((err) => console.log("ERR : ", err));
     } else {
       closeProducer("videoType", socket, setStream);
+      setVideoPlayer(!videoPlayer);
     }
-    setVideoPlayer(!videoPlayer);
   };
   // chotki ashxdox metodner
   const handleMicrophoneClick = () => {
@@ -102,22 +117,6 @@ const App = () => {
     const socket = io(URL, { secure: true });
     setSocket(socket);
     document.addEventListener("fullscreenchange", changeWidth);
-    // navigator.permissions
-    //   .query({ name: "camera" })
-    //   .then(function (permissionStatus) {
-    //     permissionStatus.onchange = function () {
-    //       if (this.state == "granted" || this.state == "prompt") {
-    //         setVideoPermission(true);
-    //         setAudioPermission(true);
-    //       }
-    //       if (this.state == "denied") {
-    //         setVideoPlayer(false);
-    //         setMicrophone(false);
-    //         setVideoPermission(false);
-    //         setAudioPermission(false);
-    //       }
-    //     };
-    //   });
     return document.removeEventListener("fullscreenchange", changeWidth);
   }, []);
 
@@ -130,13 +129,6 @@ const App = () => {
     }
   };
 
-  const stopAudioOnly = () => {
-    setMicrophone(!microphone);
-    users[0].audio = !microphone;
-    users[0].videoStream.getTracks()[0].enabled = !microphone;
-    setUsers(users);
-  };
-
   const changeWidth = () => {
     if (window.innerHeight === window.screen.height) {
       setFullScreen(false);
@@ -145,13 +137,6 @@ const App = () => {
     }
   };
 
-  const changeVideoPermission = () => {
-    setVideoPermission(false);
-  };
-
-  const changeAudioPermission = () => {
-    setAudioPermission(false);
-  };
   return (
     <UserInfoContext.Provider value={{ users }}>
       <DimensionsContext.Provider value={size}>
@@ -159,10 +144,6 @@ const App = () => {
           <Waiting
             handleConfirm={confirmMiting}
             handleControlers={controlers}
-            handleVideoPermission={changeVideoPermission}
-            handleAudioPermission={changeAudioPermission}
-            videoPermission={videoPermission}
-            audioPermission={audioPermission}
             lessonInfo={lessonInfo}
             error={false}
           />
@@ -171,7 +152,6 @@ const App = () => {
             microphone={microphone}
             handleSharing={shareScreen}
             handleFullScreen={windowFullScreen}
-            handleStopAudioOnly={stopAudioOnly}
             {...{
               userId,
               fullScreen,
