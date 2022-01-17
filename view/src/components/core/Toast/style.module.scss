@@ -1,0 +1,48 @@
+.toast {
+  width: 444px;
+}
+
+.toastBody {
+  width: 420px;
+  min-height: 70px;
+  border-radius: 36px;
+  box-shadow: 2px 8px 14px rgba(black, 0.15);
+  border: 1px solid #dc2d2c;
+  background: white;
+
+  position: relative;
+  .bodyClass {
+    position: absolute;
+    left: 68px;
+    top: 38px;
+    color: #343434;
+    font-weight: 100;
+    font-size: 16px;
+    &::after {
+      content: "Error";
+      display: block;
+      position: absolute;
+      top: -24px;
+      left: 0;
+      font-size: 18px;
+      font-weight: 300;
+    }
+  }
+  &::after {
+    display: block;
+    content: " ";
+    width: 52px;
+    height: 52px;
+    background-image: url("../../../assets/img/ErrorToast.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 32px 32px;
+    background-color: rgb(248 213 212);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    left: 8px;
+  }
+}

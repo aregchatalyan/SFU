@@ -4,19 +4,11 @@ import Info from "./Info";
 import style from "./style.module.scss";
 
 const MiddleBar = ({
-  videoPlayer,
-  stopVideoOnly,
-  error,
-  loading,
-  userVideo,
-  microphone,
-  stopAudioOnly,
-  handleConfirm,
-  stream,
   level,
   groupName,
   courseName,
   teacherInfo,
+  ...otherProps
 }) => (
   <div className={style.middleBar}>
     <div className={style.title}>
@@ -29,17 +21,7 @@ const MiddleBar = ({
         <span>{courseName}</span>
       </div>
     </div>
-    <UserInfo
-      videoPlayer={videoPlayer}
-      stopVideoOnly={stopVideoOnly}
-      error={error}
-      loading={loading}
-      userVideo={userVideo}
-      microphone={microphone}
-      stopAudioOnly={stopAudioOnly}
-      handleConfirm={handleConfirm}
-      stream={stream}
-    />
+    <UserInfo {...{ ...otherProps }} />
     <TeacherInfo teacherInfo={teacherInfo} />
   </div>
 );

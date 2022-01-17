@@ -9,6 +9,9 @@ import Waiting from "../../components/waiting";
 import Spinner from "../../components/core/Spinner";
 import VideoCall from "../../components/pages/VideoCall";
 import { useNavigationPermission } from "../../hooks";
+import Toast, { toastify } from "../../components/core/Toast";
+import { firstPage } from "../../constant";
+import { getStream } from "../../helpers";
 
 const App = () => {
   // params
@@ -27,7 +30,8 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [isReady, setIsReady] = useState(false);
   const [videoPlayer, setVideoPlayer] = useState(false);
-  const [stream, setStream] = useState();
+  const [stream, setStream] = useState(null);
+  const [audioStream, setAudioStream] = useState(null);
   const [screenShare, setScreenShare] = useState(false);
   const [screenStream, setScreenStream] = useState();
   const [massages, setMassages] = useState([]);
@@ -38,16 +42,11 @@ const App = () => {
   const [microphone, setMicrophone] = useState(false);
   const [fullScreen, setFullScreen] = useState(true);
 
-  console.log("PERMISSSION : ", videoPermission, audioPermission);
-
   const { setUserList, setProducers } = useProducerChange(socket, setUsers);
-  //minchev stex xnamqi kariq ka
-  const [lessonInfo, setLessonInfo] = useState(null);
 
   // hmi methodner@
 
   const confirmMiting = () => {
-    console.log("OKOKOK");
     joinRoom(
       userId,
       "R_123",
@@ -72,6 +71,7 @@ const App = () => {
       setStream(undefined);
       if (videoPlayer) {
         closeProducer("videoType", socket, setStream);
+        getStream("video").then((stream) => setStream(stream));
       }
     });
   };
@@ -87,21 +87,43 @@ const App = () => {
 
   const handleVideoClick = () => {
     if (!videoPlayer) {
-      // getNavigationPermission("video")
-      //   .then((stream) => {
-      //     setStream(stream);
-      //     produce("videoType", null, socket, setStream);
-      //     setVideoPlayer(!videoPlayer);
-      //   })
-      //   .catch((err) => console.log("ERR : ", err));
+      if (videoPermission) {
+        if (isReady) {
+          produce("videoType", null, socket, setStream);
+          setVideoPlayer(true);
+        } else {
+          getStream("video").then((stream) => {
+            setStream(stream);
+            setVideoPlayer(true);
+          });
+        }
+      } else {
+        toastify(firstPage.videoPermission);
+      }
     } else {
       closeProducer("videoType", socket, setStream);
       setVideoPlayer(!videoPlayer);
     }
   };
+
   // chotki ashxdox metodner
   const handleMicrophoneClick = () => {
-    setMicrophone(!microphone);
+    if (!microphone) {
+      if (audioPermission) {
+        if (isReady) {
+          produce("audioType", null, socket, setAudioStream);
+          setMicrophone(true);
+        } else {
+          getStream("audio").then((stream) => {
+            setAudioStream(stream);
+            setMicrophone(true);
+          });
+        }
+      } else {
+        toastify(firstPage.voicePermission);
+      }
+    }
+    // setMicrophone(!microphone);
   };
 
   const windowFullScreen = () => {
@@ -120,14 +142,14 @@ const App = () => {
     return document.removeEventListener("fullscreenchange", changeWidth);
   }, []);
 
-  const controlers = (type, value) => {
-    if (type === "video") {
-      setVideoPlayer(value);
+  useEffect(() => {
+    if (videoPermission) {
+      handleVideoClick();
+    } else {
+      setVideoPlayer(false);
+      setStream(undefined);
     }
-    if (type === "mic") {
-      setMicrophone(value);
-    }
-  };
+  }, [videoPermission]); // eslint-disable-line
 
   const changeWidth = () => {
     if (window.innerHeight === window.screen.height) {
@@ -142,10 +164,14 @@ const App = () => {
       <DimensionsContext.Provider value={size}>
         {!isReady ? (
           <Waiting
-            handleConfirm={confirmMiting}
-            handleControlers={controlers}
-            lessonInfo={lessonInfo}
-            error={false}
+            {...{
+              stream,
+              videoPlayer,
+              handleVideoClick,
+              microphone,
+              handleMicrophoneClick,
+              handleConfirm: confirmMiting,
+            }}
           />
         ) : (
           <VideoCall
@@ -173,6 +199,7 @@ const App = () => {
         )}
         {loading ? <Spinner videoLoading={false} /> : null}
       </DimensionsContext.Provider>
+      <Toast />
     </UserInfoContext.Provider>
   );
 };

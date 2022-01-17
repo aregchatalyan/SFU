@@ -1,16 +1,5 @@
 let producer = null;
-// let isEnumerateDevices = false;
 
-const _EVENTS = {
-  exitRoom: "exitRoom",
-  openRoom: "openRoom",
-  startVideo: "startVideo",
-  stopVideo: "stopVideo",
-  startAudio: "startAudio",
-  stopAudio: "stopAudio",
-  startScreen: "startScreen",
-  stopScreen: "stopScreen",
-};
 const mediaType = {
   audio: "audioType",
   video: "videoType",
@@ -19,7 +8,7 @@ const mediaType = {
 
 let device = null;
 let consumers = new Map();
-const eventListeners = new Map();
+const mediaConstraints = {};
 const producerLabel = new Map();
 const producers = new Map();
 
@@ -314,6 +303,14 @@ export const consume = async function (
       }
       return elm;
     });
+  } else if (kind === "audio") {
+    res = userList.map((elm) => {
+      if (elm.id === producer_socket_id) {
+        elm.audioStream = stream;
+        elm.audioConsumerId = consumer.id;
+      }
+      return elm;
+    });
   }
   console.log("RES : ", res);
   return res;
@@ -337,11 +334,6 @@ export const consume = async function (
   //
   //   return res;
   // });
-};
-const events = function (evt) {
-  if (eventListeners.has(evt)) {
-    eventListeners.get(evt).forEach((callback) => callback());
-  }
 };
 
 export const exit = function (offline = false, socket, callBack) {
@@ -369,8 +361,6 @@ export const exit = function (offline = false, socket, callBack) {
   } else {
     clean();
   }
-
-  events(_EVENTS.exitRoom);
 };
 
 const initSocket = function (
@@ -527,7 +517,7 @@ export const produce = async function (
     case mediaType.audio:
       mediaConstraints = {
         audio: {
-          deviceId: deviceId,
+          deviceId,
         },
         video: false,
       };
@@ -556,17 +546,12 @@ export const produce = async function (
     default:
       return;
   }
-  console.log("DEVICECANPRODUCE : ", device);
-  // if (!device.canProduce("video") && !audio) {
-  //   console.error("Cannot produce video");
-  //   return;
-  // }
+
   if (producerLabel.has(type)) {
     console.log("Producer already exists for this type " + type);
     return;
   }
   console.log("Mediacontraints:", mediaConstraints);
-  // let stream;
   try {
     stream = screen
       ? await window.navigator.mediaDevices.getDisplayMedia()
@@ -639,20 +624,6 @@ export const produce = async function (
     });
 
     producerLabel.set(type, producer.id);
-
-    switch (type) {
-      case mediaType.audio:
-        events(_EVENTS.startAudio);
-        break;
-      case mediaType.video:
-        events(_EVENTS.startVideo);
-        break;
-      case mediaType.screen:
-        events(_EVENTS.startScreen);
-        break;
-      default:
-        return;
-    }
   } catch (err) {
     console.log("Produce error:", err);
   }
@@ -678,17 +649,4 @@ export const closeProducer = function (type, socket, callback) {
   //   });
   //   elem.parentNode.removeChild(elem);
   // }
-  switch (type) {
-    case mediaType.audio:
-      events(_EVENTS.stopAudio);
-      break;
-    case mediaType.video:
-      events(_EVENTS.stopVideo);
-      break;
-    case mediaType.screen:
-      events(_EVENTS.stopScreen);
-      break;
-    default:
-      return;
-  }
 };

@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { UserInfoContext } from "../../Context/userInfoContext";
+
 import VideoWrapper from "../core/VideoContainer";
+import VoiceWrapper from "../core/Voice";
 import style from "./style.module.scss";
 
 const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
@@ -20,6 +22,8 @@ const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
             userId,
             stream: smallStream,
             consumerId: smallConsumerId,
+            audioConsumerId,
+            audioStream,
             screenStream,
             screenConsumerId,
             video,
@@ -48,15 +52,17 @@ const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
           }
 
           return (
-            <VideoWrapper
-              id={mainConsumerId}
-              key={index}
-              className={style[`video${lenght === 3 ? index : ""}`]}
-              stream={mainStream}
-              video={video}
-              smallStream={smallStream}
-              smallConsumerId={smallConsumerId}
-            />
+            <div key={index}>
+              <VideoWrapper
+                id={mainConsumerId}
+                className={style[`video${lenght === 3 ? index : ""}`]}
+                stream={mainStream}
+                video={video}
+                smallStream={smallStream}
+                smallConsumerId={smallConsumerId}
+              />
+              <VoiceWrapper id={audioConsumerId} audioStream={audioStream} />
+            </div>
           );
         }
       )}

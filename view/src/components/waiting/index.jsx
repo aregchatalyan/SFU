@@ -1,7 +1,4 @@
-import React, { useRef, useEffect, useState, memo, useCallback } from "react";
-import { firstPage } from "../../constant";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import React, { memo } from "react";
 import LeftSideBar from "./LeftSideBar";
 import MiddleBar from "./MiddleBar";
 import RightSideBar from "./RightSideBar";
@@ -136,192 +133,18 @@ const participants = [
   },
 ];
 
-const Waiting = (props) => {
-  const userVideo = useRef();
-  const [stream, setStream] = useState();
-  const [videoPlayer, setVideoPlayer] = useState(true);
-  const [microphone, setMicrophone] = useState(true);
-  const [loading, setLoading] = useState(false);
-  const { handleConfirm, error, audioPermission, videoPermission } = props;
-
-  const getStream = useCallback(() => {
-    navigator.getUserMedia =
-      navigator.getUserMedia ||
-      navigator.webkitGetUserMedia ||
-      navigator.mozGetUserMedia ||
-      navigator.msGetUserMedia;
-
-    navigator.getUserMedia(
-      {
-        video: {
-          width: { min: 240, ideal: 1080, max: 2048 },
-          height: { min: 144, ideal: 720, max: 1080 },
-        },
-        audio: true,
-      },
-      function (stream) {
-        // setStream(stream);
-        if (userVideo.current) {
-          userVideo.current.srcObject = stream;
-        }
-        // setVideoPlayer(true);
-        // setMicrophone(true);
-        // setLoading(false);
-      },
-      (err) => {
-        console.log("ERR : ", err);
-        toast.error(firstPage.videoPermission, {
-          position: "top-right",
-          autoClose: 4000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: false,
-          progress: undefined,
-          className: "black-background",
-          bodyClassName: "bodyClass",
-        });
-      }
-      // function (err) {
-      //   console.log("microphone");
-      //   navigator.getUserMedia(
-      //     {
-      //       audio: true,
-      //     },
-      //     () => {},
-      //     // function (stream) {
-      //     //   toast.error(firstPage.videoPermission, {
-      //     //     position: "top-right",
-      //     //     autoClose: 4000,
-      //     //     hideProgressBar: true,
-      //     //     closeOnClick: true,
-      //     //     pauseOnHover: true,
-      //     //     draggable: false,
-      //     //     progress: undefined,
-      //     //   });
-      //     //   // setStream(stream);
-      //     //   if (userVideo.current) {
-      //     //     userVideo.current.srcObject = stream;
-      //     //   }
-      //     //   // setVideoPlayer(false);
-      //     //   // setMicrophone(true);
-      //     //   // props.handleControlers("video", false);
-      //     //   // props.handleControlers("mic", true);
-      //     //   // props.handleVideoPermission();
-      //     //   // setLoading(false);
-      //     // },
-      //     () => {}
-      //     // function (err) {
-      //     //   navigator.getUserMedia(
-      //     //     {
-      //     //       video: {
-      //     //         width: { min: 144, ideal: 1080, max: 2048 },
-      //     //         height: { min: 144, ideal: 720, max: 1080 },
-      //     //       },
-      //     //     },
-      //     //     function (stream) {
-      //     //       toast.error(firstPage.voicePermission, {
-      //     //         position: "top-right",
-      //     //         autoClose: 4000,
-      //     //         hideProgressBar: true,
-      //     //         closeOnClick: true,
-      //     //         pauseOnHover: true,
-      //     //         draggable: false,
-      //     //         progress: undefined,
-      //     //       });
-      //     //       setStream(stream);
-      //     //       if (userVideo.current) {
-      //     //         userVideo.current.srcObject = stream;
-      //     //       }
-      //     //       setVideoPlayer(true);
-      //     //       setMicrophone(false);
-      //     //       props.handleControlers("video", true);
-      //     //       props.handleControlers("mic", false);
-      //     //       props.handleAudioPermission();
-      //     //       setLoading(false);
-      //     //     },
-      //     //     function (err) {
-      //     //       toast.error(firstPage.globalPermisiion, {
-      //     //         position: "top-right",
-      //     //         autoClose: 4000,
-      //     //         hideProgressBar: true,
-      //     //         closeOnClick: true,
-      //     //         pauseOnHover: true,
-      //     //         draggable: false,
-      //     //         progress: undefined,
-      //     //       });
-      //     //       setVideoPlayer(false);
-      //     //       setMicrophone(false);
-      //     //       props.handleControlers("video", !videoPlayer);
-      //     //       props.handleControlers("mic", !microphone);
-      //     //       props.handleVideoPermission();
-      //     //       props.handleAudioPermission();
-      //     //       setLoading(false);
-      //     //     }
-      //     //   );
-      //     // }
-      //   );
-      // }
-    );
-  }, [microphone, props, videoPlayer]);
-
-  useEffect(() => {
-    if (error === false) {
-      getStream();
-    }
-  }, [error, getStream]);
-
-  useEffect(() => {
-    if (!videoPermission) {
-      setVideoPlayer(false);
-    }
-    if (!audioPermission) {
-      setMicrophone(false);
-    }
-  }, [videoPermission, audioPermission]);
-
-  function stopVideoOnly() {
-    setVideoPlayer(!videoPlayer);
-    props.handleControlers("video", !videoPlayer);
-    if (!videoPlayer) {
-      // getStream();
-    } else {
-      var videoTrack = stream.getVideoTracks();
-      videoTrack.forEach((track) => {
-        track.stop();
-      });
-    }
-  }
-
-  function stopAudioOnly() {
-    if (audioPermission) {
-      setMicrophone(!microphone);
-      props.handleControlers("mic", !microphone);
-    } else {
-      console.log("SIK E ASHXADE");
-    }
-  }
-
+const Waiting = ({ ...props }) => {
   return (
     <div className="fullScreen">
       <LeftSideBar level={level} group={group} lessons={lessons} />
       <MiddleBar
-        videoPlayer={videoPlayer}
-        stopVideoOnly={stopVideoOnly}
-        error={error}
-        loading={loading}
-        userVideo={userVideo}
-        microphone={microphone}
-        stopAudioOnly={stopAudioOnly}
-        handleConfirm={handleConfirm}
-        stream={stream}
         level={level}
         groupName={groupName}
         courseName={courseName}
         teacherInfo={teacherInfo}
+        {...{ ...props }}
       />
       <RightSideBar participants={participants} />
-      <ToastContainer className="toast" />
     </div>
   );
 };
