@@ -19,10 +19,11 @@ const getLocalIp = () => {
 };
 
 module.exports = {
-  listenIp: "localhost",
-  listenPort: 3030,
-  sslCrt: "./ssl/cert.pem",
-  sslKey: "./ssl/key.pem",
+
+    listenIp:  'localhost',
+    listenPort: 3030,
+    sslCrt: './ssl/cert.pem',
+    sslKey: './ssl/key.pem',
 
   mediasoup: {
     // Worker settings

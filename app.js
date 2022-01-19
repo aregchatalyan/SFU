@@ -316,3 +316,4 @@ function getMediasoupWorker() {
 
   return worker;
 }
+
