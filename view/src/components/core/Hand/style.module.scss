@@ -1,0 +1,38 @@
+.handWrapper {
+  width: 60px;
+  height: 78px;
+  opacity: 0;
+  position: absolute;
+  animation-name: moveToTop;
+  animation-duration: 7s;
+  .userImg {
+    width: 34px;
+    height: 34px;
+    box-sizing: border-box;
+    border: 1px solid #ffffff;
+    overflow: hidden;
+    border-radius: 100%;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+@keyframes moveToTop {
+  0% {
+    top: 600px;
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    opacity: 0;
+  }
+}

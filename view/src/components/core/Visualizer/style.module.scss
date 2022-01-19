@@ -1,0 +1,29 @@
+.vizualizerWrapper {
+  width: 18px;
+  height: 20px;
+  position: relative;
+  .firstLine {
+    width: 4px;
+    background: #047005;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  .secondLine {
+    width: 4px;
+    background: #047005;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 7px;
+  }
+  .thirdLine {
+    width: 4px;
+    background: #047005;
+    border-radius: 8px;
+    position: absolute;
+    bottom: 0;
+    left: 14px;
+  }
+}

@@ -1,0 +1,404 @@
+.commentBar {
+  position: absolute;
+  right: 8px;
+  button {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    &:focus {
+      outline: none;
+    }
+  }
+  .commentBox {
+    width: 200px;
+    position: absolute;
+    bottom: 10px;
+    left: -22px;
+    z-index: -1;
+    opacity: 0;
+    transition: 200ms;
+    box-sizing: border-box;
+    padding-bottom: 24px;
+    background: transparent;
+
+    .commentWrapper {
+      width: -moz-fit-content;
+      width: fit-content;
+      block-size: fit-content;
+      background: white;
+      border-radius: 8px;
+      box-sizing: border-box;
+      padding: 8px 12px 8px 12px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1d1f;
+      .actionBar {
+        min-width: 200px;
+        max-width: 100%;
+        height: 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .editButton {
+          height: 100%;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #ed2a26;
+        }
+        .deleteButton {
+          width: 32px;
+          height: 32px;
+          background: #ffffff;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.15);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 100%;
+          path {
+            stroke: #c02929;
+          }
+        }
+      }
+    }
+    .pointer {
+      width: 32px;
+      height: 24px;
+      position: absolute;
+      left: 14px;
+      overflow: hidden;
+      &::before {
+        content: "";
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        background: white;
+        transform: rotate(45deg);
+        top: -12px;
+        left: 4px;
+        border-radius: 3px;
+        box-shadow: -1px -1px 10px -2px rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  &:hover {
+    .commentBox {
+      z-index: 1;
+      opacity: 1;
+      transition: 200ms;
+    }
+    svg {
+      path {
+        stroke: #1c1d1f;
+      }
+    }
+  }
+}
+.commentBarToWrite {
+  position: absolute;
+  left: 10px;
+  button {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+    &:focus {
+      outline: none;
+    }
+  }
+  &:hover {
+    svg {
+      fill: red;
+      path {
+        stroke: white;
+      }
+    }
+  }
+}
+
+.absend {
+  color: #c02929;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #e7e7e7;
+  cursor: default;
+  background: white;
+}
+.present {
+  color: #047005;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #e7e7e7;
+  cursor: default;
+  background: white;
+}
+.grade {
+  border: 1px solid #55b0f1;
+  color: #55b0f1;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  padding: 0;
+  background: white;
+  cursor: default;
+}
+
+.inputWithGrade {
+  border: 1px solid #55b0f1;
+  color: #55b0f1;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:focus {
+    outline-width: 0;
+  }
+  input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #55b0f1;
+    &:focus {
+      outline-width: 0;
+    }
+  }
+  &:after {
+    content: "";
+    background-image: url("../../../assets/img/Edit.png");
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 0;
+    transition: ease 0.1s;
+    -webkit-transition: ease 0.1s;
+  }
+
+  &:hover:after {
+    height: 100%;
+    transition: 200ms;
+  }
+  &:hover {
+    border: 0;
+    transition: 300ms;
+  }
+}
+.inputWithGradeFocused {
+  border: 1px solid #55b0f1;
+  color: #55b0f1;
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  text-align: center;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  cursor: pointer;
+
+  &:focus {
+    outline-width: 0;
+  }
+  input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #55b0f1;
+    &:focus {
+      outline-width: 0;
+    }
+  }
+}
+
+.inputWithoutGrade {
+  width: 32px;
+  height: 32px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #e7e7e7;
+  overflow: hidden;
+  input {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: #55b0f1;
+    &:focus {
+      outline-width: 0;
+    }
+  }
+  &:hover {
+    border: 1px solid #6a6a6a;
+  }
+}
+
+.checkBoxWrapper {
+  height: 100%;
+  width: 100%;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  &:focus {
+    outline: none;
+  }
+  .checkBox {
+    width: 24px;
+    height: 24px;
+    border: 1px solid #949494;
+    box-sizing: border-box;
+    border-radius: 4px;
+  }
+  span {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b6b6b6;
+    margin-left: 16px;
+  }
+}
+.switchCheckBoxContainer {
+  min-width: 52px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  background-color: transparent;
+  padding: 0;
+  span {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b6b6b6;
+    margin-left: 12px;
+  }
+  .switchCheckBoxWrapper {
+    width: 52px;
+    height: 24px;
+    background: transparent;
+    border: 1px solid #bababa;
+    box-sizing: border-box;
+    border-radius: 16px;
+    position: relative;
+    padding: 0;
+    transition: 500ms;
+
+    .circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      background: #ffffff;
+      position: absolute;
+      top: calc(50% - 20px / 2);
+      left: 1px;
+      transition: 500ms;
+    }
+  }
+}
+
+.answerInputWrapper {
+  width: 100%;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  background: #353535;
+  border: 1px solid #6a6a6a;
+  border-radius: 4px;
+  margin-bottom: 24px;
+  .answerInput {
+    width: 100%;
+    height: 100%;
+    padding-left: 16px;
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 24px;
+    color: #b6b6b6;
+    background-color: transparent;
+    &:focus {
+      outline: none;
+    }
+  }
+  .deleteBtn {
+    width: 40px;
+    height: 100%;
+    background: #f3f3ee;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
