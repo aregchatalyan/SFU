@@ -10,7 +10,7 @@ import UserList from "../../userList";
 import UserVideos from "../../usersVideoContainer";
 import style from "./style.module.scss";
 
-const isTeacher = true;
+const isTeacher = false;
 
 const VideoCall = ({
   userId,
@@ -31,6 +31,7 @@ const VideoCall = ({
   hands,
   polls,
   setHands,
+  audioStream,
 }) => {
   const wrapperRef = useRef(null);
   const logRef = useRef(null);
@@ -54,7 +55,7 @@ const VideoCall = ({
   });
   const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
     useCreatePollModal({ socket, userId });
-
+  console.log(`audioStream`, audioStream);
   return (
     <div className={style.fullScreenWrapper} style={{ width, height }}>
       <UserList
@@ -64,6 +65,7 @@ const VideoCall = ({
           setIsUserListOpened,
           selfId: userId,
           videoPlayer,
+          audioStream,
         }}
       />
       <div
@@ -80,6 +82,7 @@ const VideoCall = ({
             selfId: userId,
             selfStream: stream,
             selfScreenStream: screenStream,
+            selfAudioStream: audioStream,
           }}
         />
         <Controllers

@@ -122,8 +122,10 @@ const App = () => {
       } else {
         toastify(firstPage.voicePermission);
       }
+    } else {
+      closeProducer("audioType", socket, setAudioStream);
+      setMicrophone(false);
     }
-    // setMicrophone(!microphone);
   };
 
   const windowFullScreen = () => {
@@ -161,44 +163,48 @@ const App = () => {
 
   return (
     <UserInfoContext.Provider value={{ users }}>
-      <DimensionsContext.Provider value={size}>
-        {!isReady ? (
-          <Waiting
-            {...{
-              stream,
-              videoPlayer,
-              handleVideoClick,
-              microphone,
-              handleMicrophoneClick,
-              handleConfirm: confirmMiting,
-            }}
-          />
-        ) : (
-          <VideoCall
-            microphone={microphone}
-            handleSharing={shareScreen}
-            handleFullScreen={windowFullScreen}
-            {...{
-              userId,
-              fullScreen,
-              videoPlayer,
-              handleVideoClick,
-              handleMicrophoneClick,
-              microphone,
-              roomId,
-              stream,
-              screenStream,
-              massages,
-              leaveMeeting,
-              hands,
-              setHands,
-              polls,
-              socket,
-            }}
-          />
-        )}
-        {loading ? <Spinner videoLoading={false} /> : null}
-      </DimensionsContext.Provider>
+      <React.StrictMode>
+        <DimensionsContext.Provider value={size}>
+          {!isReady ? (
+            <Waiting
+              {...{
+                stream,
+                videoPlayer,
+                handleVideoClick,
+                microphone,
+                handleMicrophoneClick,
+                handleConfirm: confirmMiting,
+                audioStream,
+              }}
+            />
+          ) : (
+            <VideoCall
+              microphone={microphone}
+              handleSharing={shareScreen}
+              handleFullScreen={windowFullScreen}
+              {...{
+                userId,
+                fullScreen,
+                videoPlayer,
+                handleVideoClick,
+                handleMicrophoneClick,
+                microphone,
+                roomId,
+                stream,
+                screenStream,
+                massages,
+                leaveMeeting,
+                hands,
+                setHands,
+                polls,
+                socket,
+                audioStream,
+              }}
+            />
+          )}
+          {loading ? <Spinner videoLoading={false} /> : null}
+        </DimensionsContext.Provider>
+      </React.StrictMode>
       <Toast />
     </UserInfoContext.Provider>
   );

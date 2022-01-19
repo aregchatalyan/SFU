@@ -11,7 +11,6 @@
     "chart.js": "^2.9.4",
     "moment": "^2.29.1",
     "react": "^17.0.2",
-    "react-audio-spectrum": "^0.1.0",
     "react-chartjs-2": "^2.11.1",
     "react-color-palette": "^6.1.0",
     "react-compound-timer": "^1.2.0",

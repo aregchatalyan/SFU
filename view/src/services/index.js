@@ -210,6 +210,10 @@ const removeConsumer = function (consumer_id, callback) {
         elm.stream = undefined;
         elm.consumerId = undefined;
       }
+      if (elm.audioConsumerId === consumer_id) {
+        elm.audioStream = undefined;
+        elm.audioConsumerId = undefined;
+      }
       return elm;
     })
   );
@@ -593,10 +597,8 @@ export const produce = async function (
     producers.set(producer.id, producer);
 
     let elem;
-    if (!audio) {
-      setStream(stream);
-    }
 
+    setStream(stream);
     producer.on("trackended", () => {
       closeProducer(type, socket);
     });

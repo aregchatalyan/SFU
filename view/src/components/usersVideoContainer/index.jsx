@@ -2,10 +2,14 @@ import React, { useContext } from "react";
 import { UserInfoContext } from "../../Context/userInfoContext";
 
 import VideoWrapper from "../core/VideoContainer";
-import VoiceWrapper from "../core/Voice";
-import style from "./style.module.scss";
+import "./style.scss";
 
-const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
+const UserVideos = ({
+  selfId,
+  selfStream,
+  selfScreenStream,
+  selfAudioStream,
+}) => {
   const { users } = useContext(UserInfoContext);
   const lenght = users?.length;
   let mainClass = "videoContainerStandard";
@@ -15,7 +19,7 @@ const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
     mainClass = "videoContainerFor4Users";
   }
   return (
-    <div className={style[`${mainClass}`]}>
+    <div className={mainClass}>
       {users.map(
         (
           {
@@ -49,20 +53,18 @@ const UserVideos = ({ selfId, selfStream, selfScreenStream }) => {
               mainConsumerId = "myVideo";
               mainStream = selfStream;
             }
+            audioStream = selfAudioStream;
           }
 
           return (
-            <div key={index}>
-              <VideoWrapper
-                id={mainConsumerId}
-                className={style[`video${lenght === 3 ? index : ""}`]}
-                stream={mainStream}
-                video={video}
-                smallStream={smallStream}
-                smallConsumerId={smallConsumerId}
-              />
-              <VoiceWrapper id={audioConsumerId} audioStream={audioStream} />
-            </div>
+            <VideoWrapper
+              id={mainConsumerId}
+              className={`video${lenght === 3 ? index : ""}`}
+              stream={mainStream}
+              video={video}
+              key={index}
+              {...{ audioConsumerId, audioStream, showMicState: true }}
+            />
           );
         }
       )}

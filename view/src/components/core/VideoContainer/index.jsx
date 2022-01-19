@@ -1,14 +1,21 @@
-import React, { useRef, useEffect, useState } from "react";
-import { UserBig } from "../../theme/Icons";
+import React, { useRef, useEffect } from "react";
+import Icon from "../Icon";
+import VoiceWrapper from "../Voice";
 
-const VideoWrapper = ({ className, stream, id, smallStream }) => {
-  const [showSmallVideo, setShowSmallVideo] = useState(true);
+const VideoWrapper = ({
+  id,
+  audioConsumerId,
+  stream,
+  audioStream,
+  className,
+  showMicState,
+}) => {
   const userVideo = useRef();
-  const smallVideo = useRef();
+
   useEffect(() => {
     if (userVideo.current) userVideo.current.srcObject = stream;
-    if (smallVideo.current) smallVideo.current.srcObject = smallStream;
-  }, [stream, smallStream]);
+  }, [stream]);
+
   return (
     <div className={className}>
       {stream ? (
@@ -20,23 +27,10 @@ const VideoWrapper = ({ className, stream, id, smallStream }) => {
           muted
         />
       ) : (
-        <UserBig />
+        <Icon name="vidowrapper_user" width={259} height={259} />
       )}
-      {smallStream && showSmallVideo && (
-        <div
-          className="smallVideo"
-          onClick={() => {
-            setShowSmallVideo(false);
-          }}
-        >
-          <video
-            id={id}
-            playsInline={false}
-            autoPlay={true}
-            ref={smallVideo}
-            muted
-          />
-        </div>
+      {showMicState && (
+        <VoiceWrapper id={audioConsumerId} audioStream={audioStream} />
       )}
     </div>
   );

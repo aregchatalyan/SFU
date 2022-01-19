@@ -1,9 +1,10 @@
 import React from "react";
 import defaultUser from "../../assets/img/defaultUser.png";
 import Icon from "../core/Icon";
+import Visulizer from "../core/Visualizer";
 import style from "./style.module.scss";
 
-const Item = ({ isVideoOn }) => {
+const Item = ({ isVideoOn, itemAudioStream }) => {
   return (
     <div className={style.item}>
       <div className={style.container}>
@@ -16,7 +17,10 @@ const Item = ({ isVideoOn }) => {
         {!isVideoOn && (
           <Icon name="userlist_video_off" width={32} height={32} />
         )}
-        <Icon name="userlist_voice_off" width={32} height={36} />
+        {itemAudioStream ? // <Visulizer {...{ audioStream: itemAudioStream }} />
+        null : (
+          <Icon name="userlist_voice_off" width={32} height={36} />
+        )}
       </div>
     </div>
   );

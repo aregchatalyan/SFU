@@ -5,9 +5,17 @@ import Icon from "../core/Icon";
 import Item from "./Item";
 import style from "./style.module.scss";
 
-const UserList = ({ className, setIsUserListOpened, selfId, videoPlayer }) => {
+const UserList = ({
+  className,
+  setIsUserListOpened,
+  selfId,
+  videoPlayer,
+  audioStream: myAudioStream,
+}) => {
   const { height } = useContext(DimensionsContext);
   const { users } = useContext(UserInfoContext);
+  console.log(`users`, users);
+  console.log(`AUDIO : `, myAudioStream);
 
   return (
     <div className={className}>
@@ -26,9 +34,12 @@ const UserList = ({ className, setIsUserListOpened, selfId, videoPlayer }) => {
         </div>
       </div>
       <div className={style.userListContainer} style={{ height: height - 96 }}>
-        {users.map(({ stream, userId }, key) => {
+        {users.map(({ stream, userId, audioStream }, key) => {
           const isVideoOn = userId === selfId ? videoPlayer : stream;
-          return <Item {...{ isVideoOn }} key={key} />;
+          const itemAudioStream =
+            userId === selfId ? myAudioStream : audioStream;
+
+          return <Item {...{ isVideoOn, itemAudioStream }} key={key} />;
         })}
       </div>
     </div>
