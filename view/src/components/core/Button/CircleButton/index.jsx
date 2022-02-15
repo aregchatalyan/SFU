@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 import Icon from "../../Icon";
 import style from "./style.module.scss";
 
-export { CircleButtonWithHover } from "./CircleButtonWithHover";
-export { CircleButtonWhithStates } from "./CircleButtonWhithStates";
-export { CircleButtonCustom } from "./CircleButtonCustom";
-export { CircleActionButton } from "./CircleActionButton";
+export { default as CircleActionButton } from "./CircleActionButton";
+export { default as CircleButtonCustom } from "./CircleButtonCustom";
+export { default as CircleButtonWithHover } from "./CircleButtonWithHover";
+export { default as CircleButtonWhithStates } from "./CircleButtonWhithStates";
 
 const CircleButton = ({ onClick, state, iconName }) => (
   <button
@@ -16,4 +16,4 @@ const CircleButton = ({ onClick, state, iconName }) => (
     <Icon name={iconName} width={24} height={24} />
   </button>
 );
-export default CircleButton;
+export default memo(CircleButton);

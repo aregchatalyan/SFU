@@ -1,10 +1,11 @@
+import React, { memo } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import style from "./style.module.scss";
 
 const Toast = () => <ToastContainer className={style.toast} />;
 
-export default Toast;
+export default memo(Toast);
 
 export const toastify = (msg) => {
   toast.error(msg, {

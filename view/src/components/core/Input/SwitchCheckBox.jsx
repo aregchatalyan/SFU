@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import style from "./style.module.scss";
 
 const SwitchCheckBox = ({ name, context, setContext, label }) => {
@@ -27,4 +27,4 @@ const SwitchCheckBox = ({ name, context, setContext, label }) => {
   );
 };
 
-export default SwitchCheckBox;
+export default memo(SwitchCheckBox);

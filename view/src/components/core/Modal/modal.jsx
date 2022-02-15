@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import style from "./style.module.scss";
 
 const Modal = ({ visible, children, ...modalProps }) => {
@@ -8,4 +8,4 @@ const Modal = ({ visible, children, ...modalProps }) => {
     </div>
   );
 };
-export default Modal;
+export default memo(Modal);

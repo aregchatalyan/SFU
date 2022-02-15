@@ -1,7 +1,8 @@
+import React, { memo } from "react";
 import Student from "./Student";
 import style from "./style.module.scss";
 
-export default function RightSideBar({ participants }) {
+const RightSideBar = ({ participants }) => {
   const [me, ...classmates] = participants;
   return (
     <div className={style.rightSideBar}>
@@ -19,4 +20,5 @@ export default function RightSideBar({ participants }) {
       })}
     </div>
   );
-}
+};
+export default memo(RightSideBar);

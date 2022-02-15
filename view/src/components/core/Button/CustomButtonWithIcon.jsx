@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import Icon from "../Icon";
 import style from "./style.module.scss";
 
-export const CustomButtonWithIcon = ({
+const CustomButtonWithIcon = ({
   onClick,
   className,
   iconName,
@@ -21,3 +21,4 @@ export const CustomButtonWithIcon = ({
     </div>
   );
 };
+export default memo(CustomButtonWithIcon);

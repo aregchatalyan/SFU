@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import style from "./style.module.scss";
 
-export const CircleActionButton = ({ onClick }) => {
+const CircleActionButton = ({ onClick }) => {
   const [isClicked, setisClicked] = useState(false);
 
   const handleClick = () => {
@@ -56,3 +56,5 @@ export const CircleActionButton = ({ onClick }) => {
     </button>
   );
 };
+
+export default memo(CircleActionButton);

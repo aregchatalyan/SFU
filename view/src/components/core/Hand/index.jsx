@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import hand from "../../../assets/img/handUp.png";
 import userPic from "../../../assets/img/user1.png";
 
@@ -14,4 +14,4 @@ const Hand = ({ userId }) => {
     </div>
   );
 };
-export default Hand;
+export default memo(Hand);

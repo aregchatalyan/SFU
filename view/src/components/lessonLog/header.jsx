@@ -1,6 +1,4 @@
-import React from "react";
-import { useState } from "react";
-// import { VideoCall } from "../board/theme/svg";
+import React, { memo, useState } from "react";
 import Icon from "../core/Icon";
 import style from "./style.module.scss";
 
@@ -62,4 +60,4 @@ const Header = ({ goToVideoCall, getLogsByIndex, handleFullScreen }) => {
     </div>
   );
 };
-export default Header;
+export default memo(Header);

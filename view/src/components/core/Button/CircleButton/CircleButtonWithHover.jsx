@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React, { useRef, memo } from "react";
 import { useEffect } from "react";
 import { useComponentHover } from "../../../../hooks/useComponenetHover";
 import Icon from "../../Icon";
 import style from "./style.module.scss";
 
-export const CircleButtonWithHover = ({
+const CircleButtonWithHover = ({
   onClick,
   iconName,
   children,
@@ -61,3 +61,5 @@ export const CircleButtonWithHover = ({
     </div>
   );
 };
+
+export default memo(CircleButtonWithHover);

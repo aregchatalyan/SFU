@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import Icon from "../Icon";
+import React, { useState, memo } from "react";
 import Answer from "./answer";
+import Icon from "../Icon";
 import style from "./style.module.scss";
 
 const Question = ({
@@ -44,4 +44,4 @@ const Question = ({
   );
 };
 
-export default Question;
+export default memo(Question);

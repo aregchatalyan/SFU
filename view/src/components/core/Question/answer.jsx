@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import CheckBox from "../Input/CheckBox";
 import user from "../../../assets/img/user1.png";
 import style from "./style.module.scss";
@@ -52,4 +52,4 @@ const Answer = ({
   </div>
 );
 
-export default Answer;
+export default memo(Answer);

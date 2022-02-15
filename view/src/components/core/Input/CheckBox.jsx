@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import Icon from "../Icon";
 import style from "./style.module.scss";
 
@@ -25,4 +25,4 @@ const CheckBox = ({ label, checked, disable, onSelect }) => {
   );
 };
 
-export default CheckBox;
+export default memo(CheckBox);

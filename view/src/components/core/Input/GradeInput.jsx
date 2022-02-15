@@ -1,6 +1,6 @@
-import React, { useState, useRef } from "react";
-import Icon from "../Icon";
+import React, { useState, useRef, memo } from "react";
 import { useOutsideClick } from "../../../hooks";
+import Icon from "../Icon";
 import style from "./style.module.scss";
 
 const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
@@ -30,7 +30,7 @@ const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
   );
 };
 
-export const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
+const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
   const [gradeValue, setGradeValue] = useState("");
   const [commentValue, setCommentValue] = useState("");
   const inputRef = useRef(null);
@@ -103,3 +103,5 @@ export const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
     </>
   );
 };
+
+export default memo(GradeInput);

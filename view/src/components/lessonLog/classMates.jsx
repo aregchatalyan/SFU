@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Icon from "../core/Icon";
 import gold from "../../assets/img/gold.png";
 import silver from "../../assets/img/silver.png";
 import bronze from "../../assets/img/bronze.png";
 import style from "./style.module.scss";
 
-const Scales = ({ type }) => {
+const Scales = memo(({ type }) => {
   switch (type) {
     case "first":
       return (
@@ -36,7 +36,7 @@ const Scales = ({ type }) => {
         </div>
       );
   }
-};
+});
 
 const ClassMates = ({ lessonLogData, userId, isTeacher }) => {
   const [goldObj, silverObj, bronzeObj] = [
@@ -178,4 +178,4 @@ const ClassMates = ({ lessonLogData, userId, isTeacher }) => {
     </div>
   );
 };
-export default ClassMates;
+export default memo(ClassMates);

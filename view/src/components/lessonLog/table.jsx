@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import moment from "moment";
 import { GradeInput } from "../core/Input";
-import style from "./style.module.scss";
 import Icon from "../core/Icon";
+import style from "./style.module.scss";
 
 const today = 1639958400000;
 
@@ -94,4 +94,4 @@ const Table = ({
   );
 };
 
-export default Table;
+export default memo(Table);

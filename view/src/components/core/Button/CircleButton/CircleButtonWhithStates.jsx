@@ -1,8 +1,8 @@
-import React from "react";
+import React, { memo } from "react";
 import Icon from "../../Icon";
 import style from "./style.module.scss";
 
-export const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
+const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
   return (
     <button
       onClick={onClick}
@@ -15,3 +15,5 @@ export const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
     </button>
   );
 };
+
+export default memo(CircleButtonWhithStates);

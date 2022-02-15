@@ -53,7 +53,7 @@ const UserVideos = ({
               mainConsumerId = "myVideo";
               mainStream = selfStream;
             }
-            audioStream = selfAudioStream;
+            // audioStream = selfAudioStream;
           }
 
           return (

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, memo } from "react";
 import Icon from "../Icon";
 import style from "./style.module.scss";
 
@@ -23,4 +23,4 @@ const VoiceWrapper = ({ id, audioStream }) => {
   );
 };
 
-export default VoiceWrapper;
+export default memo(VoiceWrapper);

@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
 
-export { GradeInput } from "./GradeInput";
+export { default as GradeInput } from "./GradeInput";
 
 const CustomInput = ({ className, inputValue, setInputValue }) => {
   return (
@@ -12,4 +12,4 @@ const CustomInput = ({ className, inputValue, setInputValue }) => {
   );
 };
 
-export default CustomInput;
+export default memo(CustomInput);

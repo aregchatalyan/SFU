@@ -1,13 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import ClassMates from "./classMates";
 import Header from "./header";
 import Table from "./table";
-
-import style from "./style.module.scss";
+import { useModalWithCallback } from "../core/Modal";
 import first from "../../assets/img/user1.png";
 import second from "../../assets/img/user2.png";
 import third from "../../assets/img/user3.png";
-import { useModalWithCallback } from "../core/Modal";
+import style from "./style.module.scss";
 
 const seperate = [
   [1638302400000, 1639094400000],
@@ -685,4 +684,4 @@ const LessonLog = ({
   );
 };
 
-export default LessonLog;
+export default memo(LessonLog);

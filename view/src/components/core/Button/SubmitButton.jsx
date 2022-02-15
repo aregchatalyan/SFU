@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import style from "./style.module.scss";
 
 const SubmitButton = ({ disabled = false, onClick, text }) => {
@@ -17,4 +17,4 @@ const SubmitButton = ({ disabled = false, onClick, text }) => {
   );
 };
 
-export default SubmitButton;
+export default memo(SubmitButton);

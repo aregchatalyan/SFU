@@ -1,6 +1,8 @@
-export { CustomButtonWithIcon } from "./CustomButtonWithIcon";
-export { ButtonWithTextAndIcon } from "./ButtonWithTextAndIcon";
-export { ButtonWithSlider } from "./ButtonWithSlider";
+import React, { memo } from "react";
+
+export { default as CustomButtonWithIcon } from "./CustomButtonWithIcon";
+export { default as ButtonWithTextAndIcon } from "./ButtonWithTextAndIcon";
+export { default as ButtonWithSlider } from "./ButtonWithSlider";
 
 const CustomButton = ({ onClick, text, className, children }) => {
   return (
@@ -14,4 +16,4 @@ const CustomButton = ({ onClick, text, className, children }) => {
   );
 };
 
-export default CustomButton;
+export default memo(CustomButton);

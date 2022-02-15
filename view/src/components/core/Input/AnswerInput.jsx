@@ -1,6 +1,6 @@
-import React from "react";
+import React, { memo } from "react";
+import { CustomButtonWithIcon } from "../Button";
 import style from "./style.module.scss";
-import { CustomButtonWithIcon } from "../Button/CustomButtonWithIcon";
 
 const AnswerInput = ({ name, value, changeContext, index, canBeDelete }) => {
   return (
@@ -35,4 +35,4 @@ const AnswerInput = ({ name, value, changeContext, index, canBeDelete }) => {
   );
 };
 
-export default AnswerInput;
+export default memo(AnswerInput);

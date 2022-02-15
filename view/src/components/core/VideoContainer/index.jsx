@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from "react";
-import Icon from "../Icon";
+import React, { useRef, useEffect, memo } from "react";
 import VoiceWrapper from "../Voice";
+import Icon from "../Icon";
 
 const VideoWrapper = ({
   id,
@@ -35,4 +35,4 @@ const VideoWrapper = ({
     </div>
   );
 };
-export default VideoWrapper;
+export default memo(VideoWrapper);

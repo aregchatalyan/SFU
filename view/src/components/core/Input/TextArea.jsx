@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const TextArea = ({
   cols = "30",
@@ -19,4 +19,4 @@ const TextArea = ({
   );
 };
 
-export default TextArea;
+export default memo(TextArea);

@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import Icon from "../../Icon";
 
-export const CircleButtonCustom = ({
+const CircleButtonCustom = ({
   onClick,
   iconName,
   className,
@@ -18,3 +18,5 @@ export const CircleButtonCustom = ({
     </button>
   );
 };
+
+export default memo(CircleButtonCustom);
