@@ -1,4 +1,5 @@
 const config = require("../config/config");
+const Board = require("./Board");
 
 module.exports = class Room {
   constructor(room_id, worker, io) {
@@ -20,7 +21,9 @@ module.exports = class Room {
     this.questions = new Map();
     this.io = io;
     this.massages = [];
+    this.board = new Board();
   }
+
   addMsg = ({ userId, text }) => {
     this.massages.push({ userId, text });
     this.broadCast("", "newMassage", [{ userId, text }]);
@@ -35,8 +38,9 @@ module.exports = class Room {
 
   addPeer(peer) {
     this.peers.set(peer.id, peer);
-    const userList = this.getAllUsers();
-    this.broadCast(peer.id, "newUsers", userList);
+    console.log("UserId:::", peer.userId);
+    const userList = this.getAllUsers({ userId: peer.userId });
+    this.broadCast(peer.id, "newUsers", [peer]);
   }
 
   addQuestion(question) {
@@ -70,6 +74,7 @@ module.exports = class Room {
 
     this.peers.forEach((peer) => {
       peer.producers.forEach((producer) => {
+        console.log("producer", producer);
         producerList.push({
           producer_id: producer.id,
           producer_socket_id: peer.id,
@@ -79,10 +84,13 @@ module.exports = class Room {
 
     return producerList;
   }
-  getAllUsers() {
+  getAllUsers({ userId }) {
     let userList = [];
     this.peers.forEach((peer) => {
-      userList.push(peer);
+      if (peer.userId === userId) {
+      } else {
+        userList.push(peer);
+      }
     });
     return userList;
   }
@@ -242,5 +250,16 @@ module.exports = class Room {
       id: this.id,
       peers: JSON.stringify([...this.peers]),
     };
+  }
+  sketchingOnBoard(socketId, data) {
+    this.board.sketching(data);
+
+    this.broadCast(socketId, "newSketching", data);
+  }
+  drawingOnBoard(socketId, data) {
+    this.broadCast(socketId, "newDrawing", data);
+  }
+  getBoardData() {
+    return this.board.getBoardData();
   }
 };
