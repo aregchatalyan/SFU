@@ -32,13 +32,6 @@ module.exports = (io) => {
       });
 
       workers.push(worker);
-
-      // log worker resource usage
-      // setInterval(async () => {
-      //     const usage = await worker.getResourceUsage();
-      //
-      //     console.info('mediasoup Worker resource usage [pid:%d]: %o', worker.pid, usage);
-      // }, 120000);
     }
   })();
 
@@ -54,19 +47,46 @@ module.exports = (io) => {
     const room = mockData.filter((elm) => elm.room_id === roomId)[0];
     let allowed = false;
     let isTeacher = false;
+    let boardPermission = false;
     const teacher_id = room.teacherInfo.id;
+
+    if (roomList.has(roomId)) {
+      boardPermission = roomList.get(roomId).getUserBoardPermission({ userId });
+    }
 
     if (room) {
       if (teacher_id === userId) {
         allowed = true;
         isTeacher = true;
+        room.users = [...room.users].map((elm) => {
+          if (roomList.has(roomId)) {
+            elm.boardPermission = roomList
+              .get(roomId)
+              .getUserBoardPermission({ userId: elm.id });
+          } else {
+            elm.boardPermission = false;
+          }
+          return elm;
+        });
       } else {
         allowed = room.users.filter(({ id }) => id === userId).length > 0;
       }
     }
+    if (
+      roomList.has(roomId) &&
+      Array.from(roomList.get(roomId).peers.values()).some(
+        ({ userId: id }) => id === userId
+      )
+    ) {
+      allowed = false;
+    }
 
     if (room && allowed) {
-      socket.emit("connected", { isTeacher, ...room });
+      socket.emit("connected", {
+        boardPermission,
+        isTeacher,
+        ...room,
+      });
 
       socket.on("createRoom", async ({ room_id }, callback) => {
         if (roomList.has(room_id)) {
@@ -204,14 +224,14 @@ module.exports = (io) => {
               rtpCapabilities
             );
 
-          console.log("Consuming", {
-            userId: `${
-              roomList.get(socket.room_id) &&
-              roomList.get(socket.room_id).getPeers().get(socket.id).userId
-            }`,
-            producer_id: `${producerId}`,
-            consumer_id: `${params.id}`,
-          });
+          // console.log("Consuming", {
+          //   userId: `${
+          //     roomList.get(socket.room_id) &&
+          //     roomList.get(socket.room_id).getPeers().get(socket.id).userId
+          //   }`,
+          //   producer_id: `${producerId}`,
+          //   consumer_id: `${params.id}`,
+          // });
 
           callback(params);
         }
@@ -235,7 +255,13 @@ module.exports = (io) => {
           }`,
         });
         if (!socket.room_id) return;
-        await roomList.get(socket.room_id).removePeer(socket.id);
+        await roomList
+          .get(socket.room_id)
+          .removePeer(
+            socket.id,
+            roomList.get(socket.room_id) &&
+              roomList.get(socket.room_id).getPeers().get(socket.id).userId
+          );
       });
 
       socket.on("producerClosed", ({ producer_id }) => {
@@ -264,7 +290,13 @@ module.exports = (io) => {
         }
 
         // close transports
-        await roomList.get(socket.room_id).removePeer(socket.id);
+        await roomList
+          .get(socket.room_id)
+          .removePeer(
+            socket.id,
+            roomList.get(socket.room_id) &&
+              roomList.get(socket.room_id).getPeers().get(socket.id).userId
+          );
         await roomList.get(socket.room_id);
 
         if (roomList.get(socket.room_id).getPeers().size === 0) {
@@ -317,7 +349,6 @@ module.exports = (io) => {
       socket.on("askPermission", (data) => {
         if (!roomList.has(socket.room_id)) return;
         roomList.get(socket.room_id).askBoardPermission(data);
-        console.log("asked by user", data.userId);
       });
       socket.on("handlePermission", (data) => {
         if (!roomList.has(socket.room_id)) return;

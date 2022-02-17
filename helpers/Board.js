@@ -6,6 +6,26 @@ module.exports = class Board {
     this.teacher_id = teacher_id;
     this.permissonList = [teacher_id];
   }
+
+  userHasPermission({ userId }) {
+    if (userId === this.teacher_id) {
+      return this.permissonList.filter((id) => id !== this.teacher_id);
+    }
+    return this.permissonList.includes(userId);
+  }
+
+  givePermission({ userId, studentId, allowed }) {
+    if (userId === this.teacher_id && allowed) {
+      this.permissonList.push(studentId);
+      return studentId;
+    } else {
+      this.permissonList = [...this.permissonList].filter(
+        (id) => id !== studentId
+      );
+      return studentId;
+    }
+    return;
+  }
   sketching({
     type,
     clientX,
@@ -44,12 +64,5 @@ module.exports = class Board {
 
   getBoardData() {
     return { paths: this.paths };
-  }
-  givePermission({ userId, studentId }) {
-    if (userId === this.teacher_id) {
-      this.permissonList.push(studentId);
-      return studentId;
-    }
-    return;
   }
 };

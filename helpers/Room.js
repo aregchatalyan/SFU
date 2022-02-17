@@ -22,6 +22,7 @@ module.exports = class Room {
     this.io = io;
     this.massages = [];
     this.board = new Board(teacher_id, io);
+    this.teacher_id = teacher_id;
   }
 
   addMsg = ({ userId, text }) => {
@@ -39,8 +40,15 @@ module.exports = class Room {
   addPeer(peer) {
     this.peers.set(peer.id, peer);
     console.log("UserId:::", peer.userId);
-    const userList = this.getAllUsers({ userId: peer.userId });
     this.broadCast(peer.id, "newUsers", [peer]);
+    if (peer.userId === this.teacher_id) {
+      this.broadCast(peer.id, "teacherJoin", { joined: true });
+    } else {
+      const joined = Array.from(this.peers.values()).some(
+        ({ userId }) => this.teacher_id === userId
+      );
+      this.send(peer.id, "teacherJoin", { joined });
+    }
   }
 
   addQuestion(question) {
@@ -74,7 +82,6 @@ module.exports = class Room {
 
     this.peers.forEach((peer) => {
       peer.producers.forEach((producer) => {
-        console.log("producer", producer);
         producerList.push({
           producer_id: producer.id,
           producer_socket_id: peer.id,
@@ -83,16 +90,6 @@ module.exports = class Room {
     });
 
     return producerList;
-  }
-  getAllUsers({ userId }) {
-    let userList = [];
-    this.peers.forEach((peer) => {
-      if (peer.userId === userId) {
-      } else {
-        userList.push(peer);
-      }
-    });
-    return userList;
   }
 
   getRtpCapabilities() {
@@ -211,10 +208,13 @@ module.exports = class Room {
     return params;
   }
 
-  async removePeer(socket_id) {
+  async removePeer(socket_id, userId) {
     this.peers.get(socket_id).close();
     this.peers.delete(socket_id);
     this.broadCast(socket_id, "userLeft", { socket_id });
+    if (userId === this.teacher_id) {
+      this.broadCast(socket_id, "teacherJoin", { joined: false });
+    }
   }
 
   closeProducer(socket_id, producer_id) {
@@ -231,7 +231,6 @@ module.exports = class Room {
   sendToCurrentUserById(userId, connectionName, data) {
     for (let user of Array.from(this.peers.values())) {
       if (user.userId === userId) {
-        console.log("user", user);
         this.send(user.id, connectionName, data);
         return;
       }
@@ -260,27 +259,35 @@ module.exports = class Room {
       peers: JSON.stringify([...this.peers]),
     };
   }
-  sketchingOnBoard(socketId, data) {
-    if (this.board.sketching(data)) {
-      this.broadCast(socketId, "newSketching", data);
-    }
+
+  getUserBoardPermission(data) {
+    return this.board.userHasPermission(data);
   }
-  drawingOnBoard(socketId, data) {
-    this.board.drawing(data);
-    this.broadCast(socketId, "newDrawing", data);
-  }
-  askBoardPermission({ userId }) {
-    this.sendToCurrentUserById(this.board.teacher_id, "askToJoin", {
-      type: "ask_permission",
-      userId,
-    });
-  }
+
   handleBoardPermission(data) {
     this.sendToCurrentUserById(
       this.board.givePermission(data),
       "myBoardPermission",
       { allowed: data.allowed }
     );
+  }
+
+  sketchingOnBoard(socketId, data) {
+    if (this.board.sketching(data)) {
+      this.broadCast(socketId, "newSketching", data);
+    }
+  }
+
+  drawingOnBoard(socketId, data) {
+    this.board.drawing(data);
+    this.broadCast(socketId, "newDrawing", data);
+  }
+
+  askBoardPermission({ userId }) {
+    this.sendToCurrentUserById(this.board.teacher_id, "askToJoin", {
+      type: "ask_permission",
+      userId,
+    });
   }
 
   getBoardData() {
