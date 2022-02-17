@@ -2,7 +2,7 @@ const config = require("../config/config");
 const Board = require("./Board");
 
 module.exports = class Room {
-  constructor(room_id, worker, io) {
+  constructor(room_id, worker, io, teacher_id) {
     this.id = room_id;
 
     const mediaCodecs = config.mediasoup.router.mediaCodecs;
@@ -21,7 +21,7 @@ module.exports = class Room {
     this.questions = new Map();
     this.io = io;
     this.massages = [];
-    this.board = new Board();
+    this.board = new Board(teacher_id, io);
   }
 
   addMsg = ({ userId, text }) => {
@@ -228,6 +228,15 @@ module.exports = class Room {
       this.send(otherID, connectionName, data);
     }
   }
+  sendToCurrentUserById(userId, connectionName, data) {
+    for (let user of Array.from(this.peers.values())) {
+      if (user.userId === userId) {
+        console.log("user", user);
+        this.send(user.id, connectionName, data);
+        return;
+      }
+    }
+  }
 
   broadCastOnlySelected(connectionName, question, usersId = []) {
     for (const { id, userId } of Array.from(this.peers.values())) {
@@ -252,14 +261,28 @@ module.exports = class Room {
     };
   }
   sketchingOnBoard(socketId, data) {
-    this.board.sketching(data);
-
-    this.broadCast(socketId, "newSketching", data);
+    if (this.board.sketching(data)) {
+      this.broadCast(socketId, "newSketching", data);
+    }
   }
   drawingOnBoard(socketId, data) {
     this.board.drawing(data);
     this.broadCast(socketId, "newDrawing", data);
   }
+  askBoardPermission({ userId }) {
+    this.sendToCurrentUserById(this.board.teacher_id, "askToJoin", {
+      type: "ask_permission",
+      userId,
+    });
+  }
+  handleBoardPermission(data) {
+    this.sendToCurrentUserById(
+      this.board.givePermission(data),
+      "myBoardPermission",
+      { allowed: data.allowed }
+    );
+  }
+
   getBoardData() {
     return this.board.getBoardData();
   }
