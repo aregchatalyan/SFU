@@ -53,6 +53,7 @@ module.exports = class Room {
 
   addQuestion(question) {
     this.questions.set(question.id, question);
+    console.log("questions", this.questions);
     this.broadCast("", "newPoll", [question.getBroadcastData({ userId: "" })]);
   }
 
@@ -85,6 +86,7 @@ module.exports = class Room {
         producerList.push({
           producer_id: producer.id,
           producer_socket_id: peer.id,
+          isScreenShare: producer.appData.isScreenShare,
         });
       });
     });
@@ -154,19 +156,31 @@ module.exports = class Room {
       .connectTransport(transport_id, dtlsParameters);
   }
 
-  async produce(socket_id, producerTransportId, rtpParameters, kind) {
+  async produce(
+    socket_id,
+    producerTransportId,
+    rtpParameters,
+    kind,
+    isScreenShare
+  ) {
     // handle undefined errors
     return new Promise(
       async function (resolve, reject) {
         let producer = await this.peers
           .get(socket_id)
-          .createProducer(producerTransportId, rtpParameters, kind);
+          .createProducer(
+            producerTransportId,
+            rtpParameters,
+            kind,
+            isScreenShare
+          );
 
         resolve(producer.id);
         this.broadCast(socket_id, "newProducers", [
           {
             producer_id: producer.id,
             producer_socket_id: socket_id,
+            isScreenShare,
           },
         ]);
       }.bind(this)
@@ -279,8 +293,9 @@ module.exports = class Room {
   }
 
   drawingOnBoard(socketId, data) {
-    this.board.drawing(data);
-    this.broadCast(socketId, "newDrawing", data);
+    if (this.board.drawing(data)) {
+      this.broadCast(socketId, "newDrawing", data);
+    }
   }
 
   askBoardPermission({ userId }) {
@@ -288,6 +303,11 @@ module.exports = class Room {
       type: "ask_permission",
       userId,
     });
+  }
+  resetBoard(socketId, data) {
+    if (this.board.reset(data)) {
+    }
+    this.broadCast(socketId, "boardReset", data);
   }
 
   getBoardData() {

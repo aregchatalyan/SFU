@@ -2,6 +2,7 @@ const mediasoup = require("mediasoup");
 
 const Room = require("./helpers/Room");
 const Peer = require("./helpers/Peer");
+const Question = require("./helpers/Question");
 const mockData = require("./helpers/mock.data");
 
 const config = require("./config/config");
@@ -188,13 +189,22 @@ module.exports = (io) => {
 
       socket.on(
         "produce",
-        async ({ kind, rtpParameters, producerTransportId }, callback) => {
+        async (
+          { kind, rtpParameters, producerTransportId, isScreenShare },
+          callback
+        ) => {
           if (!roomList.has(socket.room_id))
             return callback({ error: "not is a room" });
 
           let producer_id = await roomList
             .get(socket.room_id)
-            .produce(socket.id, producerTransportId, rtpParameters, kind);
+            .produce(
+              socket.id,
+              producerTransportId,
+              rtpParameters,
+              kind,
+              isScreenShare
+            );
 
           console.log("Produce", {
             type: `${kind}`,
@@ -321,6 +331,7 @@ module.exports = (io) => {
       });
 
       socket.on("createPoll", ({ userId, question, versions, anonymus }) => {
+        console.log("userId", userId);
         if (!roomList.has(socket.room_id)) return;
         roomList
           .get(socket.room_id)
@@ -362,7 +373,12 @@ module.exports = (io) => {
       });
       socket.on("drawing", (data) => {
         if (!roomList.has(socket.room_id)) return;
+        console.log("data", data);
         roomList.get(socket.room_id).drawingOnBoard(socket.id, data);
+      });
+      socket.on("resetBoard", (data) => {
+        if (!roomList.has(socket.room_id)) return;
+        roomList.get(socket.room_id).resetBoard(socket.id, data);
       });
     } else {
       socket.emit("forbidden", "hello");

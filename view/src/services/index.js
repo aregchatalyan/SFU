@@ -91,6 +91,7 @@ const initTransports = async function (device, socket) {
               producerTransportId: producerTransport.id,
               kind,
               rtpParameters,
+              screenType: "screenShare",
             },
             socket
           );

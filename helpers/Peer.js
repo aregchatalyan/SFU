@@ -19,11 +19,17 @@ module.exports = class Peer {
     });
   }
 
-  async createProducer(producerTransportId, rtpParameters, kind) {
+  async createProducer(
+    producerTransportId,
+    rtpParameters,
+    kind,
+    isScreenShare
+  ) {
     console.log("kind", kind);
     let producer = await this.transports.get(producerTransportId).produce({
       kind,
       rtpParameters,
+      appData: { isScreenShare },
     });
 
     this.producers.set(producer.id, producer);

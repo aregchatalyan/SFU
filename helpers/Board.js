@@ -5,6 +5,7 @@ module.exports = class Board {
     this.elements = [];
     this.teacher_id = teacher_id;
     this.permissonList = [teacher_id];
+    this.action = false;
   }
 
   userHasPermission({ userId }) {
@@ -60,9 +61,54 @@ module.exports = class Board {
     }
     return false;
   }
-  drawing() {}
+
+  drawing({
+    type,
+    clientX,
+    clientY,
+    incomingElementColor,
+    incomingElementWidth,
+    incomingCanvasWidth,
+    incomingCanvasHeight,
+    incomingToolType,
+    producerId,
+  }) {
+    if (this.permissonList.includes(producerId)) {
+      if (type === "start") {
+        const newElement = {
+          startingX: clientX,
+          startingY: clientY,
+          endingX: clientX,
+          endingY: clientY,
+          color: incomingElementColor,
+          width: incomingElementWidth,
+          type: incomingToolType,
+          canvasWidth: incomingCanvasWidth,
+          canvasHeight: incomingCanvasHeight,
+          producerId: producerId,
+        };
+        this.elements.push(newElement);
+      } else if (type === "on_process") {
+        const lastElementCopy = { ...this.elements[this.elements.length - 1] };
+        this.elements[this.elements.length - 1] = {
+          ...lastElementCopy,
+          endingX: clientX,
+          endingY: clientY,
+        };
+      } else if (type === "finished" || type === "mouse_out") {
+      }
+      return true;
+    }
+    return false;
+  }
+  reset({ producerId }) {
+    if (this.permissonList.includes(producerId)) {
+      this.paths = [];
+      this.elements = [];
+    }
+  }
 
   getBoardData() {
-    return { paths: this.paths };
+    return { paths: this.paths, elements: this.elements };
   }
 };
