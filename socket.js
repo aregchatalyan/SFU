@@ -371,14 +371,26 @@ module.exports = (io) => {
 
         roomList.get(socket.room_id).sketchingOnBoard(socket.id, data);
       });
+
       socket.on("drawing", (data) => {
         if (!roomList.has(socket.room_id)) return;
         console.log("data", data);
         roomList.get(socket.room_id).drawingOnBoard(socket.id, data);
       });
+
       socket.on("resetBoard", (data) => {
         if (!roomList.has(socket.room_id)) return;
         roomList.get(socket.room_id).resetBoard(socket.id, data);
+      });
+
+      socket.on("undoAction", (data) => {
+        if (!roomList.has(socket.room_id)) return;
+        roomList.get(socket.room_id).undoBoardAction(socket.id, data);
+      });
+      socket.on("redoAction", (data) => {
+        if (!roomList.has(socket.room_id)) return;
+        console.log("dara", data);
+        roomList.get(socket.room_id).redoBoardAction(socket.id, data);
       });
     } else {
       socket.emit("forbidden", "hello");

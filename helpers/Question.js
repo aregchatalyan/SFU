@@ -11,6 +11,7 @@ module.exports = class Question {
       id: `${index + 1}`,
     }));
     this.voteList = new Map();
+    this.createdAt = new Date().toLocaleDateString();
   }
   getBroadcastData({ userId }) {
     if (this.voteList.has(userId)) {
@@ -42,6 +43,7 @@ module.exports = class Question {
         versions,
         isAnswered: true,
         anonymus: this.isAnonymus,
+        createdAt: this.createdAt,
       };
     } else {
       return {
@@ -51,6 +53,7 @@ module.exports = class Question {
         versions: this.versions,
         isAnswered: false,
         anonymus: this.isAnonymus,
+        createdAt: this.createdAt,
       };
     }
   }

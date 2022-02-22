@@ -309,6 +309,14 @@ module.exports = class Room {
     }
     this.broadCast(socketId, "boardReset", data);
   }
+  undoBoardAction(socketId, data) {
+    this.board.undoActionByUserId(data);
+    this.broadCast(socketId, "undoUserAction", data);
+  }
+  redoBoardAction(socketId, data) {
+    this.board.redoBoardAction(data);
+    this.broadCast(socketId, "redoUserAction", data);
+  }
 
   getBoardData() {
     return this.board.getBoardData();

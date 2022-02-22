@@ -107,7 +107,39 @@ module.exports = class Board {
       this.elements = [];
     }
   }
+  undoActionByUserId({ undoActionType, userId }) {
+    if (undoActionType === "sketch") {
+      const prevCopy = [...this.paths];
 
+      for (let index = this.paths.length - 1; index >= 0; index--) {
+        const element = this.paths[index];
+        if (element.producerId === userId) {
+          prevCopy.splice(index, 1);
+          break;
+        }
+      }
+
+      this.paths = prevCopy;
+    } else if (undoActionType === "draw") {
+      const prevCopy = [...this.elements];
+
+      for (let index = this.elements.length - 1; index >= 0; index--) {
+        const element = this.elements[index];
+        if (element.producerId === userId) {
+          prevCopy.splice(index, 1);
+          break;
+        }
+      }
+      this.elements = prevCopy;
+    }
+  }
+  redoBoardAction({ undoActionType, ...otherProps }) {
+    if (undoActionType === "sketch") {
+      this.paths.push(otherProps);
+    } else if (undoActionType === "draw") {
+      this.elements.push(otherProps);
+    }
+  }
   getBoardData() {
     return { paths: this.paths, elements: this.elements };
   }
