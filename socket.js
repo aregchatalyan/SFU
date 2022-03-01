@@ -88,6 +88,10 @@ module.exports = (io) => {
         isTeacher,
         ...room,
       });
+      if (roomList.has(roomId)) {
+        console.log("userId", userId);
+        roomList.get(roomId).checkAndRemoveUser(userId);
+      }
 
       socket.on("createRoom", async ({ room_id }, callback) => {
         if (roomList.has(room_id)) {
@@ -264,6 +268,7 @@ module.exports = (io) => {
             roomList.get(socket.room_id).getPeers().get(socket.id).userId
           }`,
         });
+
         if (!socket.room_id) return;
         await roomList
           .get(socket.room_id)

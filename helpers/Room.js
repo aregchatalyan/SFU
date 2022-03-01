@@ -18,6 +18,7 @@ module.exports = class Room {
       );
 
     this.peers = new Map();
+    this.waitingList = new Map();
     this.questions = new Map();
     this.io = io;
     this.massages = [];
@@ -225,10 +226,18 @@ module.exports = class Room {
   async removePeer(socket_id, userId) {
     this.peers.get(socket_id).close();
     this.peers.delete(socket_id);
-    this.broadCast(socket_id, "userLeft", { socket_id });
+    this.waitingList.set(userId, { socket_id });
+
+    this.broadCast(socket_id, "userConnectionProblem", { userId });
+
     if (userId === this.teacher_id) {
       this.broadCast(socket_id, "teacherJoin", { joined: false });
     }
+  }
+  checkAndRemoveUser(userId) {
+    if (!this.waitingList.has(userId)) return;
+    const socket_id = this.waitingList.get(userId).socket_id;
+    this.broadCast(socket_id, "userLeft", { socket_id });
   }
 
   closeProducer(socket_id, producer_id) {
