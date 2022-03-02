@@ -1,7 +1,7 @@
-import React, { useState, useRef, memo } from "react";
-import { useOutsideClick } from "../../../hooks";
-import Icon from "../Icon";
-import style from "./style.module.scss";
+import React, { useState, useRef, memo } from 'react'
+import { useOutsideClick } from '../../../hooks'
+import Icon from '../Icon'
+import style from './style.module.scss'
 
 const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
   return (
@@ -18,7 +18,7 @@ const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
             </button>
             <button
               className={style.deleteButton}
-              onClick={() => setCommentValue("")}
+              onClick={() => setCommentValue('')}
             >
               <Icon name="comment_delete" width={20} height={20} />
             </button>
@@ -27,19 +27,19 @@ const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
       </div>
       <div className={style.pointer} />
     </div>
-  );
-};
+  )
+}
 
 const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
-  const [gradeValue, setGradeValue] = useState("");
-  const [commentValue, setCommentValue] = useState("");
-  const inputRef = useRef(null);
+  const [gradeValue, setGradeValue] = useState('')
+  const [commentValue, setCommentValue] = useState('')
+  const inputRef = useRef(null)
   const { active: isFocused, setActive: setIsFocused } =
-    useOutsideClick(inputRef);
+    useOutsideClick(inputRef)
 
   return (
     <>
-      {isTeacher && grade !== "A" ? (
+      {isTeacher && grade !== 'A' ? (
         <>
           <div
             className={
@@ -55,7 +55,7 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
               />
             )}
             <button onClick={() => openModal(setCommentValue)}>
-              <Icon name={"comment_log"} width={16} height={16} />
+              <Icon name={'comment_log'} width={16} height={16} />
             </button>
           </div>
           <div
@@ -72,8 +72,8 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
               value={gradeValue}
               onChange={({ target: { value } }) => setGradeValue(value)}
               onFocus={() => {
-                setIsFocused(true);
-                inputRef.current.select();
+                setIsFocused(true)
+                inputRef.current.select()
               }}
               ref={inputRef}
             />
@@ -83,9 +83,9 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
         <>
           <span
             className={
-              grade === "A"
+              grade === 'A'
                 ? style.absend
-                : grade === "P" || !grade
+                : grade === 'P' || !grade
                 ? style.present
                 : style.grade
             }
@@ -95,13 +95,13 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
           {comment && (
             <div className={style.commentBar}>
               <CommentBox commentText={comment} />
-              <Icon name={"comment_log"} width={16} height={16} />
+              <Icon name={'comment_log'} width={16} height={16} />
             </div>
           )}
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default memo(GradeInput);
+export default memo(GradeInput)

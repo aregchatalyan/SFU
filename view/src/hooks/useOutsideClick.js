@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 
 export const useOutsideClick = (ref, nextRef) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(false)
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref && nextRef) {
@@ -11,18 +11,18 @@ export const useOutsideClick = (ref, nextRef) => {
           active &&
           nextRef.current.contains(event.target)
         ) {
-          setActive(false);
+          setActive(false)
         }
       } else {
         if (ref.current && !ref.current.contains(event.target) && active) {
-          setActive(false);
+          setActive(false)
         }
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
+    }
+    document.addEventListener('mousedown', handleClickOutside)
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [ref, active, nextRef]);
-  return { active, setActive };
-};
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [ref, active, nextRef])
+  return { active, setActive }
+}

@@ -1,11 +1,30 @@
 .fullScreenWrapper {
   display: flex;
-  height: 100vh !important;
+  height: 100vh;
   overflow: hidden;
   position: relative;
+  .fullScreenButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 32px;
+    height: 32px;
+    background: rgba(35, 35, 35, 0.5);
+    backdrop-filter: blur(25px);
+    border-radius: 8px;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > button {
+      cursor: pointer;
+    }
+  }
+
   .userListHide {
     width: 0;
-    transition: 500ms;
+    min-width: 0;
+    transition: 500ms all;
     background-color: #1c1d1f;
     div {
       opacity: 0;
@@ -15,7 +34,8 @@
     width: 17.6%;
     height: 100%;
     background-color: #1c1d1f;
-    transition: 500ms;
+    transition: 500ms all;
+    min-width: 336px;
     div {
       opacity: 1;
       transition: 800ms;
@@ -45,6 +65,7 @@
     top: 0;
     right: 0;
     overflow: hidden;
+    z-index: 8;
   }
   .closed {
     width: 0;
@@ -55,7 +76,9 @@
     top: 0;
     left: 0;
     overflow: hidden;
+    z-index: 8;
   }
+
   .chat {
     width: 450px;
     height: 770px;
@@ -67,6 +90,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    z-index: 8;
   }
   .chatHide {
     width: 450px;
@@ -78,7 +102,6 @@
     overflow: hidden;
   }
   button {
-    cursor: pointer;
     &:focus {
       outline: none;
     }

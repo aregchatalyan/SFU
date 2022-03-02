@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react'
 
 export function Resize({ toolType, colorWidth }) {
   const move =
-    toolType === "selection" ? (
+    toolType === 'selection' ? (
       <svg
         width="20"
         height="20"
@@ -52,13 +52,13 @@ export function Resize({ toolType, colorWidth }) {
           </clipPath>
         </defs>
       </svg>
-    );
-  return move;
+    )
+  return move
 }
 
 export function Line({ toolType }) {
   const line =
-    toolType === "line" ? (
+    toolType === 'line' ? (
       <svg
         width="20"
         height="20"
@@ -88,13 +88,13 @@ export function Line({ toolType }) {
           fill="white"
         />
       </svg>
-    );
-  return line;
+    )
+  return line
 }
 
 export function Circle({ toolType }) {
   const circle =
-    toolType === "circle" ? (
+    toolType === 'circle' ? (
       <svg
         width="20"
         height="20"
@@ -114,12 +114,12 @@ export function Circle({ toolType }) {
       >
         <circle cx="10" cy="10" r="9.25" stroke="white" strokeWidth="1.5" />
       </svg>
-    );
-  return circle;
+    )
+  return circle
 }
 export function Rectangle({ toolType, colorWidth }) {
   const rectangle =
-    toolType === "rectangle" ? (
+    toolType === 'rectangle' ? (
       <svg
         width="20"
         height="20"
@@ -145,12 +145,12 @@ export function Rectangle({ toolType, colorWidth }) {
           fill="white"
         />
       </svg>
-    );
-  return rectangle;
+    )
+  return rectangle
 }
 export function Triangle({ toolType, colorWidth }) {
   const triangle =
-    toolType === "triangle" ? (
+    toolType === 'triangle' ? (
       <svg
         width="20"
         height="20"
@@ -190,8 +190,8 @@ export function Triangle({ toolType, colorWidth }) {
           </clipPath>
         </defs>
       </svg>
-    );
-  return triangle;
+    )
+  return triangle
 }
 
 export function Brush({ toolType, colorWidth }) {
@@ -205,18 +205,18 @@ export function Brush({ toolType, colorWidth }) {
     >
       <path
         d="M21.3 24.9C22.5 23.1 23.7 21.3 24.9 19.7C29.7 13.5 35.2 8 41.7 3.4C43.5 2.1 45.4 0.9 47.6 0.3C48 0.1 48.5 0 49 0C50 0 50.8 0.6 50.6 1.6C50.4 2.8 50 4 49.5 5.2C48.2 7.9 46.5 10.2 44.6 12.4C41.1 16.5 37.3 20.4 33.2 23.8C30.9 25.7 28.4 27.6 25.7 29C25.8 29.3 26 29.7 26 30C26.2 30.9 25.9 31.7 25.2 32.2C24.5 32.7 23.5 32.7 22.8 32.2C22.2 31.7 21.7 31.2 21.2 30.6C20.4 29.8 19.6 29 18.8 28.2C17.8 27.2 17.7 26.2 18.4 25.3C19 24.4 20.1 24.2 21.3 24.8C21.2 24.8 21.3 24.9 21.3 24.9Z"
-        fill={toolType === "brush" ? colorWidth.hex : "#5B5858"}
+        fill={toolType === 'brush' ? colorWidth.hex : '#5B5858'}
       />
       <path
         d="M0 44.4C0.9 43.9 1.8 43.4 2.7 42.8C4.2 41.8 4.8 40.2 5.4 38.6C6 36.9 6.5 35.2 7.3 33.6C9 30.1 12.6 29.7 15.6 31C20.6 33.2 21.7 39.3 17.7 43C14.8 45.8 11.3 46.8 7.3 46.4C4.9 46.2 2.6 45.5 0.4 44.6C0.2 44.5 0.1 44.4 0 44.4Z"
-        fill={toolType === "brush" ? colorWidth.hex : "#5B5858"}
+        fill={toolType === 'brush' ? colorWidth.hex : '#5B5858'}
       />
     </svg>
-  );
+  )
 }
 export function Pencil({ toolType, colorWidth }) {
   const pencil =
-    toolType === "pencil" ? (
+    toolType === 'pencil' ? (
       <svg
         width="20"
         height="20"
@@ -256,8 +256,8 @@ export function Pencil({ toolType, colorWidth }) {
           </clipPath>
         </defs>
       </svg>
-    );
-  return pencil;
+    )
+  return pencil
 }
 export function Fill({ toolType, colorWidth }) {
   return (
@@ -372,7 +372,7 @@ export function Fill({ toolType, colorWidth }) {
         </clipPath>
       </defs>
     </svg>
-  );
+  )
 }
 
 export function Reset() {
@@ -395,12 +395,12 @@ export function Reset() {
       />
       <rect x="0.5" y="0.5" width="39" height="39" rx="7.5" stroke="white" />
     </svg>
-  );
+  )
 }
 
 export function Eraser({ toolType, colorWidth }) {
   const eraser =
-    toolType === "eraser" ? (
+    toolType === 'eraser' ? (
       <svg
         width="40"
         height="40"
@@ -426,8 +426,8 @@ export function Eraser({ toolType, colorWidth }) {
           fill="white"
         />
       </svg>
-    );
-  return eraser;
+    )
+  return eraser
 }
 
 export function Download() {
@@ -448,11 +448,11 @@ export function Download() {
         fill="#5B5858"
       />
     </svg>
-  );
+  )
 }
 export function Text({ toolType }) {
   const text =
-    toolType === "text" ? (
+    toolType === 'text' ? (
       <svg
         width="20"
         height="20"
@@ -478,12 +478,12 @@ export function Text({ toolType }) {
           fill="white"
         />
       </svg>
-    );
-  return text;
+    )
+  return text
 }
 export function Pointer({ toolType }) {
   const pointer =
-    toolType === "pointer" ? (
+    toolType === 'pointer' ? (
       <svg
         width="22"
         height="22"
@@ -529,8 +529,8 @@ export function Pointer({ toolType }) {
           strokeLinejoin="round"
         />
       </svg>
-    );
-  return pointer;
+    )
+  return pointer
 }
 export function VideoCall() {
   return (
@@ -554,7 +554,7 @@ export function VideoCall() {
       />
       <rect x="0.5" y="0.5" width="131" height="31" rx="3.5" stroke="white" />
     </svg>
-  );
+  )
 }
 export function Undo({ enabled }) {
   const undo = enabled ? (
@@ -591,8 +591,8 @@ export function Undo({ enabled }) {
         fill="#949494"
       />
     </svg>
-  );
-  return undo;
+  )
+  return undo
 }
 export function Redo({ enabled }) {
   const redo = enabled ? (
@@ -629,8 +629,8 @@ export function Redo({ enabled }) {
         fill="#949494"
       />
     </svg>
-  );
-  return redo;
+  )
+  return redo
 }
 export function Divider() {
   return (
@@ -650,11 +650,11 @@ export function Divider() {
         stroke="white"
       />
     </svg>
-  );
+  )
 }
 export function Size({ toolType }) {
   const fontWeight =
-    toolType === "fontWeight" ? (
+    toolType === 'fontWeight' ? (
       <svg
         width="50"
         height="20"
@@ -748,8 +748,8 @@ export function Size({ toolType }) {
           strokeLinejoin="round"
         />
       </svg>
-    );
-  return fontWeight;
+    )
+  return fontWeight
 }
 
 export function Fullscreen() {
@@ -820,5 +820,5 @@ export function Fullscreen() {
         </clipPath>
       </defs>
     </svg>
-  );
+  )
 }

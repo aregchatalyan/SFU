@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import CustomButton from "../Button";
-import SubmitButton from "../Button/SubmitButton";
-import style from "./style.module.scss";
+import React, { useState } from 'react'
+import CustomButton from '../Button'
+import SubmitButton from '../Button/SubmitButton'
+import style from './style.module.scss'
 
 export const useModalWithCallback = () => {
-  const [prevComment, setprevComment] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [prevComment, setprevComment] = useState('')
+  const [inputValue, setInputValue] = useState('')
+  const [isModalOpened, setIsModalOpened] = useState(false)
   const [submitModal, setSubmitModal] = useState({
     cb: () => {},
-  });
-  const callback = (setString, string = "") => {
-    setIsModalOpened(true);
-    setprevComment(string);
-    setInputValue(string);
+  })
+  const callback = (setString, string = '') => {
+    setIsModalOpened(true)
+    setprevComment(string)
+    setInputValue(string)
     setSubmitModal({
       cb: setString,
-    });
-  };
+    })
+  }
   const addComment = () => {
     if (prevComment !== inputValue && inputValue.length > 0) {
-      submitModal.cb(inputValue);
-      setIsModalOpened(false);
+      submitModal.cb(inputValue)
+      setIsModalOpened(false)
     }
-  };
+  }
 
   const modal = (
     <div
@@ -46,14 +46,14 @@ export const useModalWithCallback = () => {
             text="Cancel"
           />
           <SubmitButton
-            text={prevComment.length > 0 ? "Save" : "Add Comment"}
+            text={prevComment.length > 0 ? 'Save' : 'Add Comment'}
             onClick={addComment}
             disabled={prevComment === inputValue || inputValue.length === 0}
           />
         </div>
       </div>
     </div>
-  );
+  )
 
-  return [modal, callback];
-};
+  return [modal, callback]
+}

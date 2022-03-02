@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import "./theme/toolBoard.scss";
+import React, { useState } from 'react'
+import './theme/toolBoard.scss'
 import {
   Line,
   Resize,
@@ -17,9 +17,9 @@ import {
   Redo,
   Divider,
   Size,
-} from "./theme/svg";
-import ColourPicker from "./ColourPicker";
-import { FontWeight } from "./FontWeight";
+} from './theme/svg'
+import ColourPicker from './ColourPicker'
+import { FontWeight } from './FontWeight'
 
 export default function ToolBoard({
   toolType,
@@ -36,18 +36,17 @@ export default function ToolBoard({
   redo,
   reset,
 }) {
-  const [displayStroke, setDisplayStroke] = useState(false);
-  const [displayFontWeight, setDisplayFontWeght] = useState(false);
-  const [prevTool, setPrevTool] = useState("pencil");
+  const [displayStroke, setDisplayStroke] = useState(false)
+  const [prevTool, setPrevTool] = useState('pencil')
 
   const handleClickStroke = () => {
-    setDisplayStroke(!displayStroke);
-    setColorWidth(colorWidth);
-  };
+    setDisplayStroke(!displayStroke)
+    setColorWidth(colorWidth)
+  }
 
   return (
     <div>
-      <div className="headers">
+      <div className="header">
         <div className="tools">
           <button
             id="videocall"
@@ -64,11 +63,11 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Triangle"
-            className={`topicons ${toolType === "triangle" ? "active" : ""}`}
+            className={`topicons ${toolType === 'triangle' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("triangle");
-              setWidth(1);
-              setShapeWidth(1);
+              setToolType('triangle')
+              setWidth(1)
+              setShapeWidth(1)
             }}
           >
             <Triangle toolType={toolType} colorWidth={colorWidth} />
@@ -78,11 +77,11 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Rectangle"
-            className={`topicons ${toolType === "rectangle" ? "active" : ""}`}
+            className={`topicons ${toolType === 'rectangle' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("rectangle");
-              setWidth(1);
-              setShapeWidth(1);
+              setToolType('rectangle')
+              setWidth(1)
+              setShapeWidth(1)
             }}
           >
             <Rectangle toolType={toolType} colorWidth={colorWidth} />
@@ -92,11 +91,11 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Circle"
-            className={`topicons ${toolType === "circle" ? "active" : ""}`}
+            className={`topicons ${toolType === 'circle' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("circle");
-              setWidth(1);
-              setShapeWidth(1);
+              setToolType('circle')
+              setWidth(1)
+              setShapeWidth(1)
             }}
           >
             <Circle toolType={toolType} colorWidth={colorWidth} />
@@ -106,11 +105,11 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Pencil"
-            className={`topicons ${toolType === "pencil" ? "active" : ""}`}
+            className={`topicons ${toolType === 'pencil' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("pencil");
-              setWidth(1);
-              setShapeWidth(1);
+              setToolType('pencil')
+              setWidth(1)
+              setShapeWidth(1)
             }}
           >
             <Pencil toolType={toolType} colorWidth={colorWidth} />
@@ -120,11 +119,11 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Line"
-            className={`topicons ${toolType === "line" ? "active" : ""}`}
+            className={`topicons ${toolType === 'line' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("line");
-              setWidth(1);
-              setShapeWidth(1);
+              setToolType('line')
+              setWidth(1)
+              setShapeWidth(1)
             }}
           >
             <Line toolType={toolType} colorWidth={colorWidth} />
@@ -134,10 +133,10 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Text"
-            className={`topicons ${toolType === "text" ? "active" : ""}`}
+            className={`topicons ${toolType === 'text' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("text");
-              setShapeWidth(1);
+              setToolType('text')
+              setShapeWidth(1)
             }}
           >
             <Text toolType={toolType} colorWidth={colorWidth} />
@@ -147,10 +146,10 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Selection"
-            className={`topicons ${toolType === "selection" ? "active" : ""}`}
+            className={`topicons ${toolType === 'selection' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("selection");
-              setShapeWidth(1);
+              setToolType('selection')
+              setShapeWidth(1)
             }}
           >
             <Resize toolType={toolType} colorWidth={colorWidth} />
@@ -160,9 +159,9 @@ export default function ToolBoard({
             data-toggle="tooltip"
             data-placement="top"
             title="Pointer"
-            className={`topicons ${toolType === "pointer" ? "active" : ""}`}
+            className={`topicons ${toolType === 'pointer' ? 'active' : ''}`}
             onClick={() => {
-              setToolType("pointer");
+              setToolType('pointer')
             }}
           >
             <Pointer toolType={toolType} />
@@ -178,27 +177,27 @@ export default function ToolBoard({
               data-toggle="tooltip"
               data-placement="top"
               title="Eraser"
-              className={`topicons ${toolType === "eraser" ? "active" : ""}`}
+              className={`topicons ${toolType === 'eraser' ? 'active' : ''}`}
               onClick={() => {
-                setToolType("eraser");
-                setWidth(10);
-                setShapeWidth(1);
+                setToolType('eraser')
+                setWidth(10)
+                setShapeWidth(1)
               }}
             >
               <Eraser toolType={toolType} colorWidth={colorWidth} />
             </button>
             <button
               className={`largIcon  ${
-                toolType === "fontWeight" ? "active" : ""
+                toolType === 'fontWeight' ? 'active' : ''
               }`}
               onClick={() => {
-                setPrevTool(toolType);
-                setToolType("fontWeight");
+                setPrevTool(toolType)
+                setToolType('fontWeight')
               }}
             >
               <Size toolType={toolType} />
 
-              {toolType === "fontWeight" ? (
+              {toolType === 'fontWeight' ? (
                 <FontWeight
                   method={setWidth}
                   setTooltype={setToolType}
@@ -249,5 +248,5 @@ export default function ToolBoard({
       </div>
       {displayStroke && <ColourPicker setColorWidth={setColorWidth} />}
     </div>
-  );
+  )
 }

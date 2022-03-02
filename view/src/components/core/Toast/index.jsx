@@ -1,22 +1,27 @@
-import React, { memo } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import style from "./style.module.scss";
+import { toast, Slide } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
-const Toast = () => <ToastContainer className={style.toast} />;
+import style from './style.module.scss'
 
-export default memo(Toast);
+export { default as ErrorToast } from './ErrorToast'
+export { ConnectedToast } from './ConnectedToast'
 
-export const toastify = (msg) => {
-  toast.error(msg, {
-    position: "top-right",
+export const toastify = (coponent) => {
+  toast(coponent, {
+    position: toast.POSITION.TOP_CENTER,
     autoClose: 4000,
     hideProgressBar: true,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: false,
     progress: undefined,
-    className: style.toastBody,
-    bodyClassName: style.bodyClass,
-  });
-};
+    closeButton: false,
+    transition: Slide,
+    style: {
+      borderRadius: '8px',
+      background: '#fcf6f6',
+      minHeight: 48,
+    },
+    className: style.toastWrapper,
+  })
+}

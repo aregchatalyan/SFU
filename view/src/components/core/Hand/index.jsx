@@ -1,8 +1,8 @@
-import React, { memo } from "react";
-import hand from "../../../assets/img/handUp.png";
-import userPic from "../../../assets/img/user1.png";
+import React, { memo } from 'react'
+import hand from '../../../assets/img/handUp.png'
+import userPic from '../../../assets/img/user1.png'
 
-import style from "./style.module.scss";
+import style from './style.module.scss'
 
 const Hand = ({ userId }) => {
   return (
@@ -12,6 +12,6 @@ const Hand = ({ userId }) => {
         <img src={userPic} alt="name" />
       </div>
     </div>
-  );
-};
-export default memo(Hand);
+  )
+}
+export default memo(Hand)

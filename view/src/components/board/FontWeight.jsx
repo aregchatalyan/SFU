@@ -1,11 +1,11 @@
-import "./theme/toolBoard.scss";
+import './theme/toolBoard.scss'
 
 export function FontWeight({ method, setTooltype, prevToolType }) {
   const handleClick = (value) => (e) => {
-    e.stopPropagation();
-    setTooltype(prevToolType);
-    method(value);
-  };
+    e.stopPropagation()
+    setTooltype(prevToolType)
+    method(value)
+  }
   return (
     <ul className="fontWeight">
       <li onClick={handleClick(1)}>10px</li>
@@ -14,5 +14,5 @@ export function FontWeight({ method, setTooltype, prevToolType }) {
       <li onClick={handleClick(13)}>45px</li>
       <li onClick={handleClick(18)}>55px</li>
     </ul>
-  );
+  )
 }

@@ -43,3 +43,54 @@
     }
   }
 }
+
+@media (max-width: 1600px) {
+  .middleBar {
+    width: 647px;
+    height: 512px;
+    margin-left: 24px;
+    margin-right: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+
+    .title {
+      width: 100%;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1d1f;
+    }
+    .head {
+      width: 100%;
+      height: 32px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      .text {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        span {
+          max-height: 30px;
+          font-family: Rubik;
+          font-style: normal;
+          font-weight: 500;
+          font-size: 20px;
+          line-height: 30px;
+          margin-left: 8px;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

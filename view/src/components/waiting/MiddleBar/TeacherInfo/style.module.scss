@@ -20,9 +20,11 @@
       .pic {
         width: 112px;
         height: 112px;
+        overflow: hidden;
         img {
           width: 100%;
           height: 100%;
+          object-fit: fill;
         }
         border-radius: 100%;
       }
@@ -99,5 +101,62 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+  }
+}
+
+@media (max-width: 1600px) {
+  .teacherInfo {
+    height: 208px;
+    overflow: hidden;
+    .profile {
+      height: 80px;
+      overflow: hidden;
+      .about {
+        width: 252px;
+        .pic {
+          width: 56px;
+          height: 56px;
+          overflow: hidden;
+        }
+        .aboutInfo {
+          width: 178px;
+          .name {
+            height: 30px;
+            font-family: Rubik;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 20px;
+            line-height: 30px;
+            color: #1c1d1f;
+          }
+          .profession {
+            height: 20px;
+            font-family: Rubik;
+            font-style: normal;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 20px;
+            color: #1c1d1f;
+          }
+        }
+      }
+      .info {
+        height: 100%;
+      }
+    }
+    .description {
+      height: 36px;
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 18px;
+      color: #1c1d1f;
+      margin-bottom: 24px;
+    }
+    .infoBar {
+      height: 28px;
+      overflow: hidden;
+    }
   }
 }

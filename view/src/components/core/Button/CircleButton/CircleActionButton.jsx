@@ -1,24 +1,24 @@
-import React, { useState, memo } from "react";
-import style from "./style.module.scss";
+import React, { useState, memo } from 'react'
+import style from './style.module.scss'
 
 const CircleActionButton = ({ onClick }) => {
-  const [isClicked, setisClicked] = useState(false);
+  const [isClicked, setisClicked] = useState(false)
 
   const handleClick = () => {
-    let timeout;
+    let timeout
     if (!isClicked) {
-      setisClicked(true);
-      clearTimeout(timeout);
-      timeout = setTimeout(() => setisClicked(false), 7000);
-      onClick();
+      setisClicked(true)
+      clearTimeout(timeout)
+      timeout = setTimeout(() => setisClicked(false), 7000)
+      onClick()
     }
-  };
+  }
 
   return (
     <button
       className={style.circleActionButton}
       onClick={handleClick}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     >
       <svg
         viewBox="0 0 36 36"
@@ -54,7 +54,7 @@ const CircleActionButton = ({ onClick }) => {
         </svg>
       </svg>
     </button>
-  );
-};
+  )
+}
 
-export default memo(CircleActionButton);
+export default memo(CircleActionButton)

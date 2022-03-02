@@ -1,10 +1,15 @@
-import React from "react";
-import { BrowserRouter, Route } from "react-router-dom";
-import App from "./App";
+import React from 'react'
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import Error from '../../components/pages/Error'
+import App from './App'
 
 const Container = () => (
   <BrowserRouter>
-    <Route path="/:userId" exact component={App} />
+    <Switch>
+      <Route path="/:roomId/:userId" exact component={App} />
+      <Route path="/error" component={Error} />
+      <Redirect to="/error" />
+    </Switch>
   </BrowserRouter>
-);
-export default Container;
+)
+export default Container

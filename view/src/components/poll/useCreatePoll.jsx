@@ -1,48 +1,48 @@
-import React, { useState, useEffect } from "react";
-import SubmitButton from "../core/Button/SubmitButton";
-import CustomButton from "../core/Button/index";
-import AnswerInput from "../core/Input/AnswerInput";
-import SwitchCheckBox from "../core/Input/SwitchCheckBox";
-import TextArea from "../core/Input/TextArea";
-import useModalWithButton from "../core/Modal";
-import Icon from "../core/Icon";
-import style from "./style.module.scss";
+import React, { useState, useEffect } from 'react'
+import SubmitButton from '../core/Button/SubmitButton'
+import CustomButton from '../core/Button/index'
+import AnswerInput from '../core/Input/AnswerInput'
+import SwitchCheckBox from '../core/Input/SwitchCheckBox'
+import TextArea from '../core/Input/TextArea'
+import useModalWithButton from '../core/Modal'
+import Icon from '../core/Icon'
+import style from './style.module.scss'
 
 const initialValues = {
-  question: "",
-  versions: [{ text: "" }, { text: "" }],
+  question: '',
+  versions: [{ text: '' }, { text: '' }],
   anonymus: false,
-};
+}
 
-const Children = ({ socket, closeModal }) => {
-  const [formContext, setFormContext] = useState({ ...initialValues });
-  const [isValid, setIsValid] = useState(false);
+const Children = ({ socket, closeModal, selfId }) => {
+  const [formContext, setFormContext] = useState({ ...initialValues })
+  const [isValid, setIsValid] = useState(false)
 
   useEffect(() => {
     if (formContext.question.length > 0) {
-      setIsValid(true);
+      setIsValid(true)
       formContext.versions.forEach(({ text }) => {
         setIsValid((state) => {
           if (state) {
-            return text.length > 0;
+            return text.length > 0
           } else {
-            return state;
+            return state
           }
-        });
-      });
+        })
+      })
     } else {
-      setIsValid(false);
+      setIsValid(false)
     }
-  }, [formContext]);
+  }, [formContext])
 
   const addVersion = () => {
-    const version = { text: "" };
+    const version = { text: '' }
     setFormContext((state) => {
-      const versions = [...state.versions];
-      versions.push(version);
-      return { ...state, versions };
-    });
-  };
+      const versions = [...state.versions]
+      versions.push(version)
+      return { ...state, versions }
+    })
+  }
 
   return (
     <div className={style.pollContainer}>
@@ -51,7 +51,7 @@ const Children = ({ socket, closeModal }) => {
         <button
           onClick={closeModal}
           className={style.closeBtn}
-          style={{ cursor: "pointer" }}
+          style={{ cursor: 'pointer' }}
         >
           <Icon name="close_poll_modal" width={24} height={24} />
         </button>
@@ -63,26 +63,29 @@ const Children = ({ socket, closeModal }) => {
           className={style.questionInput}
           context={formContext}
           changeContext={setFormContext}
+          placeholder="Have questions? Ask your friends"
         />
         <div className={style.versionHeader}>
           <span className={style.versionLabel}>Versions</span>
           <button
             className={style.addVersionBtn}
             onClick={addVersion}
-            style={{ cursor: "pointer" }}
+            style={{ cursor: 'pointer' }}
           >
-            Add Version
+            <Icon name="poll_add_version" width={16} height={16} />
+            <span>Add Version</span>
           </button>
         </div>
         <div className={style.versionsContainer}>
-          {formContext.versions.map(({ text: value }, index) => (
+          {formContext.versions.map(({ text: value }, index, arr) => (
             <AnswerInput
               {...{
-                name: "versions",
+                name: 'versions',
                 value,
                 index,
                 canBeDelete: formContext.versions.length > 2,
                 changeContext: setFormContext,
+                isLastElement: index === arr.length - 1,
               }}
               key={index}
             />
@@ -90,22 +93,22 @@ const Children = ({ socket, closeModal }) => {
         </div>
         <SwitchCheckBox
           {...{
-            name: "anonymus",
+            name: 'anonymus',
             context: formContext,
             setContext: setFormContext,
-            label: "Anonymus Poll",
+            label: 'Anonymus Poll',
           }}
         />
         <div className={style.actionBar}>
           <CustomButton
-            text={"Cancel"}
+            text={'Cancel'}
             onClick={() => {
-              closeModal();
+              closeModal()
               setFormContext({
-                question: "",
-                versions: [{ text: "" }, { text: "" }],
+                question: '',
+                versions: [{ text: '' }, { text: '' }],
                 anonymus: false,
-              });
+              })
             }}
             className={style.cancelButton}
           />
@@ -113,29 +116,29 @@ const Children = ({ socket, closeModal }) => {
             text="Publish Survey"
             disabled={!isValid}
             onClick={() => {
-              socket.emit("createPoll", {
-                userId: "123456",
+              socket.emit('createPoll', {
+                userId: selfId,
                 ...formContext,
-              });
+              })
               setFormContext({
-                question: "",
-                versions: [{ text: "" }, { text: "" }],
+                question: '',
+                versions: [{ text: '' }, { text: '' }],
                 anonymus: false,
-              });
-              closeModal();
+              })
+              closeModal()
             }}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export const useCreatePollModal = ({ socket }) =>
+export const useCreatePollModal = ({ socket, selfId }) =>
   useModalWithButton({
-    child: ({ closeModal }) => <Children {...{ socket, closeModal }} />,
+    child: ({ closeModal }) => <Children {...{ socket, closeModal, selfId }} />,
     modalProps: {
-      className: style.pollModalContainer,
+      className: style.createPollModalContainer,
     },
     buttonProps: {
       children: (
@@ -146,4 +149,4 @@ export const useCreatePollModal = ({ socket }) =>
       ),
       className: style.buttonStyle,
     },
-  });
+  })

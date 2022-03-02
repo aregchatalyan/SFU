@@ -1,16 +1,17 @@
-import React, { memo } from "react";
-import iconPaths from "../../../assets/icon/paths.json";
+import React, { memo } from 'react'
+import iconPaths from '../../../assets/icon/paths.json'
 
-const Icon = ({ name, width, height }) => {
+const Icon = ({ name, width, height, ...otherProps }) => {
   return (
     <div
+      {...{ ...otherProps }}
       style={{
         width,
         height,
-        padding: "0",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        padding: '0',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <svg
@@ -21,7 +22,7 @@ const Icon = ({ name, width, height }) => {
         dangerouslySetInnerHTML={{ __html: iconPaths[name] }}
       />
     </div>
-  );
-};
+  )
+}
 
-export default memo(Icon);
+export default memo(Icon)

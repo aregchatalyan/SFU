@@ -1,10 +1,10 @@
 export const generateId = (arr) => {
   if (arr.length >= 1) {
-    return arr[arr.length - 1].id + 1;
+    return arr[arr.length - 1].id + 1
   } else {
-    return 1;
+    return 1
   }
-};
+}
 
 // socket.on("getWhiteBoard", function (data) {
 //   data = JSON.parse(data);

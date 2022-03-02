@@ -1,2 +1,2 @@
-export { DimensionsContext } from "./dimensionsContext";
-export { UserInfoContext } from "./userInfoContext";
+export { DimensionsContext } from './dimensionsContext'
+export { UserInfoContext } from './userInfoContext'

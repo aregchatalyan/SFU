@@ -45,3 +45,37 @@
     height: 18px;
   }
 }
+
+@media (max-width: 1600px) {
+  .rows {
+    .rowName {
+      width: 95px;
+      span {
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #949494;
+      }
+    }
+    .rowCount {
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1d1f;
+    }
+  }
+  .rowsLarg {
+    .titleLarge {
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 18px;
+      color: #1c1d1f;
+    }
+  }
+}

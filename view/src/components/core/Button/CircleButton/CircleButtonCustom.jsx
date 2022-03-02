@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import Icon from "../../Icon";
+import React, { memo } from 'react'
+import Icon from '../../Icon'
 
 const CircleButtonCustom = ({
   onClick,
@@ -12,11 +12,11 @@ const CircleButtonCustom = ({
     <button
       onClick={onClick}
       className={className}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     >
       <Icon name={iconName} width={width} height={height} />
     </button>
-  );
-};
+  )
+}
 
-export default memo(CircleButtonCustom);
+export default memo(CircleButtonCustom)

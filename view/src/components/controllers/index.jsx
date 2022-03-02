@@ -1,16 +1,16 @@
-import React, { useState, useRef } from "react";
-import { CustomButtonWithIcon } from "../core/Button";
+import React, { useState, useRef, useEffect } from 'react'
+import { CustomButtonWithIcon } from '../core/Button'
 import CircleButton, {
   CircleButtonWithHover,
   CircleButtonWhithStates,
   CircleButtonCustom,
   CircleActionButton,
-} from "../core/Button/CircleButton";
-import style from "./style.module.scss";
-import { useComponentHover } from "../../hooks/useComponenetHover";
-import Chat from "../chat";
-import CustomInput from "../core/Input";
-import SubBar from "./SubBar";
+} from '../core/Button/CircleButton'
+import style from './style.module.scss'
+import { useActiveTimeOut } from '../../hooks'
+import Chat from '../chat'
+import CustomInput from '../core/Input'
+import SubBar from './SubBar'
 
 const Controllers = ({
   isUserListOpened,
@@ -31,30 +31,58 @@ const Controllers = ({
   closeCreatePollModal,
   isLogOpened,
   setIsLogOpened,
+  isHomeWorkOpened,
+  setIsHomeWorkOpened,
+  polls,
+  isPollModalOpened,
+  unWatchedPoll,
+  setUnWatchedPoll,
   PollButtons,
+  screenStream,
 }) => {
-  const controllersRef = useRef(null);
-  const [isChatFixed, setIsChatFixed] = useState(false);
-  const [isInputOpened, setIsInputOpened] = useState(false);
-  const [isControllersOpened] = useComponentHover(controllersRef);
-  const [inputValue, setInputValue] = useState("");
-  const [isSubBarOpened, setisSubBarOpened] = useState(false);
+  const controllersRef = useRef(null)
+  const [isChatFixed, setIsChatFixed] = useState(false)
+  const [isInputOpened, setIsInputOpened] = useState(false)
+  const isControllersOpened = useActiveTimeOut(controllersRef)
+  const [inputValue, setInputValue] = useState('')
+  const [isSubBarOpened, setisSubBarOpened] = useState(false)
+  const [unWatchedMsg, setUnWatchedMsg] = useState(false)
 
   const sendMsg = () => {
     if (inputValue.length > 0) {
-      socket.emit("addMassage", { userId, text: inputValue });
-      setInputValue("");
+      socket.emit('addMassage', { userId, text: inputValue })
+      setInputValue('')
     }
-  };
+  }
   const handUp = () => {
-    socket.emit("handUp", { userId });
-  };
+    socket.emit('handUp', { userId })
+  }
+  const closeChat = () => setIsChatFixed(false)
+
+  useEffect(() => {
+    if (!isChatFixed && !isInputOpened && massages.length > 0) {
+      setUnWatchedMsg(true)
+    }
+  }, [massages]) // eslint-disable-line
+
+  useEffect(() => {
+    if (!isPollModalOpened && polls.length > 0) {
+      setUnWatchedPoll(true)
+    }
+  }, [polls]) // eslint-disable-line
 
   return (
-    <div className={style.controllersArea} ref={controllersRef}>
+    <div
+      className={
+        isControllersOpened || isInputOpened
+          ? style.controllersArea
+          : style.controllersAreaHide
+      }
+      ref={controllersRef}
+    >
       <div
         className={
-          isControllersOpened || true
+          isControllersOpened || isInputOpened || isChatFixed
             ? style.controllersWrapper
             : style.controllersWrapperHide
         }
@@ -72,10 +100,17 @@ const Controllers = ({
               width={24}
               height={24}
             />
-            <CustomInput
-              className={style.msginput}
-              {...{ inputValue, setInputValue }}
-            />
+            <div className={style.msgInputWrapper}>
+              <CustomInput
+                className={style.msginput}
+                {...{
+                  inputValue,
+                  setInputValue,
+                  submit: sendMsg,
+                  placeholder: 'Write your message',
+                }}
+              />
+            </div>
             <CircleButtonCustom
               iconName="massage_send"
               className={style.sendMsg}
@@ -94,14 +129,29 @@ const Controllers = ({
               {...{
                 state: isChatFixed || isInputOpened,
                 isChatFixed,
-                handlFix: () => setIsChatFixed(!isChatFixed),
-                onClick: () => setIsInputOpened(true),
-                showLocker: true,
+                handlFix: () => {
+                  setIsChatFixed(!isChatFixed)
+                  setUnWatchedMsg(false)
+                },
+                onClick: () => {
+                  setIsInputOpened(true)
+                  setIsBoardOpened(false)
+                  setIsLogOpened(false)
+                  closeCreatePollModal()
+                  closePollModal()
+                  setUnWatchedMsg(false)
+                },
+                showLocker: isControllersOpened,
                 opened: style.msgBar,
                 closed: style.msgBarHide,
                 unLocked: style.lockMsgBar,
                 locked: style.lockMsgBarLocked,
-                isSubBarOpened,
+                isOpenDenied:
+                  isSubBarOpened ||
+                  isBoardOpened ||
+                  isLogOpened ||
+                  massages.length === 0,
+                newNotification: unWatchedMsg,
               }}
             >
               <Chat {...{ userId, massages }} />
@@ -111,12 +161,12 @@ const Controllers = ({
               {...{
                 state: isUserListOpened,
                 onClick: () => {
-                  setIsUserListOpened(!isUserListOpened);
+                  setIsUserListOpened(!isUserListOpened)
                 },
               }}
             />
             <CircleButtonWhithStates
-              iconName={videoPlayer ? "videocall_video" : "videocall_video_off"}
+              iconName={videoPlayer ? 'videocall_video' : 'videocall_video_off'}
               {...{ state: videoPlayer, onClick: handleVideoClick }}
             />
             <CustomButtonWithIcon
@@ -127,7 +177,7 @@ const Controllers = ({
               onClick={leaveMeeting}
             />
             <CircleButtonWhithStates
-              iconName={microphone ? "videocall_voice" : "videocall_voice_off"}
+              iconName={microphone ? 'videocall_voice' : 'videocall_voice_off'}
               {...{ state: microphone, onClick: handleMicrophoneClick }}
             />
             <CircleActionButton onClick={handUp} />
@@ -137,6 +187,7 @@ const Controllers = ({
                 opened: style.etcWrapper,
                 closed: style.etcWrapperHide,
                 setisSubBarOpened,
+                newNotification: unWatchedPoll,
               }}
               showLocker={false}
             >
@@ -147,9 +198,15 @@ const Controllers = ({
                   setIsBoardOpened,
                   isLogOpened,
                   setIsLogOpened,
+                  isHomeWorkOpened,
+                  setIsHomeWorkOpened,
                   PollButtons,
                   closePollModal,
                   closeCreatePollModal,
+                  closeChat,
+                  unWatchedPoll,
+                  setIsUserListOpened,
+                  screenStream,
                 }}
               />
             </CircleButtonWithHover>
@@ -157,6 +214,6 @@ const Controllers = ({
         </div>
       </div>
     </div>
-  );
-};
-export default Controllers;
+  )
+}
+export default Controllers

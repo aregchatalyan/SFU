@@ -1,6 +1,6 @@
-import React from "react";
-import first from "../../assets/img/user1.png";
-import style from "./style.module.scss";
+import React from 'react'
+import first from '../../assets/img/user1.png'
+import style from './style.module.scss'
 
 const MassageConatiner = ({ text, isMine }) => {
   return (
@@ -14,7 +14,7 @@ const MassageConatiner = ({ text, isMine }) => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default MassageConatiner;
+export default MassageConatiner

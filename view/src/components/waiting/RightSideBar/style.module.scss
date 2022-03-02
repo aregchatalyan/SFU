@@ -13,7 +13,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #1c1d1f;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
   }
   .classmates {
     width: 117px;
@@ -24,7 +24,7 @@
     font-size: 16px;
     line-height: 24px;
     color: #1c1d1f;
-    margin-top: 16px;
+    margin-top: 8px;
   }
   .studentWithShadow {
     width: 410px;
@@ -118,6 +118,139 @@
       display: flex;
       justify-content: center;
       align-items: center;
+    }
+  }
+}
+
+@media (max-width: 1600px) {
+  .rightSideBar {
+    width: 311px;
+    height: 512px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 16px;
+    overflow-y: auto;
+    .title {
+      width: 117px;
+      height: 20px;
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1d1f;
+      margin-bottom: 4px;
+    }
+    .classmates {
+      height: 20px;
+      color: #1c1d1f;
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      color: #1c1d1f;
+      margin-top: 4px;
+    }
+    .studentWithShadow {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: inset 0px -1px 0px rgba(35, 35, 35, 0.15);
+    }
+    .student {
+      width: 100%;
+      height: 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .auth {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      .pic {
+        width: 24px;
+        height: 24px;
+        border-radius: 100%;
+        margin-right: 8px;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100;
+          object-fit: fill;
+        }
+      }
+      .name {
+        min-width: 125px;
+        height: 20px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1c1d1f;
+      }
+    }
+    .studentInfo {
+      width: 104px;
+      height: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0;
+      overflow: hidden;
+      .grade {
+        width: 24px;
+        height: 100%;
+        border: 1px solid #55b0f1;
+        box-sizing: border-box;
+        border-radius: 4px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #55b0f1;
+      }
+      .absent {
+        width: 24px;
+        height: 100%;
+        border: 1px solid #dc2c2c;
+        box-sizing: border-box;
+        border-radius: 4px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: #c02929;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .attend {
+        width: 40px;
+        height: 100%;
+        border: 1px solid #047005;
+        box-sizing: border-box;
+        border-radius: 4px;
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: #047005;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 }

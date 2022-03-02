@@ -1,50 +1,36 @@
 const os = require("os");
-const ifaces = os.networkInterfaces();
+const fs = require("fs");
+const path = require("path");
+
+const faces = os.networkInterfaces();
 
 const getLocalIp = () => {
   let localIp = "127.0.0.1";
 
-  Object.keys(ifaces).forEach((ifname) => {
-    for (const iface of ifaces[ifname]) {
-      // Ignore IPv6 and 127.0.0.1
-      if (iface.family !== "IPv4" || iface.internal !== false) {
-        continue;
-      }
-      // Set the local ip to the first IPv4 address found and exit the loop
-      localIp = iface.address;
-      return;
+  Object.keys(faces).forEach((name) => {
+    for (const {family, internal, address} of faces[name]) {
+      if (family !== "IPv4" || internal !== false) continue;
+      return localIp = address;
     }
   });
   return localIp;
 };
 
 module.exports = {
-
-    listenIp:  'localhost',
-    listenPort: 3030,
-    sslCrt: './ssl/cert.pem',
-    sslKey: './ssl/key.pem',
+  listenIp: '127.0.0.1',
+  listenPort: 3030,
+  sslCrt: fs.readFileSync(path.join(__dirname, "..", "ssl", "cert.pem"), "utf-8"),
+  sslKey: fs.readFileSync(path.join(__dirname, "..", "ssl", "key.pem"), "utf-8"),
 
   mediasoup: {
     // Worker settings
     numWorkers: Object.keys(os.cpus()).length,
+
     worker: {
       rtcMinPort: 10000,
-      rtcMaxPort: 10100,
+      rtcMaxPort: 11000,
       logLevel: "warn",
-      logTags: [
-        "info",
-        "ice",
-        "dtls",
-        "rtp",
-        "srtp",
-        "rtcp",
-        // 'rtx',
-        // 'bwe',
-        // 'score',
-        // 'simulcast',
-        // 'svc'
-      ],
+      logTags: ["info", "ice", "dtls", "rtp", "srtp", "rtcp", "rtx", "bwe", "score", "simulcast", "svc"],
     },
 
     // Router settings
@@ -58,7 +44,7 @@ module.exports = {
         },
         {
           kind: "video",
-          mimeType: "video/VP8",
+          mimeType: "video/H264",
           clockRate: 90000,
           parameters: {
             "x-google-start-bitrate": 500,
@@ -72,7 +58,7 @@ module.exports = {
       listenIps: [
         {
           ip: "0.0.0.0",
-          announcedIp: getLocalIp(), // replace by client IP address
+          announcedIp: process.env.NODE_ENV === 'production' ? '52.29.86.126' : getLocalIp()
         },
       ],
       maxIncomingBitrate: 1500000,
