@@ -223,12 +223,16 @@ module.exports = class Room {
     return params;
   }
 
-  async removePeer(socket_id, userId) {
+  async removePeer(socket_id, userId, exited) {
     this.peers.get(socket_id).close();
     this.peers.delete(socket_id);
-    this.waitingList.set(userId, { socket_id });
 
-    this.broadCast(socket_id, "userConnectionProblem", { userId });
+    if (exited) {
+      this.broadCast(socket_id, "userLeft", { socket_id });
+    } else {
+      this.waitingList.set(userId, { socket_id });
+      this.broadCast(socket_id, "userConnectionProblem", { userId });
+    }
 
     if (userId === this.teacher_id) {
       this.broadCast(socket_id, "teacherJoin", { joined: false });

@@ -45,6 +45,7 @@ module.exports = (io) => {
   };
   io.on("connection", (socket) => {
     const { room_id: roomId, user_id: userId } = socket.handshake.query;
+
     const room = mockData.filter((elm) => elm.room_id === roomId)[0];
     let allowed = false;
     let isTeacher = false;
@@ -90,7 +91,7 @@ module.exports = (io) => {
       });
       if (roomList.has(roomId)) {
         console.log("userId", userId);
-        roomList.get(roomId).checkAndRemoveUser(userId);
+        // roomList.get(roomId).checkAndRemoveUser(userId);
       }
 
       socket.on("createRoom", async ({ room_id }, callback) => {
@@ -310,7 +311,8 @@ module.exports = (io) => {
           .removePeer(
             socket.id,
             roomList.get(socket.room_id) &&
-              roomList.get(socket.room_id).getPeers().get(socket.id).userId
+              roomList.get(socket.room_id).getPeers().get(socket.id).userId,
+            true
           );
         await roomList.get(socket.room_id);
 
