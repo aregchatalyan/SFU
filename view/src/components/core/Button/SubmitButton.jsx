@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import style from "./style.module.scss";
+import React, { memo } from 'react'
+import style from './style.module.scss'
 
 const SubmitButton = ({ disabled = false, onClick, text }) => {
   return (
@@ -7,14 +7,14 @@ const SubmitButton = ({ disabled = false, onClick, text }) => {
       className={disabled ? style.submitDisabled : style.submit}
       onClick={() => {
         if (!disabled) {
-          onClick();
+          onClick()
         }
       }}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     >
       {text}
     </button>
-  );
-};
+  )
+}
 
-export default memo(SubmitButton);
+export default memo(SubmitButton)

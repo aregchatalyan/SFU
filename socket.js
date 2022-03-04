@@ -9,9 +9,8 @@ const config = require("./config/config");
 
 module.exports = (io) => {
   let workers = [];
-  let nextMediasoupWorkerIdx = 0;
-
   let roomList = new Map();
+  let nextMediasoupWorkerIdx = 0;
 
   (async () => {
     let { numWorkers } = config.mediasoup;
@@ -25,10 +24,7 @@ module.exports = (io) => {
       });
 
       worker.on("died", () => {
-        console.error(
-          "mediasoup worker died, exiting in 2 seconds... [pid:%d]",
-          worker.pid
-        );
+        console.error("mediasoup worker died, exiting in 2 seconds... [pid:%d]", worker.pid);
         setTimeout(() => process.exit(1), 2000);
       });
 
@@ -43,6 +39,7 @@ module.exports = (io) => {
 
     return worker;
   };
+
   io.on("connection", (socket) => {
     const { room_id: roomId, user_id: userId } = socket.handshake.query;
 

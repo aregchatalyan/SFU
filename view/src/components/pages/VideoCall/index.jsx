@@ -1,23 +1,22 @@
-import React, { useState, useContext, memo, useRef } from "react";
-import { DimensionsContext, UserInfoContext } from "../../../Context";
-import { useOutsideClick } from "../../../hooks";
-import Board from "../../board";
-import Controllers from "../../controllers";
-import HandUpRoute from "../../handUpRoute";
-import LessonLog from "../../lessonLog";
-import usePollModal, { useCreatePollModal } from "../../poll";
-import UserList from "../../userList";
-import UserVideos from "../../usersVideoContainer";
-import style from "./style.module.scss";
-
-const isTeacher = false;
+import React, { useState, memo, useRef } from 'react'
+import { useOutsideClick } from '../../../hooks'
+import Board from '../../board2'
+import ConnectionMsg from '../../connectionMsg'
+import Controllers from '../../controllers'
+import { CustomButtonWithIcon } from '../../core/Button'
+import HandUpRoute from '../../handUpRoute'
+import HomeWork from '../../homework'
+import LessonLog from '../../lessonLog'
+import usePollModal, { useCreatePollModal } from '../../poll'
+import ShareMsg from '../../shareMsg'
+import UserList from '../../userList'
+import UserVideos from '../../usersVideoContainer'
+import style from './style.module.scss'
 
 const VideoCall = ({
   userId,
   stream,
   screenStream,
-  audioPermission,
-  handleStopAudioOnly,
   fullScreen,
   handleFullScreen,
   videoPlayer,
@@ -32,32 +31,47 @@ const VideoCall = ({
   polls,
   setHands,
   audioStream,
+  connnecting,
 }) => {
-  const wrapperRef = useRef(null);
-  const logRef = useRef(null);
+  const wrapperRef = useRef(null)
+  const logRef = useRef(null)
   const { active: isLogOpened, setActive: setIsLogOpened } = useOutsideClick(
     logRef,
     wrapperRef
-  );
-  const { width, height } = useContext(DimensionsContext);
-  const { users } = useContext(UserInfoContext);
-  const [isUserListOpened, setIsUserListOpened] = useState(false);
-  const [isBoardOpened, setIsBoardOpened] = useState(false);
+  )
+  const [isUserListOpened, setIsUserListOpened] = useState(false)
+  const [isBoardOpened, setIsBoardOpened] = useState(false)
+  const [isHomeWorkOpened, setIsHomeWorkOpened] = useState(false)
+  const [unWatchedPoll, setUnWatchedPoll] = useState(false)
+  const [selectedUserId, setSelectedUserId] = useState(null)
 
   const goToVideoCall = () => {
-    setIsBoardOpened(false);
-    setIsLogOpened(false);
-  };
-  const [PallModal, PollModalButton, closePollModal] = usePollModal({
-    polls,
-    socket,
-    userId,
-  });
+    setIsBoardOpened(false)
+    setIsLogOpened(false)
+    setIsHomeWorkOpened(false)
+  }
+  const [PallModal, PollModalButton, closePollModal, isPollModalOpened] =
+    usePollModal({
+      polls,
+      socket,
+      userId,
+      notification: unWatchedPoll,
+    })
   const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
-    useCreatePollModal({ socket, userId });
-  console.log(`audioStream`, audioStream);
+    useCreatePollModal({ socket, selfId: userId })
   return (
-    <div className={style.fullScreenWrapper} style={{ width, height }}>
+    <div className={style.fullScreenWrapper}>
+      {!isBoardOpened && !isLogOpened && (
+        <CustomButtonWithIcon
+          iconName="full_screen"
+          width={20}
+          height={20}
+          className={style.fullScreenButton}
+          onClick={handleFullScreen}
+        />
+      )}
+      {screenStream && <ShareMsg onClick={handleSharing} />}
+      {connnecting && <ConnectionMsg />}
       <UserList
         className={isUserListOpened ? style.userList : style.userListHide}
         {...{
@@ -66,6 +80,11 @@ const VideoCall = ({
           selfId: userId,
           videoPlayer,
           audioStream,
+          selectedUserId,
+          setSelectedUserId,
+          selfStream: stream,
+          selfScreenStream: screenStream,
+          microphone,
         }}
       />
       <div
@@ -76,13 +95,13 @@ const VideoCall = ({
         }
       >
         <UserVideos
-          style={{ width: width / 5 }}
           {...{
-            users,
             selfId: userId,
             selfStream: stream,
-            selfScreenStream: screenStream,
-            selfAudioStream: audioStream,
+            microphone,
+            selectedUserId,
+            setSelectedUserId,
+            isUserListOpened,
           }}
         />
         <Controllers
@@ -99,14 +118,27 @@ const VideoCall = ({
             setIsBoardOpened,
             isLogOpened,
             setIsLogOpened,
+            isHomeWorkOpened,
+            setIsHomeWorkOpened,
             closePollModal,
             closeCreatePollModal,
             fullScreen,
             socket,
             userId,
             massages,
+            polls,
+            isPollModalOpened,
+            unWatchedPoll,
+            setUnWatchedPoll,
+            screenStream,
             PollButtons: [
-              { cb: closeCreatePollModal, ...PollModalButton },
+              {
+                cb: () => {
+                  closeCreatePollModal()
+                  setUnWatchedPoll(false)
+                },
+                ...PollModalButton,
+              },
               { cb: closePollModal, ...CreatePollModalButton },
             ],
           }}
@@ -114,7 +146,7 @@ const VideoCall = ({
 
         <Board
           className={isBoardOpened ? style.opened : style.closed}
-          {...{ goToVideoCall }}
+          {...{ goToVideoCall, socket, selfId: userId, handleFullScreen }}
         />
         <LessonLog
           className={isLogOpened ? style.opened : style.closed}
@@ -124,15 +156,18 @@ const VideoCall = ({
             userId,
             logRef,
             wrapperRef,
-            isTeacher,
           }}
+        />
+        <HomeWork
+          className={isHomeWorkOpened ? style.opened : style.closed}
+          {...{ handleFullScreen, goToVideoCall }}
         />
         <HandUpRoute {...{ hands, setHands }} />
         {PallModal}
         {CreatePallModal}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default memo(VideoCall);
+export default memo(VideoCall)

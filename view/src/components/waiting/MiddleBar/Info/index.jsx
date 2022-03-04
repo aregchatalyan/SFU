@@ -1,19 +1,19 @@
-import React from "react";
-import Icon from "../../../core/Icon/index";
-import style from "./style.module.scss";
+import React from 'react'
+import Icon from '../../../core/Icon/index'
+import style from './style.module.scss'
 
 const titles = {
-  students: "Students :",
-  follower: "Followers :",
-  friend: "Friends :",
-  videoCourses: "Video Courses :",
-  onlineLessons: "Online Lessons :",
-  conference: "Conferene :",
-  liveStream: "Live Stream :",
-};
+  students: 'Students :',
+  follower: 'Followers :',
+  friend: 'Friends :',
+  videoCourses: 'Video Courses :',
+  onlineLessons: 'Online Lessons :',
+  conference: 'Conferene :',
+  liveStream: 'Live Stream :',
+}
 
 export default function Info({ text, count, type, color }) {
-  if (type === "medium") {
+  if (type === 'medium') {
     return (
       <div className={style.rows}>
         <div className={style.rowName}>
@@ -22,16 +22,16 @@ export default function Info({ text, count, type, color }) {
         </div>
         <div className={style.rowCount}>{count}</div>
       </div>
-    );
-  } else if (type === "large") {
+    )
+  } else if (type === 'large') {
     return (
       <div className={style.rowsLarg}>
         <Icon name={`waiting_teacherinfo_${text}`} width={20} height={20} />
         <div className={style.titleLarge}>
-          <span style={{ color: color || "black" }}>{titles[text]}</span>
+          <span style={{ color: color || 'black' }}>{titles[text]}</span>
         </div>
         <div className={style.count}>{count}</div>
       </div>
-    );
+    )
   }
 }

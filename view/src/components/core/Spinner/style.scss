@@ -1,47 +1,28 @@
 .ldsRing {
-  display: inline-block;
-  position: absolute;
-  width: 114px;
-  height: 114px;
-  .active {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 114px;
-    height: 114px;
-    border: 6px solid green;
-    border-radius: 100%;
-    animation: ldsRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-    border-color: #17a519 transparent transparent transparent;
-    &:nth-child(1) {
-      animation-delay: -0.45s;
-    }
-    &:nth-child(2) {
-      animation-delay: -0.3s;
-    }
-    &:nth-child(3) {
-      animation-delay: -0.15s;
-    }
+  display: inline;
+
+  svg {
+    -webkit-animation: rotating 500ms linear infinite;
+    -moz-animation: rotating 500ms linear infinite;
+    -ms-animation: rotating 500ms linear infinite;
+    -o-animation: rotating 500ms linear infinite;
+    animation: rotating 500ms linear infinite;
   }
-  .passive {
-    box-sizing: border-box;
-    display: block;
-    position: absolute;
-    width: 114px;
-    height: 114px;
-    border: 6px solid #e7e7e7;
-    border-radius: 100%;
-  }
-}
-.disaled {
-  display: none;
 }
 
-@keyframes ldsRing {
-  0% {
+@keyframes rotating {
+  from {
+    -ms-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
     transform: rotate(0deg);
   }
-  100% {
+  to {
+    -ms-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }

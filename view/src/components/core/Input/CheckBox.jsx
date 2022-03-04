@@ -1,18 +1,18 @@
-import React, { useState, memo } from "react";
-import Icon from "../Icon";
-import style from "./style.module.scss";
+import React, { useState, memo } from 'react'
+import Icon from '../Icon'
+import style from './style.module.scss'
 
 const CheckBox = ({ label, checked, disable, onSelect }) => {
-  const [isChecked, setisChecked] = useState(false);
+  const [isChecked, setisChecked] = useState(false)
   return (
     <button
       onClick={() => {
         if (!disable) {
-          setisChecked(!isChecked);
-          onSelect();
+          setisChecked(!isChecked)
+          onSelect()
         }
       }}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
       className={style.checkBoxWrapper}
     >
       {isChecked || checked ? (
@@ -22,7 +22,7 @@ const CheckBox = ({ label, checked, disable, onSelect }) => {
       )}
       {label && <span>{label}</span>}
     </button>
-  );
-};
+  )
+}
 
-export default memo(CheckBox);
+export default memo(CheckBox)

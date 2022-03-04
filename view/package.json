@@ -9,7 +9,10 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.5.3",
     "chart.js": "^2.9.4",
+    "framer-motion": "^6.2.3",
+    "mediasoup-client": "^3.6.49",
     "moment": "^2.29.1",
+    "prettier": "^2.5.1",
     "react": "^17.0.2",
     "react-chartjs-2": "^2.11.1",
     "react-color-palette": "^6.1.0",
@@ -19,7 +22,7 @@
     "react-media-recorder": "^1.4.0",
     "react-moment": "^1.1.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.0",
     "react-star-ratings": "^2.3.0",
     "react-textarea-autosize": "^8.3.0",
     "react-toastify": "^6.2.0",
@@ -32,7 +35,10 @@
     "start": "HTTPS=true SSL_CRT_FILE=./src/cert/cert.pem SSL_KEY_FILE=./src/cert/key.pem react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .jsx --ext .js --no-error-on-unmatched-pattern ./src/**",
+    "lint:write": "eslint --fix --ext .jsx --ext .js --no-error-on-unmatched-pattern ./src/**",
+    "prettify": "prettier --write \"./src/**/*.{js,jsx,json,css,scss,md}\""
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +59,16 @@
     ]
   },
   "devDependencies": {
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-formatjs": "^2.15.4",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jest": "^24.3.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.4.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "sass": "^1.39.0"
   }
 }

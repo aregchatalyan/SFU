@@ -1,48 +1,171 @@
-.toast {
-  width: 444px;
-}
-
-.toastBody {
-  width: 420px;
-  min-height: 70px;
-  border-radius: 36px;
+.toastWrapper {
+  width: 262px;
+  height: 48px;
   box-shadow: 2px 8px 14px rgba(black, 0.15);
-  border: 1px solid #dc2d2c;
-  background: white;
-
-  position: relative;
-  .bodyClass {
-    position: absolute;
-    left: 68px;
-    top: 38px;
-    color: #343434;
-    font-weight: 100;
-    font-size: 16px;
-    &::after {
-      content: "Error";
-      display: block;
-      position: absolute;
-      top: -24px;
-      left: 0;
-      font-size: 18px;
-      font-weight: 300;
-    }
-  }
-  &::after {
-    display: block;
-    content: " ";
-    width: 52px;
-    height: 52px;
-    background-image: url("../../../assets/img/ErrorToast.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 32px 32px;
-    background-color: rgb(248 213 212);
-    border-radius: 50%;
+  border: 1px solid #c02929;
+  box-sizing: border-box;
+  border-radius: 8px;
+  padding: 8px;
+  .toastContainer {
+    width: 100%;
+    height: 32px;
     display: flex;
     align-items: center;
-    justify-content: center;
-    position: absolute;
-    left: 8px;
+    justify-content: space-between;
+    .iconWrapper {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background: #c029295b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .msgWrapoper {
+      width: calc(100% - 38px);
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      .title {
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: #c02929;
+      }
+      .msg {
+        font-family: Rubik;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 12px;
+        line-height: 16px;
+        color: #1c1d1f;
+      }
+    }
+  }
+}
+
+.permission_toast {
+  width: 272px;
+  height: 124px;
+  background: #2a2a2a;
+  backdrop-filter: blur(44px);
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .info_board {
+    width: 100%;
+    height: 52px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    .user_info {
+      width: 100%;
+      height: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .user_img_wrapper {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+      }
+      .user_name_surname {
+        font-family: Rubik;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        color: #ffffff;
+      }
+    }
+    .ask_text {
+      font-family: Rubik;
+      font-size: 14px;
+      line-height: 20px;
+      color: #b6b6b6;
+    }
+  }
+  .action_board {
+    width: 100%;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .permissioan_accept_button {
+      width: 112px;
+      height: 100%;
+      background: #047005;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .accept_text {
+        font-family: Rubik;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 16px;
+        color: #ffffff;
+      }
+      &:hover {
+        background-color: #066307;
+      }
+    }
+    .permissioan_decline_button {
+      width: 112px;
+      height: 100%;
+      background: #c02929;
+      box-sizing: border-box;
+      border-radius: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .decline_text {
+        font-family: Rubik;
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 20px;
+        font-feature-settings: 'liga' off;
+        color: #ffffff;
+      }
+      &:hover {
+        background-color: #ac2020;
+      }
+    }
+  }
+}
+
+.connected_toast {
+  width: 325px;
+  height: 74px;
+  background: #ffffff;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  box-sizing: border-box;
+  padding: 12px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  > div {
+    width: 237px;
+    height: 50px;
+    span:nth-child(1) {
+      font-family: Rubik;
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      color: #1c1d1f;
+    }
+    span:nth-child(2) {
+      font-family: Rubik;
+      font-size: 14px;
+      line-height: 20px;
+      color: #6a6a6a;
+    }
   }
 }

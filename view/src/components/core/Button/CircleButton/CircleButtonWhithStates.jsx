@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import Icon from "../../Icon";
-import style from "./style.module.scss";
+import React, { memo } from 'react'
+import Icon from '../../Icon'
+import style from './style.module.scss'
 
 const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
   return (
@@ -9,11 +9,11 @@ const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
       className={
         state ? style.circleButtonWithStateActive : style.circleButtonWithState
       }
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
     >
       <Icon name={iconName} width={24} height={24} />
     </button>
-  );
-};
+  )
+}
 
-export default memo(CircleButtonWhithStates);
+export default memo(CircleButtonWhithStates)

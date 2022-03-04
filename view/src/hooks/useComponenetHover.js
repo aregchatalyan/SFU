@@ -1,22 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react'
 export const useComponentHover = (ref) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(false)
   useEffect(() => {
-    let timeout;
+    let timeout
     const handlMoseMove = (e) => {
       if (ref && ref.current.contains(e.target)) {
-        setIsHovered(true);
-        clearTimeout(timeout);
+        setIsHovered(true)
+        clearTimeout(timeout)
       } else {
-        clearTimeout(timeout);
+        clearTimeout(timeout)
         if (isHovered) {
-          timeout = setTimeout(() => setIsHovered(false), 50);
+          timeout = setTimeout(() => setIsHovered(false), 50)
         }
       }
-    };
-    window.addEventListener("mousemove", handlMoseMove, false);
-    return () => window.removeEventListener("mousemove", handlMoseMove, false);
-  });
+    }
+    window.addEventListener('mousemove', handlMoseMove, false)
+    return () => window.removeEventListener('mousemove', handlMoseMove, false)
+  })
 
-  return [isHovered, setIsHovered];
-};
+  return [isHovered, setIsHovered]
+}

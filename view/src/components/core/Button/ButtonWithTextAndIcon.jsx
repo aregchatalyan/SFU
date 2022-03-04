@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import Icon from "../Icon";
-import style from "./style.module.scss";
+import React, { memo } from 'react'
+import Icon from '../Icon'
+import style from './style.module.scss'
 
 const ButtonWithTextAndIcon = ({
   active,
@@ -10,14 +10,20 @@ const ButtonWithTextAndIcon = ({
   className,
   width,
   height,
+  textStyle,
+  hoverStrock,
 }) => {
   return (
     <button
       onClick={onClick}
-      style={{ cursor: "pointer" }}
+      style={{ cursor: 'pointer' }}
       className={
         className
           ? className
+          : active && hoverStrock
+          ? style.buttonWithIconAndTextStrockActive
+          : hoverStrock
+          ? style.buttonWithIconAndTextStrock
           : active
           ? style.buttonWithIconAndTextActive
           : style.buttonWithIconAndText
@@ -28,8 +34,8 @@ const ButtonWithTextAndIcon = ({
         width={width ? width : 24}
         height={height ? height : 24}
       />
-      <span>{text}</span>
+      <span style={textStyle}>{text}</span>
     </button>
-  );
-};
-export default memo(ButtonWithTextAndIcon);
+  )
+}
+export default memo(ButtonWithTextAndIcon)

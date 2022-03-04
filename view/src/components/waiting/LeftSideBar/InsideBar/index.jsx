@@ -1,16 +1,14 @@
-import Icon from "../../../core/Icon";
-import style from "./style.module.scss";
+import Icon from '../../../core/Icon'
+import style from './style.module.scss'
 
 const InsideBar = ({ title, type, info, arr, level }) => {
-  const isTipeLevel = type === "level";
+  const isTipeLevel = type === 'level'
   return (
     <div className={style.insideBar}>
       <div className={style.title}>
         <h6>{title}</h6>
         <div className={style.level}>
-          {isTipeLevel && (
-            <div className={`circle ${level ? level : "unset"}`} />
-          )}
+          {isTipeLevel && <div className={`circle ${level || 'unset'}`} />}
           <span>{info}</span>
         </div>
       </div>
@@ -20,7 +18,7 @@ const InsideBar = ({ title, type, info, arr, level }) => {
             <div className={style.content} key={key}>
               <div className={style.head}>
                 {isTipeLevel && (
-                  <div className={`circle ${level ? level : "unset"}`} />
+                  <div className={`circle ${level || 'unset'}`} />
                 )}
                 <div className={isTipeLevel ? style.text : style.textSmall}>
                   {text}
@@ -34,10 +32,10 @@ const InsideBar = ({ title, type, info, arr, level }) => {
                 </div>
               </div>
             </div>
-          );
+          )
         })}
       </div>
     </div>
-  );
-};
-export default InsideBar;
+  )
+}
+export default InsideBar

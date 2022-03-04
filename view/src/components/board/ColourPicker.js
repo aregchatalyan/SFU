@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { ColorPicker, useColor } from "react-color-palette";
-import "react-color-palette/lib/css/styles.css";
-import "./theme/toolBoard.scss";
+import React, { useEffect } from 'react'
+import { ColorPicker, useColor } from 'react-color-palette'
+import 'react-color-palette/lib/css/styles.css'
+import './theme/toolBoard.scss'
 const ColourPicker = ({ setColorWidth }) => {
-  const [color, setColor] = useColor("hex", "#121212");
+  const [color, setColor] = useColor('hex', '#121212')
   useEffect(() => {
-    setColorWidth(color);
-  }, [color]);
+    setColorWidth(color)
+  }, [color])
 
   return (
     <div className="colorPicker">
@@ -19,6 +19,6 @@ const ColourPicker = ({ setColorWidth }) => {
         dark
       />
     </div>
-  );
-};
-export default ColourPicker;
+  )
+}
+export default ColourPicker

@@ -1,0 +1,28 @@
+.msg_wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 16px;
+  width: fit-content;
+  height: 24px;
+  background: #232323;
+  border: 1px solid #6a6a6a;
+  box-sizing: border-box;
+  border-radius: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 8px;
+
+  > span {
+    font-family: Rubik;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    font-feature-settings: 'liga' off;
+    color: #eaeaea;
+    padding-left: 4px;
+  }
+}

@@ -1,0 +1,105 @@
+.dragbleVideoContainerWrapper {
+  cursor: move;
+  position: absolute;
+  width: 360px;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 6;
+
+  .dragbleVideoContainer {
+    width: 328px;
+    height: 200px;
+    overflow: hidden;
+    background: #2a2a2a;
+    box-sizing: border-box;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2);
+    transition: all 300ms;
+
+    .resize_btn {
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      background: rgba(35, 35, 35, 0.5);
+      backdrop-filter: blur(25px);
+      border-radius: 8px;
+      > button {
+        cursor: pointer;
+      }
+    }
+    .name {
+      font-family: Rubik;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 24px;
+      color: #ffffff;
+    }
+    .video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+    }
+    .placholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .dragbleVideoContainerSmalled {
+    width: 56px;
+    height: 56px;
+    border-radius: 100%;
+    overflow: hidden;
+    position: absolute;
+    box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2a2a2a;
+    right: 20px;
+    bottom: 20px;
+    .video {
+      display: none;
+    }
+    .placholder {
+      svg {
+        transform: scale(0.8);
+      }
+    }
+    .name {
+      display: none;
+    }
+
+    &:hover .resize_btn {
+      display: flex;
+      > button {
+        cursor: pointer;
+      }
+    }
+    .resize_btn {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: 0;
+      top: 0;
+      background: rgba(35, 35, 35, 0.6);
+      border-radius: 100%;
+      display: none;
+    }
+  }
+}

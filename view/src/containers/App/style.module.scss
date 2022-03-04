@@ -1,3 +1,11 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  border: none;
+}
 .toast {
   width: 444px;
 }
@@ -19,7 +27,7 @@
     font-weight: 100;
     font-size: 16px;
     &::after {
-      content: "Error";
+      content: 'Error';
       display: block;
       position: absolute;
       top: -24px;
@@ -30,10 +38,10 @@
   }
   &::after {
     display: block;
-    content: " ";
+    content: ' ';
     width: 52px;
     height: 52px;
-    background-image: url("../../assets/img/ErrorToast.svg");
+    background-image: url('../../assets/img/ErrorToast.svg');
     background-repeat: no-repeat;
     background-position: center;
     background-size: 32px 32px;

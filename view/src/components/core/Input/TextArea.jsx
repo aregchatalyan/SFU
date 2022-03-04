@@ -1,9 +1,9 @@
-import React, { memo } from "react";
+import React, { memo } from 'react'
 
 const TextArea = ({
-  cols = "30",
-  rows = "10",
-  placeholder = "Placeholder",
+  cols = '30',
+  rows = '10',
+  placeholder = 'Placeholder',
   className,
   name,
   context,
@@ -13,10 +13,10 @@ const TextArea = ({
     <textarea
       {...{ cols, rows, value: context[name], placeholder, className }}
       onChange={({ target: { value } }) => {
-        changeContext((state) => ({ ...state, [name]: value }));
+        changeContext((state) => ({ ...state, [name]: value }))
       }}
     />
-  );
-};
+  )
+}
 
-export default memo(TextArea);
+export default memo(TextArea)

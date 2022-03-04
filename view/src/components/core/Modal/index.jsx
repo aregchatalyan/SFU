@@ -1,18 +1,18 @@
-import React, { useState } from "react";
-import Modal from "./modal";
+import React, { useState } from 'react'
+import Modal from './modal'
 
-export { useModalWithCallback } from "./useModalWithCallback";
+export { useModalWithCallback } from './useModalWithCallback'
 
 const useModalWithButton = ({ child, modalProps, buttonProps = {} }) => {
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(false)
 
   // handlers;
-  const closeModal = () => setVisible(false);
+  const closeModal = () => setVisible(false)
   const button = {
     onClick: () => setVisible(!visible),
     visible,
     buttonProps,
-  };
+  }
 
   return [
     <Modal visible={visible} {...modalProps}>
@@ -20,7 +20,8 @@ const useModalWithButton = ({ child, modalProps, buttonProps = {} }) => {
     </Modal>,
     button,
     closeModal,
-  ];
-};
+    visible,
+  ]
+}
 
-export default useModalWithButton;
+export default useModalWithButton

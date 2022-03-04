@@ -6,27 +6,29 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  // cursor: pointer;
 }
 
 .buttonWithIconAndText {
-  width: 106px;
-  height: 80px;
+  width: 96px;
+  height: 76px;
   background: rgba(42, 42, 42, 0.5);
+  box-shadow: inset 2px 2px 8px rgba(255, 255, 255, 0.1),
+    inset -2px -2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   transition: 200ms;
+  overflow: hidden;
 
-  span {
-    font-family: Rubik;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 14px;
-    line-height: 20px;
-    color: #b6b6b6;
+  > span {
     margin-top: 8px;
+    font-family: Rubik;
+    font-size: 12px;
+    line-height: 16px;
+    color: #b6b6b6;
   }
   &:hover {
     background: #2a2a2a;
@@ -67,10 +69,72 @@
   }
 }
 
-.sliderWrapper {
+.buttonWithIconAndTextStrockActive {
   width: 106px;
   height: 80px;
+  background: #2a2a2a;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+  transition: 200ms;
+  svg {
+    path {
+      stroke: white;
+    }
+  }
+  span {
+    font-family: Rubik;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 20px;
+    color: white;
+    margin-top: 8px;
+  }
+}
+.buttonWithIconAndTextStrock {
+  width: 96px;
+  height: 76px;
   background: rgba(42, 42, 42, 0.5);
+  box-shadow: inset 2px 2px 8px rgba(255, 255, 255, 0.1),
+    inset -2px -2px 8px rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: 200ms;
+  overflow: hidden;
+
+  > span {
+    margin-top: 8px;
+    font-family: Rubik;
+    font-size: 12px;
+    line-height: 16px;
+    color: #b6b6b6;
+  }
+  &:hover {
+    background: #2a2a2a;
+    span {
+      color: white;
+    }
+    svg {
+      path {
+        stroke: white;
+      }
+    }
+  }
+}
+
+.sliderWrapper {
+  width: 96px;
+  height: 76px;
+  background: rgba(42, 42, 42, 0.5);
+  box-shadow: inset 2px 2px 8px rgba(255, 255, 255, 0.1),
+    inset -2px -2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -89,7 +153,7 @@
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    padding-left: 10px;
+    padding-left: 6px;
   }
   .text {
     width: 100%;
@@ -99,14 +163,23 @@
     align-items: center;
     justify-content: center;
     transition: 500ms;
-    span {
+    > span {
       font-family: Rubik;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 20px;
-      color: #b6b6b6;
+      font-size: 12px;
+      line-height: 16px;
       margin-top: 8px;
+      color: #b6b6b6;
+      position: relative;
+
+      .notificationIcon {
+        position: absolute;
+        transform: scale(0.8);
+        right: -14px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        transition: 300ms;
+      }
     }
   }
   &:hover {
@@ -137,7 +210,7 @@
 .submitDisabled {
   width: auto;
   height: 40px;
-  background: #d5dade;
+  background: #dadfe324;
   border-radius: 4px;
   font-family: Rubik;
   font-style: normal;
@@ -148,4 +221,136 @@
   transition: 300ms;
   padding: 8px 32px;
   box-sizing: border-box;
+}
+
+.toolBtn {
+  width: 36px;
+  height: 36px;
+  background-color: transparent;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms;
+  &:hover {
+    background-color: #414246;
+  }
+}
+.toolBtnActive {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  transition: 200ms;
+  svg {
+    path {
+      fill: black;
+    }
+    circle {
+      stroke: black;
+    }
+  }
+}
+.toolBtnActiveStrock {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  transition: 200ms;
+  svg {
+    path {
+      stroke: black;
+    }
+  }
+}
+
+.loading_button {
+  width: 144px;
+  height: 32px;
+  background: #ed2a26;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+  cursor: pointer;
+  .button_text {
+    font-family: Rubik;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 24px;
+    color: #ffffff;
+    margin-left: 10px;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    background-color: #cd1c19;
+  }
+}
+.loading_button_loads {
+  width: 144px;
+  height: 32px;
+  box-sizing: border-box;
+  border: 0;
+  background: #d5dade;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 16px;
+
+  cursor: wait;
+  .loaderWrapper {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .wave {
+      width: 2px;
+      height: 12px;
+      background: #6a6a6a;
+      border-radius: 1px solid;
+      margin: 0 1px;
+      animation: wave 1s linear infinite;
+      border-radius: 20px;
+    }
+    .wave:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+    .wave:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+    @keyframes wave {
+      0% {
+        transform: scale(0);
+      }
+      50% {
+        transform: scale(1);
+      }
+      100% {
+        transform: scale(0);
+      }
+    }
+  }
+  .button_text {
+    font-family: Rubik;
+    font-size: 16px;
+    line-height: 24px;
+    color: #6a6a6a;
+    margin-left: 8px;
+  }
+  &:focus {
+    outline: none;
+  }
 }

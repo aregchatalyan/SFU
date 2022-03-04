@@ -1,6 +1,6 @@
-import React, { memo } from "react";
-import Icon from "../Icon";
-import style from "./style.module.scss";
+import React, { memo } from 'react'
+import Icon from '../Icon'
+import style from './style.module.scss'
 
 const CustomButtonWithIcon = ({
   onClick,
@@ -11,14 +11,10 @@ const CustomButtonWithIcon = ({
 }) => {
   return (
     <div className={className}>
-      <button
-        onClick={onClick}
-        className={style.customButtonWithIcon}
-        style={{ cursor: "pointer" }}
-      >
+      <button onClick={onClick} className={style.customButtonWithIcon}>
         <Icon name={iconName} {...{ width, height }} />
       </button>
     </div>
-  );
-};
-export default memo(CustomButtonWithIcon);
+  )
+}
+export default memo(CustomButtonWithIcon)

@@ -1,74 +1,149 @@
-import React, { useContext } from "react";
-import { UserInfoContext } from "../../Context/userInfoContext";
+import React, { useContext, useEffect, useRef } from 'react'
+import { UserInfoContext } from '../../Context/userInfoContext'
+import { AnimatePresence, motion } from 'framer-motion'
+import VideoWrapper from '../core/VideoContainer'
+import VoiceWrapper from '../core/Voice'
+import './style.scss'
+import DragbleVideo from '../core/DragableVideo'
+import { fadeIn } from '../../helpers/animation.helpers'
 
-import VideoWrapper from "../core/VideoContainer";
-import "./style.scss";
+const countForDragaableContainerDisable = [2, 3, 5]
 
 const UserVideos = ({
   selfId,
   selfStream,
-  selfScreenStream,
-  selfAudioStream,
+  microphone,
+  selectedUserId,
+  setSelectedUserId,
+  isUserListOpened,
 }) => {
-  const { users } = useContext(UserInfoContext);
-  const lenght = users?.length;
-  let mainClass = "videoContainerStandard";
-  if (lenght === 3) {
-    mainClass = "videoContainerFor3Users";
-  } else if (lenght === 4) {
-    mainClass = "videoContainerFor4Users";
-  }
-  return (
-    <div className={mainClass}>
-      {users.map(
-        (
-          {
-            userId,
-            stream: smallStream,
-            consumerId: smallConsumerId,
-            audioConsumerId,
-            audioStream,
-            screenStream,
-            screenConsumerId,
-            video,
-          },
-          index
-        ) => {
-          let mainStream = screenStream || smallStream;
-          let mainConsumerId = screenConsumerId || smallConsumerId;
-          if (!screenStream) {
-            smallStream = undefined;
-            smallConsumerId = undefined;
-          }
-          if (userId === selfId) {
-            if (selfStream && selfScreenStream) {
-              mainConsumerId = "myScreen";
-              mainStream = selfScreenStream;
-              smallStream = selfStream;
-              smallConsumerId = "myVideo";
-            } else if (selfScreenStream) {
-              mainConsumerId = "myScreen";
-              mainStream = selfScreenStream;
-            } else {
-              mainConsumerId = "myVideo";
-              mainStream = selfStream;
-            }
-            // audioStream = selfAudioStream;
-          }
+  const { users } = useContext(UserInfoContext)
+  const appRef = useRef(null)
+  const selectUser = (userId) => () =>
+    setSelectedUserId((state) =>
+      state === userId || users.length === 1 ? null : userId
+    )
+  useEffect(() => {
+    if (!users.some(({ userId }) => userId === selectedUserId)) {
+      setSelectedUserId(undefined)
+    }
+  }, [users, selectedUserId, setSelectedUserId])
 
-          return (
-            <VideoWrapper
-              id={mainConsumerId}
-              className={`video${lenght === 3 ? index : ""}`}
-              stream={mainStream}
-              video={video}
-              key={index}
-              {...{ audioConsumerId, audioStream, showMicState: true }}
-            />
-          );
-        }
-      )}
-    </div>
-  );
-};
-export default UserVideos;
+  return (
+    <AnimatePresence exitBeforeEnter>
+      <motion.div
+        className={`base-grid ${
+          users.lenght !== 1 && !selectedUserId
+            ? `base-grid-` + users.length
+            : ''
+        }`}
+        layout
+        ref={appRef}
+      >
+        {selectedUserId
+          ? users
+              .filter(({ userId }) => userId === selectedUserId)
+              .map(
+                (
+                  {
+                    userId,
+                    stream,
+                    consumerId,
+                    audioConsumerId,
+                    audioStream,
+                    screenStream,
+                    ...otherProps
+                  },
+                  index
+                ) => (
+                  <>
+                    <div
+                      className="base-grid-item"
+                      onClick={selectUser(userId)}
+                      key={index}
+                    >
+                      <VideoWrapper
+                        {...{
+                          id: consumerId,
+                          stream: selfId === userId ? selfStream : stream,
+                          screenStream,
+                          isSelected: true,
+                          ...otherProps,
+                        }}
+                      />
+                      {selfId !== userId && (
+                        <VoiceWrapper
+                          {...{
+                            id: audioConsumerId,
+                            audioStream,
+                            on: selfId === userId && microphone,
+                          }}
+                        />
+                      )}
+                    </div>
+                    {screenStream && stream && (
+                      <DragbleVideo appRef={appRef} stream={stream} />
+                    )}
+                  </>
+                )
+              )
+          : users.map(
+              (
+                {
+                  userId,
+                  stream,
+                  consumerId,
+                  audioConsumerId,
+                  audioStream,
+                  ...otherProps
+                },
+                index,
+                arr
+              ) =>
+                selfId === userId &&
+                countForDragaableContainerDisable.includes(arr.length) ? (
+                  <DragbleVideo
+                    appRef={appRef}
+                    stream={selfStream}
+                    {...{
+                      myMicOn: selfId === userId && microphone,
+                      ...otherProps,
+                      isUserListOpened,
+                    }}
+                    key={index}
+                  />
+                ) : (
+                  <motion.div
+                    initial={fadeIn.hidden}
+                    animate={fadeIn.visible}
+                    exit={fadeIn.hidden}
+                    className="base-grid-item"
+                    onClick={selectUser(userId)}
+                    layoutId={`card-container-${userId}`}
+                    key={index}
+                  >
+                    <VideoWrapper
+                      {...{
+                        id: consumerId,
+                        stream: selfId === userId ? selfStream : stream,
+                        ...otherProps,
+                        rotate: selfId === userId,
+                      }}
+                    />
+                    {selfId !== userId && (
+                      <VoiceWrapper
+                        {...{
+                          id: audioConsumerId,
+                          audioStream,
+                          on: selfId === userId && microphone,
+                        }}
+                      />
+                    )}
+                  </motion.div>
+                )
+            )}
+      </motion.div>
+    </AnimatePresence>
+  )
+}
+export default UserVideos

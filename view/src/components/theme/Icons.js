@@ -20,8 +20,8 @@ export const Blackboard = () => {
         fill="#1C1D1F"
       />
     </svg>
-  );
-};
+  )
+}
 export const Book = () => {
   return (
     <svg
@@ -59,8 +59,8 @@ export const Book = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const Request = () => {
   return (
@@ -108,8 +108,8 @@ export const Request = () => {
         fill="#1C1D1F"
       />
     </svg>
-  );
-};
+  )
+}
 export const Hand = () => {
   return (
     <svg
@@ -131,8 +131,8 @@ export const Hand = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const Voice = ({ condition }) => {
   const voice = condition ? (
@@ -238,9 +238,9 @@ export const Voice = ({ condition }) => {
         strokeLinecap="round"
       />
     </svg>
-  );
-  return voice;
-};
+  )
+  return voice
+}
 export const Video = ({ condition }) => {
   const video = condition ? (
     <svg
@@ -303,9 +303,9 @@ export const Video = ({ condition }) => {
         strokeLinecap="round"
       />
     </svg>
-  );
-  return video;
-};
+  )
+  return video
+}
 export const Message = ({ condition }) => {
   const message = condition ? (
     <svg
@@ -360,10 +360,10 @@ export const Message = ({ condition }) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
+  )
 
-  return message;
-};
+  return message
+}
 export const HangUp = () => {
   return (
     <svg
@@ -381,8 +381,8 @@ export const HangUp = () => {
         fill="#DC2C2C"
       />
     </svg>
-  );
-};
+  )
+}
 export const ScreenShare = () => {
   return (
     <svg
@@ -412,8 +412,8 @@ export const ScreenShare = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const Exel = () => {
   return (
@@ -489,8 +489,8 @@ export const Exel = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 export const Word = () => {
   return (
     <svg
@@ -564,8 +564,8 @@ export const Word = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 export const ShowUsers = ({ size }) => {
   const showUsers =
     size === 24 ? (
@@ -638,9 +638,9 @@ export const ShowUsers = ({ size }) => {
           fill="#1C1D1F"
         />
       </svg>
-    );
-  return showUsers;
-};
+    )
+  return showUsers
+}
 
 export const FullScreeen = ({ condition }) => {
   const screen = !condition ? (
@@ -693,9 +693,9 @@ export const FullScreeen = ({ condition }) => {
         fill="white"
       />
     </svg>
-  );
-  return screen;
-};
+  )
+  return screen
+}
 export const User = () => {
   return (
     <svg
@@ -759,8 +759,8 @@ export const User = () => {
         </filter>
       </defs>
     </svg>
-  );
-};
+  )
+}
 export const UserBig = () => {
   return (
     <svg
@@ -824,8 +824,8 @@ export const UserBig = () => {
         </filter>
       </defs>
     </svg>
-  );
-};
+  )
+}
 export const SmallUser = () => {
   return (
     <svg
@@ -845,8 +845,8 @@ export const SmallUser = () => {
       />
       <circle cx="20" cy="20.0007" r="16.1667" stroke="white" />
     </svg>
-  );
-};
+  )
+}
 export const Home = () => {
   return (
     <svg
@@ -864,8 +864,8 @@ export const Home = () => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 export const Teacher = () => {
   return (
     <svg
@@ -888,8 +888,8 @@ export const Teacher = () => {
         fill="#ED2A26"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Univern = () => {
   return (
@@ -978,8 +978,8 @@ export const Univern = () => {
         fill="#ED1C24"
       />
     </svg>
-  );
-};
+  )
+}
 
 export const Rating = ({ isActive }) => {
   const star = isActive ? (
@@ -1064,9 +1064,9 @@ export const Rating = ({ isActive }) => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-  return star;
-};
+  )
+  return star
+}
 
 export const Student = () => {
   return (
@@ -1082,8 +1082,8 @@ export const Student = () => {
         fill="#949494"
       />
     </svg>
-  );
-};
+  )
+}
 export const Follower = () => {
   return (
     <svg
@@ -1110,8 +1110,8 @@ export const Follower = () => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 export const Friends = () => {
   return (
     <svg
@@ -1154,8 +1154,8 @@ export const Friends = () => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 export const VideoCourse = () => {
   return (
     <svg
@@ -1198,8 +1198,8 @@ export const VideoCourse = () => {
         </linearGradient>
       </defs>
     </svg>
-  );
-};
+  )
+}
 export const OnlineLessons = () => {
   return (
     <svg
@@ -1252,8 +1252,8 @@ export const OnlineLessons = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 export const Events = () => {
   return (
     <svg
@@ -1282,8 +1282,8 @@ export const Events = () => {
         strokeLinejoin="round"
       />
     </svg>
-  );
-};
+  )
+}
 export const LiveStream = () => {
   return (
     <svg
@@ -1341,8 +1341,8 @@ export const LiveStream = () => {
         </linearGradient>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const Conference = () => {
   return (
@@ -1396,8 +1396,8 @@ export const Conference = () => {
         </clipPath>
       </defs>
     </svg>
-  );
-};
+  )
+}
 
 export const TreeUsers = () => (
   <svg
@@ -1454,7 +1454,7 @@ export const TreeUsers = () => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 export const DefaultUser = () => (
   <svg
     width="48"
@@ -1479,7 +1479,7 @@ export const DefaultUser = () => (
       </clipPath>
     </defs>
   </svg>
-);
+)
 
 export const ArrowLeft = (params) => (
   <svg
@@ -1502,7 +1502,7 @@ export const ArrowLeft = (params) => (
       </g>
     </g>
   </svg>
-);
+)
 export const ArrowRight = (params) => (
   <svg
     width="24"
@@ -1519,7 +1519,7 @@ export const ArrowRight = (params) => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)
 
 export const LittleVideoOff = () => (
   <svg
@@ -1555,7 +1555,7 @@ export const LittleVideoOff = () => (
       strokeLinecap="round"
     />
   </svg>
-);
+)
 export const LiitMicrophoneOff = () => (
   <svg
     width="32"
@@ -1611,7 +1611,7 @@ export const LiitMicrophoneOff = () => (
       strokeLinecap="round"
     />
   </svg>
-);
+)
 export const ChatIcon = (params) => (
   <svg
     width="32"
@@ -1637,4 +1637,4 @@ export const ChatIcon = (params) => (
       strokeLinejoin="round"
     />
   </svg>
-);
+)

@@ -74,7 +74,7 @@
       left: 14px;
       overflow: hidden;
       &::before {
-        content: "";
+        content: '';
         position: absolute;
         width: 24px;
         height: 24px;
@@ -116,7 +116,7 @@
   }
   &:hover {
     svg {
-      fill: red;
+      fill: #047005;
       path {
         stroke: white;
       }
@@ -216,8 +216,8 @@
     }
   }
   &:after {
-    content: "";
-    background-image: url("../../../assets/img/Edit.png");
+    content: '';
+    background-image: url('../../../assets/img/Edit.png');
     position: absolute;
     left: 0;
     bottom: 0;
@@ -319,7 +319,9 @@
     box-sizing: border-box;
     border-radius: 4px;
   }
-  span {
+  > span {
+    max-width: 82%;
+    padding: 8px;
     font-family: Rubik;
     font-style: normal;
     font-weight: normal;
@@ -327,6 +329,7 @@
     line-height: 24px;
     color: #b6b6b6;
     margin-left: 16px;
+    text-align: left;
   }
 }
 .switchCheckBoxContainer {
@@ -336,8 +339,8 @@
   align-items: center;
   background-color: transparent;
   padding: 0;
-  span {
-    font-family: Roboto;
+  > span {
+    font-family: Rubik;
     font-style: normal;
     font-weight: normal;
     font-size: 16px;
@@ -360,11 +363,43 @@
       width: 20px;
       height: 20px;
       border-radius: 100%;
-      background: #ffffff;
+      background: #dde2e5;
       position: absolute;
       top: calc(50% - 20px / 2);
       left: 1px;
       transition: 500ms;
+    }
+  }
+  .questionMarkWrapper {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    position: relative;
+    cursor: help;
+    .helpTextWrapper {
+      width: 166px;
+      height: 46px;
+      background-image: url('../../../assets/img/infoTextWrapper.svg');
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      margin: auto;
+      display: none;
+      justify-content: flex-end;
+      align-items: center;
+      > span {
+        font-family: Rubik;
+        font-weight: 300;
+        font-size: 10px;
+        line-height: 15px;
+        color: #ffffff;
+      }
+    }
+    &:hover {
+      .helpTextWrapper {
+        display: flex;
+      }
     }
   }
 }
@@ -374,7 +409,7 @@
   height: 40px;
   position: relative;
   overflow: hidden;
-  background: #353535;
+  background: #35353545;
   border: 1px solid #6a6a6a;
   border-radius: 4px;
   margin-bottom: 24px;
@@ -396,9 +431,43 @@
   .deleteBtn {
     width: 40px;
     height: 100%;
-    background: #f3f3ee;
+    background: #6a6a6a;
     position: absolute;
     right: 0;
     top: 0;
+    button {
+      cursor: pointer;
+    }
   }
+}
+.board_text_area_wrapper {
+  position: absolute;
+  z-index: 10;
+  margin: 0;
+  max-width: 200px;
+  border: 1px solid #ed2a26;
+  box-sizing: border-box;
+  min-height: 34px;
+  min-width: 156px;
+  border-radius: 4px;
+  padding: 4px 8px;
+  > span {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: Rubik;
+    font-size: 16px;
+    line-height: 24px;
+    color: #1c1d1f;
+    overflow: hidden;
+    resize: horizontal;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    &:focus {
+      outline: none;
+    }
+    resize: horizontal;
+  }
+
+  display: none;
 }
