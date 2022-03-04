@@ -25,17 +25,8 @@ const mediaConstraints = {
 }
 
 export const getStream = (mediaType) => {
-  navigator.getUserMedia =
-    navigator.getUserMedia ||
-    navigator.webkitGetUserMedia ||
-    navigator.mozGetUserMedia ||
-    navigator.msGetUserMedia
-
-  return new Promise((resolve, reject) => {
-    navigator.getUserMedia(
-      mediaConstraints[mediaType],
-      (stream) => resolve(stream),
-      (err) => reject(err)
-    )
-  })
+  const stream = window.navigator.mediaDevices.getUserMedia(
+    mediaConstraints[mediaType]
+  )
+  return stream
 }

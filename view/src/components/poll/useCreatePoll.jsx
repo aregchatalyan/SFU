@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import SubmitButton from '../core/Button/SubmitButton'
-import CustomButton from '../core/Button/index'
+import CustomButton from '../core/Button'
 import AnswerInput from '../core/Input/AnswerInput'
 import SwitchCheckBox from '../core/Input/SwitchCheckBox'
 import TextArea from '../core/Input/TextArea'
 import useModalWithButton from '../core/Modal'
 import Icon from '../core/Icon'
 import style from './style.module.scss'
+import { SocketContext } from '../../Context'
 
 const initialValues = {
   question: '',
@@ -14,7 +15,9 @@ const initialValues = {
   anonymus: false,
 }
 
-const Children = ({ socket, closeModal, selfId }) => {
+const Children = ({ closeModal, selfId }) => {
+  const socket = useContext(SocketContext)
+
   const [formContext, setFormContext] = useState({ ...initialValues })
   const [isValid, setIsValid] = useState(false)
 
@@ -134,9 +137,9 @@ const Children = ({ socket, closeModal, selfId }) => {
   )
 }
 
-export const useCreatePollModal = ({ socket, selfId }) =>
+export const useCreatePollModal = ({ selfId }) =>
   useModalWithButton({
-    child: ({ closeModal }) => <Children {...{ socket, closeModal, selfId }} />,
+    child: ({ closeModal }) => <Children {...{ closeModal, selfId }} />,
     modalProps: {
       className: style.createPollModalContainer,
     },

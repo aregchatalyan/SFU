@@ -1,7 +1,8 @@
-import React, { memo } from 'react'
+import React from 'react'
 import Icon from '../Icon'
 import CustomButton from '../Button'
 import style from './style.module.scss'
+import { toast } from 'react-toastify'
 
 const PermissionToast = ({ name, surname, handlePermissionChange }) => {
   return (
@@ -36,4 +37,20 @@ const PermissionToast = ({ name, surname, handlePermissionChange }) => {
   )
 }
 
-export default memo(PermissionToast)
+export const toastPermission = (props) => {
+  toast(<PermissionToast {...props} />, {
+    position: 'bottom-left',
+    autoClose: 5000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    closeButton: false,
+    style: {
+      width: '272px',
+      height: '124px',
+      padding: '0',
+      borderRadius: '8px',
+      background: '#2A2A2A',
+    },
+  })
+}

@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useRef } from 'react'
-import { UserInfoContext } from '../../Context/userInfoContext'
+import React, { memo, useContext, useEffect, useRef } from 'react'
+import { UsersInfoContext } from '../../Context'
 import { AnimatePresence, motion } from 'framer-motion'
 import VideoWrapper from '../core/VideoContainer'
 import VoiceWrapper from '../core/Voice'
@@ -16,8 +16,9 @@ const UserVideos = ({
   selectedUserId,
   setSelectedUserId,
   isUserListOpened,
+  disconnectedUsers,
 }) => {
-  const { users } = useContext(UserInfoContext)
+  const { users } = useContext(UsersInfoContext)
   const appRef = useRef(null)
   const selectUser = (userId) => () =>
     setSelectedUserId((state) =>
@@ -30,7 +31,7 @@ const UserVideos = ({
   }, [users, selectedUserId, setSelectedUserId])
 
   return (
-    <AnimatePresence exitBeforeEnter>
+    <AnimatePresence>
       <motion.div
         className={`base-grid ${
           users.lenght !== 1 && !selectedUserId
@@ -56,35 +57,35 @@ const UserVideos = ({
                   },
                   index
                 ) => (
-                  <>
-                    <div
-                      className="base-grid-item"
-                      onClick={selectUser(userId)}
-                      key={index}
-                    >
-                      <VideoWrapper
+                  <div
+                    className="base-grid-item"
+                    onClick={selectUser(userId)}
+                    key={index}
+                  >
+                    <VideoWrapper
+                      {...{
+                        id: consumerId,
+                        stream: selfId === userId ? selfStream : stream,
+                        screenStream,
+                        isSelected: true,
+                        rotate: selfId === userId,
+                        connectionFaild: disconnectedUsers.includes(userId),
+                        ...otherProps,
+                      }}
+                    />
+                    {selfId !== userId && (
+                      <VoiceWrapper
                         {...{
-                          id: consumerId,
-                          stream: selfId === userId ? selfStream : stream,
-                          screenStream,
-                          isSelected: true,
-                          ...otherProps,
+                          id: audioConsumerId,
+                          audioStream,
+                          on: selfId === userId && microphone,
                         }}
                       />
-                      {selfId !== userId && (
-                        <VoiceWrapper
-                          {...{
-                            id: audioConsumerId,
-                            audioStream,
-                            on: selfId === userId && microphone,
-                          }}
-                        />
-                      )}
-                    </div>
+                    )}
                     {screenStream && stream && (
                       <DragbleVideo appRef={appRef} stream={stream} />
                     )}
-                  </>
+                  </div>
                 )
               )
           : users.map(
@@ -128,6 +129,7 @@ const UserVideos = ({
                         stream: selfId === userId ? selfStream : stream,
                         ...otherProps,
                         rotate: selfId === userId,
+                        connectionFaild: disconnectedUsers.includes(userId),
                       }}
                     />
                     {selfId !== userId && (
@@ -146,4 +148,4 @@ const UserVideos = ({
     </AnimatePresence>
   )
 }
-export default UserVideos
+export default memo(UserVideos)

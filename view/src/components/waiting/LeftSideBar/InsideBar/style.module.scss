@@ -29,7 +29,6 @@
       align-items: center;
 
       span {
-        font-family: Rubik;
         font-style: normal;
         font-weight: 300;
         font-size: 16px;
@@ -63,6 +62,9 @@
       /* Handle */
       &::-webkit-scrollbar-thumb {
         background: rgb(231, 230, 230);
+        &:hover {
+          background: #b6b6b6;
+        }
         border-radius: 2px;
       }
     }
@@ -83,7 +85,7 @@
         .text {
           width: 100%;
           height: 100%;
-          font-family: Rubik;
+
           font-size: 16px;
           line-height: 24px;
           font-weight: normal;
@@ -92,7 +94,7 @@
         .textSmall {
           width: 334px;
           height: 100%;
-          font-family: Rubik;
+
           font-style: normal;
           font-weight: normal;
           font-size: 16px;
@@ -112,7 +114,7 @@
         .date {
           width: 185px;
           height: 100%;
-          font-family: Rubik;
+
           font-style: normal;
           font-weight: 300;
           font-size: 16px;
@@ -126,7 +128,7 @@
           display: flex;
           justify-content: space-around;
           align-items: center;
-          font-family: Rubik;
+
           font-style: normal;
           font-weight: 300;
           font-size: 16px;
@@ -152,7 +154,6 @@
       justify-content: space-between;
       border-bottom: 1px solid #ed2a26;
       h6 {
-        font-family: Rubik;
         font-style: normal;
         font-weight: 500;
         font-size: 14px;
@@ -168,7 +169,6 @@
         align-items: center;
 
         span {
-          font-family: Rubik;
           font-style: normal;
           font-weight: 300;
           font-size: 14px;
@@ -203,6 +203,9 @@
 
         /* Handle */
         &::-webkit-scrollbar-thumb {
+          &:hover {
+            background: #b6b6b6;
+          }
           background: rgb(231, 230, 230);
           border-radius: 2px;
         }
@@ -224,7 +227,7 @@
           .text {
             width: 100%;
             height: 100%;
-            font-family: Rubik;
+
             font-style: normal;
             font-weight: normal;
             font-size: 14px;
@@ -234,7 +237,7 @@
           .textSmall {
             width: 334px;
             height: 100%;
-            font-family: Rubik;
+
             font-style: normal;
             font-weight: normal;
             font-size: 16px;
@@ -254,7 +257,7 @@
           .date {
             width: 145px;
             height: 100%;
-            font-family: Rubik;
+
             font-style: normal;
             font-weight: 300;
             font-size: 14px;
@@ -268,7 +271,7 @@
             display: flex;
             justify-content: space-around;
             align-items: center;
-            font-family: Rubik;
+
             font-style: normal;
             font-weight: 300;
             font-size: 14px;

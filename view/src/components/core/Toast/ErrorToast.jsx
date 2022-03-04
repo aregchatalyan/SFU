@@ -1,4 +1,5 @@
 import React from 'react'
+import { Slide, toast } from 'react-toastify'
 import Icon from '../Icon'
 import style from './style.module.scss'
 
@@ -16,4 +17,22 @@ const ErrorToast = ({ text }) => {
   )
 }
 
-export default ErrorToast
+export const toastError = (text) => {
+  toast(<ErrorToast text={text} />, {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 4000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    closeButton: false,
+    transition: Slide,
+    style: {
+      borderRadius: '8px',
+      background: '#fcf6f6',
+      minHeight: 48,
+    },
+    className: style.toastWrapper,
+  })
+}

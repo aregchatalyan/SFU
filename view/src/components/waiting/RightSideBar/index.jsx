@@ -1,5 +1,5 @@
 import React, { memo, useContext } from 'react'
-import { RoomInfoContext } from '../../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../../Context'
 import Student from './Student'
 import style from './style.module.scss'
 

@@ -25,7 +25,6 @@
       box-shadow: none;
     }
     span {
-      font-family: Rubik;
       font-style: normal;
       font-weight: normal;
       font-size: 16px;
@@ -44,7 +43,6 @@
     justify-content: space-between;
     margin-left: 60px;
     .permission_denied_text {
-      font-family: Rubik;
       font-size: 14px;
       line-height: 20px;
       text-align: center;
@@ -58,7 +56,6 @@
     justify-content: center;
     align-items: center;
     > span {
-      font-family: Rubik;
       font-style: normal;
       font-weight: 500;
       font-size: 20px;
@@ -121,7 +118,6 @@
             background: #d6d6d6;
           }
           .pixel_title {
-            font-family: Rubik;
             font-size: 16px;
             line-height: 24px;
             text-align: center;
@@ -311,7 +307,7 @@
       border: 1px solid #e7e7e7;
       box-sizing: border-box;
       border-radius: 16px;
-      font-family: Rubik;
+
       font-weight: 500;
       font-size: 12px;
       line-height: 16px;
@@ -339,7 +335,7 @@
 .text_wrapper {
   position: absolute;
   padding: 4px 8px;
-  font-family: Rubik;
+
   font-size: 16px;
   line-height: 24px;
   color: #1c1d1f;
@@ -374,7 +370,7 @@
       align-items: center;
       span {
         margin-left: 8px;
-        font-family: Rubik;
+
         font-weight: 500;
         font-size: 12px;
         line-height: 16px;
@@ -423,7 +419,6 @@
           margin-right: 8px;
         }
         .user_name {
-          font-family: Rubik;
           font-size: 14px;
           line-height: 20px;
           color: #1c1d1f;
@@ -435,7 +430,6 @@
     justify-content: center;
   }
   .empty_msg {
-    font-family: Rubik;
     font-size: 16px;
     text-align: center;
     line-height: 24px;

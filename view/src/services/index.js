@@ -1,6 +1,4 @@
 import { Device } from 'mediasoup-client'
-import { toast } from 'react-toastify'
-import PermissionToast from '../components/core/Toast/PermissionToast'
 
 let producer = null
 
@@ -11,7 +9,6 @@ const mediaType = {
 }
 
 let device = null
-let consumers = new Map()
 const producerLabel = new Map()
 const producers = new Map()
 
@@ -206,7 +203,7 @@ const join = async function (userId, room_id, socket, setUsers, getUserById) {
     })
 }
 
-const removeConsumer = function (consumer_id, callback) {
+export const removeConsumer = function (consumer_id, callback) {
   console.log('PRODCUER CLOSE : ', consumer_id)
   callback &&
     callback((state) => {
@@ -362,106 +359,6 @@ export const exit = function (offline = false, socket, callBack) {
   }
 }
 
-const initSocket = function (
-  socket,
-  setUsers,
-  setProducers,
-  setMassages,
-  setPolls,
-  setHands,
-  getUserById,
-  changeUserBoardPermission
-) {
-  socket.on('consumerClosed', function ({ consumer_id }) {
-    console.log('Closing consumer:', consumer_id)
-    removeConsumer(consumer_id, setUsers)
-  })
-  socket.on('newProducers', async function (data) {
-    console.log('newProducers :: ', data)
-    setProducers([...data])
-  })
-  socket.on('newUsers', async function (data) {
-    const users = data.map((elm) => ({ ...getUserById(elm.userId), ...elm }))
-    console.log('users', users)
-    await setUsers((state) => [...state, ...users])
-  })
-  socket.on('askToJoin', ({ userId }) => {
-    toast(
-      <PermissionToast
-        {...{
-          ...getUserById(userId),
-          handlePermissionChange: (allowed) =>
-            changeUserBoardPermission({ allowed, userId }),
-        }}
-      />,
-      {
-        position: 'bottom-left',
-        autoClose: 5000,
-        hideProgressBar: true,
-        closeOnClick: true,
-        pauseOnHover: true,
-        closeButton: false,
-        style: {
-          width: '272px',
-          height: '124px',
-          padding: '0',
-          borderRadius: '8px',
-          background: '#2A2A2A',
-        },
-      }
-    )
-  })
-
-  socket.on('newMassage', async function (data) {
-    setMassages((state) => [...state, ...data])
-  })
-
-  socket.on('newPoll', function (data) {
-    setPolls((state) => [...data, ...state])
-  })
-
-  socket.on('newVote', async function (data) {
-    console.log(`NewVote : `, data)
-    setPolls((state) => {
-      const res = [...state].map((elm) => {
-        if (elm.id === data.id) {
-          return data
-        } else {
-          return elm
-        }
-      })
-      return [...res]
-    })
-  })
-
-  socket.on('newHandUp', async function (data) {
-    setHands((state) => [...state, ...data])
-    console.log('HandUp', data)
-  })
-
-  socket.on('userLeft', async ({ socket_id }) => {
-    setUsers((state) => {
-      const res = [...state].filter((elm) => {
-        if (elm.id === socket_id) {
-          elm.stream = undefined
-          elm.consumerId = undefined
-          setProducers([])
-          return false
-        }
-        return true
-      })
-      return res
-    })
-  })
-  socket.on('userConnectionProblem', (data) => {
-    console.log('data', data)
-  })
-  socket.on('disconnect', function () {
-    console.log('HELLO')
-    exit(true, socket)
-  })
-}
-
 const createRoom = async function (room_id, socket) {
   await Request(
     'createRoom',
@@ -474,30 +371,15 @@ const createRoom = async function (room_id, socket) {
   })
 }
 
-export const joinRoom = async function (
+export const joinRoom = async function ({
   userId,
   room_id,
   socket,
-  setUsers,
-  setProducers,
-  setMassages,
-  setPolls,
-  setHands,
+  setUserList,
   getUserById,
-  changeUserBoardPermission
-) {
+}) {
   await createRoom(room_id, socket).then(async function () {
-    await join(userId, room_id, socket, setUsers, getUserById)
-    initSocket(
-      socket,
-      setUsers,
-      setProducers,
-      setMassages,
-      setPolls,
-      setHands,
-      getUserById,
-      changeUserBoardPermission
-    )
+    await join(userId, room_id, socket, setUserList, getUserById)
   })
 }
 
@@ -635,12 +517,11 @@ export const closeProducer = function (type, socket, callback) {
     return
   }
   let producer_id = producerLabel.get(type)
-  console.log('producer_id', producer_id)
-  socket &&
-    socket.emit('producerClosed', {
-      producer_id,
-    })
   if (producers.has(producer_id)) {
+    socket &&
+      socket.emit('producerClosed', {
+        producer_id,
+      })
     producers.get(producer_id).close()
     producers.delete(producer_id)
   }

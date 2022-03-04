@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { SocketContext } from '../../Context'
 import { CustomButtonWithIcon } from '../core/Button'
 import Icon from '../core/Icon'
 import useModalWithButton from '../core/Modal/index'
@@ -7,7 +8,9 @@ import style from './style.module.scss'
 
 export { useCreatePollModal } from './useCreatePoll'
 
-const Children = ({ polls, closeModal, userId, socket }) => {
+const Children = ({ polls, closeModal, userId }) => {
+  const socket = useContext(SocketContext)
+
   const handleVote = (questionId) => (versionId) => () => {
     console.log(`questionId`, questionId)
     socket.emit('votePoll', { userId, questionId, versionId })
@@ -53,11 +56,9 @@ const Children = ({ polls, closeModal, userId, socket }) => {
   )
 }
 
-const usePollModal = ({ polls, userId, socket, notification }) =>
-  useModalWithButton({
-    child: ({ closeModal }) => (
-      <Children {...{ polls, closeModal, userId, socket }} />
-    ),
+const usePollModal = ({ polls, userId, notification }) => {
+  return useModalWithButton({
+    child: ({ closeModal }) => <Children {...{ polls, closeModal, userId }} />,
     modalProps: {
       className: style.pollModalContainer,
     },
@@ -79,4 +80,5 @@ const usePollModal = ({ polls, userId, socket, notification }) =>
       className: style.buttonStyle,
     },
   })
+}
 export default usePollModal

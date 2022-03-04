@@ -6,7 +6,7 @@ import React, {
   useMemo,
   useState,
 } from 'react'
-import { RoomInfoContext } from '../../Context/roomInfoContext'
+import { RoomInfoContext, SocketContext } from '../../Context'
 import CustomButton, {
   ButtonWithTextAndIcon,
   CustomButtonWithIcon,
@@ -161,11 +161,12 @@ const Header = ({
   setSelectColor,
   permissionToEdit,
   setPermissionToEdit,
-  socket,
   selfId,
 }) => {
   const [isPermissionReqLoading, setIsPermissionReqLoading] = useState(false)
   const { isTeacherJoind } = useContext(RoomInfoContext)
+
+  const socket = useContext(SocketContext)
 
   const askPermission = useCallback(() => {
     setIsPermissionReqLoading(true)

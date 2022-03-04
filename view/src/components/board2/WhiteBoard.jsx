@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useContext, useEffect } from 'react'
 import pencil from '../../assets/img/pencil.png'
+import { SocketContext } from '../../Context'
 import { BoardTextArea } from '../core/Input'
 
 const WhiteBoard = ({
-  socket,
   savedBoardRef,
   boardRef,
   identyfierRef,
@@ -13,6 +13,8 @@ const WhiteBoard = ({
   spanRef,
   texts,
 }) => {
+  const socket = useContext(SocketContext)
+
   useEffect(() => {
     socket.emit('getBoardData')
   }, [socket])

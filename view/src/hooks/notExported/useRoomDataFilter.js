@@ -2,28 +2,45 @@ import { useCallback, useEffect, useState } from 'react'
 
 export const useRoomDataFilter = (userId, socket) => {
   const [roomData, setRoomData] = useState(undefined)
-  const setRoomDataFunc = (data) => {
-    const { users, isTeacher, teacherInfo, ...otherProps } = data
+  const [isLoading, setIsLoading] = useState(true)
 
-    const me = isTeacher
-      ? teacherInfo
-      : users.filter(({ id }) => id === userId)[0]
-    const classmates = users.filter(({ id }) => id !== userId)
-    setRoomData({ me, classmates, isTeacher, teacherInfo, ...otherProps })
-  }
-  const getUserById = (userId) => {
-    const userData =
-      roomData && roomData.teacherInfo.id === userId
-        ? roomData.teacherInfo
-        : roomData &&
-          [roomData.me, ...roomData.classmates].filter(
-            ({ id }) => id === userId
-          )[0]
-    return {
-      name: userData.name,
-      surname: userData.surname,
-    }
-  }
+  const setRoomDataFunc = useCallback(
+    (data) => {
+      const { users, isTeacher, teacherInfo, ...otherProps } = data
+
+      const me = isTeacher
+        ? teacherInfo
+        : users.filter(({ id }) => id === userId)[0]
+      const classmates = users.filter(({ id }) => id !== userId)
+      setRoomData({ me, classmates, isTeacher, teacherInfo, ...otherProps })
+    },
+    [userId]
+  )
+
+  useEffect(() => {
+    socket &&
+      socket.on('connected', (data) => {
+        setIsLoading(false)
+        setRoomDataFunc(data)
+      })
+  }, [socket, setRoomDataFunc])
+
+  const getUserById = useCallback(
+    (userId) => {
+      const userData =
+        roomData && roomData.teacherInfo.id === userId
+          ? roomData.teacherInfo
+          : roomData &&
+            [roomData.me, ...roomData.classmates].filter(
+              ({ id }) => id === userId
+            )[0]
+      return {
+        name: userData.name,
+        surname: userData.surname,
+      }
+    },
+    [roomData]
+  )
   const changeUserBoardPermission = useCallback(
     ({ userId: studentId, allowed }) => {
       socket.emit('handlePermission', {
@@ -65,8 +82,8 @@ export const useRoomDataFilter = (userId, socket) => {
   }, [socket])
 
   return [
+    isLoading,
     roomData,
-    setRoomDataFunc,
     getUserById,
     changeUserBoardPermission,
     getUserBoardPermission,

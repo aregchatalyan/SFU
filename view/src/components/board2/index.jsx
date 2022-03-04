@@ -6,15 +6,9 @@ import Header from './header'
 import ManageDropdown from './manageDropdown'
 import useBoardAction from './useBoardAction'
 import WhiteBoard from './WhiteBoard'
-import { RoomInfoContext } from '../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../Context'
 
-const Board = ({
-  className,
-  goToVideoCall,
-  socket,
-  selfId,
-  handleFullScreen,
-}) => {
+const Board = ({ className, goToVideoCall, selfId, handleFullScreen }) => {
   const { isTeacher, boardPermission, getUserById } =
     useContext(RoomInfoContext)
   const [permissionToEdit, setPermissionToEdit] = useState(
@@ -37,7 +31,6 @@ const Board = ({
   const boardProps = useBoardAction({
     boardRef,
     savedBoardRef,
-    socket,
     toolType,
     color,
     width,
@@ -64,7 +57,6 @@ const Board = ({
           handleFullScreen,
           setSelectColor,
           permissionToEdit,
-          socket,
           setPermissionToEdit,
           selfId,
           ...boardProps,
@@ -72,7 +64,6 @@ const Board = ({
       />
       <WhiteBoard
         {...{
-          socket,
           savedBoardRef,
           boardRef,
           identyfierRef,

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { RoomInfoContext } from '../../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../../Context'
 import InsideBar from './InsideBar'
 import style from './style.module.scss'
 

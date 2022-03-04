@@ -15,9 +15,9 @@
   align-items: center;
   justify-content: space-around;
   padding: 0 8px;
+  cursor: wait;
 
   > span {
-    font-family: Rubik;
     font-size: 12px;
     line-height: 16px;
     text-align: center;
@@ -25,4 +25,19 @@
     color: #eaeaea;
     padding-left: 4px;
   }
+}
+
+.msg_wrapper_small {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  background: #232323;
+  border: 1px solid #6a6a6a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  cursor: wait;
 }

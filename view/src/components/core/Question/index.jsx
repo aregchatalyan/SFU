@@ -1,6 +1,6 @@
 import React, { useState, memo, useMemo, useContext } from 'react'
 import { AnimatePresence, motion, useAnimation } from 'framer-motion'
-import { RoomInfoContext } from '../../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../../Context'
 import Answer from './answer'
 import Icon from '../Icon'
 import defaultUser from '../../../assets/img/defaultUser.png'

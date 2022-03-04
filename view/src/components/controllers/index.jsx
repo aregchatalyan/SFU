@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { CustomButtonWithIcon } from '../core/Button'
 import CircleButton, {
   CircleButtonWithHover,
@@ -11,17 +11,16 @@ import { useActiveTimeOut } from '../../hooks'
 import Chat from '../chat'
 import CustomInput from '../core/Input'
 import SubBar from './SubBar'
+import { SocketContext } from '../../Context'
 
 const Controllers = ({
   isUserListOpened,
   setIsUserListOpened,
   videoPlayer,
   handleVideoClick,
-  leaveMeeting,
+  handleLeaveMeeting,
   microphone,
   handleMicrophoneClick,
-  fullScreen,
-  socket,
   userId,
   massages,
   handleSharing,
@@ -47,6 +46,8 @@ const Controllers = ({
   const [inputValue, setInputValue] = useState('')
   const [isSubBarOpened, setisSubBarOpened] = useState(false)
   const [unWatchedMsg, setUnWatchedMsg] = useState(false)
+
+  const socket = useContext(SocketContext)
 
   const sendMsg = () => {
     if (inputValue.length > 0) {
@@ -174,7 +175,7 @@ const Controllers = ({
               width={24}
               height={24}
               iconName="videocall_hangup"
-              onClick={leaveMeeting}
+              onClick={handleLeaveMeeting}
             />
             <CircleButtonWhithStates
               iconName={microphone ? 'videocall_voice' : 'videocall_voice_off'}
