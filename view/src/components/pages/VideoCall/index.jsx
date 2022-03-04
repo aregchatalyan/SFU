@@ -17,21 +17,19 @@ const VideoCall = ({
   userId,
   stream,
   screenStream,
-  fullScreen,
   handleFullScreen,
   videoPlayer,
   handleVideoClick,
   microphone,
   handleMicrophoneClick,
-  socket,
   handleSharing,
-  leaveMeeting,
+  handleLeaveMeeting,
   massages,
   hands,
   polls,
-  setHands,
   audioStream,
-  connnecting,
+  connecting,
+  disconnectedUsers,
 }) => {
   const wrapperRef = useRef(null)
   const logRef = useRef(null)
@@ -53,12 +51,11 @@ const VideoCall = ({
   const [PallModal, PollModalButton, closePollModal, isPollModalOpened] =
     usePollModal({
       polls,
-      socket,
       userId,
       notification: unWatchedPoll,
     })
   const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
-    useCreatePollModal({ socket, selfId: userId })
+    useCreatePollModal({ selfId: userId })
   return (
     <div className={style.fullScreenWrapper}>
       {!isBoardOpened && !isLogOpened && (
@@ -71,7 +68,7 @@ const VideoCall = ({
         />
       )}
       {screenStream && <ShareMsg onClick={handleSharing} />}
-      {connnecting && <ConnectionMsg />}
+      {connecting && <ConnectionMsg />}
       <UserList
         className={isUserListOpened ? style.userList : style.userListHide}
         {...{
@@ -85,6 +82,7 @@ const VideoCall = ({
           selfStream: stream,
           selfScreenStream: screenStream,
           microphone,
+          disconnectedUsers,
         }}
       />
       <div
@@ -102,6 +100,7 @@ const VideoCall = ({
             selectedUserId,
             setSelectedUserId,
             isUserListOpened,
+            disconnectedUsers,
           }}
         />
         <Controllers
@@ -110,7 +109,7 @@ const VideoCall = ({
             setIsUserListOpened,
             videoPlayer,
             handleVideoClick,
-            leaveMeeting,
+            handleLeaveMeeting,
             microphone,
             handleMicrophoneClick,
             handleSharing,
@@ -122,8 +121,6 @@ const VideoCall = ({
             setIsHomeWorkOpened,
             closePollModal,
             closeCreatePollModal,
-            fullScreen,
-            socket,
             userId,
             massages,
             polls,
@@ -146,7 +143,7 @@ const VideoCall = ({
 
         <Board
           className={isBoardOpened ? style.opened : style.closed}
-          {...{ goToVideoCall, socket, selfId: userId, handleFullScreen }}
+          {...{ goToVideoCall, selfId: userId, handleFullScreen }}
         />
         <LessonLog
           className={isLogOpened ? style.opened : style.closed}
@@ -162,7 +159,7 @@ const VideoCall = ({
           className={isHomeWorkOpened ? style.opened : style.closed}
           {...{ handleFullScreen, goToVideoCall }}
         />
-        <HandUpRoute {...{ hands, setHands }} />
+        <HandUpRoute {...{ hands }} />
         {PallModal}
         {CreatePallModal}
       </div>

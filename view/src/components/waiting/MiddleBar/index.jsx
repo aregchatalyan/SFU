@@ -3,7 +3,7 @@ import UserInfo from './UserInfo'
 import TeacherInfo from './TeacherInfo'
 import Info from './Info'
 import style from './style.module.scss'
-import { RoomInfoContext } from '../../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../../Context'
 
 const MiddleBar = ({ ...otherProps }) => {
   const { groupName, level, courseName } = useContext(RoomInfoContext)
@@ -11,7 +11,6 @@ const MiddleBar = ({ ...otherProps }) => {
     <div className={style.middleBar}>
       <div className={style.title}>
         <Info text={'onlineLessons'} type="large" color="#A93AFF" />
-
         {groupName}
       </div>
       <div className={style.head}>

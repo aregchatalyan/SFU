@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { fadeIn } from '../../../helpers/animation.helpers'
 import './style.scss'
 import { CustomButtonWithIcon } from '../Button'
+import ConnectionMsg from '../../connectionMsg'
 
 const VideoWrapper = ({
   id,
@@ -15,6 +16,9 @@ const VideoWrapper = ({
   screenConsumerId,
   rotate,
   isSelected,
+  connectionFaild,
+  connectionFaildSmall,
+  connecting,
 }) => {
   const userVideo = useRef()
   const [isChanged, setIsChanged] = useState(false)
@@ -43,7 +47,7 @@ const VideoWrapper = ({
 
   return (
     <AnimatePresence exitBeforeEnter>
-      {stream || screenStream ? (
+      {(stream || screenStream) && !connecting ? (
         <>
           {screenStream && stream && !isSelected && (
             <CustomButtonWithIcon
@@ -82,6 +86,9 @@ const VideoWrapper = ({
             width={withSmallIcon ? 64 : 160}
             height={withSmallIcon ? 64 : 160}
           />
+          {(connectionFaild || connectionFaildSmall) && (
+            <ConnectionMsg name={name} onlyIcon={connectionFaildSmall} />
+          )}
           <span
             className={withSmallIcon ? 'name_small' : 'name'}
           >{`${name} ${surname}`}</span>

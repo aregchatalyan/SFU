@@ -1,5 +1,5 @@
 import React, { useContext, memo } from 'react'
-import { RoomInfoContext } from '../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../Context'
 import moment from 'moment'
 import { GradeInput } from '../core/Input'
 import Icon from '../core/Icon'

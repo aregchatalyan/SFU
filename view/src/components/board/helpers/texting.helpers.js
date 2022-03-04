@@ -1,6 +1,5 @@
 import { generateId } from './idGenerator.helpers'
 export const createText = (x, y, text, font, color, texts) => {
-  console.log(texts)
   const id = generateId(texts)
   return { id, x, y, text, font, color }
 }

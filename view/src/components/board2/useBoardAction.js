@@ -1,4 +1,5 @@
-import { useState, useEffect, useCallback, useRef } from 'react'
+import { useState, useEffect, useCallback, useRef, useContext } from 'react'
+import { SocketContext } from '../../Context'
 import { drawPath, drawElement } from './helpers'
 
 const drawingActions = ['triangle', 'rectangle', 'circle', 'line', 'pointer']
@@ -9,7 +10,6 @@ const useBoardAction = ({
   toolType,
   color,
   width,
-  socket,
   selfId,
   permissionToEdit,
   identyfierRef,
@@ -19,6 +19,7 @@ const useBoardAction = ({
   spanRef,
   setTexts,
 }) => {
+  const socket = useContext(SocketContext)
   const [action, setAction] = useState(undefined)
   const [path, setPath] = useState([])
   const [elements, setElements] = useState([])
@@ -165,10 +166,11 @@ const useBoardAction = ({
   )
 
   useEffect(() => {
-    socket.on('savedBoardData', ({ paths, elements }) => {
-      paths.length > 0 && setPath([...paths])
-      elements.length > 0 && setElements([...elements])
-    })
+    socket &&
+      socket.on('savedBoardData', ({ paths, elements }) => {
+        paths.length > 0 && setPath([...paths])
+        elements.length > 0 && setElements([...elements])
+      })
   }, [socket])
 
   useEffect(() => {
@@ -504,7 +506,6 @@ const useBoardAction = ({
   )
   const mouseDown = useCallback(
     (event) => {
-      event.preventDefault()
       if (!permissionToEdit) return
       const { clientX, clientY, target } = event
       if (boardRef.current && boardRef.current.contains(target)) {

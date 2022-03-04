@@ -3,8 +3,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 import CustomButton from '../core/Button'
 import Icon from '../core/Icon'
 import SwitchCheckBox from '../core/Input/SwitchCheckBox'
-import { UserInfoContext } from '../../Context'
-import { RoomInfoContext } from '../../Context/roomInfoContext'
+import { UsersInfoContext } from '../../Context'
+import { RoomInfoContext } from '../../Context'
 
 const UserWrapper = ({ userId, name, surname }) => {
   const { getUserBoardPermission, changeUserBoardPermission } =
@@ -41,7 +41,7 @@ const UserWrapper = ({ userId, name, surname }) => {
 
 const ManageDropdown = ({ selfId }) => {
   const [isDropDownOpened, setIsDropDownOpened] = useState(false)
-  const { users, getUserBoardPermission } = useContext(UserInfoContext)
+  const { users, getUserBoardPermission } = useContext(UsersInfoContext)
 
   const varinatContainer = useMemo(
     () => ({

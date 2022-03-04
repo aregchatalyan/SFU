@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { UserInfoContext } from '../../Context'
+import { UsersInfoContext } from '../../Context'
 import { CustomButtonWithIcon } from '../core/Button'
 import VideoWrapper from '../core/VideoContainer'
 import VoiceWrapper from '../core/Voice'
@@ -18,8 +18,9 @@ const UserList = ({
   setSelectedUserId,
   selfStream,
   microphone,
+  disconnectedUsers,
 }) => {
-  const { users } = useContext(UserInfoContext)
+  const { users } = useContext(UsersInfoContext)
 
   const selectUser = (userId) => () => setSelectedUserId(userId)
   return (
@@ -88,6 +89,8 @@ const UserList = ({
                       withSmallIcon: true,
                       name,
                       surname,
+                      connectionFaildSmall: disconnectedUsers.includes(userId),
+                      rotate: selfId === userId,
                       ...otherProps,
                     }}
                   />

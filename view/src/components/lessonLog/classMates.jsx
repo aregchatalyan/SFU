@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, memo } from 'react'
-import { RoomInfoContext } from '../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../Context'
 import Icon from '../core/Icon'
 import gold from '../../assets/img/gold.png'
 import silver from '../../assets/img/silver.png'

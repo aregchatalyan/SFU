@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { firstPage } from '../../../../constant'
-import { RoomInfoContext } from '../../../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../../../Context'
 import CustomButton, {
   CustomButtonWithIcon,
   ButtonWithTextAndIcon,

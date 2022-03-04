@@ -60,10 +60,10 @@ const LessonLog = ({
   logRef,
   wrapperRef,
 }) => {
-  const [[start, end], setTimeInterval] = useState(seperate[1])
-  const getLogsByIndex = (index) => {
-    setTimeInterval(seperate[index])
-  }
+  const [[start, end]] = useState(seperate[1])
+  // const getLogsByIndex = (index) => {
+  //   setTimeInterval(seperate[index])
+  // }
   const [CommentModal, openModal] = useModalWithCallback()
 
   return (

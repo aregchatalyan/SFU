@@ -2,7 +2,7 @@ import teacher from '../../../../assets/img/teacher.png'
 import Info from '../Info'
 import style from './style.module.scss'
 import { useContext } from 'react'
-import { RoomInfoContext } from '../../../../Context/roomInfoContext'
+import { RoomInfoContext } from '../../../../Context'
 
 const TeacherInfo = () => {
   const { teacherInfo } = useContext(RoomInfoContext)

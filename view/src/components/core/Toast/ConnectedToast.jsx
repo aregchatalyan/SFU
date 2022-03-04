@@ -1,8 +1,9 @@
 import React from 'react'
 import Icon from '../Icon'
 import style from './style.module.scss'
+import { toast, Slide } from 'react-toastify'
 
-export const ConnectedToast = ({ text }) => {
+const ConnectedToast = ({ text }) => {
   return (
     <div className={style.connected_toast}>
       <Icon name="connection_repaired" width={24} height={24} />
@@ -13,3 +14,23 @@ export const ConnectedToast = ({ text }) => {
     </div>
   )
 }
+
+export const toastConnected = () =>
+  toast(<ConnectedToast />, {
+    position: toast.POSITION.TOP_CENTER,
+    autoClose: 4000,
+    hideProgressBar: true,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: false,
+    progress: undefined,
+    closeButton: false,
+    transition: Slide,
+    style: {
+      borderRadius: '4px',
+      minHeight: 48,
+      width: '262px',
+      height: '48px',
+      padding: '0',
+    },
+  })
