@@ -240,8 +240,7 @@ module.exports = class Room {
   }
   checkAndRemoveUser(userId) {
     if (!this.waitingList.has(userId)) return;
-    const socket_id = this.waitingList.get(userId).socket_id;
-    this.broadCast(socket_id, "userLeft", { socket_id });
+    this.waitingList.delete(userId);
   }
 
   closeProducer(socket_id, producer_id) {

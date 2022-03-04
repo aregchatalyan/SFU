@@ -89,10 +89,6 @@ module.exports = (io) => {
         isTeacher,
         ...room,
       });
-      if (roomList.has(roomId)) {
-        console.log("userId", userId);
-        // roomList.get(roomId).checkAndRemoveUser(userId);
-      }
 
       socket.on("createRoom", async ({ room_id }, callback) => {
         if (roomList.has(room_id)) {
@@ -110,6 +106,8 @@ module.exports = (io) => {
 
       socket.on("join", ({ room_id, userId }, cb) => {
         if (!roomList.has(room_id)) return cb({ error: "Room does not exist" });
+
+        roomList.get(room_id).checkAndRemoveUser(userId);
 
         data = Array.from(roomList.get(room_id).peers.values());
 
