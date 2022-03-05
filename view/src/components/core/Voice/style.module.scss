@@ -1,0 +1,27 @@
+.audioOn {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  audio {
+    display: none;
+  }
+}
+
+.audioOff {
+  width: 24px;
+  height: 24px;
+  background: #c02929;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 24px;
+  left: 24px;
+}

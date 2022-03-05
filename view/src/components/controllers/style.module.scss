@@ -1,0 +1,282 @@
+.controllersArea {
+  width: 544px;
+  height: 80px;
+  transition: 300ms;
+  z-index: 1;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  transition: 200ms;
+}
+.controllersAreaHide {
+  width: 544px;
+  height: 80px;
+  transition: 300ms;
+  z-index: 1;
+  position: absolute;
+  bottom: -80px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  text-align: center;
+  transition: 200ms;
+}
+
+.controllersWrapperHide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 16px;
+  opacity: 0;
+  transition: 300ms;
+  position: absolute;
+  bottom: 0;
+}
+.controllersWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  align-items: flex-end;
+  padding-bottom: 16px;
+  opacity: 1;
+  transition: 300ms;
+  position: absolute;
+  bottom: 0;
+}
+
+.controllers {
+  width: 544px;
+  height: 64px;
+  background: rgba(35, 35, 35, 0.5);
+  backdrop-filter: blur(16px);
+  border-radius: 52px;
+
+  .inputWrapper {
+    width: 100%;
+    height: 100%;
+    border-radius: 52px;
+    backdrop-filter: blur(16px);
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: 200ms;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .inputWrapperHide {
+    width: 0;
+    height: 100%;
+    background: rgba(35, 35, 35, 0.5);
+    backdrop-filter: blur(16px);
+    z-index: 1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    transition: 200ms;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    opacity: 0;
+  }
+  .msgInputWrapper {
+    background: #353535;
+    border-radius: 56px;
+    width: 376px;
+    height: 48px;
+    overflow: hidden;
+    .msginput {
+      width: 100%;
+      height: 40px;
+
+      background-color: transparent;
+      font-size: 14px;
+      line-height: 20px;
+      color: #ffffff;
+      resize: none;
+      padding-top: 14px;
+      padding-left: 14px;
+      box-sizing: border-box;
+      &:focus {
+        outline: none;
+      }
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+  .closeInput {
+    width: 48px;
+    height: 48px;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    &:hover {
+      svg {
+        path {
+          stroke: white;
+        }
+      }
+    }
+  }
+  .sendMsg {
+    width: 48px;
+    height: 48px;
+    background: #2a2a2a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    transition: 150ms;
+    &:hover {
+      background: #ed2a26;
+    }
+  }
+  .buttonWrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .buttonWrapperHide {
+    width: 0;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .hangUpbutton {
+    width: 120px;
+    height: 48px;
+    background: #c02929;
+    box-shadow: inset 2px 2px 9px rgba(255, 255, 255, 0.25),
+      inset -2px -2px 12px rgba(0, 0, 0, 0.45);
+    border-radius: 28px;
+    > button {
+      cursor: pointer;
+    }
+    &:hover {
+      transform: scale(0.97);
+      transition: 150ms;
+    }
+  }
+  .handUpBtn {
+    width: 48px;
+    height: 48px;
+    border-radius: 100%;
+    padding: 0;
+  }
+}
+.msgBar {
+  width: 100%;
+  height: 344px;
+  position: absolute;
+  bottom: 64px;
+  left: 0;
+  transition: 300ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  opacity: 1;
+}
+.msgBarHide {
+  width: 100%;
+  height: 0;
+  position: absolute;
+  bottom: 64px;
+  left: 0;
+  transition: 300ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  overflow: hidden;
+  opacity: 0;
+}
+.etcWrapper {
+  width: 544px;
+  height: 176px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  background: rgba(35, 35, 35, 0.5);
+  backdrop-filter: blur(16px);
+  border-radius: 16px 16px 32px 32px;
+  z-index: -1;
+  transition: 300ms;
+  opacity: 1;
+  overflow: hidden;
+  > div {
+    transition: 200ms;
+    overflow: hidden;
+  }
+}
+.etcWrapperHide {
+  width: 544px;
+  height: 0;
+  transition: 300ms;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  background: rgba(35, 35, 35, 0.5);
+  backdrop-filter: blur(16px);
+  border-radius: 16px 16px 32px 32px;
+  z-index: -1;
+  opacity: 0;
+  overflow: hidden;
+  padding-bottom: 64px;
+  > div {
+    height: 0;
+    overflow: hidden;
+    transition: 200ms;
+  }
+}
+.lockMsgBar {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  background: rgba(35, 35, 35, 0.5);
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.lockMsgBarLocked {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+  background: #c02929;
+  box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.subBarWrapper {
+  width: 100%;
+  height: calc(100% - 64px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 16px;
+}

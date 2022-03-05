@@ -1,0 +1,32 @@
+const mediaConstraints = {
+  video: {
+    audio: false,
+    video: {
+      width: {
+        min: 640,
+        ideal: 1280,
+      },
+      height: {
+        min: 480,
+        ideal: 720,
+      },
+    },
+  },
+  audio: {
+    audio: true,
+  },
+  all: {
+    audio: true,
+    video: {
+      width: { min: 1024, ideal: 1280, max: 1920 },
+      height: { min: 576, ideal: 720, max: 1080 },
+    },
+  },
+}
+
+export const getStream = (mediaType) => {
+  const stream = window.navigator.mediaDevices.getUserMedia(
+    mediaConstraints[mediaType]
+  )
+  return stream
+}

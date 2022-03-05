@@ -1,0 +1,65 @@
+.header {
+  width: 100%;
+  height: 48px;
+  background: #1c1d1f;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 0px 0px 24px 24px;
+  box-sizing: border-box;
+  padding: 0 24px 0 30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  .goBackBtn {
+    width: 132px;
+    height: 32px;
+    box-sizing: border-box;
+    border-radius: 4px;
+    background-color: transparent;
+    display: flex;
+    padding: 0 16px;
+    justify-content: space-between;
+    align-items: center;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    span {
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 24px;
+      color: white;
+    }
+    &:hover {
+      background-color: #414246;
+    }
+  }
+  .title {
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    > h1 {
+      font-weight: 500;
+      font-size: 20px;
+      line-height: 30px;
+      text-align: center;
+      color: #ffffff;
+    }
+  }
+  .full_screen_btn {
+    width: 32px;
+    height: 32px;
+    margin-left: 8px;
+    border-radius: 8px;
+    transition: 200ms;
+    &:hover {
+      background: #414246;
+    }
+    > button {
+      cursor: pointer;
+    }
+  }
+}

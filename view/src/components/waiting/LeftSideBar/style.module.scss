@@ -1,0 +1,17 @@
+.leftSideBar {
+  width: 450px;
+  height: 780px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media (max-width: 1600px) {
+  .leftSideBar {
+    width: 312px;
+    height: 512px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}

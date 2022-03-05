@@ -1,0 +1,101 @@
+.errorWrapper {
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  border: 1px solid #b6b6b6;
+  box-sizing: border-box;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .errorContainer {
+    width: 1280px;
+    height: 584px;
+    display: flex;
+    background: #ffffff;
+    box-shadow: 0px 8px 64px -4px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    .msgWrapper {
+      height: 100%;
+      width: calc(100% - 400px);
+      padding: 32px 40px;
+      .msgTitle {
+        width: 100%;
+        height: 72px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 16px;
+        img {
+          height: 100%;
+          width: 72px;
+        }
+        span {
+          margin-left: 24px;
+
+          font-style: normal;
+          font-weight: bold;
+          font-size: 48px;
+          line-height: 72px;
+          color: #1c1d1f;
+        }
+      }
+      .msgDesc {
+        width: 100%;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        margin-bottom: 48px;
+        span {
+          max-width: 260px;
+          display: inline-block;
+
+          font-style: normal;
+          font-weight: normal;
+          font-size: 24px;
+          line-height: 32px;
+          color: #1c1d1f;
+        }
+        img {
+          height: 100%;
+          width: 307px;
+        }
+      }
+      .suggestionBar {
+        width: 100%;
+        height: 132px;
+        margin-bottom: 116px;
+      }
+      .infoBar {
+        width: 500px;
+        height: 72px;
+
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 24px;
+        color: #6a6a6a;
+        a {
+          font-style: normal;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 24px;
+          color: #ed2a26;
+        }
+      }
+    }
+    .imgWrapper {
+      height: 100%;
+      width: 400px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+  @media (max-width: 1290px) {
+    .errorContainer {
+      width: 1240px;
+    }
+  }
+}

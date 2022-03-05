@@ -1,0 +1,45 @@
+.screeShareAlert {
+  width: 340px;
+  height: 40px;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: rgba(35, 35, 35, 0.5);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+}
+.screeShareAlertSmall {
+  width: 220px;
+  height: 40px;
+  position: absolute;
+  top: 16px;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #6a6a6a;
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 200ms;
+  cursor: pointer;
+}
+.screenTitle {
+  width: fit-content;
+
+  font-size: 16px;
+  line-height: 24px;
+  color: #ffffff;
+  margin-left: 16px;
+  overflow: hidden;
+}
