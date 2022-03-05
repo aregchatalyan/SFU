@@ -398,4 +398,4 @@ module.exports = (io) => {
       socket.emit("forbidden", "hello");
     }
   });
-};
+}
