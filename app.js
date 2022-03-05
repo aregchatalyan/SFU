@@ -27,6 +27,9 @@ if (process.env.NODE_ENV === 'production') {
       console.log(stdout);
     });
 
+    setTimeout(() => {exec('pm2 reload 0')}, 3000);
+    setTimeout(() => {exec('pm2 restart 0')}, 4000);
+
     res.send('Pulling...');
   });
 
