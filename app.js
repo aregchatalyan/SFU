@@ -3,6 +3,7 @@ const http = require("http");
 const express = require("express");
 const https = require("httpolyglot");
 const {Server} = require("socket.io");
+const {exec} = require("child_process");
 const {config: load_env} = require("dotenv");
 
 load_env();
@@ -19,6 +20,15 @@ if (process.env.NODE_ENV === 'production') {
   httpServer = http.createServer({}, app);
 
   app.use(express.static(path.join(__dirname, "view", "build")));
+
+  app.get('/pull', (req, res) => {
+    exec('git pull', (error, stdout, stderr) => {
+      if (error) return console.error(error);
+      console.log(stdout);
+    });
+
+    res.send('Pulling...');
+  });
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "view", "build", "index.html"));
