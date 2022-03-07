@@ -3,6 +3,7 @@ const http = require("http");
 const express = require("express");
 const https = require("httpolyglot");
 const {Server} = require("socket.io");
+const {exec} = require("child_process");
 const {config: load_env} = require("dotenv");
 
 load_env();
@@ -20,10 +21,42 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(express.static(path.join(__dirname, "view", "build")));
 
+  const pull = (req, res) => {
+    exec('git pull', (error, stdout, stderr) => {
+      if (error) return console.error('Git pull failed.');
+
+      if (stdout.trim() === 'Already up to date.') {
+        res.send(stdout);
+      } else {
+        setTimeout(() => {exec('pm2 reload 0')}, 3000);
+        setTimeout(() => {exec('pm2 restart 0')}, 4000);
+        res.send('Pulling..., Server is rebooting.');
+      }
+    });
+  }
+
+  app.route('/pull').get(pull).post(pull);
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "view", "build", "index.html"));
   });
 } else {
+  const pull = (req, res) => {
+    exec('git pull', (error, stdout, stderr) => {
+      if (error) return console.error('Git pull failed.');
+
+      if (stdout.trim() === 'Already up to date.') {
+        res.send(stdout);
+      } else {
+        setTimeout(() => {exec('pm2 reload 0')}, 3000);
+        setTimeout(() => {exec('pm2 restart 0')}, 4000);
+        res.send('Pulling..., Server is rebooting.');
+      }
+    });
+  }
+
+  app.route('/pull').get(pull).post(pull);
+
   protocol = 'https';
   httpServer = https.createServer({
     key: config.sslKey,
