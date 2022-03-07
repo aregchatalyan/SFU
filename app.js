@@ -41,12 +41,11 @@ if (process.env.NODE_ENV === 'production') {
   });
 } else {
 
-  app.get('/pull', (req, res) => {
+  const pull = (req, res) => {
     exec('git pull', (error, stdout, stderr) => {
       if (error) return console.error('Git pull failed.');
 
-      console.log(stdout, stdout == 'Already up to date.')
-      if (stdout === 'Already up to date.') {
+      if (stdout.trim() === 'Already up to date.') {
         res.send(stdout);
       } else {
         setTimeout(() => {exec('pm2 reload 0')}, 3000);
@@ -54,7 +53,10 @@ if (process.env.NODE_ENV === 'production') {
         res.send('Pulling..., Server is rebooting.');
       }
     });
-  });
+  }
+
+  app.route('/pull').get(pull).post(pull);
+
   protocol = 'https';
   httpServer = https.createServer({
     key: config.sslKey,
