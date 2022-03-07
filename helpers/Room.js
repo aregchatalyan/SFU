@@ -24,6 +24,29 @@ module.exports = class Room {
     this.massages = [];
     this.board = new Board(teacher_id, io);
     this.teacher_id = teacher_id;
+    this.waitingTime = 5;
+    this.interval = null;
+  }
+
+  startInterval() {
+    clearInterval(this.interval);
+    this.interval = setInterval(() => {
+      console.log("okok", this.waitingList.size);
+      if (this.waitingList.size === 0) {
+        this.endInterval();
+      }
+      this.waitingList.forEach(({ createdAt, socket_id }, id) => {
+        if (Date.now() - createdAt >= 10000) {
+          this.broadCast(socket_id, "userLeft", { socket_id });
+          this.waitingList.delete(id);
+        }
+      });
+    }, 1000);
+  }
+
+  endInterval() {
+    console.log("end interval");
+    clearInterval(this.interval);
   }
 
   addMsg = ({ userId, text }) => {
@@ -230,7 +253,9 @@ module.exports = class Room {
     if (exited) {
       this.broadCast(socket_id, "userLeft", { socket_id });
     } else {
-      this.waitingList.set(userId, { socket_id });
+      this.waitingList.set(userId, { socket_id, createdAt: Date.now() });
+      this.startInterval();
+      console.log("this.waitingList", this.waitingList);
       this.broadCast(socket_id, "userConnectionProblem", { userId });
     }
 

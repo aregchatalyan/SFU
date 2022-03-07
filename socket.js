@@ -24,7 +24,10 @@ module.exports = (io) => {
       });
 
       worker.on("died", () => {
-        console.error("mediasoup worker died, exiting in 2 seconds... [pid:%d]", worker.pid);
+        console.error(
+          "mediasoup worker died, exiting in 2 seconds... [pid:%d]",
+          worker.pid
+        );
         setTimeout(() => process.exit(1), 2000);
       });
 
@@ -312,7 +315,10 @@ module.exports = (io) => {
         await roomList.get(socket.room_id);
 
         if (roomList.get(socket.room_id).getPeers().size === 0) {
+          console.log("RoomDeleted");
           roomList.delete(socket.room_id);
+        } else {
+          console.log("Hello", roomList.get(socket.room_id).getPeers());
         }
         socket.room_id = null;
         callback("successfully exited room");
