@@ -13,3 +13,5 @@
 /.idea
 
 # misc
+/.env.development
+package-lock.json

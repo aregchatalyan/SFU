@@ -55,8 +55,10 @@ export const useSocketInit = ({
         }
       })
       socket.on('askToJoin', ({ userId }) => {
+        const { name, surname } = getUserById(userId)
         toastPermission({
-          ...getUserById(userId),
+          name,
+          surname,
           handlePermissionChange: (allowed) =>
             changeUserBoardPermission({ allowed, userId }),
         })

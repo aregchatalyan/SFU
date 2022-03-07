@@ -41,6 +41,7 @@ const UserList = ({
         </div>
       </div>
       <div className={style.userListContainer}>
+        {console.log('users', users)}
         {users.map(
           (
             {
@@ -52,6 +53,7 @@ const UserList = ({
               audioConsumerId,
               name,
               surname,
+              isTeacher,
               ...otherProps
             },
             index
@@ -99,7 +101,7 @@ const UserList = ({
                       {...{
                         id: audioConsumerId,
                         audioStream,
-                        on: selfId === userId && microphone,
+                        on: true,
                       }}
                     />
                   )}
@@ -108,6 +110,9 @@ const UserList = ({
                       <span className={style.nameBar}>
                         {`${name} ${surname}`}
                       </span>
+                      {isTeacher && (
+                        <span className={style.isTeacherText}>Teacher</span>
+                      )}
                       {selfId !== userId && (
                         <div
                           className={
@@ -138,6 +143,7 @@ const UserList = ({
                   itemAudioStream,
                   name,
                   surname,
+                  isTeacher,
                   ...otherProps,
                 }}
                 key={index}

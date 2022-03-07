@@ -51,57 +51,6 @@ const App = () => {
   })
   const dimissionContext = useWindowDimensions()
 
-  // useEffect(() => {
-  //   if (!isReady && !isLoading) {
-  //     getStream('all')
-  //       .then((res) => {
-  //         setVideoPlayer(true)
-  //         setMicrophone(true)
-  //         setStream(res)
-  //       })
-  //       .catch(() => {
-  //         setVideoPlayer(false)
-  //         setMicrophone(false)
-  //         getStream('video')
-  //           .then((res) => {
-  //             if (!isAudioDeviceAvailable) {
-  //               toastError('Audio device not found')
-  //             } else if (!audioPermission) {
-  //               toastError(firstPage.voicePermission)
-  //             }
-  //             setStream(res)
-  //             setVideoPlayer(true)
-  //           })
-  //           .catch(() => {
-  //             if (videoPermission) {
-  //               toastError('Video device not found ')
-  //             } else if (isVideoDeviceAvailable) {
-  //               toastError(firstPage.videoPermission)
-  //             }
-  //             setVideoPlayer(false)
-  //             getStream('audio')
-  //               .then(() => {
-  //                 setMicrophone(true)
-  //               })
-  //               .catch(() => {
-  //                 if (!isAudioDeviceAvailable) {
-  //                   toastError('Audio device not found')
-  //                 } else if (!audioPermission) {
-  //                   toastError(firstPage.voicePermission)
-  //                 }
-  //               })
-  //           })
-  //       })
-  //   }
-  // }, [
-  //   videoPermission,
-  //   audioPermission,
-  //   isReady,
-  //   isLoading,
-  //   isAudioDeviceAvailable,
-  //   isVideoDeviceAvailable,
-  // ])
-
   return (
     <RoomInfoContext.Provider value={roomContext}>
       <UsersInfoContext.Provider value={usersInfoContext}>

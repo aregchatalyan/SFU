@@ -310,26 +310,6 @@ export const consume = async function (
     })
   }
   return res
-  // getConsumeStream(producer_id, socket).then(function ({
-  //   consumer,
-  //   stream,
-  //   kind,
-  // }) {
-  //   let elem;
-  //   let res;
-
-  // else {
-  //     elem = document.createElement("audio");
-  //     elem.srcObject = stream;
-  //     elem.id = consumer.id;
-  //     elem.playsinline = false;
-  //     elem.autoplay = true;
-  //     //remoteAudios.appendChild(elem)
-  //   }
-
-  //
-  //   return res;
-  // });
 }
 
 export const exit = function (offline = false, socket, callBack) {

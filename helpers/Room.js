@@ -31,7 +31,7 @@ module.exports = class Room {
   startInterval() {
     clearInterval(this.interval);
     this.interval = setInterval(() => {
-      console.log("okok", this.waitingList.size);
+      console.log("interval is working", this.waitingList.size);
       if (this.waitingList.size === 0) {
         this.endInterval();
       }
@@ -255,7 +255,6 @@ module.exports = class Room {
     } else {
       this.waitingList.set(userId, { socket_id, createdAt: Date.now() });
       this.startInterval();
-      console.log("this.waitingList", this.waitingList);
       this.broadCast(socket_id, "userConnectionProblem", { userId });
     }
 
@@ -332,6 +331,11 @@ module.exports = class Room {
   drawingOnBoard(socketId, data) {
     if (this.board.drawing(data)) {
       this.broadCast(socketId, "newDrawing", data);
+    }
+  }
+  addTextOnBoard(socketId, data) {
+    if (this.board.writeText(data)) {
+      this.broadCast(socketId, "newText", data);
     }
   }
 

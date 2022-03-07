@@ -56,6 +56,7 @@
       height: 48px;
       display: flex;
       align-items: center;
+      position: relative;
       .imgWrapper {
         width: 48px;
         height: 48px;
@@ -74,6 +75,14 @@
         font-size: 16px;
         line-height: 24px;
         color: #ffffff;
+      }
+      .isTeacherText {
+        font-size: 12px;
+        line-height: 16px;
+        color: #6a6a6a;
+        position: absolute;
+        bottom: 2px;
+        left: 60px;
       }
     }
     .accsessories {
@@ -103,7 +112,7 @@
 
     .infoBar {
       width: 100%;
-      height: 48px;
+      height: 58px;
       position: absolute;
       bottom: 0;
       box-sizing: border-box;
@@ -114,6 +123,13 @@
       opacity: 0;
       background: linear-gradient(180deg, rgba(35, 35, 35, 0) 0%, #232323 100%);
       transition: 200ms;
+      .isTeacherText {
+        font-size: 12px;
+        line-height: 16px;
+        color: #e7e7e7;
+        position: absolute;
+        bottom: 4px;
+      }
       .nameBar {
         font-style: normal;
         font-weight: 500;

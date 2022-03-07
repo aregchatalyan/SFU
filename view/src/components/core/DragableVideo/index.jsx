@@ -26,6 +26,7 @@ const DragbleVideo = ({
   surname,
   appRef,
   isUserListOpened,
+  isTeacher,
   ...otherProps
 }) => {
   const controller = useAnimation()

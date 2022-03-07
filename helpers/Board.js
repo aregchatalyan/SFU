@@ -3,6 +3,7 @@ module.exports = class Board {
     this.points = [];
     this.paths = [];
     this.elements = [];
+    this.texts = [];
     this.teacher_id = teacher_id;
     this.permissonList = [teacher_id];
     this.action = false;
@@ -101,10 +102,18 @@ module.exports = class Board {
     }
     return false;
   }
+  writeText({ producerId, ...otherProps }) {
+    if (this.permissonList.includes(producerId)) {
+      this.texts.push({ producerId, ...otherProps });
+      return true;
+    }
+    return false;
+  }
   reset({ producerId }) {
     if (this.permissonList.includes(producerId)) {
       this.paths = [];
       this.elements = [];
+      this.texts = [];
     }
   }
   undoActionByUserId({ undoActionType, userId }) {
@@ -131,6 +140,17 @@ module.exports = class Board {
         }
       }
       this.elements = prevCopy;
+    } else if (undoActionType === "text") {
+      const prevCopy = [...this.texts];
+
+      for (let index = this.texts.length - 1; index >= 0; index--) {
+        const text = this.texts[index];
+        if (text.producerId === userId) {
+          prevCopy.splice(index, 1);
+          break;
+        }
+      }
+      this.texts = prevCopy;
     }
   }
   redoBoardAction({ undoActionType, ...otherProps }) {
@@ -138,9 +158,11 @@ module.exports = class Board {
       this.paths.push(otherProps);
     } else if (undoActionType === "draw") {
       this.elements.push(otherProps);
+    } else if (undoActionType === "text") {
+      this.text.push(otherProps);
     }
   }
   getBoardData() {
-    return { paths: this.paths, elements: this.elements };
+    return { paths: this.paths, elements: this.elements, texts: this.texts };
   }
 };

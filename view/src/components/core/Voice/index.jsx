@@ -10,11 +10,11 @@ const VoiceWrapper = ({ id, audioStream, on }) => {
   }, [audioStream])
 
   return (
-    <div className={audioStream ? style.audioOn : style.audioOff}>
+    <div className={audioStream || on ? style.audioOn : style.audioOff}>
       {audioStream ? (
         <audio id={id} playsInline={false} autoPlay={true} ref={userAudio} />
       ) : (
-        <Icon name="videowrapper_audio_off" width={16} height={16} />
+        !on && <Icon name="videowrapper_audio_off" width={16} height={16} />
       )}
     </div>
   )

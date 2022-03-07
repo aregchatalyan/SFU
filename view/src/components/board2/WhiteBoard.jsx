@@ -44,22 +44,41 @@ const WhiteBoard = ({
         Canvas
       </canvas>
       {texts.map(
-        ({ text, left, top, maxWidth, fontSize, lineHeight, color }, index) => (
-          <span
-            className="text_wrapper"
-            style={{
-              left: left + 'px',
-              top: top + 'px',
-              maxWidth: maxWidth + 'px',
-              fontSize: fontSize + 'px',
-              lineHeight: lineHeight + 'px',
-              color,
-            }}
-            key={index}
-          >
-            {text}
-          </span>
-        )
+        (
+          {
+            text,
+            left,
+            top,
+            maxWidth,
+            fontSize,
+            lineHeight,
+            color,
+            canvasWidth,
+            canvasHeight,
+            ...otherProps
+          },
+          index
+        ) => {
+          const scaleWidth = window.innerWidth / canvasWidth
+          const scaleHeight = window.innerHeight / canvasHeight
+          console.log('first', otherProps)
+          return (
+            <span
+              className="text_wrapper"
+              style={{
+                left: left * scaleWidth + 'px',
+                top: top * scaleHeight + 'px',
+                maxWidth: maxWidth + 'px',
+                fontSize: fontSize + 'px',
+                lineHeight: lineHeight + 'px',
+                color,
+              }}
+              key={index}
+            >
+              {text}
+            </span>
+          )
+        }
       )}
 
       <canvas

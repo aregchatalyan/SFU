@@ -29,7 +29,7 @@ export const useRoomDataFilter = (userId, socket) => {
     (userId) => {
       const userData =
         roomData && roomData.teacherInfo.id === userId
-          ? roomData.teacherInfo
+          ? { isTeacher: true, ...roomData.teacherInfo }
           : roomData &&
             [roomData.me, ...roomData.classmates].filter(
               ({ id }) => id === userId
@@ -37,6 +37,7 @@ export const useRoomDataFilter = (userId, socket) => {
       return {
         name: userData.name,
         surname: userData.surname,
+        isTeacher: userData.isTeacher || false,
       }
     },
     [roomData]

@@ -385,6 +385,11 @@ module.exports = (io) => {
         console.log("data", data);
         roomList.get(socket.room_id).drawingOnBoard(socket.id, data);
       });
+      socket.on("wroteText", (data) => {
+        if (!roomList.has(socket.room_id)) return;
+        console.log("data", data);
+        roomList.get(socket.room_id).addTextOnBoard(socket.id, data);
+      });
 
       socket.on("resetBoard", (data) => {
         if (!roomList.has(socket.room_id)) return;
@@ -404,4 +409,4 @@ module.exports = (io) => {
       socket.emit("forbidden", "hello");
     }
   });
-}
+};

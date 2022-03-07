@@ -3,7 +3,8 @@ import defaultUser from '../../assets/img/defaultUser.png'
 import Icon from '../core/Icon'
 import style from './style.module.scss'
 
-const Item = ({ firsIconName, itemAudioStream, name, surname }) => {
+const Item = ({ firsIconName, itemAudioStream, name, surname, isTeacher }) => {
+  console.log('isTeacher', isTeacher)
   return (
     <div className={style.item}>
       <div className={style.container}>
@@ -11,6 +12,7 @@ const Item = ({ firsIconName, itemAudioStream, name, surname }) => {
           <img src={defaultUser} alt="" />
         </div>
         <span>{`${name} ${surname}`}</span>
+        {isTeacher && <span className={style.isTeacherText}>Teacher</span>}
       </div>
       <div className={style.accsessories}>
         <Icon name={firsIconName} width={16} height={16} />
