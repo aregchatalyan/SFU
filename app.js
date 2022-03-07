@@ -40,6 +40,20 @@ if (process.env.NODE_ENV === 'production') {
     res.sendFile(path.join(__dirname, "view", "build", "index.html"));
   });
 } else {
+
+  app.get('/pull', (req, res) => {
+    exec('git pull', (error, stdout, stderr) => {
+      if (error) return console.error('Git pull failed.');
+
+      if (stdout === 'Already up to date.') {
+        res.send(stdout);
+      } else {
+        setTimeout(() => {exec('pm2 reload 0')}, 3000);
+        setTimeout(() => {exec('pm2 restart 0')}, 4000);
+        res.send('Pulling..., Server is rebooting.');
+      }
+    });
+  });
   protocol = 'https';
   httpServer = https.createServer({
     key: config.sslKey,
