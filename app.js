@@ -21,20 +21,21 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(express.static(path.join(__dirname, "view", "build")));
 
-  app.get('/pull', (req, res) => {
+  const pull = (req, res) => {
     exec('git pull', (error, stdout, stderr) => {
       if (error) return console.error('Git pull failed.');
-      console.log(1, stdout, 'Already up to date.')
-      if (stdout !== 'Already up to date.') {
-        console.log(2, 'Already up to')
+
+      if (stdout.trim() === 'Already up to date.') {
+        res.send(stdout);
+      } else {
         setTimeout(() => {exec('pm2 reload 0')}, 3000);
         setTimeout(() => {exec('pm2 restart 0')}, 4000);
         res.send('Pulling..., Server is rebooting.');
-      } else {
-        res.send(3, 'Already up to date.');
       }
     });
-  });
+  }
+
+  app.route('/pull').get(pull).post(pull);
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "view", "build", "index.html"));
