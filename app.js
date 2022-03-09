@@ -8,12 +8,12 @@ const {config: load_env} = require("dotenv");
 
 load_env();
 
-let protocol;
-let httpServer;
 const app = express();
-
 const socket = require("./socket");
 const config = require("./config/config");
+
+let protocol;
+let httpServer;
 
 if (process.env.NODE_ENV === 'production') {
   protocol = 'http';
@@ -21,48 +21,32 @@ if (process.env.NODE_ENV === 'production') {
 
   app.use(express.static(path.join(__dirname, "view", "build")));
 
-  const pull = (req, res) => {
-    exec('git pull', (error, stdout, stderr) => {
-      if (error) return console.error('Git pull failed.');
-
-      if (stdout.trim() === 'Already up to date.') {
-        res.send(stdout);
-      } else {
-        setTimeout(() => {exec('pm2 reload 0')}, 3000);
-        setTimeout(() => {exec('pm2 restart 0')}, 4000);
-        res.send('Pulling..., Server is rebooting.');
-      }
-    });
-  }
-
-  app.route('/pull').get(pull).post(pull);
-
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, "view", "build", "index.html"));
   });
 } else {
-  const pull = (req, res) => {
-    exec('git pull', (error, stdout, stderr) => {
-      if (error) return console.error('Git pull failed.');
-
-      if (stdout.trim() === 'Already up to date.') {
-        res.send(stdout);
-      } else {
-        setTimeout(() => {exec('pm2 reload 0')}, 3000);
-        setTimeout(() => {exec('pm2 restart 0')}, 4000);
-        res.send('Pulling..., Server is rebooting.');
-      }
-    });
-  }
-
-  app.route('/pull').get(pull).post(pull);
-
   protocol = 'https';
   httpServer = https.createServer({
     key: config.sslKey,
     cert: config.sslCrt
   }, app);
 }
+
+const pull = (req, res) => {
+  exec('git pull', (error, stdout) => {
+    if (error) return console.error('Git pull failed.');
+
+    if (stdout.trim() === 'Already up to date.') {
+      res.send(stdout);
+    } else {
+      setTimeout(() => {exec('pm2 reload 0')}, 3000);
+      setTimeout(() => {exec('pm2 restart 0')}, 4000);
+      res.send('Pulling..., Server is rebooting.');
+    }
+  });
+}
+
+app.route('/pull').get(pull).post(pull);
 
 httpServer.listen(config.listenPort, () => {
   console.log(`Listening on ${protocol}://${config.listenIp}:${config.listenPort}`);
