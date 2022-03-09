@@ -79,7 +79,13 @@ const Children = ({ closeModal, selfId }) => {
             <span>Add Version</span>
           </button>
         </div>
-        <div className={style.versionsContainer}>
+        <div
+          className={
+            formContext.versions.length > 3
+              ? style.versionsContainer
+              : style.versionsContainerSmall
+          }
+        >
           {formContext.versions.map(({ text: value }, index, arr) => (
             <AnswerInput
               {...{

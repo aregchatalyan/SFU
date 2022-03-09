@@ -296,7 +296,7 @@
   }
 
   .user_identifyer {
-    height: 24px;
+    min-height: 24px;
     position: absolute;
     z-index: 8;
     display: none;
@@ -319,6 +319,33 @@
     img {
       width: 16px;
       height: 16px;
+    }
+  }
+  .user_identifyer_inside {
+    min-width: 91px;
+    min-height: 24px;
+    background: #ffffff;
+    border: 1px solid #e7e7e7;
+    box-sizing: border-box;
+    border-radius: 16px;
+    position: absolute;
+    z-index: 8;
+    display: none;
+    align-items: center;
+    overflow: hidden;
+
+    padding: 0 8px;
+    img {
+      width: 16px;
+      height: 16px;
+      margin-right: 4px;
+    }
+    span {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+      color: #6a6a6a;
+      overflow: hidden;
     }
   }
 }

@@ -14,6 +14,7 @@ const useBoardAction = ({
   permissionToEdit,
   identyfierRef,
   setEditorName,
+  setEditorToolType,
   getUserById,
   textAreaRef,
   spanRef,
@@ -311,6 +312,7 @@ const useBoardAction = ({
           const { name, surname } = getUserById(producerId)
           identyfierRef.current.style.display = 'flex'
           setEditorName(`${name} ${surname}`)
+          setEditorToolType('pencil')
         }
       } else if (type === 'on_process') {
         const newEle = {
@@ -375,6 +377,7 @@ const useBoardAction = ({
       getUserById,
       identyfierRef,
       setEditorName,
+      setEditorToolType,
     ]
   )
   const drawing = useCallback(
@@ -393,6 +396,13 @@ const useBoardAction = ({
       const context = canvas.getContext('2d')
       const { width: canvasWidth, height: canvasHeight } =
         canvas.getBoundingClientRect()
+      const scaleWidth = incomingCanvasWidth
+        ? canvasWidth / incomingCanvasWidth
+        : 1
+
+      const scaleHeight = incomingCanvasHeight
+        ? canvasHeight / incomingCanvasHeight
+        : 1
 
       if (
         !incomingElementColor &&
@@ -429,6 +439,12 @@ const useBoardAction = ({
           canvasHeight: incomingCanvasHeight || canvasHeight,
           producerId: producerId || selfId,
         }
+        if (identyfierRef && producerId) {
+          const { name, surname } = getUserById(producerId)
+          identyfierRef.current.style.display = 'flex'
+          setEditorName(`${name} ${surname}`)
+          setEditorToolType(incomingToolType)
+        }
         setImitationElement((prevState) => [...prevState, newElement])
       } else if (type === 'on_process') {
         setImitationElement((prevState) => {
@@ -440,6 +456,10 @@ const useBoardAction = ({
             endingX: clientX,
             endingY: clientY,
           }
+          if (identyfierRef && producerId) {
+            identyfierRef.current.style.top = `${clientY * scaleHeight}px`
+            identyfierRef.current.style.left = `${clientX * scaleWidth}px`
+          }
           return [...elements]
         })
       } else if (type === 'finished') {
@@ -447,6 +467,10 @@ const useBoardAction = ({
           setElements((prev) => [...prev, ...state])
           return []
         })
+        if (identyfierRef && producerId) {
+          identyfierRef.current.style.display = 'none'
+          setEditorName(``)
+        }
         if (!producerId) {
           setHistory((prev) => [...prev, 'draw'])
         }
@@ -458,9 +482,24 @@ const useBoardAction = ({
         if (!producerId) {
           setHistory((prev) => [...prev, 'draw'])
         }
+        if (identyfierRef && producerId) {
+          identyfierRef.current.style.display = 'none'
+          setEditorName(``)
+        }
       }
     },
-    [selfId, boardRef, toolType, width.element, color, socket]
+    [
+      selfId,
+      boardRef,
+      toolType,
+      width.element,
+      color,
+      socket,
+      identyfierRef,
+      getUserById,
+      setEditorName,
+      setEditorToolType,
+    ]
   )
 
   const writing = useCallback(

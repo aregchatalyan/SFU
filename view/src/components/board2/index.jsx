@@ -18,6 +18,7 @@ const Board = ({ className, goToVideoCall, selfId, handleFullScreen }) => {
   const [color, setColor] = useColor('hex', '#1c1d1f')
   const [selectColor, setSelectColor] = useState(false)
   const [editorName, setEditorName] = useState('')
+  const [editorToolType, setEditorToolType] = useState('pencil')
   const [texts, setTexts] = useState([])
 
   const [width, setWidth] = useState({ element: 2, path: 1 })
@@ -38,6 +39,7 @@ const Board = ({ className, goToVideoCall, selfId, handleFullScreen }) => {
     permissionToEdit,
     identyfierRef,
     setEditorName,
+    setEditorToolType,
     getUserById,
     textAreaRef,
     spanRef,
@@ -68,10 +70,12 @@ const Board = ({ className, goToVideoCall, selfId, handleFullScreen }) => {
           boardRef,
           identyfierRef,
           editorName,
+          editorToolType,
           toolType,
           textAreaRef,
           spanRef,
           texts,
+          permissionToEdit,
         }}
       />
       <AnimatePresence exitBeforeEnter>

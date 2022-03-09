@@ -3,8 +3,14 @@ import defaultUser from '../../assets/img/defaultUser.png'
 import Icon from '../core/Icon'
 import style from './style.module.scss'
 
-const Item = ({ firsIconName, itemAudioStream, name, surname, isTeacher }) => {
-  console.log('isTeacher', isTeacher)
+const Item = ({
+  firsIconName,
+  itemAudioStream,
+  name,
+  surname,
+  isTeacher,
+  userId,
+}) => {
   return (
     <div className={style.item}>
       <div className={style.container}>
@@ -16,7 +22,9 @@ const Item = ({ firsIconName, itemAudioStream, name, surname, isTeacher }) => {
       </div>
       <div className={style.accsessories}>
         <Icon name={firsIconName} width={16} height={16} />
-        {itemAudioStream ? null : ( // <Visulizer {...{ audioStream: itemAudioStream }} />
+        {itemAudioStream ? (
+          <Icon name="userlist_voice_on" width={16} height={16} />
+        ) : (
           <Icon name="userlist_voice_off" width={16} height={16} />
         )}
       </div>

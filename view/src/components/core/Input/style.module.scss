@@ -431,10 +431,17 @@
     height: 100%;
     background: #6a6a6a;
     position: absolute;
+    opacity: 0;
     right: 0;
     top: 0;
+    transition: 200ms;
     button {
       cursor: pointer;
+    }
+  }
+  &:hover {
+    .deleteBtn {
+      opacity: 1;
     }
   }
 }

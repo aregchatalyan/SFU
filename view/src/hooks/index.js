@@ -1,5 +1,4 @@
 export { useOutsideClick } from './useOutsideClick'
-export { useAudioAnalizer } from './useAudioAnalizer'
 export { useWindowDimensions } from './useWindowDimensions'
 export { useActiveTimeOut } from './useActiveTimeOut'
 export { useComponentHover } from './useComponenetHover'

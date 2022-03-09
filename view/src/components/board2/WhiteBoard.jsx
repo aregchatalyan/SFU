@@ -1,17 +1,33 @@
 import React, { useContext, useEffect } from 'react'
-import pencil from '../../assets/img/pencil.png'
+import pencil from '../../assets/img/cursor/pencil.png'
+import traiangle from '../../assets/img/cursor/traiangle.png'
+import circle from '../../assets/img/cursor/circle.png'
+import rectangle from '../../assets/img/cursor/rectangle.png'
+import line from '../../assets/img/cursor/line.png'
+import pointer from '../../assets/img/cursor/pointer.png'
 import { SocketContext } from '../../Context'
 import { BoardTextArea } from '../core/Input'
+
+const imgs = {
+  triangle: traiangle,
+  rectangle: rectangle,
+  circle: circle,
+  pencil: pencil,
+  line: line,
+  pointer: pointer,
+}
 
 const WhiteBoard = ({
   savedBoardRef,
   boardRef,
   identyfierRef,
   editorName,
+  editorToolType,
   toolType,
   textAreaRef,
   spanRef,
   texts,
+  permissionToEdit,
 }) => {
   const socket = useContext(SocketContext)
 
@@ -25,12 +41,20 @@ const WhiteBoard = ({
       width={window.innerWidth}
       height={window.innerHeight}
     >
-      <div className="user_identifyer" ref={identyfierRef}>
-        <img src={pencil} alt="" />
+      <div
+        className={
+          editorToolType === 'pencil'
+            ? 'user_identifyer'
+            : 'user_identifyer_inside'
+        }
+        ref={identyfierRef}
+      >
+        <img src={imgs[editorToolType]} alt="" />
         <span id="user_name_wrapper" className="user_name">
           {editorName}
         </span>
       </div>
+
       <BoardTextArea childRef={spanRef} ref={textAreaRef} />
       <canvas
         className="wrappercanvas"
@@ -61,7 +85,6 @@ const WhiteBoard = ({
         ) => {
           const scaleWidth = window.innerWidth / canvasWidth
           const scaleHeight = window.innerHeight / canvasHeight
-          console.log('first', otherProps)
           return (
             <span
               className="text_wrapper"
@@ -82,7 +105,7 @@ const WhiteBoard = ({
       )}
 
       <canvas
-        className={`wrappercanvas cursor_${toolType}`}
+        className={`wrappercanvas cursor_${permissionToEdit && toolType}`}
         style={{
           backgroundColor: 'none',
         }}

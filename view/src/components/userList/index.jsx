@@ -144,6 +144,7 @@ const UserList = ({
                   name,
                   surname,
                   isTeacher,
+                  userId,
                   ...otherProps,
                 }}
                 key={index}
