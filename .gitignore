@@ -1,6 +1,9 @@
 .idea
 *.log
-build
 .DS_Store
+
+build
+ssl/*.pem
+
 node_modules
 package-lock.json
