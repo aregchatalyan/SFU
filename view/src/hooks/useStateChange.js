@@ -3,7 +3,7 @@ import { URL } from '../config'
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRoomDataFilter, useProducerChange } from './notExported'
-import { useSocketInit } from './notExported/useSocketInit'
+import { useSocketInit } from './notExported'
 
 export const useStateChange = () => {
   const [users, setUsers] = useState([])
@@ -14,6 +14,12 @@ export const useStateChange = () => {
   useEffect(() => {
     socket.current = io(URL + `?room_id=${roomId}&user_id=${userId}`, {
       secure: true,
+      transports: ['websocket', 'polling']
+    })
+
+    socket.current.on('connect_error', () => {
+      socket.current.io.opts.transports = ['polling', 'websocket'];
+      socket.current.io.opts.upgrade = true;
     })
   }, [roomId, socket, userId])
 

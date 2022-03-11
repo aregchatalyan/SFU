@@ -4,12 +4,14 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "server": "cross-env NODE_ENV=production node app.js",
-    "server:dev": "cross-env NODE_ENV=development nodemon app.js",
     "server:install": "npm install",
-    "client:install": "npm install --prefix view",
+    "server:start": "cross-env NODE_ENV=production node app.js",
+    "server:start:dev": "cross-env NODE_ENV=development nodemon app.js",
+    "client:start:dev": "npm run start --prefix view",
     "client:build": "npm run build --prefix view",
-    "start": "npm run client:install && npm run client:build && npm run server:install && npm run server"
+    "client:install": "npm install --prefix view",
+    "start:both:dev": "concurrently \"npm run server:start:dev\" \"npm run client:start:dev\"",
+    "start": "npm run client:install && npm run client:build && npm run server:install && npm run server:start"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +25,7 @@
     "socket.io": "^4.1.3"
   },
   "devDependencies": {
+    "concurrently": "^7.0.0",
     "nodemon": "^2.0.15"
   }
 }
