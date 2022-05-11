@@ -7,12 +7,12 @@ const faces = os.networkInterfaces();
 const getLocalIp = () => {
   let localIp = "127.0.0.1";
 
-  Object.keys(faces).forEach((name) => {
-    for (const {family, internal, address} of faces[name]) {
-      if (family !== "IPv4" || internal !== false) continue;
+  for (const { family, internal, address } of Object.values(faces).flat(1)) {
+    if (family === "IPv4" && !internal) {
       return localIp = address;
     }
-  });
+  }
+
   return localIp;
 };
 

@@ -1,24 +1,15 @@
 import { useState } from 'react'
 
 export const useDeviceAvailability = () => {
-  const [isAudioDeviceAvailable, setIsAudioDeviceAvailable] = useState(false)
-  const [isVideoDeviceAvailable, setIsVideoDeviceAvailable] = useState(false)
+  const [ isAudioDeviceAvailable, setIsAudioDeviceAvailable ] = useState(false)
+  const [ isVideoDeviceAvailable, setIsVideoDeviceAvailable ] = useState(false);
 
-  const enumerateDevices = () =>
-    navigator.mediaDevices.enumerateDevices().then((devices) => {
-      setIsVideoDeviceAvailable(
-        devices.some(({ kind }) => kind === 'videoinput')
-      )
-      setIsAudioDeviceAvailable(
-        devices.some(({ kind }) => kind === 'audioinput')
-      )
-    })
+  (async () => {
+    const devices = await navigator.mediaDevices.enumerateDevices()
 
-  navigator.mediaDevices.ondevicechange = enumerateDevices
+    setIsVideoDeviceAvailable(devices.some(({ kind }) => kind === 'videoinput'))
+    setIsAudioDeviceAvailable(devices.some(({ kind }) => kind === 'audioinput'))
+  })()
 
-  enumerateDevices()
-  return {
-    isAudioDeviceAvailable,
-    isVideoDeviceAvailable,
-  }
+  return { isAudioDeviceAvailable, isVideoDeviceAvailable }
 }

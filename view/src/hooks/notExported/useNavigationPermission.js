@@ -23,7 +23,7 @@ export const useNavigationPermission = () => {
             callBack(false)
           }
         }
-      })
+      }).catch(e => console.error(e))
   }
 
   useEffect(() => {

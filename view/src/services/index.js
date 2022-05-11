@@ -417,8 +417,8 @@ export const produce = async function (
   }
   try {
     stream = screen
-      ? await window.navigator.mediaDevices.getDisplayMedia({ kind: 'screen' })
-      : await window.navigator.mediaDevices.getUserMedia(mediaConstraints)
+      ? await navigator.mediaDevices.getDisplayMedia()
+      : await navigator.mediaDevices.getUserMedia(mediaConstraints)
 
     const track = audio
       ? stream.getAudioTracks()[0]

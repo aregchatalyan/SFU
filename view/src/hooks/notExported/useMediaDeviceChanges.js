@@ -4,21 +4,21 @@ import { getStream } from '../../helpers'
 import { closeProducer, produce } from '../../services'
 
 export const useMediaDeviceChanges = ({
-  socket,
-  isReady,
-  microphone,
-  videoPlayer,
-  audioStream,
-  setStream,
-  setAudioStream,
-  setMicrophone,
-  setVideoPlayer,
-  isVideoDeviceAvailable,
-  isAudioDeviceAvailable,
-  videoPermission,
-  audioPermission,
-}) => {
-  const [mediaErr, setMediaErr] = useState({})
+    socket,
+    isReady,
+    microphone,
+    videoPlayer,
+    audioStream,
+    setStream,
+    setAudioStream,
+    setMicrophone,
+    setVideoPlayer,
+    isVideoDeviceAvailable,
+    isAudioDeviceAvailable,
+    videoPermission,
+    audioPermission,
+  }) => {
+  const [ mediaErr, setMediaErr ] = useState({})
 
   const tryToConnect = useCallback(() => {
     const errorCollector = {
@@ -29,6 +29,7 @@ export const useMediaDeviceChanges = ({
       audioPermission: true,
       audioDevice: true,
     }
+
     getStream('all')
       .then((res) => {
         setVideoPlayer(true)
@@ -37,11 +38,13 @@ export const useMediaDeviceChanges = ({
       })
       .catch((err) => {
         errorCollector.isAnyErr = true
-        errorCollector.mainErrType =
-          'Requested device not found' === err.message ? 'device' : 'permission'
+        errorCollector.mainErrType = 'Requested device not found' === err.message
+          ? 'device'
+          : 'permission'
 
         setVideoPlayer(false)
         setMicrophone(false)
+
         getStream('video')
           .then((res) => {
             errorCollector[
@@ -50,7 +53,7 @@ export const useMediaDeviceChanges = ({
                   ? 'audioDevice'
                   : 'audioPermission'
               }`
-            ] = false
+              ] = false
             setMediaErr(errorCollector)
             setStream(res)
             setVideoPlayer(true)
@@ -62,7 +65,7 @@ export const useMediaDeviceChanges = ({
                   ? 'videoDevice'
                   : 'videoPermission'
               }`
-            ] = false
+              ] = false
 
             setVideoPlayer(false)
             getStream('audio')
@@ -78,18 +81,18 @@ export const useMediaDeviceChanges = ({
                       ? 'audioDevice'
                       : 'audioPermission'
                   }`
-                ] = false
+                  ] = false
                 setMediaErr(errorCollector)
               })
           })
       })
-  }, [setMicrophone, setVideoPlayer, setStream])
+  }, [ setMicrophone, setVideoPlayer, setStream ])
 
   useEffect(() => {
     if (!isReady) {
       tryToConnect()
     }
-  }, [isReady, tryToConnect])
+  }, [ isReady, tryToConnect ])
 
   useEffect(() => {
     if (mediaErr.isAnyErr) {
@@ -98,7 +101,7 @@ export const useMediaDeviceChanges = ({
         !mediaErr.audioDevice &&
         mediaErr.mainErrType === 'device'
       ) {
-        toastError('Mediadevices are not available')
+        toastError('Media devices are not available')
       } else if (!mediaErr.videoDevice) {
         toastError('Video device not found ')
       } else if (!mediaErr.audioDevice) {
@@ -113,10 +116,10 @@ export const useMediaDeviceChanges = ({
       toastError('Mediadevices permissions are disabled')
     } else if (!mediaErr.videoPermission && mediaErr.videoDevice) {
       toastError('Your video permission is disabled.')
-    } else if (!mediaErr.audioPermission && mediaErr.audioDevice) {
+    } else if (mediaErr.audioPermission && mediaErr.audioDevice) {
       toastError('Your voice permission is disabled.')
     }
-  }, [mediaErr])
+  }, [ mediaErr ])
 
   useEffect(() => {
     if (audioPermission && isAudioDeviceAvailable && !microphone) {
@@ -135,24 +138,24 @@ export const useMediaDeviceChanges = ({
       } else {
         setStream((stream) => {
           stream &&
-            stream
-              .getTracks()
-              .forEach((track) => track.kind === 'audio' && track.stop())
+          stream
+            .getTracks()
+            .forEach((track) => track.kind === 'audio' && track.stop())
           return stream
         })
         if (audioStream) {
           setAudioStream((stream) => {
             stream &&
-              stream
-                .getTracks()
-                .forEach((track) => track.kind === 'audio' && track.stop())
+            stream
+              .getTracks()
+              .forEach((track) => track.kind === 'audio' && track.stop())
             return stream
           })
         }
       }
       setMicrophone(false)
     }
-  }, [socket, isAudioDeviceAvailable, audioPermission]) // eslint-disable-line
+  }, [ socket, isAudioDeviceAvailable, audioPermission ]) // eslint-disable-line
 
   useEffect(() => {
     if (videoPermission && isVideoDeviceAvailable && !videoPlayer) {
@@ -171,13 +174,11 @@ export const useMediaDeviceChanges = ({
       } else {
         setStream((stream) => {
           stream &&
-            stream
-              .getTracks()
-              .forEach((track) => track.kind === 'video' && track.stop())
+          stream.getTracks().forEach((track) => track.kind === 'video' && track.stop())
           return stream
         })
       }
       setVideoPlayer(false)
     }
-  }, [socket, isVideoDeviceAvailable, videoPermission]) // eslint-disable-line
+  }, [ socket, isVideoDeviceAvailable, videoPermission ]) // eslint-disable-line
 }
