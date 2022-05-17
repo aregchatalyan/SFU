@@ -1,6 +1,10 @@
 import React from 'react'
-
 import { ToastContainer } from 'react-toastify'
+
+import {
+  socket as recSocket,
+  peer as recPeer
+} from '../../func/main'
 
 import {
   UsersInfoContext,
@@ -48,6 +52,8 @@ const App = () => {
     roomId,
     getUserById: roomContext.getUserById,
     ...statesForMethodes,
+    recSocket,
+    recPeer
   })
   const dimissionContext = useWindowDimensions()
 
@@ -58,20 +64,32 @@ const App = () => {
           <React.StrictMode>
             <DimensionsContext.Provider value={dimissionContext}>
               {isLoading ? (
-                <PreJoin loading={isLoading} />
+                <PreJoin loading={isLoading}/>
               ) : !isReady ? (
-                <Waiting
-                  {...{
-                    stream,
-                    videoPlayer,
-                    handleVideoClick,
-                    microphone,
-                    handleMicrophoneClick,
-                    handleConfirm,
-                    audioStream,
-                    isJoining,
-                  }}
-                />
+                <>
+                  <button style={{ padding: '15px', border: '1px solid' }} onClick={() => {
+                    recSocket.send(JSON.stringify({ action: 'start-record', sessionId: recPeer.sessionId }))
+                  }}>
+                    Rec
+                  </button>
+                  <button style={{ padding: '15px', border: '1px solid' }} onClick={() => {
+                    recSocket.send(JSON.stringify({ action: 'stop-record', sessionId: recPeer.sessionId }))
+                  }}>
+                    Stop
+                  </button>
+                  <Waiting
+                    {...{
+                      stream,
+                      videoPlayer,
+                      handleVideoClick,
+                      microphone,
+                      handleMicrophoneClick,
+                      handleConfirm,
+                      audioStream,
+                      isJoining,
+                    }}
+                  />
+                </>
               ) : (
                 <VideoCall
                   {...{
@@ -91,7 +109,7 @@ const App = () => {
             </DimensionsContext.Provider>
           </React.StrictMode>
         </SocketContext.Provider>
-        <ToastContainer style={{ minWidth: '390px' }} />
+        <ToastContainer style={{ minWidth: '390px' }}/>
       </UsersInfoContext.Provider>
     </RoomInfoContext.Provider>
   )

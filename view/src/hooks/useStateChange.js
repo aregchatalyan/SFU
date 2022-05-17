@@ -1,27 +1,30 @@
-import io from 'socket.io-client'
-import { URL } from '../config'
 import { useEffect, useRef, useState } from 'react'
+import { io } from 'socket.io-client'
 import { useParams } from 'react-router-dom'
-import { useRoomDataFilter, useProducerChange } from './notExported'
+
+import { URL } from '../config'
 import { useSocketInit } from './notExported'
+import { useRoomDataFilter, useProducerChange } from './notExported'
 
 export const useStateChange = () => {
-  const [users, setUsers] = useState([])
-  const [disconnectedUsers, setDisconnectedUsers] = useState([])
+  const { userId, roomId } = useParams()
+
+  const [ users, setUsers ] = useState([])
+  const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
 
   const socket = useRef(undefined)
-  const { userId, roomId } = useParams()
+
   useEffect(() => {
     socket.current = io(URL + `?room_id=${roomId}&user_id=${userId}`, {
       secure: true,
-      transports: ['websocket', 'polling']
+      transports: [ 'websocket', 'polling' ]
     })
 
     socket.current.on('connect_error', () => {
-      socket.current.io.opts.transports = ['polling', 'websocket'];
+      socket.current.io.opts.transports = [ 'polling', 'websocket' ];
       socket.current.io.opts.upgrade = true;
     })
-  }, [roomId, socket, userId])
+  }, [ roomId, socket, userId ])
 
   const [
     isLoading,

@@ -17,10 +17,12 @@ export const useHandleMethodes = ({
   setUserList,
   getUserById,
   setDisconnectedUsers,
+  recSocket,
+  recPeer
 }) => {
   // ref and state
 
-  const [isJoining, setIsJoining] = useState()
+  const [isJoining, setIsJoining] = useState(false)
   const [isReady, setIsReady] = useState(false)
   const [videoPlayer, setVideoPlayer] = useState(false)
   const [stream, setStream] = useState(null)
@@ -110,6 +112,11 @@ export const useHandleMethodes = ({
   }
 
   const handleConfirm = useCallback(() => {
+    recSocket.send(JSON.stringify({
+      action: 'start-record',
+      sessionId: recPeer.sessionId
+    }))
+
     setIsJoining(true)
     joinRoom({
       userId,
@@ -181,6 +188,16 @@ export const useHandleMethodes = ({
   })
 
   const handleLeaveMeeting = useCallback(() => {
+    recSocket.send(JSON.stringify({
+      action: 'stop-record',
+      sessionId: recPeer.sessionId
+    }))
+
+    recSocket.send(JSON.stringify({
+      action: 'start-combine',
+      sessionId: recPeer.sessionId
+    }))
+
     if (videoPlayer) {
       closeProducer('videoType', socket, setStream)
     }

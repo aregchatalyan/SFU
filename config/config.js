@@ -1,36 +1,36 @@
-const os = require("os");
-const fs = require("fs");
-const path = require("path");
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
 
 const faces = os.networkInterfaces();
 
 const getLocalIp = () => {
-  let localIp = "127.0.0.1";
+  let localIp = '127.0.0.1';
 
   for (const { family, internal, address } of Object.values(faces).flat(1)) {
-    if (family === "IPv4" && !internal) {
+    if (family === 'IPv4' && !internal) {
       return localIp = address;
     }
   }
 
   return localIp;
-};
+}
 
 module.exports = {
   listenIp: '127.0.0.1',
   listenPort: 3030,
-  sslCrt: fs.readFileSync(path.join(__dirname, "..", "ssl", "cert.pem"), "utf-8"),
-  sslKey: fs.readFileSync(path.join(__dirname, "..", "ssl", "key.pem"), "utf-8"),
+  sslCrt: fs.readFileSync(path.join(__dirname, '..', 'ssl', 'cert.pem'), 'utf-8'),
+  sslKey: fs.readFileSync(path.join(__dirname, '..', 'ssl', 'key.pem'), 'utf-8'),
 
   mediasoup: {
     // Worker settings
-    numWorkers: Object.keys(os.cpus()).length,
+    numWorkers: os.cpus().length,
 
     worker: {
       rtcMinPort: 10000,
       rtcMaxPort: 11000,
-      logLevel: "warn",
-      logTags: ["info", "ice", "dtls", "rtp", "srtp", "rtcp", "rtx", "bwe", "score", "simulcast", "svc"],
+      logLevel: 'warn',
+      logTags: [ 'info', 'ice', 'dtls', 'rtp', 'srtp', 'rtcp', 'rtx', 'bwe', 'score', 'simulcast', 'svc' ],
     },
 
     // Router settings
@@ -77,12 +77,14 @@ module.exports = {
     webRtcTransport: {
       listenIps: [
         {
-          ip: "0.0.0.0",
-          announcedIp: process.env.NODE_ENV === 'production' ? '52.29.86.126' : getLocalIp()
+          ip: '0.0.0.0',
+          announcedIp: process.env.NODE_ENV === 'production'
+            ? '52.29.86.126'
+            : getLocalIp()
         },
       ],
       maxIncomingBitrate: 1500000,
       initialAvailableOutgoingBitrate: 1000000,
     },
   },
-};
+}
