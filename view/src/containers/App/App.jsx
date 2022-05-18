@@ -66,30 +66,18 @@ const App = () => {
               {isLoading ? (
                 <PreJoin loading={isLoading}/>
               ) : !isReady ? (
-                <>
-                  <button style={{ padding: '15px', border: '1px solid' }} onClick={() => {
-                    recSocket.send(JSON.stringify({ action: 'start-record', sessionId: recPeer.sessionId }))
-                  }}>
-                    Rec
-                  </button>
-                  <button style={{ padding: '15px', border: '1px solid' }} onClick={() => {
-                    recSocket.send(JSON.stringify({ action: 'stop-record', sessionId: recPeer.sessionId }))
-                  }}>
-                    Stop
-                  </button>
-                  <Waiting
-                    {...{
-                      stream,
-                      videoPlayer,
-                      handleVideoClick,
-                      microphone,
-                      handleMicrophoneClick,
-                      handleConfirm,
-                      audioStream,
-                      isJoining,
-                    }}
-                  />
-                </>
+                <Waiting
+                  {...{
+                    stream,
+                    videoPlayer,
+                    handleVideoClick,
+                    microphone,
+                    handleMicrophoneClick,
+                    handleConfirm,
+                    audioStream,
+                    isJoining,
+                  }}
+                />
               ) : (
                 <VideoCall
                   {...{
