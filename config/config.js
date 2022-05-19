@@ -79,7 +79,7 @@ module.exports = {
         {
           ip: '0.0.0.0',
           announcedIp: process.env.NODE_ENV === 'production'
-            ? '52.29.86.126'
+            ? '3.72.2.74'
             : getLocalIp()
         },
       ],
