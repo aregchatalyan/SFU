@@ -1,4 +1,4 @@
-const config = require("../config/config");
+const config = require("../config");
 const Board = require("./Board");
 
 module.exports = class Room {

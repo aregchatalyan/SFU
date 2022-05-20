@@ -5,7 +5,7 @@ const Peer = require('./helpers/Peer');
 const Question = require('./helpers/Question');
 const mockData = require('./helpers/mock.data');
 
-const config = require('./config/config');
+const config = require('./config');
 
 module.exports = (io) => {
   let workers = [];
