@@ -9,11 +9,14 @@ const { config: load_env } = require('dotenv');
 load_env();
 
 const app = express();
+const mongo = require('./mongo');
 const socket = require('./socket');
-const config = require('./config/config');
+const config = require('./config');
 
 let protocol;
 let httpServer;
+
+app.use('/signin', require('./api/signin/signin.route'));
 
 if (process.env.NODE_ENV === 'production') {
   protocol = 'http';
@@ -52,9 +55,20 @@ const pull = (req, res) => {
 
 app.route('/pull').get(pull).post(pull);
 
-httpServer.listen(config.listenPort, () => {
-  console.log(`Listening on ${protocol}://${config.listenIp}:${config.listenPort}`);
-});
+(async () => {
+  try {
+    await mongo(config.mongoUri);
+    console.log('Mongo connected');
+
+    httpServer.listen(config.listenPort, () => {
+        process.env.NODE_ENV === 'production' ?
+        console.log('Listening on https://meet.univern.org') :
+        console.log(`Listening on ${protocol}://${config.listenIp}:${config.listenPort}`);
+    });
+  } catch (e) {
+    console.error(e.message ? e.message : e);
+  }
+})();
 
 socket(new Server(httpServer, { cors: { origin: '*' } }));
 
