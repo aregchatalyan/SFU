@@ -55,6 +55,7 @@ const App = () => {
     recSocket,
     recPeer
   })
+
   const dimissionContext = useWindowDimensions()
 
   return (

@@ -1,30 +1,46 @@
 import { useEffect, useRef, useState } from 'react'
 import { io } from 'socket.io-client'
-import { useParams } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 import { URL } from '../config'
 import { useSocketInit } from './notExported'
 import { useRoomDataFilter, useProducerChange } from './notExported'
 
 export const useStateChange = () => {
-  const { userId, roomId } = useParams()
-
-  const [ users, setUsers ] = useState([])
-  const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
-
   const socket = useRef(undefined)
 
-  useEffect(() => {
-    socket.current = io(URL + `?room_id=${roomId}&user_id=${userId}`, {
-      secure: true,
-      transports: [ 'websocket', 'polling' ]
-    })
+  const [ cookies ] = useCookies([ 'token' ])
 
-    socket.current.on('connect_error', () => {
-      socket.current.io.opts.transports = [ 'polling', 'websocket' ];
-      socket.current.io.opts.upgrade = true;
+  const [ users, setUsers ] = useState([])
+  const [ room, setRoom ] = useState({ roomId: '', userId: '' })
+  const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
+
+  useEffect(() => {
+    const { token } = cookies;
+
+    if (!token)
+      return window.location
+        .replace(`https://staging.univern.org/auth/login?redirect_url=https://meet.univern.org`)
+
+    fetch('https://localhost:3030/signin/decode', {
+      method: 'GET',
+      headers: { Authorization: `Bearer ${token}` }
     })
-  }, [ roomId, socket, userId ])
+      .then(response => response.json())
+      .then(({ data: { roomId, userId } }) => {
+        socket.current = io(`${URL}?room_id=${roomId}&user_id=${userId}`, {
+          secure: true,
+          transports: [ 'websocket', 'polling' ]
+        })
+
+        socket.current.on('connect_error', () => {
+          socket.current.io.opts.transports = [ 'polling', 'websocket' ];
+          socket.current.io.opts.upgrade = true;
+        })
+
+        setRoom({ roomId, userId })
+      });
+  }, [ cookies ])
 
   const [
     isLoading,
@@ -32,7 +48,7 @@ export const useStateChange = () => {
     getUserById,
     changeUserBoardPermission,
     getUserBoardPermission,
-  ] = useRoomDataFilter(userId, socket.current)
+  ] = useRoomDataFilter(room.userId, socket.current)
 
   const { setUserList, setProducers } = useProducerChange(
     socket.current,
@@ -65,8 +81,8 @@ export const useStateChange = () => {
   }
 
   return {
-    userId,
-    roomId,
+    userId: room.userId,
+    roomId: room.roomId,
     isLoading,
     socket: socket.current,
     usersInfoContext,

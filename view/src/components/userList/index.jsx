@@ -41,7 +41,6 @@ const UserList = ({
         </div>
       </div>
       <div className={style.userListContainer}>
-        {console.log('users', users)}
         {users.map(
           (
             {

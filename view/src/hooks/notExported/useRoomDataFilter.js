@@ -5,13 +5,12 @@ export const useRoomDataFilter = (userId, socket) => {
   const [isLoading, setIsLoading] = useState(true)
 
   const setRoomDataFunc = useCallback(
-    (data) => {
-      const { users, isTeacher, teacherInfo, ...otherProps } = data
-
+    ({_doc}) => {
+      const { students, isTeacher, teacherInfo, ...otherProps } = _doc
       const me = isTeacher
         ? teacherInfo
-        : users.filter(({ id }) => id === userId)[0]
-      const classmates = users.filter(({ id }) => id !== userId)
+        : students.filter(({ id }) => id === userId)[0]
+      const classmates = students.filter(({ id }) => id !== userId)
       setRoomData({ me, classmates, isTeacher, teacherInfo, ...otherProps })
     },
     [userId]

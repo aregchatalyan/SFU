@@ -73,5 +73,7 @@ module.exports = {
         message: 'Internal Server Error'
       });
     }
-  }
+  },
+
+  token: async (req, res) => res.status(200).json({ data: req.user })
 }

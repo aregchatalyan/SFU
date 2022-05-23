@@ -12,4 +12,6 @@ router.put('/:id', _controller.update);
 
 router.delete('/:id', _controller.delete);
 
+router.get('/decode', _middleware, _controller.token);
+
 module.exports = router;
