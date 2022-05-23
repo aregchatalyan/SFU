@@ -3,11 +3,11 @@ const { Schema, model } = require('mongoose');
 const SignInSchema = new Schema({
   id: String,
   students: [],
-  teachers: [],
+  teacherId: String,
   startTime: Date,
   duration: Date,
 }, {
-  timestamps: true,
+  timestamps: { currentTime: () => Date.now() },
 });
 
 module.exports = model('SignIn', SignInSchema);

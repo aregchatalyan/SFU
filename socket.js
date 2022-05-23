@@ -3,7 +3,7 @@ const mediasoup = require('mediasoup');
 const Room = require('./helpers/Room');
 const Peer = require('./helpers/Peer');
 const Question = require('./helpers/Question');
-const mockData = require('./helpers/mock.data');
+const SignIn = require('./api/signin/signin.model');
 
 const config = require('./config');
 
@@ -37,24 +37,28 @@ module.exports = (io) => {
     return worker;
   };
 
-  io.on('connection', (socket) => {
+  io.on('connection', async (socket) => {
     const { room_id: roomId, user_id: userId } = socket.handshake.query;
 
-    const room = mockData.filter((elm) => elm.room_id === roomId)[0];
+    const signInData = await SignIn.findOne({
+      id: roomId,
+      students: { $elemMatch: { $eq: +userId } }
+    });
+
     let allowed = false;
     let isTeacher = false;
     let boardPermission = false;
-    const teacher_id = room.teacherInfo.id;
+    const teacher_id = signInData.teacherId;
 
     if (roomList.has(roomId)) {
       boardPermission = roomList.get(roomId).getUserBoardPermission({ userId });
     }
 
-    if (room) {
+    if (signInData) {
       if (teacher_id === userId) {
         allowed = true;
         isTeacher = true;
-        room.users = [ ...room.users ].map((elm) => {
+        signInData.students = signInData.students.map((elm) => {
           if (roomList.has(roomId)) {
             elm.boardPermission = roomList
               .get(roomId)
@@ -65,7 +69,7 @@ module.exports = (io) => {
           return elm;
         });
       } else {
-        allowed = room.users.filter(({ id }) => id === userId).length > 0;
+        allowed = signInData.students.filter((id) => id === userId).length > 0;
       }
     }
 
@@ -76,11 +80,11 @@ module.exports = (io) => {
       allowed = false;
     }
 
-    if (room && allowed) {
+    if (signInData && allowed) {
       socket.emit('connected', {
         boardPermission,
         isTeacher,
-        ...room,
+        ...signInData,
       });
 
       socket.on('createRoom', async ({ room_id }, callback) => {
