@@ -20,9 +20,9 @@ export const useStateChange = () => {
 
     if (!token)
       return window.location
-        .replace(`https://staging.univern.org/auth/login?redirect_url=https://meet.univern.org`)
+        .replace(`https://staging.univern.org/auth/login?redirect_url=${URL}`)
 
-    fetch('https://localhost:3030/signin/decode', {
+    fetch(`${URL}/signin/decode`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` }
     })
