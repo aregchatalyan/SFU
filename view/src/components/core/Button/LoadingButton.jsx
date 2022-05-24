@@ -22,9 +22,9 @@ const LoadingButton = ({
         <Icon name={iconName} width={width || 20} height={height || 20} />
       ) : (
         <div className={style.loaderWrapper}>
-          <div className={style.wave}></div>
-          <div className={style.wave}></div>
-          <div className={style.wave}></div>
+          <div className={style.wave}/>
+          <div className={style.wave}/>
+          <div className={style.wave}/>
         </div>
       )}
       <span className={style.button_text}>{loading ? loadingText : text}</span>

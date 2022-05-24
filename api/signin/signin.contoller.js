@@ -75,5 +75,5 @@ module.exports = {
     }
   },
 
-  token: async (req, res) => res.status(200).json({ data: req.user })
+  token: async (req, res) => res.status(200).json({ data: req.room })
 }

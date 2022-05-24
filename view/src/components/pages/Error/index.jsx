@@ -17,7 +17,7 @@ const Error = () => {
             <span>You don’t have permission to join this</span>
             <img src={onlineLessonIcon} alt="" />
           </div>
-          <div className={style.suggestionBar}></div>
+          <div className={style.suggestionBar}/>
           <p className={style.infoBar}>
             Nec nunc nec amet, at lectus magnis cras eget lacus. Neque id sed
             pellentesque mattis fames a est venenatis risus.  <br />

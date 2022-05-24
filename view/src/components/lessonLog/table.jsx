@@ -15,7 +15,7 @@ const Table = ({ lessonDays, start, end, openModal }) => {
   return (
     <motion.div className={style.table} layout>
       <div className={style.thead}>
-        <div className={style.logTitle}></div>
+        <div className={style.logTitle}/>
         {lessonDays
           .filter(({ interval }) => interval >= start && interval <= end)
           .map(({ interval }, key) => {

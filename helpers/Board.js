@@ -5,7 +5,7 @@ module.exports = class Board {
     this.elements = [];
     this.texts = [];
     this.teacher_id = teacher_id;
-    this.permissonList = [teacher_id];
+    this.permissonList = [ teacher_id ];
     this.action = false;
   }
 
@@ -21,25 +21,25 @@ module.exports = class Board {
       this.permissonList.push(studentId);
       return studentId;
     } else {
-      this.permissonList = [...this.permissonList].filter(
+      this.permissonList = [ ...this.permissonList ].filter(
         (id) => id !== studentId
       );
       return studentId;
     }
-    return;
   }
+
   sketching({
-    type,
-    clientX,
-    clientY,
-    incomingElementColor,
-    incomingElementWidth,
-    incomingCanvasWidth,
-    incomingCanvasHeight,
-    producerId,
-  }) {
+              type,
+              clientX,
+              clientY,
+              incomingElementColor,
+              incomingElementWidth,
+              incomingCanvasWidth,
+              incomingCanvasHeight,
+              producerId,
+            }) {
     if (this.permissonList.includes(producerId)) {
-      if (type === "on_process") {
+      if (type === 'on_process') {
         const newEle = {
           clientX,
           clientY,
@@ -47,7 +47,7 @@ module.exports = class Board {
           width: incomingElementWidth,
         };
         this.points.push(newEle);
-      } else if (type === "finished" || type === "mouse_out") {
+      } else if (type === 'finished' || type === 'mouse_out') {
         const element = {
           producerId,
           canvasWidth: incomingCanvasWidth,
@@ -64,18 +64,18 @@ module.exports = class Board {
   }
 
   drawing({
-    type,
-    clientX,
-    clientY,
-    incomingElementColor,
-    incomingElementWidth,
-    incomingCanvasWidth,
-    incomingCanvasHeight,
-    incomingToolType,
-    producerId,
-  }) {
+            type,
+            clientX,
+            clientY,
+            incomingElementColor,
+            incomingElementWidth,
+            incomingCanvasWidth,
+            incomingCanvasHeight,
+            incomingToolType,
+            producerId,
+          }) {
     if (this.permissonList.includes(producerId)) {
-      if (type === "start") {
+      if (type === 'start') {
         const newElement = {
           startingX: clientX,
           startingY: clientY,
@@ -89,19 +89,20 @@ module.exports = class Board {
           producerId: producerId,
         };
         this.elements.push(newElement);
-      } else if (type === "on_process") {
+      } else if (type === 'on_process') {
         const lastElementCopy = { ...this.elements[this.elements.length - 1] };
         this.elements[this.elements.length - 1] = {
           ...lastElementCopy,
           endingX: clientX,
           endingY: clientY,
         };
-      } else if (type === "finished" || type === "mouse_out") {
+      } else if (type === 'finished' || type === 'mouse_out') {
       }
       return true;
     }
     return false;
   }
+
   writeText({ producerId, ...otherProps }) {
     if (this.permissonList.includes(producerId)) {
       this.texts.push({ producerId, ...otherProps });
@@ -109,6 +110,7 @@ module.exports = class Board {
     }
     return false;
   }
+
   reset({ producerId }) {
     if (this.permissonList.includes(producerId)) {
       this.paths = [];
@@ -116,9 +118,10 @@ module.exports = class Board {
       this.texts = [];
     }
   }
+
   undoActionByUserId({ undoActionType, userId }) {
-    if (undoActionType === "sketch") {
-      const prevCopy = [...this.paths];
+    if (undoActionType === 'sketch') {
+      const prevCopy = [ ...this.paths ];
 
       for (let index = this.paths.length - 1; index >= 0; index--) {
         const element = this.paths[index];
@@ -129,8 +132,8 @@ module.exports = class Board {
       }
 
       this.paths = prevCopy;
-    } else if (undoActionType === "draw") {
-      const prevCopy = [...this.elements];
+    } else if (undoActionType === 'draw') {
+      const prevCopy = [ ...this.elements ];
 
       for (let index = this.elements.length - 1; index >= 0; index--) {
         const element = this.elements[index];
@@ -140,8 +143,8 @@ module.exports = class Board {
         }
       }
       this.elements = prevCopy;
-    } else if (undoActionType === "text") {
-      const prevCopy = [...this.texts];
+    } else if (undoActionType === 'text') {
+      const prevCopy = [ ...this.texts ];
 
       for (let index = this.texts.length - 1; index >= 0; index--) {
         const text = this.texts[index];
@@ -153,15 +156,17 @@ module.exports = class Board {
       this.texts = prevCopy;
     }
   }
+
   redoBoardAction({ undoActionType, ...otherProps }) {
-    if (undoActionType === "sketch") {
+    if (undoActionType === 'sketch') {
       this.paths.push(otherProps);
-    } else if (undoActionType === "draw") {
+    } else if (undoActionType === 'draw') {
       this.elements.push(otherProps);
-    } else if (undoActionType === "text") {
-      this.text.push(otherProps);
+    } else if (undoActionType === 'text') {
+      this.texts.push(otherProps);
     }
   }
+
   getBoardData() {
     return { paths: this.paths, elements: this.elements, texts: this.texts };
   }

@@ -75,7 +75,7 @@ export const useStateChange = () => {
     users,
   }
 
-  const statesForMethodes = {
+  const statesForMethods = {
     setUserList,
     setDisconnectedUsers,
   }
@@ -87,7 +87,7 @@ export const useStateChange = () => {
     socket: socket.current,
     usersInfoContext,
     roomContext,
-    statesForMethodes,
+    statesForMethods,
     disconnectedUsers,
     ...statesChangeWithSocket,
   }
