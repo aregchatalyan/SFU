@@ -2,10 +2,10 @@ const SignIn = require('./signin.model');
 
 module.exports = {
   get: async (req, res) => {
-    const { id } = req.params;
+    const { roomId } = req.params;
 
     try {
-      const candidate = await SignIn.findOne({ id });
+      const candidate = await SignIn.findOne({ id: roomId });
 
       if (!candidate) {
         return res.status(500).json({ message: 'Not Found' });
@@ -34,16 +34,16 @@ module.exports = {
   },
 
   update: async (req, res) => {
-    const { id } = req.params;
+    const { roomId } = req.params;
 
     try {
-      const candidate = await SignIn.findOne({ id });
+      const candidate = await SignIn.findOne({ id: roomId });
 
       if (!candidate) {
         return res.status(500).json({ message: 'Not Found' });
       }
 
-      await SignIn.updateOne({ id }, { ...req.body });
+      await SignIn.updateOne({ id: roomId }, { ...req.body });
 
       res.status(200).json({ message: 'Updated' });
     } catch (e) {
@@ -55,16 +55,16 @@ module.exports = {
   },
 
   delete: async (req, res) => {
-    const { id } = req.params;
+    const { roomId } = req.params;
 
     try {
-      const candidate = await SignIn.findOne({ id });
+      const candidate = await SignIn.findOne({ id: roomId });
 
       if (!candidate) {
         return res.status(500).json({ message: 'Not Found' });
       }
 
-      await SignIn.deleteOne({ id });
+      await SignIn.deleteOne({ id: roomId });
 
       res.status(200).json({ message: 'Deleted' });
     } catch (e) {

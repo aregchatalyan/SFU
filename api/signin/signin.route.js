@@ -4,13 +4,10 @@ const _middleware = require('./signin.middleware');
 
 const router = express.Router();
 
-router.get('/', _middleware, _controller.get);
-
+router.get('/:roomId', _middleware, _controller.get);
 router.post('/', _controller.create);
-
-router.put('/:id', _controller.update);
-
-router.delete('/:id', _controller.delete);
+router.put('/:roomId', _controller.update);
+router.delete('/:roomId', _controller.delete);
 
 router.get('/decode', _middleware, _controller.token);
 
