@@ -43,7 +43,7 @@ export const useStateChange = () => {
 
         setRoom({ roomId, userId })
       });
-  }, [ cookies ])
+  }, [ cookies, params ])
 
   const [
     isLoading,
