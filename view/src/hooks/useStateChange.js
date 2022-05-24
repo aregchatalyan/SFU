@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from 'react'
 import { io } from 'socket.io-client'
 import { useCookies } from 'react-cookie'
+import { useParams } from 'react-router-dom'
 
 import { URL } from '../config'
 import { useSocketInit } from './notExported'
 import { useRoomDataFilter, useProducerChange } from './notExported'
 
 export const useStateChange = () => {
+  const params = useParams()
   const socket = useRef(undefined)
 
   const [ cookies ] = useCookies([ 'token' ])
@@ -16,18 +18,19 @@ export const useStateChange = () => {
   const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
 
   useEffect(() => {
+    const { roomId } = params;
     const { token } = cookies;
 
     if (!token)
       return window.location
-        .replace(`https://staging.univern.org/auth/login?redirect_url=${URL}`)
+        .replace(`https://staging.univern.org/auth/login?redirect_url=${URL}/${roomId}`)
 
     fetch(`${URL}/signin/decode`, {
       method: 'GET',
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => response.json())
-      .then(({ data: { roomId, userId } }) => {
+      .then(({ data: { userId } }) => {
         socket.current = io(`${URL}?room_id=${roomId}&user_id=${userId}`, {
           secure: true,
           transports: [ 'websocket', 'polling' ]

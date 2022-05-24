@@ -5,7 +5,6 @@ const config = require('../../config');
 
 // console.log(jwt.sign(
 //   {
-//     roomId: 1,
 //     userId: 1
 //   },
 //   config.jwtSecret,
