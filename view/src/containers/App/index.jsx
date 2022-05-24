@@ -6,7 +6,7 @@ import App from './App'
 const Container = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/" exact component={App} />
+      <Route path="/:roomId" exact component={App} />
       <Route path="/error" component={Error} />
       <Redirect to="/error" />
     </Switch>
