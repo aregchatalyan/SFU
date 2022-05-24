@@ -20,7 +20,7 @@ const TeacherInfo = () => {
                 {teacherInfo.name + ' ' + teacherInfo.surname}
               </span>
               <div className={style.rating}>
-                <div className={style.stars}></div>
+                <div className={style.stars}/>
                 <div className={style.rate}>
                   {'( ' + teacherInfo.stars + ' )'}
                 </div>

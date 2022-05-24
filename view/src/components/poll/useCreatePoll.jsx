@@ -12,7 +12,7 @@ import { SocketContext } from '../../Context'
 const initialValues = {
   question: '',
   versions: [{ text: '' }, { text: '' }],
-  anonymus: false,
+  anonymous: false,
 }
 
 const Children = ({ closeModal, selfId }) => {
@@ -102,10 +102,10 @@ const Children = ({ closeModal, selfId }) => {
         </div>
         <SwitchCheckBox
           {...{
-            name: 'anonymus',
+            name: 'anonymous',
             context: formContext,
             setContext: setFormContext,
-            label: 'Anonymus Poll',
+            label: 'Anonymous Poll',
           }}
         />
         <div className={style.actionBar}>
@@ -116,7 +116,7 @@ const Children = ({ closeModal, selfId }) => {
               setFormContext({
                 question: '',
                 versions: [{ text: '' }, { text: '' }],
-                anonymus: false,
+                anonymous: false,
               })
             }}
             className={style.cancelButton}
@@ -132,7 +132,7 @@ const Children = ({ closeModal, selfId }) => {
               setFormContext({
                 question: '',
                 versions: [{ text: '' }, { text: '' }],
-                anonymus: false,
+                anonymous: false,
               })
               closeModal()
             }}

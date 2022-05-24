@@ -20,21 +20,21 @@ import {
 } from './helpers/helpers'
 
 function Board({ socket, setBoard, className, goToVideoCall }) {
-  const [path, setPath] = useState([])
-  const [elements, setElements] = useState([])
-  const [texts, setText] = useState([])
-  const [isDrawing, setIsDrawing] = useState(false)
-  const [isTexting, setIsTexting] = useState(false)
-  const [points, setPoints] = useState([])
-  const [action, setAction] = useState('none')
-  const [toolType, setToolType] = useState('pencil')
-  const [selectedElement, setSelectedElement] = useState(null)
-  const [width, setWidth] = useState(1)
-  const [shapeWidth, setShapeWidth] = useState(1)
-  const [popped, setPopped] = useState(false)
-  const [order, setOrder] = useState([])
-  const [hash, setHash] = useState([])
-  const [colorWidth, setColorWidth] = useState({
+  const [ path, setPath ] = useState([])
+  const [ elements, setElements ] = useState([])
+  const [ texts, setText ] = useState([])
+  const [ isDrawing, setIsDrawing ] = useState(false)
+  const [ isTexting, setIsTexting ] = useState(false)
+  const [ points, setPoints ] = useState([])
+  const [ action, setAction ] = useState('none')
+  const [ toolType, setToolType ] = useState('pencil')
+  const [ selectedElement, setSelectedElement ] = useState(null)
+  const [ width, setWidth ] = useState(1)
+  const [ shapeWidth, setShapeWidth ] = useState(1)
+  const [ popped, setPopped ] = useState(false)
+  const [ order, setOrder ] = useState([])
+  const [ hash, setHash ] = useState([])
+  const [ colorWidth, setColorWidth ] = useState({
     hex: '#000',
     hsv: {},
     rgb: {},
@@ -61,7 +61,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
     return () => {
       document.body.removeEventListener('keydown', handleKeyDown)
     }
-  }, [isTexting])
+  }, [ isTexting ])
 
   useEffect(() => {
     const canvas = document.getElementById('canvas')
@@ -78,7 +78,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
     return () => {
       context.clearRect(0, 0, canvas.width, canvas.height)
     }
-  }, [popped, elements, path, width, texts])
+  }, [ popped, elements, path, width, texts ])
 
   const handleMouseDown = (e) => {
     const { clientX, clientY } = e
@@ -117,7 +117,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
           newLinewidth,
           transparency,
         }
-        setPoints((state) => [...state, newEle])
+        setPoints((state) => [ ...state, newEle ])
         context.strokeStyle = newColour
         context.lineWidth = newLinewidth
         context.lineCap = 5
@@ -125,7 +125,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
         context.beginPath()
       } else if (toolType === 'text') {
         if (!isTexting) {
-          setOrder((prevState) => [...prevState, { type: 'text' }])
+          setOrder((prevState) => [ ...prevState, { type: 'text' } ])
           const newColour = colorWidth.hex
           const newFont = (width + 2) * 10 + 'px Rubik'
           const newText = createText(
@@ -136,7 +136,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
             newColour,
             texts
           )
-          setText((prevState) => [...prevState, newText])
+          setText((prevState) => [ ...prevState, newText ])
         }
         setIsTexting(!isTexting)
       } else if (toolType === 'fontWeight') {
@@ -157,7 +157,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
           elements,
         })
         setIsDrawing(!isDrawing)
-        setElements((prevState) => [...prevState, newElement])
+        setElements((prevState) => [ ...prevState, newElement ])
       }
     }
   }
@@ -182,13 +182,13 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
       console.log('clientX', clientX)
       var midPoint = midPointBtw(clientX, clientY)
       console.log('midPoint', midPoint)
-      setPoints((state) => [...state, newEle])
+      setPoints((state) => [ ...state, newEle ])
       context.quadraticCurveTo(clientX, clientY, NaN, NaN)
       context.lineTo(clientX, clientY)
       context.stroke()
     } else if (action === 'drawing') {
       updateElement(clientX, clientY, elements, setElements)
-      setOrder((prevState) => [...prevState, { type: 'element' }])
+      setOrder((prevState) => [ ...prevState, { type: 'element' } ])
       setHash([])
     } else if (action === 'moving') {
       const {
@@ -246,8 +246,8 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
       context.closePath()
       const element = points
       setPoints([])
-      setPath((prevState) => [...prevState, element])
-      setOrder((prevState) => [...prevState, { type: 'path' }])
+      setPath((prevState) => [ ...prevState, element ])
+      setOrder((prevState) => [ ...prevState, { type: 'path' } ])
       setHash([])
       setIsDrawing(false)
     }
@@ -288,7 +288,7 @@ function Board({ socket, setBoard, className, goToVideoCall }) {
           handleMouseMove({ clientX: touch.clientX, clientY: touch.clientY })
         }}
         onTouchEnd={handleMouseUp}
-      ></canvas>
+      />
     </div>
   )
 }

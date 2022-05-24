@@ -12,12 +12,12 @@ const Question = ({
   versions,
   isAnswered,
   onVersionSelect,
-  anonymus,
+  anonymous,
   creatorId,
   createdAt,
 }) => {
-  const [isOpened, setisOpened] = useState(false)
-  const varinatContainer = useMemo(
+  const [isOpened, setIsOpened] = useState(false)
+  const variantContainer = useMemo(
     () => ({
       initial: {
         height: 0,
@@ -47,7 +47,7 @@ const Question = ({
     }),
     []
   )
-  const questionCotroller = useAnimation()
+  const questionController = useAnimation()
   const iconController = useAnimation()
   const { getUserById } = useContext(RoomInfoContext)
   const { name, surname } = getUserById(creatorId || '') || {
@@ -58,10 +58,10 @@ const Question = ({
   return (
     <div className={style.questionWrapper}>
       <motion.button
-        className={style.questionComponenet}
+        className={style.questionComponent}
         onClick={() => {
-          setisOpened(!isOpened)
-          questionCotroller.start({
+          setIsOpened(!isOpened)
+          questionController.start({
             height: !isOpened ? 'auto' : '24px',
             transition: {
               duration: 0.2,
@@ -81,7 +81,7 @@ const Question = ({
             <span>{`${name} ${surname}`}</span>
           </div>
           <motion.div
-            animate={questionCotroller}
+            animate={questionController}
             className={style.questionContainer}
           >
             <span>{question}</span>
@@ -99,7 +99,7 @@ const Question = ({
         {isOpened && (
           <motion.div
             className={style.answerBar}
-            variants={varinatContainer}
+            variants={variantContainer}
             initial="initial"
             animate="visible"
             exit="initial"
@@ -120,7 +120,7 @@ const Question = ({
                       label,
                       isVoted,
                       percentage,
-                      anonymus,
+                      anonymous,
                       onSelect: onVersionSelect(id),
                       votes,
                     }}

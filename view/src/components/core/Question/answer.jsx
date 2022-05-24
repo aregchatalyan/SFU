@@ -10,7 +10,7 @@ const Answer = ({
   label,
   percentage,
   onSelect,
-  anonymus,
+  anonymous,
   votes,
 }) => {
   const variantItem = useMemo(
@@ -60,11 +60,11 @@ const Answer = ({
         )}
       </div>
       <div
-        className={isAnswered && !anonymus ? style.votesOpen : style.votesHide}
+        className={isAnswered && !anonymous ? style.votesOpen : style.votesHide}
       >
         <span>Voters :</span>
         <div className={style.votersWrapper}>
-          {!anonymus && votes && votes.length > 0 ? (
+          {!anonymous && votes && votes.length > 0 ? (
             votes.map((id, key) => (
               <div key={key} className={style.voterImg}>
                 <img src={user} alt="" />

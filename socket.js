@@ -48,7 +48,7 @@ module.exports = (io) => {
     let allowed = false;
     let isTeacher = false;
     let boardPermission = false;
-    const teacher_id = signInData.teacherId;
+    const teacher_id = signInData['teacherId'];
 
     if (roomList.has(roomId)) {
       boardPermission = roomList.get(roomId).getUserBoardPermission({ userId });
@@ -334,12 +334,12 @@ module.exports = (io) => {
         roomList.get(socket.room_id).handUp({ userId });
       });
 
-      socket.on('createPoll', ({ userId, question, versions, anonymus }) => {
+      socket.on('createPoll', ({ userId, question, versions, anonymous }) => {
         console.log('userId', userId);
         if (!roomList.has(socket.room_id)) return;
         roomList
           .get(socket.room_id)
-          .addQuestion(new Question(userId, question, versions, anonymus));
+          .addQuestion(new Question(userId, question, versions, anonymous));
       });
 
       socket.on('getPolls', ({ userId }) => {

@@ -31,7 +31,7 @@ const App = () => {
     socket,
     usersInfoContext,
     roomContext,
-    statesForMethodes,
+    statesForMethods,
     ...videoCallState
   } = useStateChange()
 
@@ -51,19 +51,19 @@ const App = () => {
     userId,
     roomId,
     getUserById: roomContext.getUserById,
-    ...statesForMethodes,
+    ...statesForMethods,
     recSocket,
     recPeer
   })
 
-  const dimissionContext = useWindowDimensions()
+  const dimensionContext = useWindowDimensions()
 
   return (
     <RoomInfoContext.Provider value={roomContext}>
       <UsersInfoContext.Provider value={usersInfoContext}>
         <SocketContext.Provider value={socket}>
           <React.StrictMode>
-            <DimensionsContext.Provider value={dimissionContext}>
+            <DimensionsContext.Provider value={dimensionContext}>
               {isLoading ? (
                 <PreJoin loading={isLoading}/>
               ) : !isReady ? (
