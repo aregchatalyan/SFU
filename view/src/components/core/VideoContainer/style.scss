@@ -3,10 +3,12 @@
   height: 100%;
   object-fit: cover;
 }
+
 .rotated {
   -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
 }
+
 .switch_button {
   width: 40px;
   height: 40px;
@@ -18,6 +20,7 @@
   background: rgba(42, 42, 42, 0.75);
   border-radius: 28px;
   z-index: 1;
+
   &:hover {
     svg {
       path {
@@ -33,6 +36,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   .name {
     font-style: normal;
     font-weight: 500;
@@ -41,6 +45,7 @@
     text-align: center;
     color: #ffffff;
   }
+
   .name_small {
     font-style: normal;
     font-weight: 500;

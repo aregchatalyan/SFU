@@ -1,16 +1,16 @@
 import { generateId } from './idGenerator.helpers'
 
 export const createElement = ({
-  id,
-  startingX,
-  startingY,
-  endingX,
-  endingY,
-  toolType,
-  newColor,
-  newFont,
-  elements,
-}) => {
+                                id,
+                                startingX,
+                                startingY,
+                                endingX,
+                                endingY,
+                                toolType,
+                                newColor,
+                                newFont,
+                                elements,
+                              }) => {
   if (id === 0) {
     id = generateId(elements)
   }
@@ -141,7 +141,7 @@ export const showElements = (elements) => {
   })
 }
 export const updateElement = (endingX, endingY, elements, setElements) => {
-  const elementsCopy = [...elements]
+  const elementsCopy = [ ...elements ]
   const index = elementsCopy.length - 1
   const lastElement = elementsCopy[index]
   const { id, startingX, startingY, type, color, font } = lastElement
@@ -157,5 +157,5 @@ export const updateElement = (endingX, endingY, elements, setElements) => {
     elements: [],
   })
   elementsCopy[index] = updatedElement
-  setElements([...elementsCopy])
+  setElements([ ...elementsCopy ])
 }

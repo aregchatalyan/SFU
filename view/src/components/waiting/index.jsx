@@ -47,9 +47,9 @@ const lessons = [
 const Waiting = ({ ...props }) => {
   return (
     <div className="fullScreen">
-      <LeftSideBar group={group} lessons={lessons} />
+      <LeftSideBar group={group} lessons={lessons}/>
       <MiddleBar {...props} />
-      <RightSideBar />
+      <RightSideBar/>
     </div>
   )
 }

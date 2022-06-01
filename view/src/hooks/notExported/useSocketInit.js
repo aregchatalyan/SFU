@@ -4,18 +4,18 @@ import { toastPermission } from '../../components/core/Toast'
 import { exit, removeConsumer } from '../../services'
 
 export const useSocketInit = ({
-  socket,
-  setUserList,
-  setProducers,
-  setDisconnectedUsers,
-  getUserById,
-  changeUserBoardPermission,
-}) => {
+                                socket,
+                                setUserList,
+                                setProducers,
+                                setDisconnectedUsers,
+                                getUserById,
+                                changeUserBoardPermission,
+                              }) => {
   const history = useHistory()
 
-  const [massages, setMassages] = useState([])
-  const [polls, setPolls] = useState([])
-  const [hands, setHands] = useState([])
+  const [ massages, setMassages ] = useState([])
+  const [ polls, setPolls ] = useState([])
+  const [ hands, setHands ] = useState([])
 
   useEffect(() => {
     if (socket) {
@@ -28,20 +28,20 @@ export const useSocketInit = ({
       })
       socket.on('newProducers', async function (data) {
         console.log('newProducers :: ', data)
-        setProducers([...data])
+        setProducers([ ...data ])
       })
       socket.on('newUsers', async function (data) {
         let exists = false
 
         const users = data.map((elm) => {
           setDisconnectedUsers((state) => {
-            return [...state].filter((id) => id !== elm.userId)
+            return [ ...state ].filter((id) => id !== elm.userId)
           })
           return { ...getUserById(elm.userId), ...elm }
         })
 
         setUserList((state) => {
-          return [...state].map((elm) => {
+          return [ ...state ].map((elm) => {
             if (elm.userId === users[0].userId) {
               exists = true
               return users[0]
@@ -51,7 +51,7 @@ export const useSocketInit = ({
         })
 
         if (!exists) {
-          await setUserList((state) => [...state, ...users])
+          await setUserList((state) => [ ...state, ...users ])
         }
       })
       socket.on('askToJoin', ({ userId }) => {
@@ -64,31 +64,31 @@ export const useSocketInit = ({
         })
       })
       socket.on('newMassage', async function (data) {
-        setMassages((state) => [...state, ...data])
+        setMassages((state) => [ ...state, ...data ])
       })
       socket.on('newPoll', function (data) {
-        setPolls((state) => [...data, ...state])
+        setPolls((state) => [ ...data, ...state ])
       })
       socket.on('newVote', async function (data) {
         console.log(`NewVote : `, data)
         setPolls((state) => {
-          const res = [...state].map((elm) => {
+          const res = [ ...state ].map((elm) => {
             if (elm.id === data.id) {
               return data
             } else {
               return elm
             }
           })
-          return [...res]
+          return [ ...res ]
         })
       })
       socket.on('newHandUp', async function (data) {
-        setHands((state) => [...state, ...data])
+        setHands((state) => [ ...state, ...data ])
         console.log('HandUp', data)
       })
       socket.on('userLeft', async ({ socket_id }) => {
         setUserList((state) => {
-          const res = [...state].filter((elm) => {
+          const res = [ ...state ].filter((elm) => {
             if (elm.id === socket_id) {
               elm.stream = undefined
               elm.consumerId = undefined
@@ -102,7 +102,7 @@ export const useSocketInit = ({
       })
       socket.on('userConnectionProblem', (data) => {
         console.log('user internet loss', data)
-        setDisconnectedUsers((prev) => [...prev, data.userId])
+        setDisconnectedUsers((prev) => [ ...prev, data.userId ])
       })
       socket.on('disconnect', function () {
         exit(true, socket)

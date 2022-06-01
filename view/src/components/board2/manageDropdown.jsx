@@ -25,7 +25,7 @@ const UserWrapper = ({ userId, name, surname }) => {
     <motion.li className="user_wrapper" variants={variantItem}>
       <div className="img_and_name">
         <div className="img_wrapper">
-          <Icon name="default_profile_mega_small" width={24} height={24} />
+          <Icon name="default_profile_mega_small" width={24} height={24}/>
         </div>
         <span className="user_name">{`${name} ${surname}`}</span>
       </div>
@@ -40,7 +40,7 @@ const UserWrapper = ({ userId, name, surname }) => {
 }
 
 const ManageDropdown = ({ selfId }) => {
-  const [isDropDownOpened, setIsDropDownOpened] = useState(false)
+  const [ isDropDownOpened, setIsDropDownOpened ] = useState(false)
   const { users, getUserBoardPermission } = useContext(UsersInfoContext)
 
   const varinatContainer = useMemo(
@@ -81,11 +81,11 @@ const ManageDropdown = ({ selfId }) => {
         onClick={() => setIsDropDownOpened((prev) => !prev)}
       >
         <div className="icon_text_wrapper">
-          <Icon name="board_manage_user" width={16} height={16} />
+          <Icon name="board_manage_user" width={16} height={16}/>
           <span>Manage Users</span>
         </div>
         <div className="arrow">
-          <Icon name="board_manage_user_arrow" width={16} height={16} />
+          <Icon name="board_manage_user_arrow" width={16} height={16}/>
         </div>
       </CustomButton>
       <AnimatePresence exitBeforeEnter>

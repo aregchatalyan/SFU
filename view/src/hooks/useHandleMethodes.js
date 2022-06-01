@@ -11,24 +11,24 @@ import { getStream } from '../helpers'
 import { closeProducer, exit, joinRoom, produce } from '../services'
 
 export const useHandleMethodes = ({
-  socket,
-  userId,
-  roomId,
-  setUserList,
-  getUserById,
-  setDisconnectedUsers,
-  recSocket,
-  recPeer
-}) => {
+                                    socket,
+                                    userId,
+                                    roomId,
+                                    setUserList,
+                                    getUserById,
+                                    setDisconnectedUsers,
+                                    recSocket,
+                                    recPeer
+                                  }) => {
   // ref and state
 
-  const [isJoining, setIsJoining] = useState(false)
-  const [isReady, setIsReady] = useState(false)
-  const [videoPlayer, setVideoPlayer] = useState(false)
-  const [stream, setStream] = useState(null)
-  const [screenStream, setScreenStream] = useState(undefined)
-  const [microphone, setMicrophone] = useState(false)
-  const [audioStream, setAudioStream] = useState(undefined)
+  const [ isJoining, setIsJoining ] = useState(false)
+  const [ isReady, setIsReady ] = useState(false)
+  const [ videoPlayer, setVideoPlayer ] = useState(false)
+  const [ stream, setStream ] = useState(null)
+  const [ screenStream, setScreenStream ] = useState(undefined)
+  const [ microphone, setMicrophone ] = useState(false)
+  const [ audioStream, setAudioStream ] = useState(undefined)
 
   const { isVideoDeviceAvailable, isAudioDeviceAvailable } =
     useDeviceAvailability()
@@ -54,9 +54,9 @@ export const useHandleMethodes = ({
         } else {
           setStream((stream) => {
             stream &&
-              stream
-                .getTracks()
-                .forEach((track) => track.kind === 'video' && track.stop())
+            stream
+              .getTracks()
+              .forEach((track) => track.kind === 'video' && track.stop())
             return stream
           })
         }
@@ -67,7 +67,7 @@ export const useHandleMethodes = ({
     } else {
       toastError('Video device not found ')
     }
-  }, [isReady, socket, isVideoDeviceAvailable, videoPermission, videoPlayer])
+  }, [ isReady, socket, isVideoDeviceAvailable, videoPermission, videoPlayer ])
 
   const handleMicrophoneClick = () => {
     if (audioPermission && isAudioDeviceAvailable) {
@@ -87,17 +87,17 @@ export const useHandleMethodes = ({
         } else {
           setStream((stream) => {
             stream &&
-              stream
-                .getTracks()
-                .forEach((track) => track.kind === 'audio' && track.stop())
+            stream
+              .getTracks()
+              .forEach((track) => track.kind === 'audio' && track.stop())
             return stream
           })
           if (audioStream) {
             setAudioStream((stream) => {
               stream &&
-                stream
-                  .getTracks()
-                  .forEach((track) => track.kind === 'audio' && track.stop())
+              stream
+                .getTracks()
+                .forEach((track) => track.kind === 'audio' && track.stop())
               return stream
             })
           }
@@ -156,7 +156,8 @@ export const useHandleMethodes = ({
     if (document.fullscreenElement) {
       document.exitFullscreen()
     } else {
-      document.documentElement.requestFullscreen().catch((e) => {})
+      document.documentElement.requestFullscreen().catch((e) => {
+      })
     }
   }, [])
 
@@ -174,7 +175,7 @@ export const useHandleMethodes = ({
         setScreenStream(stream)
       })
     }
-  }, [screenStream, socket])
+  }, [ screenStream, socket ])
 
   const connection = useConnectAndDisconnect({
     isReady,
@@ -213,7 +214,7 @@ export const useHandleMethodes = ({
       setIsReady(false)
       setDisconnectedUsers([])
     }
-  }, [socket, microphone, videoPlayer, connection, setDisconnectedUsers])
+  }, [ socket, microphone, videoPlayer, connection, setDisconnectedUsers ])
 
   useMediaDeviceChanges({
     socket,

@@ -9,12 +9,12 @@ const ConnectionMsg = ({ name, onlyIcon }) => {
       title={
         onlyIcon
           ? `Connection failed,${
-              name ? ' ' + name + ' is' : ''
-            } trying to reconnect ...`
+            name ? ' ' + name + ' is' : ''
+          } trying to reconnect ...`
           : 'Connecting...'
       }
     >
-      <Icon name="connection_fail" width={16} height={16} />
+      <Icon name="connection_fail" width={16} height={16}/>
       {!onlyIcon && (
         <span>{`Connection failed,${
           name ? ' ' + name + ' is' : ''

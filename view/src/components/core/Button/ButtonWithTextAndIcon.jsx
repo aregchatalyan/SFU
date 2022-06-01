@@ -3,16 +3,16 @@ import Icon from '../Icon'
 import style from './style.module.scss'
 
 const ButtonWithTextAndIcon = ({
-  active,
-  onClick,
-  iconName,
-  text,
-  className,
-  width,
-  height,
-  textStyle,
-  hoverStrock,
-}) => {
+                                 active,
+                                 onClick,
+                                 iconName,
+                                 text,
+                                 className,
+                                 width,
+                                 height,
+                                 textStyle,
+                                 hoverStrock,
+                               }) => {
   return (
     <button
       onClick={onClick}
@@ -21,12 +21,12 @@ const ButtonWithTextAndIcon = ({
         className
           ? className
           : active && hoverStrock
-          ? style.buttonWithIconAndTextStrockActive
-          : hoverStrock
-          ? style.buttonWithIconAndTextStrock
-          : active
-          ? style.buttonWithIconAndTextActive
-          : style.buttonWithIconAndText
+            ? style.buttonWithIconAndTextStrockActive
+            : hoverStrock
+              ? style.buttonWithIconAndTextStrock
+              : active
+                ? style.buttonWithIconAndTextActive
+                : style.buttonWithIconAndText
       }
     >
       <Icon

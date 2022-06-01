@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   .errorContainer {
     width: 1280px;
     height: 584px;
@@ -15,20 +16,24 @@
     background: #ffffff;
     box-shadow: 0px 8px 64px -4px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
+
     .msgWrapper {
       height: 100%;
       width: calc(100% - 400px);
       padding: 32px 40px;
+
       .msgTitle {
         width: 100%;
         height: 72px;
         display: flex;
         align-items: center;
         margin-bottom: 16px;
+
         img {
           height: 100%;
           width: 72px;
         }
+
         span {
           margin-left: 24px;
 
@@ -39,12 +44,14 @@
           color: #1c1d1f;
         }
       }
+
       .msgDesc {
         width: 100%;
         height: 64px;
         display: flex;
         align-items: center;
         margin-bottom: 48px;
+
         span {
           max-width: 260px;
           display: inline-block;
@@ -55,16 +62,19 @@
           line-height: 32px;
           color: #1c1d1f;
         }
+
         img {
           height: 100%;
           width: 307px;
         }
       }
+
       .suggestionBar {
         width: 100%;
         height: 132px;
         margin-bottom: 116px;
       }
+
       .infoBar {
         width: 500px;
         height: 72px;
@@ -74,6 +84,7 @@
         font-size: 16px;
         line-height: 24px;
         color: #6a6a6a;
+
         a {
           font-style: normal;
           font-weight: 500;
@@ -83,9 +94,11 @@
         }
       }
     }
+
     .imgWrapper {
       height: 100%;
       width: 400px;
+
       img {
         width: 100%;
         height: 100%;
@@ -93,6 +106,7 @@
       }
     }
   }
+
   @media (max-width: 1290px) {
     .errorContainer {
       width: 1240px;

@@ -22,8 +22,10 @@
   padding: 24px;
   overflow: hidden;
 }
+
 .pollContainer {
   width: 100%;
+
   .header {
     width: 100%;
     height: 32px;
@@ -31,21 +33,26 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
+
     .closeBtn {
       background-color: transparent;
       padding: 0;
+
       button {
         cursor: pointer;
       }
+
       svg {
         path {
           stroke: #949494;
         }
       }
+
       &:focus {
         outline: none;
       }
     }
+
     span {
       font-style: normal;
       font-weight: 500;
@@ -54,21 +61,25 @@
       color: #a3a3a3;
     }
   }
+
   .qusetionsContainer {
     width: 100%;
     min-height: 100px;
     max-height: 600px;
     overflow-y: auto;
     position: relative;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     .emptyPlacholder {
       width: 100%;
       display: flex;
       justify-content: center;
       align-items: center;
       position: absolute;
+
       .emptyText {
         width: 231px;
         height: 100%;
@@ -83,6 +94,7 @@
           line-height: 30px;
           color: #b6b6b6;
         }
+
         .text {
           font-style: normal;
           font-weight: normal;
@@ -93,13 +105,16 @@
       }
     }
   }
+
   .createQuestion {
     width: 100%;
     min-height: 200px;
     max-height: 800px;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     .questionLabel {
       width: 42px;
       height: 24px;
@@ -109,6 +124,7 @@
       line-height: 24px;
       color: #ffffff;
     }
+
     .questionInput {
       width: 100%;
       height: 88px;
@@ -127,9 +143,11 @@
       margin-bottom: 32px;
       margin-top: 8px;
       padding-right: 5px;
+
       &::-webkit-scrollbar {
         display: none;
       }
+
       &:hover {
         padding-right: 0;
 
@@ -148,9 +166,11 @@
         /* Handle */
         &::-webkit-scrollbar-thumb {
           background: #949494;
+
           &:hover {
             background: #b6b6b6;
           }
+
           border-radius: 2px;
         }
       }
@@ -159,12 +179,14 @@
         outline: none;
       }
     }
+
     .versionHeader {
       width: 100%;
       height: 24px;
       margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
+
       .versionLabel {
         font-style: normal;
         font-weight: 500;
@@ -172,6 +194,7 @@
         line-height: 24px;
         color: #ffffff;
       }
+
       .addVersionBtn {
         width: 124px;
         height: 32px;
@@ -196,23 +219,28 @@
           line-height: 20px;
           color: #ffffff;
         }
+
         &:hover {
           background: #49494973;
         }
+
         &:focus {
           outline: none;
         }
       }
     }
+
     .versionsContainer {
       width: 100%;
       min-height: 104px;
       max-height: 192px;
       overflow-y: auto;
       padding-right: 9px;
+
       &::-webkit-scrollbar {
         display: none;
       }
+
       &:hover {
         padding-right: 4px;
 
@@ -231,13 +259,16 @@
         /* Handle */
         &::-webkit-scrollbar-thumb {
           background: #949494;
+
           &:hover {
             background: #b6b6b6;
           }
+
           border-radius: 2px;
         }
       }
     }
+
     .versionsContainerSmall {
       width: 100%;
       min-height: 104px;
@@ -254,6 +285,7 @@
       align-items: flex-end;
       box-sizing: border-box;
       padding-bottom: 16px;
+
       .cancelButton {
         width: 180px;
         height: 40px;
@@ -267,6 +299,7 @@
 
         border-radius: 4px;
         background: none;
+
         &:hover {
           background: #dadfe324;
           color: #ffffff;
@@ -285,6 +318,7 @@
   display: flex;
   margin: 6px;
   position: relative;
+
   .notificationIcon {
     position: absolute;
     top: 0;
@@ -294,6 +328,7 @@
     transform: scale(0.8);
     transition: 300ms;
   }
+
   span {
     margin-left: 8px;
 
@@ -303,15 +338,18 @@
     line-height: 20px;
     color: #b6b6b6;
   }
+
   &:hover {
     span {
       color: white;
     }
+
     svg {
       path {
         stroke: white;
       }
     }
+
     .notificationIcon {
       transform: scale(0);
     }

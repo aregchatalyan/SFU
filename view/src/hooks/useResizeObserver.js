@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react'
 
 export const useResizeObserver = (ref) => {
-  const [width, setWidth] = useState()
-  const [height, setHeight] = useState()
+  const [ width, setWidth ] = useState()
+  const [ height, setHeight ] = useState()
 
   const handleResize = useCallback((entries) => {
     if (!Array.isArray(entries)) {
@@ -24,7 +24,7 @@ export const useResizeObserver = (ref) => {
         RO = null
       }
     }
-  }, [ref, handleResize])
+  }, [ ref, handleResize ])
 
-  return [width, height]
+  return [ width, height ]
 }

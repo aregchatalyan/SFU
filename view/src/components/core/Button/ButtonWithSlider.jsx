@@ -3,12 +3,12 @@ import Icon from '../Icon'
 import style from './style.module.scss'
 
 const ButtonWithSlider = ({
-  text,
-  iconName,
-  buttons,
-  cb: closeOthers,
-  notification,
-}) => {
+                            text,
+                            iconName,
+                            buttons,
+                            cb: closeOthers,
+                            notification,
+                          }) => {
   return (
     <div className={style.sliderWrapper}>
       <div className={style.buttons}>
@@ -26,7 +26,7 @@ const ButtonWithSlider = ({
         ))}
       </div>
       <div className={style.text}>
-        <Icon name={iconName} width={24} height={24} />
+        <Icon name={iconName} width={24} height={24}/>
         <span>
           {text}
           {notification && (

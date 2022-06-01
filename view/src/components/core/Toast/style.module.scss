@@ -6,12 +6,14 @@
   box-sizing: border-box;
   border-radius: 8px;
   padding: 8px;
+
   .toastContainer {
     width: 100%;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .iconWrapper {
       width: 32px;
       height: 32px;
@@ -21,6 +23,7 @@
       align-items: center;
       justify-content: center;
     }
+
     .msgWrapoper {
       width: calc(100% - 38px);
       height: 100%;
@@ -28,6 +31,7 @@
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
+
       .title {
         font-style: normal;
         font-weight: 500;
@@ -35,6 +39,7 @@
         line-height: 20px;
         color: #c02929;
       }
+
       .msg {
         font-style: normal;
         font-weight: 300;
@@ -56,6 +61,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   .info_board {
     width: 100%;
     height: 52px;
@@ -63,17 +69,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
     .user_info {
       width: 100%;
       height: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       .user_img_wrapper {
         width: 24px;
         height: 24px;
         border-radius: 50%;
       }
+
       .user_name_surname {
         font-weight: 500;
         font-size: 14px;
@@ -81,18 +90,21 @@
         color: #ffffff;
       }
     }
+
     .ask_text {
       font-size: 14px;
       line-height: 20px;
       color: #b6b6b6;
     }
   }
+
   .action_board {
     width: 100%;
     height: 24px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .permissioan_accept_button {
       width: 112px;
       height: 100%;
@@ -101,16 +113,19 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       .accept_text {
         font-weight: 500;
         font-size: 12px;
         line-height: 16px;
         color: #ffffff;
       }
+
       &:hover {
         background-color: #066307;
       }
     }
+
     .permissioan_decline_button {
       width: 112px;
       height: 100%;
@@ -120,6 +135,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
       .decline_text {
         font-weight: 500;
         font-size: 12px;
@@ -127,6 +143,7 @@
         font-feature-settings: 'liga' off;
         color: #ffffff;
       }
+
       &:hover {
         background-color: #ac2020;
       }
@@ -153,12 +170,14 @@
     flex-direction: column;
     align-items: flex-start;
     margin-left: 8px;
+
     span:nth-child(1) {
       font-weight: 500;
       font-size: 14px;
       line-height: 20px;
       color: #1c1d1f;
     }
+
     span:nth-child(2) {
       font-size: 12px;
       line-height: 16px;

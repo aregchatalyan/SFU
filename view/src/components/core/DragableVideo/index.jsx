@@ -15,32 +15,32 @@ import { CustomButtonWithIcon } from '../Button'
 import { useResizeObserver } from '../../../hooks'
 
 const DragbleVideo = ({
-  id,
-  stream,
-  onClick,
-  audioConsumerId,
-  audioStream,
-  showMicState,
-  myMicOn,
-  name,
-  surname,
-  appRef,
-  isUserListOpened,
-  isTeacher,
-  ...otherProps
-}) => {
+                        id,
+                        stream,
+                        onClick,
+                        audioConsumerId,
+                        audioStream,
+                        showMicState,
+                        myMicOn,
+                        name,
+                        surname,
+                        appRef,
+                        isUserListOpened,
+                        isTeacher,
+                        ...otherProps
+                      }) => {
   const controller = useAnimation()
   const userVideo = useRef()
   const dragRef = useRef()
   const { width, height } = useContext(DimensionsContext)
-  const [isSmalled, setIsSmalled] = useState(false)
-  const [position, setPosition] = useState({
+  const [ isSmalled, setIsSmalled ] = useState(false)
+  const [ position, setPosition ] = useState({
     horizontal: width - 360,
     vertical: height - 240,
   })
-  const [isPositionChanged, setIsPositionChanged] = useState(false)
+  const [ isPositionChanged, setIsPositionChanged ] = useState(false)
 
-  const [appRectWidth, appRectHeight] = useResizeObserver(appRef)
+  const [ appRectWidth, appRectHeight ] = useResizeObserver(appRef)
 
   useLayoutEffect(() => {
     if (isUserListOpened || isPositionChanged) {
@@ -56,7 +56,7 @@ const DragbleVideo = ({
         })
       }
     }
-  }, [appRectWidth, appRectHeight, controller]) // eslint-disable-line
+  }, [ appRectWidth, appRectHeight, controller ]) // eslint-disable-line
 
   const dragEnd = useCallback(
     ({ x: targetX, y: targetY }) => {
@@ -87,12 +87,12 @@ const DragbleVideo = ({
         })
       }
     },
-    [appRef, dragRef, controller]
+    [ appRef, dragRef, controller ]
   )
 
   useEffect(() => {
     if (userVideo.current) userVideo.current.srcObject = stream
-  }, [stream, isSmalled])
+  }, [ stream, isSmalled ])
 
   const handleResize = () => {
     setIsSmalled(!isSmalled)
@@ -122,9 +122,9 @@ const DragbleVideo = ({
         style={
           isSmalled
             ? {
-                top: position.vertical === 0 ? '20px' : '164px',
-                left: position.horizontal === 0 ? '20px' : '284px',
-              }
+              top: position.vertical === 0 ? '20px' : '164px',
+              left: position.horizontal === 0 ? '20px' : '284px',
+            }
             : {}
         }
       >
@@ -148,7 +148,7 @@ const DragbleVideo = ({
               exit={fadeIn.hidden}
               className="placholder"
             >
-              <Icon name="vidowrapper_user_small" width={64} height={64} />
+              <Icon name="vidowrapper_user_small" width={64} height={64}/>
               <span className="name">{`${name} ${surname}`}</span>
             </motion.div>
           )}

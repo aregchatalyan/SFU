@@ -3,13 +3,13 @@ import { CustomButtonWithIcon } from '../Button'
 import style from './style.module.scss'
 
 const AnswerInput = ({
-  name,
-  value,
-  changeContext,
-  index,
-  canBeDelete,
-  isLastElement,
-}) => {
+                       name,
+                       value,
+                       changeContext,
+                       index,
+                       canBeDelete,
+                       isLastElement,
+                     }) => {
   const lastVersion = useRef(null)
   useEffect(() => {
     if (lastVersion.current) {
@@ -18,7 +18,7 @@ const AnswerInput = ({
         inline: 'nearest',
       })
     }
-  }, [lastVersion])
+  }, [ lastVersion ])
   return (
     <div
       className={style.answerInputWrapper}
@@ -43,7 +43,7 @@ const AnswerInput = ({
           className={style.deleteBtn}
           onClick={() =>
             changeContext((state) => {
-              const versions = [...state[name]]
+              const versions = [ ...state[name] ]
               versions.splice(index, 1)
               return { ...state, versions }
             })

@@ -206,23 +206,23 @@ const join = async function (userId, room_id, socket, setUsers, getUserById) {
 export const removeConsumer = function (consumer_id, callback) {
   console.log('PRODCUER CLOSE : ', consumer_id)
   callback &&
-    callback((state) => {
-      return [...state].map((elm) => {
-        if (elm.consumerId === consumer_id) {
-          elm.stream = undefined
-          elm.consumerId = undefined
-        } else if (elm.screenConsumerId === consumer_id) {
-          elm.screenStream = undefined
-          elm.screenConsumerId = undefined
-        }
-        if (elm.audioConsumerId === consumer_id) {
-          elm.audioStream = undefined
-          elm.audioConsumerId = undefined
-          console.log('audio_remove', elm.audioStream)
-        }
-        return elm
-      })
+  callback((state) => {
+    return [ ...state ].map((elm) => {
+      if (elm.consumerId === consumer_id) {
+        elm.stream = undefined
+        elm.consumerId = undefined
+      } else if (elm.screenConsumerId === consumer_id) {
+        elm.screenStream = undefined
+        elm.screenConsumerId = undefined
+      }
+      if (elm.audioConsumerId === consumer_id) {
+        elm.audioStream = undefined
+        elm.audioConsumerId = undefined
+        console.log('audio_remove', elm.audioStream)
+      }
+      return elm
     })
+  })
 }
 
 const getConsumeStream = async function (producerId, socket) {
@@ -352,12 +352,12 @@ const createRoom = async function (room_id, socket) {
 }
 
 export const joinRoom = async function ({
-  userId,
-  room_id,
-  socket,
-  setUserList,
-  getUserById,
-}) {
+                                          userId,
+                                          room_id,
+                                          socket,
+                                          setUserList,
+                                          getUserById,
+                                        }) {
   await createRoom(room_id, socket).then(async function () {
     await join(userId, room_id, socket, setUserList, getUserById)
   })
@@ -499,9 +499,9 @@ export const closeProducer = function (type, socket, callback) {
   let producer_id = producerLabel.get(type)
   if (producers.has(producer_id)) {
     socket &&
-      socket.emit('producerClosed', {
-        producer_id,
-      })
+    socket.emit('producerClosed', {
+      producer_id,
+    })
     producers.get(producer_id).close()
     producers.delete(producer_id)
   }

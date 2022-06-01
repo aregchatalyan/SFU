@@ -5,11 +5,11 @@ const config = require('../../config');
 
 // console.log(jwt.sign(
 //   {
-//     userId: 1
+//     userId: 2
 //   },
 //   config.jwtSecret,
 //   {
-//     expiresIn: '1d',
+//     expiresIn: '30d',
 //     algorithm: 'HS256'
 //   }
 // ));

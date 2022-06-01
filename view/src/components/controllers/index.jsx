@@ -14,38 +14,38 @@ import SubBar from './SubBar'
 import { SocketContext } from '../../Context'
 
 const Controllers = ({
-  isUserListOpened,
-  setIsUserListOpened,
-  videoPlayer,
-  handleVideoClick,
-  handleLeaveMeeting,
-  microphone,
-  handleMicrophoneClick,
-  userId,
-  massages,
-  handleSharing,
-  isBoardOpened,
-  setIsBoardOpened,
-  closePollModal,
-  closeCreatePollModal,
-  isLogOpened,
-  setIsLogOpened,
-  isHomeWorkOpened,
-  setIsHomeWorkOpened,
-  polls,
-  isPollModalOpened,
-  unWatchedPoll,
-  setUnWatchedPoll,
-  PollButtons,
-  screenStream,
-}) => {
+                       isUserListOpened,
+                       setIsUserListOpened,
+                       videoPlayer,
+                       handleVideoClick,
+                       handleLeaveMeeting,
+                       microphone,
+                       handleMicrophoneClick,
+                       userId,
+                       massages,
+                       handleSharing,
+                       isBoardOpened,
+                       setIsBoardOpened,
+                       closePollModal,
+                       closeCreatePollModal,
+                       isLogOpened,
+                       setIsLogOpened,
+                       isHomeWorkOpened,
+                       setIsHomeWorkOpened,
+                       polls,
+                       isPollModalOpened,
+                       unWatchedPoll,
+                       setUnWatchedPoll,
+                       PollButtons,
+                       screenStream,
+                     }) => {
   const controllersRef = useRef(null)
-  const [isChatFixed, setIsChatFixed] = useState(false)
-  const [isInputOpened, setIsInputOpened] = useState(false)
+  const [ isChatFixed, setIsChatFixed ] = useState(false)
+  const [ isInputOpened, setIsInputOpened ] = useState(false)
   const isControllersOpened = useActiveTimeOut(controllersRef)
-  const [inputValue, setInputValue] = useState('')
-  const [isSubBarOpened, setisSubBarOpened] = useState(false)
-  const [unWatchedMsg, setUnWatchedMsg] = useState(false)
+  const [ inputValue, setInputValue ] = useState('')
+  const [ isSubBarOpened, setisSubBarOpened ] = useState(false)
+  const [ unWatchedMsg, setUnWatchedMsg ] = useState(false)
 
   const socket = useContext(SocketContext)
 
@@ -64,13 +64,13 @@ const Controllers = ({
     if (!isChatFixed && !isInputOpened && massages.length > 0) {
       setUnWatchedMsg(true)
     }
-  }, [massages]) // eslint-disable-line
+  }, [ massages ]) // eslint-disable-line
 
   useEffect(() => {
     if (!isPollModalOpened && polls.length > 0) {
       setUnWatchedPoll(true)
     }
-  }, [polls]) // eslint-disable-line
+  }, [ polls ]) // eslint-disable-line
 
   return (
     <div
@@ -181,7 +181,7 @@ const Controllers = ({
               iconName={microphone ? 'videocall_voice' : 'videocall_voice_off'}
               {...{ state: microphone, onClick: handleMicrophoneClick }}
             />
-            <CircleActionButton onClick={handUp} />
+            <CircleActionButton onClick={handUp}/>
             <CircleButtonWithHover
               iconName="videocall_etc"
               {...{

@@ -1,4 +1,5 @@
 import { generateId } from './idGenerator.helpers'
+
 export const createText = (x, y, text, font, color, texts) => {
   const id = generateId(texts)
   return { id, x, y, text, font, color }
@@ -22,7 +23,7 @@ export const keyDown = (texts, isTexting, setText, setIsTexting, e) => {
   const { key, keyCode } = e
   if (isTexting) {
     setText((prevState) => {
-      let res = [...prevState]
+      let res = [ ...prevState ]
       const index = res.length - 1
       let lastText = res[index]
       if (keyCode === 8) {

@@ -9,7 +9,7 @@ const MassageConatiner = ({ text, isMine }) => {
         <span>{text}</span>
         {!isMine && (
           <div className={style.profilePic}>
-            <img src={first} alt="" />
+            <img src={first} alt=""/>
           </div>
         )}
       </div>

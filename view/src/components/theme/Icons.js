@@ -55,7 +55,7 @@ export const Book = () => {
       </g>
       <defs>
         <clipPath id="clip0">
-          <rect width="24" height="24" fill="white" />
+          <rect width="24" height="24" fill="white"/>
         </clipPath>
       </defs>
     </svg>
@@ -127,7 +127,7 @@ export const Hand = () => {
       </g>
       <defs>
         <clipPath id="clip0">
-          <rect width="24" height="24" fill="white" />
+          <rect width="24" height="24" fill="white"/>
         </clipPath>
       </defs>
     </svg>
@@ -332,7 +332,7 @@ export const Message = ({ condition }) => {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="20" cy="4" r="4" fill="#ED2A26" />
+      <circle cx="20" cy="4" r="4" fill="#ED2A26"/>
     </svg>
   ) : (
     <svg
@@ -469,7 +469,7 @@ export const Exel = () => {
           d="M26.8061 0.583008H17.5811V7.29134H27.9997V1.81264C27.9997 1.13353 27.4653 0.583008 26.8061 0.583008Z"
           fill="#33C481"
         />
-        <path d="M17.5811 14H27.9997V20.7083H17.5811V14Z" fill="#107C41" />
+        <path d="M17.5811 14H27.9997V20.7083H17.5811V14Z" fill="#107C41"/>
       </g>
       <defs>
         <linearGradient
@@ -480,12 +480,12 @@ export const Exel = () => {
           y2="22.0883"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#18884F" />
-          <stop offset="0.5" stopColor="#117E43" />
-          <stop offset="1" stopColor="#0B6631" />
+          <stop stopColor="#18884F"/>
+          <stop offset="0.5" stopColor="#117E43"/>
+          <stop offset="1" stopColor="#0B6631"/>
         </linearGradient>
         <clipPath id="clip0">
-          <rect width="28" height="28" fill="white" />
+          <rect width="28" height="28" fill="white"/>
         </clipPath>
       </defs>
     </svg>
@@ -555,12 +555,12 @@ export const Word = () => {
           y2="22.0944"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#2368C4" />
-          <stop offset="0.5" stopColor="#1A5DBE" />
-          <stop offset="1" stopColor="#1146AC" />
+          <stop stopColor="#2368C4"/>
+          <stop offset="0.5" stopColor="#1A5DBE"/>
+          <stop offset="1" stopColor="#1146AC"/>
         </linearGradient>
         <clipPath id="clip0">
-          <rect width="28" height="28" fill="white" />
+          <rect width="28" height="28" fill="white"/>
         </clipPath>
       </defs>
     </svg>
@@ -732,15 +732,15 @@ export const User = () => {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dy="3.6" />
-          <feGaussianBlur stdDeviation="3.6" />
+          <feOffset dy="3.6"/>
+          <feGaussianBlur stdDeviation="3.6"/>
           <feColorMatrix
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"
@@ -797,15 +797,15 @@ export const UserBig = () => {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dy="6.63158" />
-          <feGaussianBlur stdDeviation="6.63158" />
+          <feOffset dy="6.63158"/>
+          <feGaussianBlur stdDeviation="6.63158"/>
           <feColorMatrix
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"
@@ -843,7 +843,7 @@ export const SmallUser = () => {
         d="M20.2853 3.33647C11.0819 3.17923 3.49303 10.5128 3.3358 19.7162C3.24649 24.9345 5.57234 29.6246 9.27558 32.7436C9.51773 32.5322 9.77749 32.3385 10.0662 32.1813L15.0393 29.4686C15.6915 29.1127 16.0978 28.429 16.0978 27.6856V25.6478C16.0978 25.6478 14.638 23.9018 14.0814 21.476C13.6197 21.1772 13.3103 20.6608 13.3103 20.0728V17.8425C13.3103 17.3519 13.5285 16.9136 13.8675 16.6066V13.3827C13.8675 13.3827 13.2053 8.36554 19.9998 8.36554C26.7943 8.36554 26.132 13.3827 26.132 13.3827V16.6066C26.4717 16.9136 26.6893 17.3519 26.6893 17.8425V20.0728C26.6893 20.8225 26.1861 21.4533 25.5031 21.664C25.1226 22.8471 24.5735 23.9748 23.8477 25C23.6647 25.2585 23.4936 25.4773 23.3439 25.6478V27.7371C23.3439 28.5063 23.7785 29.2101 24.4666 29.5535L29.7919 32.2159C30.1114 32.3756 30.4001 32.5775 30.6661 32.8021C34.2574 29.807 36.5776 25.3289 36.6638 20.286C36.8223 11.0826 29.4894 3.4937 20.2853 3.33647Z"
         fill="#ED2A26"
       />
-      <circle cx="20" cy="20.0007" r="16.1667" stroke="white" />
+      <circle cx="20" cy="20.0007" r="16.1667" stroke="white"/>
     </svg>
   )
 }
@@ -1017,16 +1017,16 @@ export const Rating = ({ isActive }) => {
           filterUnits="userSpaceOnUse"
           colorInterpolationFilters="sRGB"
         >
-          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix"/>
           <feColorMatrix
             in="SourceAlpha"
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
             result="hardAlpha"
           />
-          <feOffset dx="1" dy="1" />
-          <feGaussianBlur stdDeviation="1" />
-          <feComposite in2="hardAlpha" operator="out" />
+          <feOffset dx="1" dy="1"/>
+          <feGaussianBlur stdDeviation="1"/>
+          <feComposite in2="hardAlpha" operator="out"/>
           <feColorMatrix
             type="matrix"
             values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.15 0"
@@ -1182,8 +1182,8 @@ export const VideoCourse = () => {
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FD3A84" />
-          <stop offset="1" stopColor="#FFA68D" />
+          <stop stopColor="#FD3A84"/>
+          <stop offset="1" stopColor="#FFA68D"/>
         </linearGradient>
         <linearGradient
           id="paint1_linear_6408_141717"
@@ -1193,8 +1193,8 @@ export const VideoCourse = () => {
           y2="1.79718"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FFC2CC" />
-          <stop offset="1" stopColor="#FFF2F4" />
+          <stop stopColor="#FFC2CC"/>
+          <stop offset="1" stopColor="#FFF2F4"/>
         </linearGradient>
       </defs>
     </svg>
@@ -1228,8 +1228,8 @@ export const OnlineLessons = () => {
           y2="5.91163"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#FFBEF9" />
-          <stop offset="1" stopColor="#FFF1FF" />
+          <stop stopColor="#FFBEF9"/>
+          <stop offset="1" stopColor="#FFF1FF"/>
         </linearGradient>
         <linearGradient
           id="paint1_linear_6408_141731"
@@ -1239,8 +1239,8 @@ export const OnlineLessons = () => {
           y2="-0.0673434"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#A93AFF" />
-          <stop offset="1" stopColor="#FF81FF" />
+          <stop stopColor="#A93AFF"/>
+          <stop offset="1" stopColor="#FF81FF"/>
         </linearGradient>
         <clipPath id="clip0_6408_141731">
           <rect
@@ -1314,8 +1314,8 @@ export const LiveStream = () => {
           y2="6.00003"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#BDF3D6" />
-          <stop offset="1" stopColor="#76A7DB" />
+          <stop stopColor="#BDF3D6"/>
+          <stop offset="1" stopColor="#76A7DB"/>
         </linearGradient>
         <linearGradient
           id="paint1_linear_6410_10482"
@@ -1325,8 +1325,8 @@ export const LiveStream = () => {
           y2="6.00002"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#6BDD9F" />
-          <stop offset="1" stopColor="#1D5A99" />
+          <stop stopColor="#6BDD9F"/>
+          <stop offset="1" stopColor="#1D5A99"/>
         </linearGradient>
         <linearGradient
           id="paint2_linear_6410_10482"
@@ -1336,8 +1336,8 @@ export const LiveStream = () => {
           y2="3.50002"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#BDF3D6" />
-          <stop offset="1" stopColor="#76A7DB" />
+          <stop stopColor="#BDF3D6"/>
+          <stop offset="1" stopColor="#76A7DB"/>
         </linearGradient>
       </defs>
     </svg>
@@ -1372,8 +1372,8 @@ export const Conference = () => {
           y2="6.1803"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#5558FF" />
-          <stop offset="1" stopColor="#00C0FF" />
+          <stop stopColor="#5558FF"/>
+          <stop offset="1" stopColor="#00C0FF"/>
         </linearGradient>
         <linearGradient
           id="paint1_linear_6408_141759"
@@ -1383,8 +1383,8 @@ export const Conference = () => {
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#ADDCFF" />
-          <stop offset="1" stopColor="#C7E4FB" />
+          <stop stopColor="#ADDCFF"/>
+          <stop offset="1" stopColor="#C7E4FB"/>
         </linearGradient>
         <clipPath id="clip0_6408_141759">
           <rect
@@ -1475,7 +1475,7 @@ export const DefaultUser = () => (
     </g>
     <defs>
       <clipPath id="clip0_7488_186657">
-        <rect width="48" height="48" fill="white" />
+        <rect width="48" height="48" fill="white"/>
       </clipPath>
     </defs>
   </svg>

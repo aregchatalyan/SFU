@@ -9,8 +9,10 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+
   &:hover {
     transition: 150ms;
+
     svg {
       path {
         stroke: white;
@@ -18,6 +20,7 @@
     }
   }
 }
+
 .circleButtonActive {
   width: 48px;
   height: 48px;
@@ -30,6 +33,7 @@
   align-items: center;
   padding: 0;
   transition: 150ms;
+
   svg {
     path {
       stroke: white;
@@ -49,6 +53,7 @@
   align-items: center;
   padding: 0;
   position: relative;
+
   .notification {
     position: absolute;
     right: 0;
@@ -56,6 +61,7 @@
     transform: scale(1);
     transition: 300ms;
   }
+
   .notificationHide {
     position: absolute;
     right: 0;
@@ -64,6 +70,7 @@
     transition: 300ms;
   }
 }
+
 .circleButtonWithHoverActive {
   width: 48px;
   height: 48px;
@@ -77,11 +84,13 @@
   padding: 0;
   transition: 150ms;
   position: relative;
+
   svg {
     path {
       stroke: white;
     }
   }
+
   .notification {
     position: absolute;
     right: 0;
@@ -89,6 +98,7 @@
     transform: scale(0);
     transition: 300ms;
   }
+
   .notificationHide {
     position: absolute;
     right: 0;
@@ -109,12 +119,15 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+
   &:hover {
     transition: 150ms;
+
     svg {
       path {
         stroke: white;
       }
+
       line {
         stroke: white;
       }
@@ -131,10 +144,12 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+
   &:hover {
     transition: 150ms;
     border: 1px solid #ffffff;
     box-sizing: border-box;
+
     svg {
       path {
         stroke: white;
@@ -149,49 +164,59 @@
   border-radius: 100%;
   padding: 0;
   background-color: transparent;
+
   .svgWrapper {
     width: 48px;
     height: 48px;
     fill: none;
+
     .svgBackground {
       fill: rgba(35, 35, 35, 0.4);
       stroke: #6a6a6a;
       stroke-width: 1;
     }
+
     .svgCircle {
       fill: none;
       stroke: #ed2a26;
       stroke-width: 1;
     }
+
     .svgHand {
       fill: #b6b6b6;
     }
   }
+
   .svgWrapperActive {
     width: 48px;
     height: 48px;
     fill: none;
+
     .svgBackground {
       fill: rgba(35, 35, 35, 0.4);
       stroke: #6a6a6a;
       stroke-width: 1;
     }
+
     .svgCircle {
       fill: none;
       stroke: #ed2a26;
       stroke-width: 1;
       animation: progress 5s ease forwards;
     }
+
     .svgHand {
       fill: white;
     }
   }
+
   &:hover {
     .svgHand {
       fill: rgb(255, 255, 255);
     }
   }
 }
+
 @keyframes progress {
   0% {
     stroke-dasharray: 110, 0;

@@ -2,7 +2,7 @@ import React, { useState, memo } from 'react'
 import style from './style.module.scss'
 
 const CircleActionButton = ({ onClick }) => {
-  const [isClicked, setisClicked] = useState(false)
+  const [ isClicked, setisClicked ] = useState(false)
 
   const handleClick = () => {
     let timeout

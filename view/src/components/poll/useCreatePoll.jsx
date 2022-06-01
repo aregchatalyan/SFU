@@ -11,15 +11,15 @@ import { SocketContext } from '../../Context'
 
 const initialValues = {
   question: '',
-  versions: [{ text: '' }, { text: '' }],
+  versions: [ { text: '' }, { text: '' } ],
   anonymous: false,
 }
 
 const Children = ({ closeModal, selfId }) => {
   const socket = useContext(SocketContext)
 
-  const [formContext, setFormContext] = useState({ ...initialValues })
-  const [isValid, setIsValid] = useState(false)
+  const [ formContext, setFormContext ] = useState({ ...initialValues })
+  const [ isValid, setIsValid ] = useState(false)
 
   useEffect(() => {
     if (formContext.question.length > 0) {
@@ -36,12 +36,12 @@ const Children = ({ closeModal, selfId }) => {
     } else {
       setIsValid(false)
     }
-  }, [formContext])
+  }, [ formContext ])
 
   const addVersion = () => {
     const version = { text: '' }
     setFormContext((state) => {
-      const versions = [...state.versions]
+      const versions = [ ...state.versions ]
       versions.push(version)
       return { ...state, versions }
     })
@@ -56,7 +56,7 @@ const Children = ({ closeModal, selfId }) => {
           className={style.closeBtn}
           style={{ cursor: 'pointer' }}
         >
-          <Icon name="close_poll_modal" width={24} height={24} />
+          <Icon name="close_poll_modal" width={24} height={24}/>
         </button>
       </div>
       <div className={style.createQuestion}>
@@ -75,7 +75,7 @@ const Children = ({ closeModal, selfId }) => {
             onClick={addVersion}
             style={{ cursor: 'pointer' }}
           >
-            <Icon name="poll_add_version" width={16} height={16} />
+            <Icon name="poll_add_version" width={16} height={16}/>
             <span>Add Version</span>
           </button>
         </div>
@@ -115,7 +115,7 @@ const Children = ({ closeModal, selfId }) => {
               closeModal()
               setFormContext({
                 question: '',
-                versions: [{ text: '' }, { text: '' }],
+                versions: [ { text: '' }, { text: '' } ],
                 anonymous: false,
               })
             }}
@@ -131,7 +131,7 @@ const Children = ({ closeModal, selfId }) => {
               })
               setFormContext({
                 question: '',
-                versions: [{ text: '' }, { text: '' }],
+                versions: [ { text: '' }, { text: '' } ],
                 anonymous: false,
               })
               closeModal()
@@ -152,7 +152,7 @@ export const useCreatePollModal = ({ selfId }) =>
     buttonProps: {
       children: (
         <>
-          <Icon name="create_poll" width={21} height={20} />
+          <Icon name="create_poll" width={21} height={20}/>
           <span>Create</span>
         </>
       ),

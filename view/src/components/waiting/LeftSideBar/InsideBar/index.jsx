@@ -8,7 +8,7 @@ const InsideBar = ({ title, type, info, arr, level }) => {
       <div className={style.title}>
         <h6>{title}</h6>
         <div className={style.level}>
-          {isTipeLevel && <div className={`circle ${level || 'unset'}`} />}
+          {isTipeLevel && <div className={`circle ${level || 'unset'}`}/>}
           <span>{info}</span>
         </div>
       </div>
@@ -18,7 +18,7 @@ const InsideBar = ({ title, type, info, arr, level }) => {
             <div className={style.content} key={key}>
               <div className={style.head}>
                 {isTipeLevel && (
-                  <div className={`circle ${level || 'unset'}`} />
+                  <div className={`circle ${level || 'unset'}`}/>
                 )}
                 <div className={isTipeLevel ? style.text : style.textSmall}>
                   {text}
@@ -27,7 +27,7 @@ const InsideBar = ({ title, type, info, arr, level }) => {
               <div className={style.contentFooter}>
                 <div className={style.date}>{date}</div>
                 <div className={style.classMates}>
-                  <Icon name="waiting_show_users" width={16} height={16} />
+                  <Icon name="waiting_show_users" width={16} height={16}/>
                   <span>7</span>
                 </div>
               </div>

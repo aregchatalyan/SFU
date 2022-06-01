@@ -5,7 +5,7 @@ import style from './style.module.scss'
 
 const ShareMsg = ({ onClick }) => {
   const msgRef = useRef(null)
-  const [isHovered] = useComponentHover(msgRef)
+  const [ isHovered ] = useComponentHover(msgRef)
 
   return (
     <div

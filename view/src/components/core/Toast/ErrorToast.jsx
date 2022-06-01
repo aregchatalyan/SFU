@@ -7,7 +7,7 @@ const ErrorToast = ({ text }) => {
   return (
     <div className={style.toastContainer}>
       <div className={style.iconWrapper}>
-        <Icon name="error_toast" width={28} height={28} />
+        <Icon name="error_toast" width={28} height={28}/>
       </div>
       <div className={style.msgWrapoper}>
         <span className={style.title}>Error</span>
@@ -18,7 +18,7 @@ const ErrorToast = ({ text }) => {
 }
 
 export const toastError = (text) => {
-  toast(<ErrorToast text={text} />, {
+  toast(<ErrorToast text={text}/>, {
     position: toast.POSITION.TOP_CENTER,
     autoClose: 4000,
     hideProgressBar: true,

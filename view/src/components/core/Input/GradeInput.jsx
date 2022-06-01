@@ -20,19 +20,19 @@ const CommentBox = ({ commentText, setCommentValue, openModal, editable }) => {
               className={style.deleteButton}
               onClick={() => setCommentValue('')}
             >
-              <Icon name="comment_delete" width={20} height={20} />
+              <Icon name="comment_delete" width={20} height={20}/>
             </button>
           </div>
         )}
       </div>
-      <div className={style.pointer} />
+      <div className={style.pointer}/>
     </div>
   )
 }
 
 const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
-  const [gradeValue, setGradeValue] = useState('')
-  const [commentValue, setCommentValue] = useState('')
+  const [ gradeValue, setGradeValue ] = useState('')
+  const [ commentValue, setCommentValue ] = useState('')
   const inputRef = useRef(null)
   const { active: isFocused, setActive: setIsFocused } =
     useOutsideClick(inputRef)
@@ -55,7 +55,7 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
               />
             )}
             <button onClick={() => openModal(setCommentValue)}>
-              <Icon name={'comment_log'} width={16} height={16} />
+              <Icon name={'comment_log'} width={16} height={16}/>
             </button>
           </div>
           <div
@@ -63,8 +63,8 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
               !gradeValue.length > 0
                 ? style.inputWithoutGrade
                 : isFocused
-                ? style.inputWithGradeFocused
-                : style.inputWithGrade
+                  ? style.inputWithGradeFocused
+                  : style.inputWithGrade
             }
           >
             <input
@@ -86,16 +86,16 @@ const GradeInput = ({ grade, isTeacher, comment, openModal }) => {
               grade === 'A'
                 ? style.absend
                 : grade === 'P' || !grade
-                ? style.present
-                : style.grade
+                  ? style.present
+                  : style.grade
             }
           >
             {grade}
           </span>
           {comment && (
             <div className={style.commentBar}>
-              <CommentBox commentText={comment} />
-              <Icon name={'comment_log'} width={16} height={16} />
+              <CommentBox commentText={comment}/>
+              <Icon name={'comment_log'} width={16} height={16}/>
             </div>
           )}
         </>

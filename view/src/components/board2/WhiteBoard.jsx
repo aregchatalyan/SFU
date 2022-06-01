@@ -18,22 +18,22 @@ const imgs = {
 }
 
 const WhiteBoard = ({
-  savedBoardRef,
-  boardRef,
-  identyfierRef,
-  editorName,
-  editorToolType,
-  toolType,
-  textAreaRef,
-  spanRef,
-  texts,
-  permissionToEdit,
-}) => {
+                      savedBoardRef,
+                      boardRef,
+                      identyfierRef,
+                      editorName,
+                      editorToolType,
+                      toolType,
+                      textAreaRef,
+                      spanRef,
+                      texts,
+                      permissionToEdit,
+                    }) => {
   const socket = useContext(SocketContext)
 
   useEffect(() => {
     socket.emit('getBoardData')
-  }, [socket])
+  }, [ socket ])
 
   return (
     <div
@@ -49,13 +49,13 @@ const WhiteBoard = ({
         }
         ref={identyfierRef}
       >
-        <img src={imgs[editorToolType]} alt="" />
+        <img src={imgs[editorToolType]} alt=""/>
         <span id="user_name_wrapper" className="user_name">
           {editorName}
         </span>
       </div>
 
-      <BoardTextArea childRef={spanRef} ref={textAreaRef} />
+      <BoardTextArea childRef={spanRef} ref={textAreaRef}/>
       <canvas
         className="wrappercanvas"
         style={{

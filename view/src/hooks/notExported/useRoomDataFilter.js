@@ -1,46 +1,45 @@
 import { useCallback, useEffect, useState } from 'react'
 
 export const useRoomDataFilter = (userId, socket) => {
-  const [roomData, setRoomData] = useState(undefined)
-  const [isLoading, setIsLoading] = useState(true)
+  const [ roomData, setRoomData ] = useState(undefined)
+  const [ isLoading, setIsLoading ] = useState(true)
 
   const setRoomDataFunc = useCallback(
-    ({_doc}) => {
-      const { students, isTeacher, teacherInfo, ...otherProps } = _doc
+    (data) => {
+      const { students, isTeacher, teacher, ...otherProps } = data
+
       const me = isTeacher
-        ? teacherInfo
-        : students.filter(({ id }) => id === userId)[0]
+        ? teacher
+        : students.filter(({ id }) => +id === userId)[0]
+
       const classmates = students.filter(({ id }) => id !== userId)
-      setRoomData({ me, classmates, isTeacher, teacherInfo, ...otherProps })
-    },
-    [userId]
-  )
+
+      setRoomData({ me, classmates, isTeacher, teacher, ...otherProps })
+    }, [ userId ])
 
   useEffect(() => {
     socket &&
-      socket.on('connected', (data) => {
-        setIsLoading(false)
-        setRoomDataFunc(data)
-      })
-  }, [socket, setRoomDataFunc])
+    socket.on('connected', (data) => {
+      setIsLoading(false)
+      setRoomDataFunc(data)
+    })
+  }, [ socket, setRoomDataFunc ])
 
   const getUserById = useCallback(
     (userId) => {
-      const userData =
-        roomData && roomData.teacherInfo.id === userId
-          ? { isTeacher: true, ...roomData.teacherInfo }
-          : roomData &&
-            [roomData.me, ...roomData.classmates].filter(
-              ({ id }) => id === userId
-            )[0]
+      console.log(roomData)
+      const userData = roomData && +roomData.teacher.id === userId
+        ? { isTeacher: true, ...roomData.teacher }
+        : roomData && [ roomData.me, ...roomData.classmates ]
+        .filter(({ id }) => +id === userId)[0]
+
       return {
         name: userData.name,
         surname: userData.surname,
         isTeacher: userData.isTeacher || false,
       }
-    },
-    [roomData]
-  )
+    }, [ roomData ])
+
   const changeUserBoardPermission = useCallback(
     ({ userId: studentId, allowed }) => {
       socket.emit('handlePermission', {
@@ -50,36 +49,33 @@ export const useRoomDataFilter = (userId, socket) => {
       })
 
       setRoomData((state) => {
-        const users = [...state.classmates].map(({ id, ...otherProps }) => {
+        const users = [ ...state.classmates ].map(({ id, ...otherProps }) => {
           return id === studentId
             ? { id, ...otherProps, boardPermission: allowed }
             : { id, ...otherProps }
         })
-        const stateCopy = { ...state, classmates: users }
-        return stateCopy
+        return { ...state, classmates: users }
       })
-    },
-    [socket, userId]
-  )
+    }, [ socket, userId ])
+
   const getUserBoardPermission = useCallback(
     (userId) => {
       const userData =
-        roomData && roomData.teacherInfo.id === userId
-          ? roomData.teacherInfo
+        roomData && roomData.teacher.id === userId
+          ? roomData.teacher
           : roomData &&
-            [roomData.me, ...roomData.classmates].filter(
-              ({ id }) => id === userId
-            )[0]
+          [ roomData.me, ...roomData.classmates ].filter(
+            ({ id }) => id === userId
+          )[0]
       return userData.boardPermission
-    },
-    [roomData]
-  )
+    }, [ roomData ])
+
   useEffect(() => {
     socket &&
-      socket.on('teacherJoin', ({ joined }) => {
-        setRoomData((state) => ({ ...state, isTeacherJoind: joined }))
-      })
-  }, [socket])
+    socket.on('teacherJoin', ({ joined }) => {
+      setRoomData((state) => ({ ...state, isTeacherJoind: joined }))
+    })
+  }, [ socket ])
 
   return [
     isLoading,

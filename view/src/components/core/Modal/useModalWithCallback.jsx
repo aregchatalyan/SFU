@@ -4,11 +4,12 @@ import SubmitButton from '../Button/SubmitButton'
 import style from './style.module.scss'
 
 export const useModalWithCallback = () => {
-  const [prevComment, setprevComment] = useState('')
-  const [inputValue, setInputValue] = useState('')
-  const [isModalOpened, setIsModalOpened] = useState(false)
-  const [submitModal, setSubmitModal] = useState({
-    cb: () => {},
+  const [ prevComment, setprevComment ] = useState('')
+  const [ inputValue, setInputValue ] = useState('')
+  const [ isModalOpened, setIsModalOpened ] = useState(false)
+  const [ submitModal, setSubmitModal ] = useState({
+    cb: () => {
+    },
   })
   const callback = (setString, string = '') => {
     setIsModalOpened(true)
@@ -55,5 +56,5 @@ export const useModalWithCallback = () => {
     </div>
   )
 
-  return [modal, callback]
+  return [ modal, callback ]
 }

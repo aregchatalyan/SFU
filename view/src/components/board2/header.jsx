@@ -50,7 +50,7 @@ const widths = [
 ]
 
 const DropdownMenu = ({ width, setWidth }) => {
-  const [isFontDropdownOpened, setIsFontDropdownOpened] = useState(false)
+  const [ isFontDropdownOpened, setIsFontDropdownOpened ] = useState(false)
 
   const variantList = useMemo(
     () => ({
@@ -133,7 +133,7 @@ const DropdownMenu = ({ width, setWidth }) => {
                   }}
                   key={index}
                 >
-                  <span className="pixel_icon" />
+                  <span className="pixel_icon"/>
                   <span className="pixel_title">{title}</span>
                 </motion.li>
               ))}
@@ -146,24 +146,24 @@ const DropdownMenu = ({ width, setWidth }) => {
 }
 
 const Header = ({
-  toolType,
-  setToolType,
-  goToVideoCall,
-  width,
-  setWidth,
-  handleFullScreen,
-  reset,
-  undo,
-  undoDisabled,
-  redo,
-  redoDisabled,
-  color,
-  setSelectColor,
-  permissionToEdit,
-  setPermissionToEdit,
-  selfId,
-}) => {
-  const [isPermissionReqLoading, setIsPermissionReqLoading] = useState(false)
+                  toolType,
+                  setToolType,
+                  goToVideoCall,
+                  width,
+                  setWidth,
+                  handleFullScreen,
+                  reset,
+                  undo,
+                  undoDisabled,
+                  redo,
+                  redoDisabled,
+                  color,
+                  setSelectColor,
+                  permissionToEdit,
+                  setPermissionToEdit,
+                  selfId,
+                }) => {
+  const [ isPermissionReqLoading, setIsPermissionReqLoading ] = useState(false)
   const { isTeacherJoind } = useContext(RoomInfoContext)
 
   const socket = useContext(SocketContext)
@@ -171,13 +171,13 @@ const Header = ({
   const askPermission = useCallback(() => {
     setIsPermissionReqLoading(true)
     socket.emit('askPermission', { userId: selfId })
-  }, [socket, selfId])
+  }, [ socket, selfId ])
   useEffect(() => {
     socket.on('myBoardPermission', (data) => {
       setPermissionToEdit(data.allowed)
       setIsPermissionReqLoading(false)
     })
-  }, [socket, setPermissionToEdit])
+  }, [ socket, setPermissionToEdit ])
   return (
     <div className="header">
       <ButtonWithTextAndIcon
@@ -208,7 +208,7 @@ const Header = ({
             onClick={() => setSelectColor((state) => !state)}
           >
             {color.hex === '#1c1d1f' ? (
-              <Icon name="board_color_circle" width={20} height={20} />
+              <Icon name="board_color_circle" width={20} height={20}/>
             ) : (
               <div
                 className="color_wrapper"
@@ -219,7 +219,7 @@ const Header = ({
         )}
 
         {permissionToEdit && (
-          <Icon name="board_divider" width={1} height={40} />
+          <Icon name="board_divider" width={1} height={40}/>
         )}
         {permissionToEdit ? (
           <div className="reset_undo_redo">
@@ -255,7 +255,7 @@ const Header = ({
           />
         ) : null}
         {permissionToEdit && (
-          <Icon name="board_divider" width={1} height={40} />
+          <Icon name="board_divider" width={1} height={40}/>
         )}
         <CustomButtonWithIcon
           iconName="full_screen"

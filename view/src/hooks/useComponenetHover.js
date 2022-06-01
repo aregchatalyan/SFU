@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
+
 export const useComponentHover = (ref) => {
-  const [isHovered, setIsHovered] = useState(false)
+  const [ isHovered, setIsHovered ] = useState(false)
   useEffect(() => {
     let timeout
     const handlMoseMove = (e) => {
@@ -18,5 +19,5 @@ export const useComponentHover = (ref) => {
     return () => window.removeEventListener('mousemove', handlMoseMove, false)
   })
 
-  return [isHovered, setIsHovered]
+  return [ isHovered, setIsHovered ]
 }

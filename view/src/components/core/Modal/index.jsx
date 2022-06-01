@@ -4,7 +4,7 @@ import Modal from './modal'
 export { useModalWithCallback } from './useModalWithCallback'
 
 const useModalWithButton = ({ child, modalProps, buttonProps = {} }) => {
-  const [visible, setVisible] = useState(false)
+  const [ visible, setVisible ] = useState(false)
 
   // handlers;
   const closeModal = () => setVisible(false)

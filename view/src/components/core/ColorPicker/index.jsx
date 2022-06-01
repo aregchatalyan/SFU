@@ -88,9 +88,9 @@ const ColorPicker = ({ className, color, setColor }) => {
         hideHEX
       />
       <div className="or_divider">
-        <div className="divider" />
+        <div className="divider"/>
         <span className="text_or">Or</span>
-        <div className="divider" />
+        <div className="divider"/>
       </div>
       <div className="custom_colors">
         {cutomColors.map((elm, index) => (

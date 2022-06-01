@@ -1,10 +1,10 @@
 export const drawPath = ({ context, path, canvasHeight, canvasWidth }) => {
   path.forEach(
     ({
-      points: stroke,
-      canvasWidth: incomingCanvasWidth,
-      canvasHeight: incomingCanvasHeight,
-    }) => {
+       points: stroke,
+       canvasWidth: incomingCanvasWidth,
+       canvasHeight: incomingCanvasHeight,
+     }) => {
       context.beginPath()
       const scaleWidth = canvasWidth / incomingCanvasWidth
       const scaleHeight = canvasHeight / incomingCanvasHeight

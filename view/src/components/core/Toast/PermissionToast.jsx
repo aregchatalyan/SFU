@@ -10,12 +10,12 @@ const PermissionToast = ({ name, surname, handlePermissionChange }) => {
       <div className={style.info_board}>
         <div className={style.user_info}>
           <div className={style.user_img_wrapper}>
-            <Icon name="default_profile_mega_small" width={24} height={24} />
+            <Icon name="default_profile_mega_small" width={24} height={24}/>
           </div>
           <span className={style.user_name_surname}>
             {`${name} ${surname}`}
           </span>
-          <Icon name="videocall_blackboard" width={24} height={24} />
+          <Icon name="videocall_blackboard" width={24} height={24}/>
         </div>
         <span className={style.ask_text}>Asking to edit in blackboard</span>
       </div>

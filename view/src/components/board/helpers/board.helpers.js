@@ -10,14 +10,14 @@ export const Undo = (
     const { type } = order[order.length - 1]
     const callBack = (method) => (prevState) => {
       if (method === 'hash') {
-        const elements = [...prevState]
+        const elements = [ ...prevState ]
         setHash((state) => [
           ...state,
           { type: type, element: elements[elements.length - 1] },
         ])
       }
       prevState.pop()
-      return [...prevState]
+      return [ ...prevState ]
     }
     if (type === 'path') {
       setPath(callBack('hash'))
@@ -30,12 +30,12 @@ export const Undo = (
   }
 }
 export const Redo = (hash, setElement, setPath, setOrder, setHash, setText) => {
-  const elements = [...hash]
+  const elements = [ ...hash ]
   if (elements.length > 0) {
     const { type, element } = elements[elements.length - 1]
     const callback = (type, element, method) => {
-      method((prevState) => [...prevState, element])
-      setOrder((prevState) => [...prevState, { type }])
+      method((prevState) => [ ...prevState, element ])
+      setOrder((prevState) => [ ...prevState, { type } ])
       setHash((prevState) => {
         prevState.pop()
         return prevState

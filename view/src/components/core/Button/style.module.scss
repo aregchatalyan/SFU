@@ -14,7 +14,7 @@
   height: 76px;
   background: rgba(42, 42, 42, 0.5);
   box-shadow: inset 2px 2px 8px rgba(255, 255, 255, 0.1),
-    inset -2px -2px 8px rgba(0, 0, 0, 0.25);
+  inset -2px -2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -30,11 +30,14 @@
     line-height: 16px;
     color: #b6b6b6;
   }
+
   &:hover {
     background: #2a2a2a;
+
     span {
       color: white;
     }
+
     svg {
       path {
         fill: white;
@@ -42,6 +45,7 @@
     }
   }
 }
+
 .buttonWithIconAndTextActive {
   width: 106px;
   height: 80px;
@@ -53,11 +57,13 @@
   justify-content: center;
   border: 1px solid white;
   transition: 200ms;
+
   svg {
     path {
       fill: white;
     }
   }
+
   span {
     font-style: normal;
     font-weight: normal;
@@ -79,11 +85,13 @@
   justify-content: center;
   border: 1px solid white;
   transition: 200ms;
+
   svg {
     path {
       stroke: white;
     }
   }
+
   span {
     font-style: normal;
     font-weight: normal;
@@ -93,12 +101,13 @@
     margin-top: 8px;
   }
 }
+
 .buttonWithIconAndTextStrock {
   width: 96px;
   height: 76px;
   background: rgba(42, 42, 42, 0.5);
   box-shadow: inset 2px 2px 8px rgba(255, 255, 255, 0.1),
-    inset -2px -2px 8px rgba(0, 0, 0, 0.25);
+  inset -2px -2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -114,11 +123,14 @@
     line-height: 16px;
     color: #b6b6b6;
   }
+
   &:hover {
     background: #2a2a2a;
+
     span {
       color: white;
     }
+
     svg {
       path {
         stroke: white;
@@ -132,7 +144,7 @@
   height: 76px;
   background: rgba(42, 42, 42, 0.5);
   box-shadow: inset 2px 2px 8px rgba(255, 255, 255, 0.1),
-    inset -2px -2px 8px rgba(0, 0, 0, 0.25);
+  inset -2px -2px 8px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -141,6 +153,7 @@
   transition: 200ms;
   overflow: hidden;
   position: relative;
+
   .buttons {
     width: 100%;
     height: 100%;
@@ -153,6 +166,7 @@
     box-sizing: border-box;
     padding-left: 6px;
   }
+
   .text {
     width: 100%;
     height: 100%;
@@ -161,6 +175,7 @@
     align-items: center;
     justify-content: center;
     transition: 500ms;
+
     > span {
       font-size: 12px;
       line-height: 16px;
@@ -179,16 +194,20 @@
       }
     }
   }
+
   &:hover {
     background: #2a2a2a;
+
     .text {
       transform: translateY(100px);
     }
+
     .buttons {
       opacity: 1;
     }
   }
 }
+
 .submit {
   width: auto;
   height: 40px;
@@ -204,6 +223,7 @@
   padding: 8px 32px;
   box-sizing: border-box;
 }
+
 .submitDisabled {
   width: auto;
   height: 40px;
@@ -229,10 +249,12 @@
   justify-content: center;
   align-items: center;
   transition: 200ms;
+
   &:hover {
     background-color: #414246;
   }
 }
+
 .toolBtnActive {
   width: 36px;
   height: 36px;
@@ -242,15 +264,18 @@
   align-items: center;
   background-color: #ffffff;
   transition: 200ms;
+
   svg {
     path {
       fill: black;
     }
+
     circle {
       stroke: black;
     }
   }
 }
+
 .toolBtnActiveStrock {
   width: 36px;
   height: 36px;
@@ -260,6 +285,7 @@
   align-items: center;
   background-color: #ffffff;
   transition: 200ms;
+
   svg {
     path {
       stroke: black;
@@ -279,6 +305,7 @@
   justify-content: center;
   margin-right: 16px;
   cursor: pointer;
+
   .button_text {
     font-weight: 500;
     font-size: 16px;
@@ -286,13 +313,16 @@
     color: #ffffff;
     margin-left: 10px;
   }
+
   &:focus {
     outline: none;
   }
+
   &:hover {
     background-color: #cd1c19;
   }
 }
+
 .loading_button_loads {
   width: 144px;
   height: 32px;
@@ -306,12 +336,14 @@
   margin-right: 16px;
 
   cursor: wait;
+
   .loaderWrapper {
     width: 16px;
     height: 16px;
     display: flex;
     justify-content: center;
     align-items: center;
+
     .wave {
       width: 2px;
       height: 12px;
@@ -321,12 +353,15 @@
       animation: wave 1s linear infinite;
       border-radius: 20px;
     }
+
     .wave:nth-child(2) {
       animation-delay: 0.1s;
     }
+
     .wave:nth-child(3) {
       animation-delay: 0.2s;
     }
+
     @keyframes wave {
       0% {
         transform: scale(0);
@@ -339,12 +374,14 @@
       }
     }
   }
+
   .button_text {
     font-size: 16px;
     line-height: 24px;
     color: #6a6a6a;
     margin-left: 8px;
   }
+
   &:focus {
     outline: none;
   }

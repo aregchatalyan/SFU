@@ -4,20 +4,20 @@ import { getStream } from '../../helpers'
 import { closeProducer, produce } from '../../services'
 
 export const useMediaDeviceChanges = ({
-    socket,
-    isReady,
-    microphone,
-    videoPlayer,
-    audioStream,
-    setStream,
-    setAudioStream,
-    setMicrophone,
-    setVideoPlayer,
-    isVideoDeviceAvailable,
-    isAudioDeviceAvailable,
-    videoPermission,
-    audioPermission,
-  }) => {
+                                        socket,
+                                        isReady,
+                                        microphone,
+                                        videoPlayer,
+                                        audioStream,
+                                        setStream,
+                                        setAudioStream,
+                                        setMicrophone,
+                                        setVideoPlayer,
+                                        isVideoDeviceAvailable,
+                                        isAudioDeviceAvailable,
+                                        videoPermission,
+                                        audioPermission,
+                                      }) => {
   const [ mediaErr, setMediaErr ] = useState({})
 
   const tryToConnect = useCallback(() => {

@@ -11,17 +11,17 @@ import { RoomInfoContext } from '../../Context'
 const Board = ({ className, goToVideoCall, selfId, handleFullScreen }) => {
   const { isTeacher, boardPermission, getUserById } =
     useContext(RoomInfoContext)
-  const [permissionToEdit, setPermissionToEdit] = useState(
+  const [ permissionToEdit, setPermissionToEdit ] = useState(
     isTeacher || boardPermission
   )
-  const [toolType, setToolType] = useState('pencil')
-  const [color, setColor] = useColor('hex', '#1c1d1f')
-  const [selectColor, setSelectColor] = useState(false)
-  const [editorName, setEditorName] = useState('')
-  const [editorToolType, setEditorToolType] = useState('pencil')
-  const [texts, setTexts] = useState([])
+  const [ toolType, setToolType ] = useState('pencil')
+  const [ color, setColor ] = useColor('hex', '#1c1d1f')
+  const [ selectColor, setSelectColor ] = useState(false)
+  const [ editorName, setEditorName ] = useState('')
+  const [ editorToolType, setEditorToolType ] = useState('pencil')
+  const [ texts, setTexts ] = useState([])
 
-  const [width, setWidth] = useState({ element: 2, path: 1 })
+  const [ width, setWidth ] = useState({ element: 2, path: 1 })
 
   const savedBoardRef = useRef(null)
   const boardRef = useRef(null)

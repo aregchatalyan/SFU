@@ -10,7 +10,7 @@ const today = 1639958400000
 
 const Table = ({ lessonDays, start, end, openModal }) => {
   const { isTeacher, me, classmates } = useContext(RoomInfoContext)
-  const students = isTeacher ? [...classmates] : [me, ...classmates]
+  const students = isTeacher ? [ ...classmates ] : [ me, ...classmates ]
 
   return (
     <motion.div className={style.table} layout>
@@ -37,9 +37,9 @@ const Table = ({ lessonDays, start, end, openModal }) => {
               <div className={style.studentInfo}>
                 <div className={style.studentPhoto}>
                   {img ? (
-                    <img src={img} alt={name} />
+                    <img src={img} alt={name}/>
                   ) : (
-                    <Icon name="default_profile_small" width={40} height={40} />
+                    <Icon name="default_profile_small" width={40} height={40}/>
                   )}
                 </div>
                 <span
@@ -59,8 +59,8 @@ const Table = ({ lessonDays, start, end, openModal }) => {
                           ? index === 0
                             ? style.todaysAtomsTop
                             : index === students.length - 1
-                            ? style.todaysAtomsBottom
-                            : style.todaysAtoms
+                              ? style.todaysAtomsBottom
+                              : style.todaysAtoms
                           : style.atoms
                       }
                       style={
@@ -69,8 +69,8 @@ const Table = ({ lessonDays, start, end, openModal }) => {
                             ? { boxShadow: 'none' }
                             : { boxShadow: 'inset 1px 0px 0px #e7e7e7' }
                           : key === 0
-                          ? { boxShadow: 'inset 0px 1px 0px #e7e7e7' }
-                          : {}
+                            ? { boxShadow: 'inset 0px 1px 0px #e7e7e7' }
+                            : {}
                       }
                       key={key}
                     >

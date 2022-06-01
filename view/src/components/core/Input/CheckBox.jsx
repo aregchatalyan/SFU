@@ -3,7 +3,7 @@ import Icon from '../Icon'
 import style from './style.module.scss'
 
 const CheckBox = ({ label, checked, disable, onSelect }) => {
-  const [isChecked, setisChecked] = useState(false)
+  const [ isChecked, setisChecked ] = useState(false)
   return (
     <button
       onClick={() => {
@@ -16,9 +16,9 @@ const CheckBox = ({ label, checked, disable, onSelect }) => {
       className={style.checkBoxWrapper}
     >
       {isChecked || checked ? (
-        <Icon name="checkbox_checked" width={24} height={24} />
+        <Icon name="checkbox_checked" width={24} height={24}/>
       ) : (
-        <div className={style.checkBox} />
+        <div className={style.checkBox}/>
       )}
       {label && <span>{label}</span>}
     </button>

@@ -14,47 +14,47 @@ import UserVideos from '../../usersVideoContainer'
 import style from './style.module.scss'
 
 const VideoCall = ({
-  userId,
-  stream,
-  screenStream,
-  handleFullScreen,
-  videoPlayer,
-  handleVideoClick,
-  microphone,
-  handleMicrophoneClick,
-  handleSharing,
-  handleLeaveMeeting,
-  massages,
-  hands,
-  polls,
-  audioStream,
-  connecting,
-  disconnectedUsers,
-}) => {
+                     userId,
+                     stream,
+                     screenStream,
+                     handleFullScreen,
+                     videoPlayer,
+                     handleVideoClick,
+                     microphone,
+                     handleMicrophoneClick,
+                     handleSharing,
+                     handleLeaveMeeting,
+                     massages,
+                     hands,
+                     polls,
+                     audioStream,
+                     connecting,
+                     disconnectedUsers,
+                   }) => {
   const wrapperRef = useRef(null)
   const logRef = useRef(null)
   const { active: isLogOpened, setActive: setIsLogOpened } = useOutsideClick(
     logRef,
     wrapperRef
   )
-  const [isUserListOpened, setIsUserListOpened] = useState(false)
-  const [isBoardOpened, setIsBoardOpened] = useState(false)
-  const [isHomeWorkOpened, setIsHomeWorkOpened] = useState(false)
-  const [unWatchedPoll, setUnWatchedPoll] = useState(false)
-  const [selectedUserId, setSelectedUserId] = useState(null)
+  const [ isUserListOpened, setIsUserListOpened ] = useState(false)
+  const [ isBoardOpened, setIsBoardOpened ] = useState(false)
+  const [ isHomeWorkOpened, setIsHomeWorkOpened ] = useState(false)
+  const [ unWatchedPoll, setUnWatchedPoll ] = useState(false)
+  const [ selectedUserId, setSelectedUserId ] = useState(null)
 
   const goToVideoCall = () => {
     setIsBoardOpened(false)
     setIsLogOpened(false)
     setIsHomeWorkOpened(false)
   }
-  const [PallModal, PollModalButton, closePollModal, isPollModalOpened] =
+  const [ PallModal, PollModalButton, closePollModal, isPollModalOpened ] =
     usePollModal({
       polls,
       userId,
       notification: unWatchedPoll,
     })
-  const [CreatePallModal, CreatePollModalButton, closeCreatePollModal] =
+  const [ CreatePallModal, CreatePollModalButton, closeCreatePollModal ] =
     useCreatePollModal({ selfId: userId })
   return (
     <div className={style.fullScreenWrapper}>
@@ -67,8 +67,8 @@ const VideoCall = ({
           onClick={handleFullScreen}
         />
       )}
-      {screenStream && <ShareMsg onClick={handleSharing} />}
-      {connecting && <ConnectionMsg />}
+      {screenStream && <ShareMsg onClick={handleSharing}/>}
+      {connecting && <ConnectionMsg/>}
       <UserList
         className={isUserListOpened ? style.userList : style.userListHide}
         {...{

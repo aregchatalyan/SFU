@@ -22,22 +22,22 @@ import ColourPicker from './ColourPicker'
 import { FontWeight } from './FontWeight'
 
 export default function ToolBoard({
-  toolType,
-  setToolType,
-  width,
-  setWidth,
-  setColorWidth,
-  colorWidth,
-  setShapeWidth,
-  goToVideoCall,
-  order,
-  undo,
-  hash,
-  redo,
-  reset,
-}) {
-  const [displayStroke, setDisplayStroke] = useState(false)
-  const [prevTool, setPrevTool] = useState('pencil')
+                                    toolType,
+                                    setToolType,
+                                    width,
+                                    setWidth,
+                                    setColorWidth,
+                                    colorWidth,
+                                    setShapeWidth,
+                                    goToVideoCall,
+                                    order,
+                                    undo,
+                                    hash,
+                                    redo,
+                                    reset,
+                                  }) {
+  const [ displayStroke, setDisplayStroke ] = useState(false)
+  const [ prevTool, setPrevTool ] = useState('pencil')
 
   const handleClickStroke = () => {
     setDisplayStroke(!displayStroke)
@@ -56,7 +56,7 @@ export default function ToolBoard({
             className="videoCallBtn"
             onClick={goToVideoCall}
           >
-            <VideoCall toolType={toolType} colorWidth={colorWidth} />
+            <VideoCall toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="triangle"
@@ -70,7 +70,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Triangle toolType={toolType} colorWidth={colorWidth} />
+            <Triangle toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="rectangle"
@@ -84,7 +84,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Rectangle toolType={toolType} colorWidth={colorWidth} />
+            <Rectangle toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="circle"
@@ -98,7 +98,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Circle toolType={toolType} colorWidth={colorWidth} />
+            <Circle toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="pencil"
@@ -112,7 +112,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Pencil toolType={toolType} colorWidth={colorWidth} />
+            <Pencil toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="line"
@@ -126,7 +126,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Line toolType={toolType} colorWidth={colorWidth} />
+            <Line toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="text"
@@ -139,7 +139,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Text toolType={toolType} colorWidth={colorWidth} />
+            <Text toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="selection"
@@ -152,7 +152,7 @@ export default function ToolBoard({
               setShapeWidth(1)
             }}
           >
-            <Resize toolType={toolType} colorWidth={colorWidth} />
+            <Resize toolType={toolType} colorWidth={colorWidth}/>
           </button>
           <button
             id="pointer"
@@ -164,7 +164,7 @@ export default function ToolBoard({
               setToolType('pointer')
             }}
           >
-            <Pointer toolType={toolType} />
+            <Pointer toolType={toolType}/>
           </button>
         </div>
         <div className="title">
@@ -184,7 +184,7 @@ export default function ToolBoard({
                 setShapeWidth(1)
               }}
             >
-              <Eraser toolType={toolType} colorWidth={colorWidth} />
+              <Eraser toolType={toolType} colorWidth={colorWidth}/>
             </button>
             <button
               className={`largIcon  ${
@@ -195,7 +195,7 @@ export default function ToolBoard({
                 setToolType('fontWeight')
               }}
             >
-              <Size toolType={toolType} />
+              <Size toolType={toolType}/>
 
               {toolType === 'fontWeight' ? (
                 <FontWeight
@@ -207,10 +207,10 @@ export default function ToolBoard({
             </button>
 
             <button className="refreshIcon" onClick={handleClickStroke}>
-              <Fill />
+              <Fill/>
             </button>
           </div>
-          <Divider />
+          <Divider/>
           <div className="backAhed">
             <button
               id="undo"
@@ -220,7 +220,7 @@ export default function ToolBoard({
               className="refreshIcon"
               onClick={undo}
             >
-              <Undo enabled={order.length > 0} />
+              <Undo enabled={order.length > 0}/>
             </button>
             <button
               className="refreshIcon"
@@ -229,7 +229,7 @@ export default function ToolBoard({
               title="Clear"
               onClick={reset}
             >
-              <Reset />
+              <Reset/>
             </button>
 
             <button
@@ -240,13 +240,13 @@ export default function ToolBoard({
               className="refreshIcon"
               onClick={redo}
             >
-              <Redo enabled={hash.length > 0} />
+              <Redo enabled={hash.length > 0}/>
             </button>
           </div>
-          <Divider />
+          <Divider/>
         </div>
       </div>
-      {displayStroke && <ColourPicker setColorWidth={setColorWidth} />}
+      {displayStroke && <ColourPicker setColorWidth={setColorWidth}/>}
     </div>
   )
 }

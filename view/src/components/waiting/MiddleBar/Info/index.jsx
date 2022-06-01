@@ -17,7 +17,7 @@ export default function Info({ text, count, type, color }) {
     return (
       <div className={style.rows}>
         <div className={style.rowName}>
-          <Icon name={`waiting_teacherinfo_${text}`} width={24} height={24} />
+          <Icon name={`waiting_teacherinfo_${text}`} width={24} height={24}/>
           <span>{titles[text]}</span>
         </div>
         <div className={style.rowCount}>{count}</div>
@@ -26,7 +26,7 @@ export default function Info({ text, count, type, color }) {
   } else if (type === 'large') {
     return (
       <div className={style.rowsLarg}>
-        <Icon name={`waiting_teacherinfo_${text}`} width={20} height={20} />
+        <Icon name={`waiting_teacherinfo_${text}`} width={20} height={20}/>
         <div className={style.titleLarge}>
           <span style={{ color: color || 'black' }}>{titles[text]}</span>
         </div>

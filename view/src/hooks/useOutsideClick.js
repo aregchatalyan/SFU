@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 
 export const useOutsideClick = (ref, nextRef) => {
-  const [active, setActive] = useState(false)
+  const [ active, setActive ] = useState(false)
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (ref && nextRef) {
@@ -23,6 +23,6 @@ export const useOutsideClick = (ref, nextRef) => {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [ref, active, nextRef])
+  }, [ ref, active, nextRef ])
   return { active, setActive }
 }

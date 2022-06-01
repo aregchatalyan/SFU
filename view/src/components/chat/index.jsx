@@ -10,7 +10,7 @@ const Chat = ({ userId, massages }) => {
       containerRef.current.scrollTop =
         containerRef.current.scrollHeight - containerRef.current.clientHeight
     }
-  }, [containerRef, massages])
+  }, [ containerRef, massages ])
   return (
     <div className={style.msgContainer} ref={containerRef}>
       {massages.map(({ text, userId: msgWriter }, key) => {

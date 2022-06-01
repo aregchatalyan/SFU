@@ -42,16 +42,16 @@ const draw = {
 export const drawElement = (context, elements, canvasHeight, canvasWidth) => {
   elements.forEach(
     ({
-      type,
-      startingX,
-      startingY,
-      endingX,
-      endingY,
-      color,
-      width: font,
-      canvasWidth: incomingCanvasWidth,
-      canvasHeight: incomingCanvasHeight,
-    }) => {
+       type,
+       startingX,
+       startingY,
+       endingX,
+       endingY,
+       color,
+       width: font,
+       canvasWidth: incomingCanvasWidth,
+       canvasHeight: incomingCanvasHeight,
+     }) => {
       const scaleWidth = canvasWidth / incomingCanvasWidth
       const scaleHeight = canvasHeight / incomingCanvasHeight
 

@@ -2,31 +2,31 @@ import { useState, useEffect, useCallback, useRef, useContext } from 'react'
 import { SocketContext } from '../../Context'
 import { drawPath, drawElement } from './helpers'
 
-const drawingActions = ['triangle', 'rectangle', 'circle', 'line', 'pointer']
+const drawingActions = [ 'triangle', 'rectangle', 'circle', 'line', 'pointer' ]
 
 const useBoardAction = ({
-  boardRef,
-  savedBoardRef,
-  toolType,
-  color,
-  width,
-  selfId,
-  permissionToEdit,
-  identyfierRef,
-  setEditorName,
-  setEditorToolType,
-  getUserById,
-  textAreaRef,
-  spanRef,
-  setTexts,
-}) => {
+                          boardRef,
+                          savedBoardRef,
+                          toolType,
+                          color,
+                          width,
+                          selfId,
+                          permissionToEdit,
+                          identyfierRef,
+                          setEditorName,
+                          setEditorToolType,
+                          getUserById,
+                          textAreaRef,
+                          spanRef,
+                          setTexts,
+                        }) => {
   const socket = useContext(SocketContext)
-  const [action, setAction] = useState(undefined)
-  const [path, setPath] = useState([])
-  const [elements, setElements] = useState([])
-  const [imitationElement, setImitationElement] = useState([])
-  const [history, setHistory] = useState([])
-  const [hash, setHash] = useState([])
+  const [ action, setAction ] = useState(undefined)
+  const [ path, setPath ] = useState([])
+  const [ elements, setElements ] = useState([])
+  const [ imitationElement, setImitationElement ] = useState([])
+  const [ history, setHistory ] = useState([])
+  const [ hash, setHash ] = useState([])
   const textProps = useRef({})
   const isDrawing = useRef(false)
   const isWriting = useRef(false)
@@ -46,7 +46,7 @@ const useBoardAction = ({
       if (userId && undoActionType) {
         if (undoActionType === 'sketch') {
           setPath((prev) => {
-            const prevCopy = [...prev]
+            const prevCopy = [ ...prev ]
             for (let index = prev.length - 1; index >= 0; index--) {
               const element = prev[index]
               if (element.producerId === userId) {
@@ -58,7 +58,7 @@ const useBoardAction = ({
           })
         } else if (undoActionType === 'draw') {
           setElements((prev) => {
-            const prevCopy = [...prev]
+            const prevCopy = [ ...prev ]
             for (let index = prev.length - 1; index >= 0; index--) {
               const element = prev[index]
               if (element.producerId === userId) {
@@ -70,7 +70,7 @@ const useBoardAction = ({
           })
         } else if (undoActionType === 'text') {
           setTexts((prev) => {
-            const prevCopy = [...prev]
+            const prevCopy = [ ...prev ]
             for (let index = prev.length - 1; index >= 0; index--) {
               const element = prev[index]
               if (element.producerId === userId) {
@@ -92,7 +92,7 @@ const useBoardAction = ({
         let hashedElement
         if (lastAction === 'sketch') {
           setPath((prev) => {
-            const prevCopy = [...prev]
+            const prevCopy = [ ...prev ]
             for (let index = prev.length - 1; index >= 0; index--) {
               const element = prev[index]
               if (element.producerId === selfId) {
@@ -105,7 +105,7 @@ const useBoardAction = ({
           })
         } else if (lastAction === 'draw') {
           setElements((prev) => {
-            const prevCopy = [...prev]
+            const prevCopy = [ ...prev ]
             for (let index = prev.length - 1; index >= 0; index--) {
               const element = prev[index]
               if (element.producerId === selfId) {
@@ -118,7 +118,7 @@ const useBoardAction = ({
           })
         } else if (lastAction === 'text') {
           setTexts((prev) => {
-            const prevCopy = [...prev]
+            const prevCopy = [ ...prev ]
             for (let index = prev.length - 1; index >= 0; index--) {
               const element = prev[index]
               if (element.producerId === selfId) {
@@ -130,47 +130,47 @@ const useBoardAction = ({
             return prevCopy
           })
         }
-        setHash((prev) => [...prev, hashedElement])
+        setHash((prev) => [ ...prev, hashedElement ])
         setHistory((prev) => {
-          const prevCopy = [...prev]
+          const prevCopy = [ ...prev ]
           prevCopy.pop()
           return prevCopy
         })
       }
     },
-    [history, selfId, socket, setTexts]
+    [ history, selfId, socket, setTexts ]
   )
   const redo = useCallback(
     ({ undoActionType, ...otherProps }) => {
       if (undoActionType) {
         if (undoActionType === 'sketch') {
-          setPath((prev) => [...prev, otherProps])
+          setPath((prev) => [ ...prev, otherProps ])
         } else if (undoActionType === 'draw') {
-          setElements((prev) => [...prev, otherProps])
+          setElements((prev) => [ ...prev, otherProps ])
         } else if (undoActionType === 'text') {
-          setTexts((prev) => [...prev, otherProps])
+          setTexts((prev) => [ ...prev, otherProps ])
         }
       } else if (hash.length > 0) {
         const { undoActionType, ...otherProps } = hash[hash.length - 1]
 
         socket.emit('redoAction', { undoActionType, ...otherProps })
 
-        setHistory((prev) => [...prev, undoActionType])
+        setHistory((prev) => [ ...prev, undoActionType ])
         if (undoActionType === 'sketch') {
-          setPath((prev) => [...prev, otherProps])
+          setPath((prev) => [ ...prev, otherProps ])
         } else if (undoActionType === 'draw') {
-          setElements((prev) => [...prev, otherProps])
+          setElements((prev) => [ ...prev, otherProps ])
         } else if (undoActionType === 'text') {
-          setTexts((prev) => [...prev, otherProps])
+          setTexts((prev) => [ ...prev, otherProps ])
         }
         setHash((prev) => {
-          const prevCopy = [...prev]
+          const prevCopy = [ ...prev ]
           prevCopy.pop()
           return prevCopy
         })
       }
     },
-    [hash, socket, setTexts]
+    [ hash, socket, setTexts ]
   )
   const keyPress = useCallback(
     (e) => {
@@ -191,7 +191,7 @@ const useBoardAction = ({
           const canvas = boardRef.current
           const { width: canvasWidth, height: canvasHeight } =
             canvas.getBoundingClientRect()
-          setHistory((prev) => [...prev, 'text'])
+          setHistory((prev) => [ ...prev, 'text' ])
           setHash([])
           setTexts((props) => [
             ...props,
@@ -215,17 +215,17 @@ const useBoardAction = ({
         spanRef.current.innerText = ''
       }
     },
-    [socket, setTexts, spanRef, textAreaRef, selfId, boardRef]
+    [ socket, setTexts, spanRef, textAreaRef, selfId, boardRef ]
   )
 
   useEffect(() => {
     socket &&
-      socket.on('savedBoardData', ({ paths, elements, texts }) => {
-        paths.length > 0 && setPath([...paths])
-        elements.length > 0 && setElements([...elements])
-        texts.length > 0 && setTexts([...texts])
-      })
-  }, [socket, setTexts])
+    socket.on('savedBoardData', ({ paths, elements, texts }) => {
+      paths.length > 0 && setPath([ ...paths ])
+      elements.length > 0 && setElements([ ...elements ])
+      texts.length > 0 && setTexts([ ...texts ])
+    })
+  }, [ socket, setTexts ])
 
   useEffect(() => {
     const { height: canvasHeight, width: canvasWidth } =
@@ -240,7 +240,7 @@ const useBoardAction = ({
     return () => {
       context.clearRect(0, 0, canvasWidth, canvasHeight)
     }
-  }, [path, width, savedBoardRef, elements])
+  }, [ path, width, savedBoardRef, elements ])
 
   useEffect(() => {
     const { height: canvasHeight, width: canvasWidth } =
@@ -254,19 +254,19 @@ const useBoardAction = ({
     return () => {
       context.clearRect(0, 0, canvasWidth, canvasHeight)
     }
-  }, [imitationElement, boardRef, width])
+  }, [ imitationElement, boardRef, width ])
 
   const sketching = useCallback(
     ({
-      type,
-      clientX: incomingX,
-      clientY: incomingY,
-      incomingElementColor,
-      incomingElementWidth,
-      incomingCanvasWidth,
-      incomingCanvasHeight,
-      producerId,
-    }) => {
+       type,
+       clientX: incomingX,
+       clientY: incomingY,
+       incomingElementColor,
+       incomingElementWidth,
+       incomingCanvasWidth,
+       incomingCanvasHeight,
+       producerId,
+     }) => {
       const canvas = boardRef.current
       const context = canvas.getContext('2d')
       const { width: canvasWidth, height: canvasHeight } =
@@ -338,10 +338,10 @@ const useBoardAction = ({
           points: points.current,
         }
         context.clearRect(0, 0, canvasWidth, canvasHeight)
-        setPath((state) => [...state, element])
+        setPath((state) => [ ...state, element ])
         points.current = []
         if (!producerId) {
-          setHistory((prev) => [...prev, 'sketch'])
+          setHistory((prev) => [ ...prev, 'sketch' ])
         }
 
         if (identyfierRef && producerId) {
@@ -357,9 +357,9 @@ const useBoardAction = ({
           canvasHeight: incomingCanvasHeight || canvasHeight,
           points: points.current,
         }
-        setPath((state) => [...state, element])
+        setPath((state) => [ ...state, element ])
         if (!producerId) {
-          setHistory((prev) => [...prev, 'sketch'])
+          setHistory((prev) => [ ...prev, 'sketch' ])
         }
         points.current = []
         if (identyfierRef && producerId) {
@@ -382,16 +382,16 @@ const useBoardAction = ({
   )
   const drawing = useCallback(
     ({
-      type,
-      clientX,
-      clientY,
-      incomingElementColor,
-      incomingElementWidth,
-      incomingCanvasWidth,
-      incomingCanvasHeight,
-      incomingToolType,
-      producerId,
-    }) => {
+       type,
+       clientX,
+       clientY,
+       incomingElementColor,
+       incomingElementWidth,
+       incomingCanvasWidth,
+       incomingCanvasHeight,
+       incomingToolType,
+       producerId,
+     }) => {
       const canvas = boardRef.current
       const context = canvas.getContext('2d')
       const { width: canvasWidth, height: canvasHeight } =
@@ -445,10 +445,10 @@ const useBoardAction = ({
           setEditorName(`${name} ${surname}`)
           setEditorToolType(incomingToolType)
         }
-        setImitationElement((prevState) => [...prevState, newElement])
+        setImitationElement((prevState) => [ ...prevState, newElement ])
       } else if (type === 'on_process') {
         setImitationElement((prevState) => {
-          const elements = [...prevState]
+          const elements = [ ...prevState ]
           const lastIndex = elements.length - 1
           const lastElement = elements[lastIndex]
           elements[lastIndex] = {
@@ -460,11 +460,11 @@ const useBoardAction = ({
             identyfierRef.current.style.top = `${clientY * scaleHeight}px`
             identyfierRef.current.style.left = `${clientX * scaleWidth}px`
           }
-          return [...elements]
+          return [ ...elements ]
         })
       } else if (type === 'finished') {
         setImitationElement((state) => {
-          setElements((prev) => [...prev, ...state])
+          setElements((prev) => [ ...prev, ...state ])
           return []
         })
         if (identyfierRef && producerId) {
@@ -472,7 +472,7 @@ const useBoardAction = ({
           setEditorName(``)
         }
         if (!producerId) {
-          setHistory((prev) => [...prev, 'draw'])
+          setHistory((prev) => [ ...prev, 'draw' ])
         }
         context.clearRect(0, 0, canvasWidth, canvasHeight)
         isDrawing.current = false
@@ -480,7 +480,7 @@ const useBoardAction = ({
         context.clearRect(0, 0, canvasWidth, canvasHeight)
         setImitationElement([])
         if (!producerId) {
-          setHistory((prev) => [...prev, 'draw'])
+          setHistory((prev) => [ ...prev, 'draw' ])
         }
         if (identyfierRef && producerId) {
           identyfierRef.current.style.display = 'none'
@@ -554,7 +554,7 @@ const useBoardAction = ({
               },
             ])
             setHash([])
-            setHistory((prev) => [...prev, 'text'])
+            setHistory((prev) => [ ...prev, 'text' ])
             socket.emit('wroteText', {
               ...textProps.current,
               text,
@@ -589,7 +589,7 @@ const useBoardAction = ({
       drawing(data)
     })
     socket.on('newText', (data) => {
-      setTexts((prev) => [...prev, data])
+      setTexts((prev) => [ ...prev, data ])
     })
 
     socket.on('boardReset', (data) => {
@@ -603,7 +603,7 @@ const useBoardAction = ({
     socket.on('redoUserAction', (data) => {
       redo(data)
     })
-  }, [socket]) // eslint-disable-line
+  }, [ socket ]) // eslint-disable-line
 
   const defineAction = useCallback(
     (props, event) => {
@@ -630,7 +630,7 @@ const useBoardAction = ({
         setAction(undefined)
       }
     },
-    [sketching, drawing, toolType, writing]
+    [ sketching, drawing, toolType, writing ]
   )
   const mouseDown = useCallback(
     (event) => {
@@ -640,7 +640,7 @@ const useBoardAction = ({
         defineAction({ clientX, clientY: clientY - 48 }, event)
       }
     },
-    [boardRef, defineAction, permissionToEdit]
+    [ boardRef, defineAction, permissionToEdit ]
   )
 
   const mouseMove = useCallback(
@@ -663,7 +663,7 @@ const useBoardAction = ({
         drawing({ type: 'mouse_out' })
       }
     },
-    [boardRef, sketching, drawing, action, permissionToEdit]
+    [ boardRef, sketching, drawing, action, permissionToEdit ]
   )
 
   const mouseUp = useCallback(
@@ -682,7 +682,7 @@ const useBoardAction = ({
         }
       }
     },
-    [action, boardRef, sketching, drawing, permissionToEdit]
+    [ action, boardRef, sketching, drawing, permissionToEdit ]
   )
 
   useEffect(() => {

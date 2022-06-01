@@ -5,27 +5,27 @@ import Icon from '../../Icon'
 import style from './style.module.scss'
 
 const CircleButtonWithHover = ({
-  onClick,
-  iconName,
-  children,
-  state,
-  handlFix,
-  isChatFixed,
-  showLocker,
-  opened,
-  closed,
-  locked,
-  unLocked,
-  isOpenDenied,
-  setisSubBarOpened,
-  newNotification,
-}) => {
+                                 onClick,
+                                 iconName,
+                                 children,
+                                 state,
+                                 handlFix,
+                                 isChatFixed,
+                                 showLocker,
+                                 opened,
+                                 closed,
+                                 locked,
+                                 unLocked,
+                                 isOpenDenied,
+                                 setisSubBarOpened,
+                                 newNotification,
+                               }) => {
   const hoverRef = useRef(null)
-  const [isHovered, setIsHovered] = useComponentHover(hoverRef)
+  const [ isHovered, setIsHovered ] = useComponentHover(hoverRef)
 
   useEffect(
     () => setisSubBarOpened && setisSubBarOpened(isHovered),
-    [isHovered, setisSubBarOpened]
+    [ isHovered, setisSubBarOpened ]
   )
 
   return (
@@ -55,7 +55,7 @@ const CircleButtonWithHover = ({
             : style.circleButtonWithHover
         }
       >
-        <Icon name={iconName} width={24} height={24} />
+        <Icon name={iconName} width={24} height={24}/>
         <Icon
           name="notification_circle"
           width={12}

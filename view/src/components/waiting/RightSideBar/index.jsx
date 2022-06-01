@@ -9,7 +9,7 @@ const RightSideBar = () => {
     <div className={style.rightSideBar}>
       {classmates &&
         me &&
-        [me, ...classmates].map((elm, index) => {
+        [ me, ...classmates ].map((elm, index) => {
           return (
             <div key={index}>
               {index === 0 ? (

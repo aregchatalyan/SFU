@@ -8,15 +8,15 @@ import style from './style.module.scss'
 import { TimeAgo } from '../../../helpers'
 
 const Question = ({
-  question,
-  versions,
-  isAnswered,
-  onVersionSelect,
-  anonymous,
-  creatorId,
-  createdAt,
-}) => {
-  const [isOpened, setIsOpened] = useState(false)
+                    question,
+                    versions,
+                    isAnswered,
+                    onVersionSelect,
+                    anonymous,
+                    creatorId,
+                    createdAt,
+                  }) => {
+  const [ isOpened, setIsOpened ] = useState(false)
   const variantContainer = useMemo(
     () => ({
       initial: {
@@ -76,7 +76,7 @@ const Question = ({
         <div className={style.infoContainer}>
           <div className={style.userInfoContainer}>
             <div>
-              <img src={defaultUser} alt="" />
+              <img src={defaultUser} alt=""/>
             </div>
             <span>{`${name} ${surname}`}</span>
           </div>
@@ -92,7 +92,7 @@ const Question = ({
           </div>
         </div>
         <motion.div className={style.iconContainer} animate={iconController}>
-          <Icon name="open_variant" width={24} height={24} />
+          <Icon name="open_variant" width={24} height={24}/>
         </motion.div>
       </motion.button>
       <AnimatePresence exitBeforeEnter>

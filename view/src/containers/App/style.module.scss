@@ -6,6 +6,7 @@
   list-style: none;
   border: none;
 }
+
 .toast {
   width: 444px;
 }
@@ -19,6 +20,7 @@
   background: white;
 
   position: relative;
+
   .bodyClass {
     position: absolute;
     left: 68px;
@@ -26,6 +28,7 @@
     color: #343434;
     font-weight: 100;
     font-size: 16px;
+
     &::after {
       content: 'Error';
       display: block;
@@ -36,6 +39,7 @@
       font-weight: 300;
     }
   }
+
   &::after {
     display: block;
     content: ' ';

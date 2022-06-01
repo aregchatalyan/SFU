@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import { consume } from '../../services'
 
 export const useProducerChange = (socket, setUsers) => {
-  const [userList, setUserList] = useState([])
-  const [producers, setProducers] = useState([])
+  const [ userList, setUserList ] = useState([])
+  const [ producers, setProducers ] = useState([])
   useEffect(() => {
     if (producers.length > 0) {
       for (let {
@@ -15,7 +15,7 @@ export const useProducerChange = (socket, setUsers) => {
           producer_id,
           socket,
           producer_socket_id,
-          [...userList],
+          [ ...userList ],
           isScreenShare
         ).then((r) => {
           setUsers(r)
@@ -25,6 +25,6 @@ export const useProducerChange = (socket, setUsers) => {
     } else {
       setUsers(userList)
     }
-  }, [userList, setUserList, producers, setProducers, setUsers, socket])
+  }, [ userList, setUserList, producers, setProducers, setUsers, socket ])
   return { setUserList, setProducers }
 }

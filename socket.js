@@ -41,14 +41,13 @@ module.exports = (io) => {
     const { room_id: roomId, user_id: userId } = socket.handshake.query;
 
     const signInData = await SignIn.findOne({
-      id: roomId,
-      students: { $elemMatch: { $eq: +userId } }
-    });
+      id: roomId, 'students.id': { $in: userId }
+    }).exec();
 
     let allowed = false;
     let isTeacher = false;
     let boardPermission = false;
-    const teacher_id = signInData['teacherId'];
+    const teacher_id = signInData?.teacher?.id;
 
     if (roomList.has(roomId)) {
       boardPermission = roomList.get(roomId).getUserBoardPermission({ userId });
@@ -69,7 +68,7 @@ module.exports = (io) => {
           return elm;
         });
       } else {
-        allowed = signInData.students.filter((id) => id === userId).length > 0;
+        allowed = signInData.students.filter(({ id }) => id === userId).length > 0;
       }
     }
 
@@ -84,7 +83,7 @@ module.exports = (io) => {
       socket.emit('connected', {
         boardPermission,
         isTeacher,
-        ...signInData,
+        ...signInData.toJSON(),
       });
 
       socket.on('createRoom', async ({ room_id }, callback) => {
@@ -408,7 +407,7 @@ module.exports = (io) => {
       });
 
     } else {
-      socket.emit('forbidden', 'hello');
+      return socket.emit('forbidden', 'hello');
     }
   });
 };

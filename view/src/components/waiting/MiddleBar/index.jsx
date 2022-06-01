@@ -10,17 +10,17 @@ const MiddleBar = ({ ...otherProps }) => {
   return (
     <div className={style.middleBar}>
       <div className={style.title}>
-        <Info text={'onlineLessons'} type="large" color="#A93AFF" />
+        <Info text={'onlineLessons'} type="large" color="#A93AFF"/>
         {groupName}
       </div>
       <div className={style.head}>
         <div className={style.text}>
-          <div className={`bigCircle ${level}`} />
+          <div className={`bigCircle ${level}`}/>
           <span>{courseName}</span>
         </div>
       </div>
       <UserInfo {...{ ...otherProps }} />
-      <TeacherInfo />
+      <TeacherInfo/>
     </div>
   )
 }

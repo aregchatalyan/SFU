@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 
 export const useNavigationPermission = () => {
-  const [videoPermission, setVideoPermission] = useState(false)
-  const [audioPermission, setAudioPermission] = useState(false)
+  const [ videoPermission, setVideoPermission ] = useState(false)
+  const [ audioPermission, setAudioPermission ] = useState(false)
 
   const getPermission = (mediaType, callBack) => {
     navigator.permissions

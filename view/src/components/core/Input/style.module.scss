@@ -1,14 +1,17 @@
 .commentBar {
   position: absolute;
   right: 8px;
+
   button {
     background: transparent;
     padding: 0;
     margin: 0;
+
     &:focus {
       outline: none;
     }
   }
+
   .commentBox {
     width: 200px;
     position: absolute;
@@ -36,6 +39,7 @@
       font-size: 14px;
       line-height: 20px;
       color: #1c1d1f;
+
       .actionBar {
         min-width: 200px;
         max-width: 100%;
@@ -43,6 +47,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+
         .editButton {
           height: 100%;
 
@@ -52,6 +57,7 @@
           line-height: 24px;
           color: #ed2a26;
         }
+
         .deleteButton {
           width: 32px;
           height: 32px;
@@ -61,18 +67,21 @@
           justify-content: center;
           align-items: center;
           border-radius: 100%;
+
           path {
             stroke: #c02929;
           }
         }
       }
     }
+
     .pointer {
       width: 32px;
       height: 24px;
       position: absolute;
       left: 14px;
       overflow: hidden;
+
       &::before {
         content: '';
         position: absolute;
@@ -94,6 +103,7 @@
       opacity: 1;
       transition: 200ms;
     }
+
     svg {
       path {
         stroke: #1c1d1f;
@@ -101,22 +111,27 @@
     }
   }
 }
+
 .commentBarToWrite {
   position: absolute;
   left: 10px;
+
   button {
     background: transparent;
     padding: 0;
     margin: 0;
     opacity: 0;
     cursor: pointer;
+
     &:focus {
       outline: none;
     }
   }
+
   &:hover {
     svg {
       fill: #047005;
+
       path {
         stroke: white;
       }
@@ -142,6 +157,7 @@
   cursor: default;
   background: white;
 }
+
 .present {
   color: #047005;
   width: 32px;
@@ -160,6 +176,7 @@
   cursor: default;
   background: white;
 }
+
 .grade {
   border: 1px solid #55b0f1;
   color: #55b0f1;
@@ -206,15 +223,18 @@
   &:focus {
     outline-width: 0;
   }
+
   input {
     width: 100%;
     height: 100%;
     text-align: center;
     color: #55b0f1;
+
     &:focus {
       outline-width: 0;
     }
   }
+
   &:after {
     content: '';
     background-image: url('../../../assets/img/Edit.png');
@@ -231,11 +251,13 @@
     height: 100%;
     transition: 200ms;
   }
+
   &:hover {
     border: 0;
     transition: 300ms;
   }
 }
+
 .inputWithGradeFocused {
   border: 1px solid #55b0f1;
   color: #55b0f1;
@@ -261,11 +283,13 @@
   &:focus {
     outline-width: 0;
   }
+
   input {
     width: 100%;
     height: 100%;
     text-align: center;
     color: #55b0f1;
+
     &:focus {
       outline-width: 0;
     }
@@ -287,15 +311,18 @@
   border-radius: 4px;
   border: 1px solid #e7e7e7;
   overflow: hidden;
+
   input {
     width: 100%;
     height: 100%;
     text-align: center;
     color: #55b0f1;
+
     &:focus {
       outline-width: 0;
     }
   }
+
   &:hover {
     border: 1px solid #6a6a6a;
   }
@@ -309,9 +336,11 @@
   padding: 0;
   display: flex;
   align-items: center;
+
   &:focus {
     outline: none;
   }
+
   .checkBox {
     width: 24px;
     height: 24px;
@@ -319,6 +348,7 @@
     box-sizing: border-box;
     border-radius: 4px;
   }
+
   > span {
     max-width: 82%;
     padding: 8px;
@@ -332,6 +362,7 @@
     text-align: left;
   }
 }
+
 .switchCheckBoxContainer {
   min-width: 52px;
   height: 24px;
@@ -339,6 +370,7 @@
   align-items: center;
   background-color: transparent;
   padding: 0;
+
   > span {
     font-style: normal;
     font-weight: normal;
@@ -347,6 +379,7 @@
     color: #b6b6b6;
     margin-left: 12px;
   }
+
   .switchCheckBoxWrapper {
     width: 52px;
     height: 24px;
@@ -369,12 +402,14 @@
       transition: 500ms;
     }
   }
+
   .questionMarkWrapper {
     width: 16px;
     height: 16px;
     margin-left: 8px;
     position: relative;
     cursor: help;
+
     .helpTextWrapper {
       width: 166px;
       height: 46px;
@@ -387,6 +422,7 @@
       display: none;
       justify-content: flex-end;
       align-items: center;
+
       > span {
         font-weight: 300;
         font-size: 10px;
@@ -394,6 +430,7 @@
         color: #ffffff;
       }
     }
+
     &:hover {
       .helpTextWrapper {
         display: flex;
@@ -411,6 +448,7 @@
   border: 1px solid #6a6a6a;
   border-radius: 4px;
   margin-bottom: 24px;
+
   .answerInput {
     width: 100%;
     height: 100%;
@@ -422,10 +460,12 @@
     line-height: 24px;
     color: #b6b6b6;
     background-color: transparent;
+
     &:focus {
       outline: none;
     }
   }
+
   .deleteBtn {
     width: 40px;
     height: 100%;
@@ -435,16 +475,19 @@
     right: 0;
     top: 0;
     transition: 200ms;
+
     button {
       cursor: pointer;
     }
   }
+
   &:hover {
     .deleteBtn {
       opacity: 1;
     }
   }
 }
+
 .board_text_area_wrapper {
   position: absolute;
   z-index: 10;
@@ -456,6 +499,7 @@
   min-width: 156px;
   border-radius: 4px;
   padding: 4px 8px;
+
   > span {
     width: 100%;
     box-sizing: border-box;
@@ -465,12 +509,15 @@
     color: #1c1d1f;
     overflow: hidden;
     resize: horizontal;
+
     &::-webkit-scrollbar {
       display: none;
     }
+
     &:focus {
       outline: none;
     }
+
     resize: horizontal;
   }
 

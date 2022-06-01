@@ -7,6 +7,7 @@
   display: flex;
   box-sizing: border-box;
   padding: 0 84px 0 24px;
+
   .topicons {
     border: none;
     width: 40px;
@@ -15,9 +16,11 @@
     border-radius: 8px;
     outline: none;
   }
+
   button:hover {
     background-color: #232323;
   }
+
   .largIcon {
     background: none;
     border-radius: 8px;
@@ -26,6 +29,7 @@
     height: 40px;
     position: relative;
   }
+
   .refreshIcon {
     border: none;
     padding: 0;
@@ -36,18 +40,22 @@
     height: 40px;
     position: relative;
   }
+
   .active {
     background: white;
   }
+
   .active:hover {
     background: white;
   }
+
   .tools {
     height: 100%;
     width: 40%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     .videoCallBtn {
       border: none;
       width: 132px;
@@ -57,12 +65,14 @@
       outline: none;
     }
   }
+
   .title {
     height: 100%;
     width: 20%;
     display: flex;
     align-items: center;
     justify-content: center;
+
     .titleText {
       font-style: normal;
       font-weight: 500;
@@ -72,12 +82,14 @@
       color: white;
     }
   }
+
   .extraTools {
     height: 100%;
     width: 40%;
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
     .backAhed {
       height: 100%;
       width: 40%;
@@ -106,6 +118,7 @@
           height: 216;
         }
       }
+
       li {
         padding: 10px 20px;
         font-size: 16px;
@@ -127,6 +140,7 @@
     }
   }
 }
+
 .colorPicker {
   position: fixed;
   right: 8px;

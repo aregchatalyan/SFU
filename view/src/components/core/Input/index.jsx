@@ -4,12 +4,12 @@ export { default as GradeInput } from './GradeInput'
 export { BoardTextArea } from './BoardTextArea'
 
 const CustomInput = ({
-  className,
-  inputValue,
-  setInputValue,
-  submit,
-  placeholder,
-}) => {
+                       className,
+                       inputValue,
+                       setInputValue,
+                       submit,
+                       placeholder,
+                     }) => {
   return (
     <textarea
       value={inputValue}

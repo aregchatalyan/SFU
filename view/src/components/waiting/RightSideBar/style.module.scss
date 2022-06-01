@@ -4,6 +4,7 @@
   border-radius: 8px;
   background-color: #ffffff;
   padding: 16px 16px 40px 16px;
+
   .title {
     width: 117px;
     height: 24px;
@@ -15,6 +16,7 @@
     color: #1c1d1f;
     margin-bottom: 8px;
   }
+
   .classmates {
     width: 117px;
     height: 24px;
@@ -26,6 +28,7 @@
     color: #1c1d1f;
     margin-top: 8px;
   }
+
   .studentWithShadow {
     width: 410px;
     height: 64px;
@@ -34,6 +37,7 @@
     align-items: center;
     box-shadow: inset 0px -1px 0px rgba(35, 35, 35, 0.15);
   }
+
   .student {
     width: 410px;
     height: 64px;
@@ -47,12 +51,14 @@
     min-width: 40px;
     display: flex;
     align-items: center;
+
     .pic {
       width: 40px;
       height: 40px;
       border-radius: 100%;
       margin-right: 16px;
     }
+
     .name {
       min-width: 143px;
       height: 24px;
@@ -64,6 +70,7 @@
       color: #1c1d1f;
     }
   }
+
   .studentInfo {
     width: 128px;
     height: 32px;
@@ -71,6 +78,7 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 0;
+
     .grade {
       width: 32px;
       height: 100%;
@@ -87,6 +95,7 @@
       justify-content: center;
       align-items: center;
     }
+
     .absent {
       width: 32px;
       height: 100%;
@@ -103,6 +112,7 @@
       justify-content: center;
       align-items: center;
     }
+
     .attend {
       width: 48px;
       height: 100%;
@@ -130,6 +140,7 @@
     background-color: #ffffff;
     padding: 16px;
     overflow-y: auto;
+
     .title {
       width: 117px;
       height: 20px;
@@ -141,6 +152,7 @@
       color: #1c1d1f;
       margin-bottom: 4px;
     }
+
     .classmates {
       height: 20px;
       color: #1c1d1f;
@@ -152,6 +164,7 @@
       color: #1c1d1f;
       margin-top: 4px;
     }
+
     .studentWithShadow {
       width: 100%;
       height: 48px;
@@ -160,6 +173,7 @@
       align-items: center;
       box-shadow: inset 0px -1px 0px rgba(35, 35, 35, 0.15);
     }
+
     .student {
       width: 100%;
       height: 48px;
@@ -172,18 +186,21 @@
       height: 100%;
       display: flex;
       align-items: center;
+
       .pic {
         width: 24px;
         height: 24px;
         border-radius: 100%;
         margin-right: 8px;
         overflow: hidden;
+
         img {
           width: 100%;
           height: 100;
           object-fit: fill;
         }
       }
+
       .name {
         min-width: 125px;
         height: 20px;
@@ -195,6 +212,7 @@
         color: #1c1d1f;
       }
     }
+
     .studentInfo {
       width: 104px;
       height: 24px;
@@ -203,6 +221,7 @@
       align-items: center;
       margin-bottom: 0;
       overflow: hidden;
+
       .grade {
         width: 24px;
         height: 100%;
@@ -219,6 +238,7 @@
         align-items: center;
         color: #55b0f1;
       }
+
       .absent {
         width: 24px;
         height: 100%;
@@ -235,6 +255,7 @@
         justify-content: center;
         align-items: center;
       }
+
       .attend {
         width: 40px;
         height: 100%;

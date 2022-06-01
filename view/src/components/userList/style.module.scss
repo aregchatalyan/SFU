@@ -3,28 +3,33 @@
   height: 92px;
   box-sizing: border-box;
   padding: 32px 111px 32px 24px;
+
   .headerContent {
     width: 100%;
     height: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     button {
       width: 24px;
       height: 24px;
       border-radius: 4px;
       background: transparent;
       cursor: pointer;
+
       &:hover {
         background: #414246;
       }
     }
+
     .content {
       height: 100%;
       width: 111px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+
       span {
         font-style: normal;
         font-weight: 500;
@@ -36,14 +41,17 @@
     }
   }
 }
+
 .userListContainer {
   width: 100%;
   height: calc(100vh - 96px);
   padding: 0 16px;
   overflow-y: auto;
+
   &::-webkit-scrollbar {
     display: none;
   }
+
   .item {
     width: 100%;
     height: 64px;
@@ -51,24 +59,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
     .container {
       width: calc(100% - 48px);
       height: 48px;
       display: flex;
       align-items: center;
       position: relative;
+
       .imgWrapper {
         width: 48px;
         height: 48px;
         overflow: hidden;
         border-radius: 100%;
         margin-right: 12px;
+
         img {
           width: 100%;
           height: 100%;
           object-fit: cover;
         }
       }
+
       span {
         font-style: normal;
         font-weight: normal;
@@ -76,6 +88,7 @@
         line-height: 24px;
         color: #ffffff;
       }
+
       .isTeacherText {
         font-size: 12px;
         line-height: 16px;
@@ -85,6 +98,7 @@
         left: 60px;
       }
     }
+
     .accsessories {
       width: 48px;
       height: 20px;
@@ -94,6 +108,7 @@
       justify-content: space-around;
     }
   }
+
   .videoContainer {
     width: 100%;
     height: 200px;
@@ -106,6 +121,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
     &:hover .infoBar {
       opacity: 1;
     }
@@ -123,6 +139,7 @@
       opacity: 0;
       background: linear-gradient(180deg, rgba(35, 35, 35, 0) 0%, #232323 100%);
       transition: 200ms;
+
       .isTeacherText {
         font-size: 12px;
         line-height: 16px;
@@ -130,6 +147,7 @@
         position: absolute;
         bottom: 4px;
       }
+
       .nameBar {
         font-style: normal;
         font-weight: 500;
@@ -137,6 +155,7 @@
         line-height: 24px;
         color: #ffffff;
       }
+
       .iconWrapperOn {
         width: 24px;
         height: 24px;
@@ -146,6 +165,7 @@
         justify-content: center;
         align-items: center;
       }
+
       .iconWrapperOff {
         width: 24px;
         height: 24px;

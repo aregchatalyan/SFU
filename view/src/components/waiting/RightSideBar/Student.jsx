@@ -3,11 +3,11 @@ import user1 from '../../../assets/img/user1.png'
 import style from './style.module.scss'
 
 export default function Student({
-  info,
-  withBorder,
-  isTeacher,
-  ...otherProps
-}) {
+                                  info,
+                                  withBorder,
+                                  isTeacher,
+                                  ...otherProps
+                                }) {
   const { name, surname, grade, absentCount, attendingPercent } = info || {}
   return (
     <div
@@ -16,7 +16,7 @@ export default function Student({
     >
       <div className={style.auth}>
         <div className={style.pic}>
-          <img src={user1} alt={name + ' ' + surname + 'photo'} />
+          <img src={user1} alt={name + ' ' + surname + 'photo'}/>
         </div>
         <span className={style.name}>{name + ' ' + surname}</span>
       </div>

@@ -8,18 +8,18 @@ import Item from './Item'
 import style from './style.module.scss'
 
 const UserList = ({
-  className,
-  setIsUserListOpened,
-  selfId,
-  selfScreenStream,
-  videoPlayer,
-  audioStream: myAudioStream,
-  selectedUserId,
-  setSelectedUserId,
-  selfStream,
-  microphone,
-  disconnectedUsers,
-}) => {
+                    className,
+                    setIsUserListOpened,
+                    selfId,
+                    selfScreenStream,
+                    videoPlayer,
+                    audioStream: myAudioStream,
+                    selectedUserId,
+                    setSelectedUserId,
+                    selfStream,
+                    microphone,
+                    disconnectedUsers,
+                  }) => {
   const { users } = useContext(UsersInfoContext)
 
   const selectUser = (userId) => () => setSelectedUserId(userId)
@@ -35,7 +35,7 @@ const UserList = ({
             className={style.goVideoCall}
           />
           <div className={style.content}>
-            <Icon name="users_userlist" width={24} height={24} />
+            <Icon name="users_userlist" width={24} height={24}/>
             <span>Members</span>
           </div>
         </div>

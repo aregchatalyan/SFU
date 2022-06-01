@@ -42,7 +42,7 @@ const Children = ({ polls, closeModal, userId }) => {
           ))
         ) : (
           <div className={style.emptyPlacholder}>
-            <Icon name="no_poll" width={40} height={40} />
+            <Icon name="no_poll" width={40} height={40}/>
             <div className={style.emptyText}>
               <span className={style.textHeader}>Polls are empty</span>
               <span className={style.text}>
@@ -65,7 +65,7 @@ const usePollModal = ({ polls, userId, notification }) => {
     buttonProps: {
       children: (
         <>
-          <Icon name="all_poll" width={21} height={20} />
+          <Icon name="all_poll" width={21} height={20}/>
           <span>All</span>
           {notification && (
             <Icon

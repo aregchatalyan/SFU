@@ -13,7 +13,7 @@ const CircleButton = ({ onClick, state, iconName }) => (
     className={state ? style.circleButtonActive : style.circleButton}
     style={{ cursor: 'pointer' }}
   >
-    <Icon name={iconName} width={24} height={24} />
+    <Icon name={iconName} width={24} height={24}/>
   </button>
 )
 export default memo(CircleButton)

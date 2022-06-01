@@ -6,9 +6,9 @@ import { useModalWithCallback } from '../core/Modal'
 import style from './style.module.scss'
 
 const seperate = [
-  [1638302400000, 1639094400000],
-  [1639180800000, 1639958400000],
-  [1640044800000, 1640908800000],
+  [ 1638302400000, 1639094400000 ],
+  [ 1639180800000, 1639958400000 ],
+  [ 1640044800000, 1640908800000 ],
 ]
 
 const lessonDays = [
@@ -54,17 +54,17 @@ const lessonDays = [
 ]
 
 const LessonLog = ({
-  className,
-  goToVideoCall,
-  handleFullScreen,
-  logRef,
-  wrapperRef,
-}) => {
-  const [[start, end]] = useState(seperate[1])
+                     className,
+                     goToVideoCall,
+                     handleFullScreen,
+                     logRef,
+                     wrapperRef,
+                   }) => {
+  const [ [ start, end ] ] = useState(seperate[1])
   // const getLogsByIndex = (index) => {
   //   setTimeInterval(seperate[index])
   // }
-  const [CommentModal, openModal] = useModalWithCallback()
+  const [ CommentModal, openModal ] = useModalWithCallback()
 
   return (
     <div className={className}>
@@ -74,7 +74,7 @@ const LessonLog = ({
           <div className={style.content}>
             {CommentModal}
             <Table {...{ lessonDays, start, end, openModal }} />
-            <ClassMates />
+            <ClassMates/>
           </div>
         </div>
       </div>

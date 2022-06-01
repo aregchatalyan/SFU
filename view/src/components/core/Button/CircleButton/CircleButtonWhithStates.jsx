@@ -11,7 +11,7 @@ const CircleButtonWhithStates = ({ onClick, state, iconName }) => {
       }
       style={{ cursor: 'pointer' }}
     >
-      <Icon name={iconName} width={24} height={24} />
+      <Icon name={iconName} width={24} height={24}/>
     </button>
   )
 }

@@ -3,7 +3,7 @@ import style from './style.module.scss'
 
 export const BoardTextArea = memo(
   forwardRef(({ childRef }, ref) => {
-    const [value, setValue] = useState('')
+    const [ value, setValue ] = useState('')
 
     return (
       <p className={style.board_text_area_wrapper} ref={ref}>

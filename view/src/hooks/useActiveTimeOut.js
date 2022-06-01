@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 export const useActiveTimeOut = (ref) => {
-  const [isActive, setIsActive] = useState(false)
+  const [ isActive, setIsActive ] = useState(false)
 
   useEffect(() => {
     let timeout

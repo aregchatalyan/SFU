@@ -7,17 +7,17 @@ import './style.scss'
 import DragbleVideo from '../core/DragableVideo'
 import { fadeIn } from '../../helpers/animation.helpers'
 
-const countForDragaableContainerDisable = [2, 3, 5]
+const countForDragaableContainerDisable = [ 2, 3, 5 ]
 
 const UserVideos = ({
-  selfId,
-  selfStream,
-  microphone,
-  selectedUserId,
-  setSelectedUserId,
-  isUserListOpened,
-  disconnectedUsers,
-}) => {
+                      selfId,
+                      selfStream,
+                      microphone,
+                      selectedUserId,
+                      setSelectedUserId,
+                      isUserListOpened,
+                      disconnectedUsers,
+                    }) => {
   const { users } = useContext(UsersInfoContext)
   const appRef = useRef(null)
   const selectUser = (userId) => () =>
@@ -28,7 +28,7 @@ const UserVideos = ({
     if (!users.some(({ userId }) => userId === selectedUserId)) {
       setSelectedUserId(undefined)
     }
-  }, [users, selectedUserId, setSelectedUserId])
+  }, [ users, selectedUserId, setSelectedUserId ])
 
   return (
     <AnimatePresence>
@@ -43,52 +43,8 @@ const UserVideos = ({
       >
         {selectedUserId
           ? users
-              .filter(({ userId }) => userId === selectedUserId)
-              .map(
-                (
-                  {
-                    userId,
-                    stream,
-                    consumerId,
-                    audioConsumerId,
-                    audioStream,
-                    screenStream,
-                    ...otherProps
-                  },
-                  index
-                ) => (
-                  <div
-                    className="base-grid-item"
-                    onClick={selectUser(userId)}
-                    key={index}
-                  >
-                    <VideoWrapper
-                      {...{
-                        id: consumerId,
-                        stream: selfId === userId ? selfStream : stream,
-                        screenStream,
-                        isSelected: true,
-                        rotate: selfId === userId,
-                        connectionFaild: disconnectedUsers.includes(userId),
-                        ...otherProps,
-                      }}
-                    />
-                    {selfId !== userId && (
-                      <VoiceWrapper
-                        {...{
-                          id: audioConsumerId,
-                          audioStream,
-                          on: selfId === userId && microphone,
-                        }}
-                      />
-                    )}
-                    {screenStream && stream && (
-                      <DragbleVideo appRef={appRef} stream={stream} />
-                    )}
-                  </div>
-                )
-              )
-          : users.map(
+            .filter(({ userId }) => userId === selectedUserId)
+            .map(
               (
                 {
                   userId,
@@ -96,54 +52,98 @@ const UserVideos = ({
                   consumerId,
                   audioConsumerId,
                   audioStream,
+                  screenStream,
                   ...otherProps
                 },
-                index,
-                arr
-              ) =>
-                selfId === userId &&
-                countForDragaableContainerDisable.includes(arr.length) ? (
-                  <DragbleVideo
-                    appRef={appRef}
-                    stream={selfStream}
+                index
+              ) => (
+                <div
+                  className="base-grid-item"
+                  onClick={selectUser(userId)}
+                  key={index}
+                >
+                  <VideoWrapper
                     {...{
-                      myMicOn: selfId === userId && microphone,
+                      id: consumerId,
+                      stream: selfId === userId ? selfStream : stream,
+                      screenStream,
+                      isSelected: true,
+                      rotate: selfId === userId,
+                      connectionFaild: disconnectedUsers.includes(userId),
                       ...otherProps,
-                      isUserListOpened,
                     }}
-                    key={index}
                   />
-                ) : (
-                  <motion.div
-                    initial={fadeIn.hidden}
-                    animate={fadeIn.visible}
-                    exit={fadeIn.hidden}
-                    className="base-grid-item"
-                    onClick={selectUser(userId)}
-                    layoutId={`card-container-${userId}`}
-                    key={index}
-                  >
-                    <VideoWrapper
+                  {selfId !== userId && (
+                    <VoiceWrapper
                       {...{
-                        id: consumerId,
-                        stream: selfId === userId ? selfStream : stream,
-                        ...otherProps,
-                        rotate: selfId === userId,
-                        connectionFaild: disconnectedUsers.includes(userId),
+                        id: audioConsumerId,
+                        audioStream,
+                        on: selfId === userId && microphone,
                       }}
                     />
-                    {selfId !== userId && (
-                      <VoiceWrapper
-                        {...{
-                          id: audioConsumerId,
-                          audioStream,
-                          on: selfId === userId && microphone,
-                        }}
-                      />
-                    )}
-                  </motion.div>
-                )
-            )}
+                  )}
+                  {screenStream && stream && (
+                    <DragbleVideo appRef={appRef} stream={stream}/>
+                  )}
+                </div>
+              )
+            )
+          : users.map(
+            (
+              {
+                userId,
+                stream,
+                consumerId,
+                audioConsumerId,
+                audioStream,
+                ...otherProps
+              },
+              index,
+              arr
+            ) =>
+              selfId === userId &&
+              countForDragaableContainerDisable.includes(arr.length) ? (
+                <DragbleVideo
+                  appRef={appRef}
+                  stream={selfStream}
+                  {...{
+                    myMicOn: selfId === userId && microphone,
+                    ...otherProps,
+                    isUserListOpened,
+                  }}
+                  key={index}
+                />
+              ) : (
+                <motion.div
+                  initial={fadeIn.hidden}
+                  animate={fadeIn.visible}
+                  exit={fadeIn.hidden}
+                  className="base-grid-item"
+                  onClick={selectUser(userId)}
+                  layoutId={`card-container-${userId}`}
+                  key={index}
+                >
+                  <VideoWrapper
+                    {...{
+                      id: consumerId,
+                      stream: selfId === userId ? selfStream : stream,
+                      ...otherProps,
+                      rotate: selfId === userId,
+                      connectionFaild: disconnectedUsers.includes(userId),
+                    }}
+                  />
+                  {selfId !== userId && (
+                    <VoiceWrapper
+                      {...{
+                        id: audioConsumerId,
+                        audioStream,
+                        on: selfId === userId && microphone,
+                      }}
+                    />
+                  )}
+                </motion.div>
+              )
+          )}
       </motion.div>
     </AnimatePresence>
   )

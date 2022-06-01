@@ -21,28 +21,32 @@ export const useStateChange = () => {
     const { roomId } = params;
     const { token } = cookies;
 
-    if (!token)
-      return window.location
-        .replace(`https://staging.univern.org/auth/login?redirect_url=${URL}/${roomId}`)
+    if (roomId !== 'error') {
+      if (!token)
+        return window.location
+          .replace(`https://staging.univern.org/auth/login?redirect_url=${URL}/${roomId}`)
 
-    fetch(`${URL}/signin/decode`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => response.json())
-      .then(({ data: { userId } }) => {
-        socket.current = io(`${URL}?room_id=${roomId}&user_id=${userId}`, {
-          secure: true,
-          transports: [ 'websocket', 'polling' ]
+      fetch(`${URL}/signin/decode`, {
+        method: 'GET',
+        headers: { Authorization: `Bearer ${token}` }
+      })
+        .then(response => response.json())
+        .then(({ data: { userId } }) => {
+          socket.current = io(`${URL}?room_id=${roomId}&user_id=${userId}`, {
+            secure: true,
+            transports: [ 'websocket', 'polling' ]
+          })
+
+          socket.current.on('connect_error', () => {
+            socket.current.io.opts.transports = [ 'polling', 'websocket' ];
+            socket.current.io.opts.upgrade = true;
+          })
+          setRoom({ roomId, userId })
         })
-
-        socket.current.on('connect_error', () => {
-          socket.current.io.opts.transports = [ 'polling', 'websocket' ];
-          socket.current.io.opts.upgrade = true;
+        .catch(e => {
+          console.error(e)
         })
-
-        setRoom({ roomId, userId })
-      });
+    }
   }, [ cookies, params ])
 
   const [

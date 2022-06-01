@@ -7,21 +7,21 @@ import { CustomButtonWithIcon } from '../Button'
 import ConnectionMsg from '../../connectionMsg'
 
 const VideoWrapper = ({
-  id,
-  stream,
-  withSmallIcon,
-  name,
-  surname,
-  screenStream,
-  screenConsumerId,
-  rotate,
-  isSelected,
-  connectionFaild,
-  connectionFaildSmall,
-  connecting,
-}) => {
+                        id,
+                        stream,
+                        withSmallIcon,
+                        name,
+                        surname,
+                        screenStream,
+                        screenConsumerId,
+                        rotate,
+                        isSelected,
+                        connectionFaild,
+                        connectionFaildSmall,
+                        connecting,
+                      }) => {
   const userVideo = useRef()
-  const [isChanged, setIsChanged] = useState(false)
+  const [ isChanged, setIsChanged ] = useState(false)
 
   const switchVideo = (e) => {
     e.preventDefault()
@@ -37,13 +37,13 @@ const VideoWrapper = ({
         userVideo.current.srcObject = stream
       }
     }
-  }, [stream, screenStream, isChanged])
+  }, [ stream, screenStream, isChanged ])
 
   useEffect(() => {
     if (!screenStream || !stream) {
       setIsChanged(false)
     }
-  }, [screenStream, stream])
+  }, [ screenStream, stream ])
 
   return (
     <AnimatePresence exitBeforeEnter>
@@ -87,7 +87,7 @@ const VideoWrapper = ({
             height={withSmallIcon ? 64 : 160}
           />
           {(connectionFaild || connectionFaildSmall) && (
-            <ConnectionMsg name={name} onlyIcon={connectionFaildSmall} />
+            <ConnectionMsg name={name} onlyIcon={connectionFaildSmall}/>
           )}
           <span
             className={withSmallIcon ? 'name_small' : 'name'}

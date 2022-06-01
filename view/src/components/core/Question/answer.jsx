@@ -5,14 +5,14 @@ import style from './style.module.scss'
 import { motion } from 'framer-motion'
 
 const Answer = ({
-  isVoted,
-  isAnswered,
-  label,
-  percentage,
-  onSelect,
-  anonymous,
-  votes,
-}) => {
+                  isVoted,
+                  isAnswered,
+                  label,
+                  percentage,
+                  onSelect,
+                  anonymous,
+                  votes,
+                }) => {
   const variantItem = useMemo(
     () => ({
       hidden: { y: -40, opacity: 0 },
@@ -67,7 +67,7 @@ const Answer = ({
           {!anonymous && votes && votes.length > 0 ? (
             votes.map((id, key) => (
               <div key={key} className={style.voterImg}>
-                <img src={user} alt="" />
+                <img src={user} alt=""/>
               </div>
             ))
           ) : (

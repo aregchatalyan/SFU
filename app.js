@@ -3,6 +3,7 @@ const http = require('http');
 const cors = require('cors');
 const express = require('express');
 const https = require('httpolyglot');
+const mongoose = require('mongoose');
 const { Server } = require('socket.io');
 const { exec } = require('child_process');
 const { config: load_env } = require('dotenv');
@@ -10,7 +11,7 @@ const { config: load_env } = require('dotenv');
 load_env();
 
 const app = express();
-const mongo = require('./mongo');
+
 const socket = require('./socket');
 const config = require('./config');
 
@@ -63,7 +64,7 @@ app.route('/pull').get(pull).post(pull);
 
 (async () => {
   try {
-    await mongo(config.mongoUri);
+    await mongoose.connect(config.mongoUri);
     console.log('Mongo connected');
 
     httpServer.listen(config.listenPort, () => {
@@ -78,6 +79,6 @@ app.route('/pull').get(pull).post(pull);
 
 socket(new Server(httpServer, { cors: { origin: '*' } }));
 
-process.on('uncaughtException', (err) => {
-  console.error(`Caught exception: ${err}`);
-});
+// process.on('uncaughtException', (err) => {
+//   console.error(`Caught exception: ${err}`);
+// });

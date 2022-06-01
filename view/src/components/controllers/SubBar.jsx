@@ -3,21 +3,21 @@ import { ButtonWithTextAndIcon, ButtonWithSlider } from '../core/Button'
 import style from './style.module.scss'
 
 const SubBar = ({
-  handleSharing,
-  isBoardOpened,
-  setIsBoardOpened,
-  isLogOpened,
-  setIsLogOpened,
-  isHomeWorkOpened,
-  setIsHomeWorkOpened,
-  PollButtons,
-  closePollModal,
-  closeCreatePollModal,
-  closeChat,
-  unWatchedPoll,
-  setIsUserListOpened,
-  screenStream,
-}) => {
+                  handleSharing,
+                  isBoardOpened,
+                  setIsBoardOpened,
+                  isLogOpened,
+                  setIsLogOpened,
+                  isHomeWorkOpened,
+                  setIsHomeWorkOpened,
+                  PollButtons,
+                  closePollModal,
+                  closeCreatePollModal,
+                  closeChat,
+                  unWatchedPoll,
+                  setIsUserListOpened,
+                  screenStream,
+                }) => {
   return (
     <div className={style.subBarWrapper}>
       <ButtonWithTextAndIcon

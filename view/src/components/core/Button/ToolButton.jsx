@@ -51,7 +51,7 @@ const ToolButton = ({ type, toolType, setToolType }) => {
       style={{ cursor: 'pointer' }}
       onClick={() => setToolType(type)}
     >
-      <Icon name={buttons[type].iconName} width={20} height={20} />
+      <Icon name={buttons[type].iconName} width={20} height={20}/>
     </button>
   )
 }

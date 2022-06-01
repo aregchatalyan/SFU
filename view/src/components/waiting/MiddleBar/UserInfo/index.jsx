@@ -10,14 +10,14 @@ import VideoWrapper from '../../../core/VideoContainer/index'
 import style from './style.module.scss'
 
 const UserInfo = ({
-  stream,
-  videoPlayer,
-  handleConfirm,
-  handleVideoClick,
-  microphone,
-  handleMicrophoneClick,
-  isJoining,
-}) => {
+                    stream,
+                    videoPlayer,
+                    handleConfirm,
+                    handleVideoClick,
+                    microphone,
+                    handleMicrophoneClick,
+                    isJoining,
+                  }) => {
   const { me } = useContext(RoomInfoContext)
   return (
     <div className={style.userInfo}>
@@ -50,7 +50,7 @@ const UserInfo = ({
           <span className={style.text}>
             Waiting for connect to online lesson
           </span>
-          <Spinner loading={isJoining} />
+          <Spinner loading={isJoining}/>
         </div>
       ) : (
         <div className={style.navbar}>

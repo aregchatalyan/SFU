@@ -7,9 +7,9 @@ import style from './style.module.scss'
 const Hand = ({ userId }) => {
   return (
     <div className={style.handWrapper}>
-      <img src={hand} alt="hand" />
+      <img src={hand} alt="hand"/>
       <div className={style.userImg}>
-        <img src={userPic} alt="name" />
+        <img src={userPic} alt="name"/>
       </div>
     </div>
   )

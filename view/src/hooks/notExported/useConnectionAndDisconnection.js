@@ -4,19 +4,19 @@ import { toastConnected } from '../../components/core/Toast'
 import { closeProducer } from '../../services'
 
 export const useConnectAndDisconnect = ({
-  isReady,
-  socket,
-  videoPlayer,
-  microphone,
-  setStream,
-  setAudioStream,
-  setDisconnectedUsers,
-  handleConfirm,
-}) => {
+                                          isReady,
+                                          socket,
+                                          videoPlayer,
+                                          microphone,
+                                          setStream,
+                                          setAudioStream,
+                                          setDisconnectedUsers,
+                                          handleConfirm,
+                                        }) => {
   // ref and state
 
   const timeout = useRef()
-  const [connection, setConnection] = useState(
+  const [ connection, setConnection ] = useState(
     navigator.onLine ? 'connected' : 'disconnected'
   )
   const history = useHistory()

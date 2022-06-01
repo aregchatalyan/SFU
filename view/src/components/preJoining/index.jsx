@@ -8,9 +8,9 @@ const PreJoin = ({ loading }) => {
     <div className="foolPageWrapper">
       <div className="logo_spinner_wrapper">
         <div className="logo_wrapper">
-          <img src={logo} alt="" />
+          <img src={logo} alt=""/>
         </div>
-        <Spinner loading={loading} />
+        <Spinner loading={loading}/>
       </div>
     </div>
   )

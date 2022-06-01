@@ -1,73 +1,73 @@
-import teacher from '../../../../assets/img/teacher.png'
+import teacherImage from '../../../../assets/img/teacher.png'
 import Info from '../Info'
 import style from './style.module.scss'
 import { useContext } from 'react'
 import { RoomInfoContext } from '../../../../Context'
 
 const TeacherInfo = () => {
-  const { teacherInfo } = useContext(RoomInfoContext)
+  const { teacher } = useContext(RoomInfoContext)
 
   return (
     <div className={style.teacherInfo}>
-      {teacherInfo && (
+      {teacher && (
         <div className={style.profile}>
           <div className={style.about}>
             <div className={style.pic}>
-              <img src={teacher} alt="" />
+              <img src={teacherImage} alt=""/>
             </div>
             <div className={style.aboutInfo}>
               <span className={style.name}>
-                {teacherInfo.name + ' ' + teacherInfo.surname}
+                {teacher.name + ' ' + teacher.surname}
               </span>
               <div className={style.rating}>
                 <div className={style.stars}/>
                 <div className={style.rate}>
-                  {'( ' + teacherInfo.stars + ' )'}
+                  {'( ' + teacher.stars + ' )'}
                 </div>
               </div>
-              <span className={style.profession}>{teacherInfo.profession}</span>
+              <span className={style.profession}>{teacher.profession}</span>
             </div>
           </div>
           <div className={style.info}>
             <Info
               text={'students'}
-              count={teacherInfo.students}
+              count={teacher.students}
               type="medium"
             />
             <Info
               text={'follower'}
-              count={teacherInfo.followers}
+              count={teacher.followers}
               type="medium"
             />
-            <Info text={'friend'} count={teacherInfo.friends} type="medium" />
+            <Info text={'friend'} count={teacher.friends} type="medium"/>
           </div>
         </div>
       )}
-      {teacherInfo && (
+      {teacher && (
         <div className={style.description}>
-          <p>{teacherInfo.description}</p>
+          <p>{teacher.description}</p>
         </div>
       )}
-      {teacherInfo && (
+      {teacher && (
         <div className={style.infoBar}>
           <Info
             text={'videoCourses'}
-            count={teacherInfo.videoCourses}
+            count={teacher.videoCourses}
             type="large"
           />
           <Info
             text={'onlineLessons'}
-            count={teacherInfo.onlineLessons}
+            count={teacher.onlineLessons}
             type="large"
           />
           <Info
             text={'conference'}
-            count={teacherInfo.conference}
+            count={teacher.conference}
             type="large"
           />
           <Info
             text={'liveStream'}
-            count={teacherInfo.liveStream}
+            count={teacher.liveStream}
             type="large"
           />
         </div>

@@ -6,7 +6,7 @@ import { toast, Slide } from 'react-toastify'
 const ConnectedToast = ({ text }) => {
   return (
     <div className={style.connected_toast}>
-      <Icon name="connection_repaired" width={24} height={24} />
+      <Icon name="connection_repaired" width={24} height={24}/>
       <div>
         <span>Connection has repaired</span>
         <span>You are back again</span>
@@ -16,7 +16,7 @@ const ConnectedToast = ({ text }) => {
 }
 
 export const toastConnected = () =>
-  toast(<ConnectedToast />, {
+  toast(<ConnectedToast/>, {
     position: toast.POSITION.TOP_CENTER,
     autoClose: 4000,
     hideProgressBar: true,

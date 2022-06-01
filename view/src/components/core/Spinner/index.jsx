@@ -1,5 +1,6 @@
 import React from 'react'
 import './style.scss'
+
 const Spinner = ({ loading }) => {
   return (
     <div className={loading ? 'ldsRing' : 'disaled'}>
@@ -35,8 +36,8 @@ const Spinner = ({ loading }) => {
             y2="61.3612"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#6BDD9F" />
-            <stop offset="1" stopColor="#1D5A99" />
+            <stop stopColor="#6BDD9F"/>
+            <stop offset="1" stopColor="#1D5A99"/>
           </linearGradient>
           <linearGradient
             id="paint1_linear_10422_12978"
@@ -46,8 +47,8 @@ const Spinner = ({ loading }) => {
             y2="19.2327"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#5558FF" />
-            <stop offset="1" stopColor="#00C0FF" />
+            <stop stopColor="#5558FF"/>
+            <stop offset="1" stopColor="#00C0FF"/>
           </linearGradient>
           <linearGradient
             id="paint2_linear_10422_12978"
@@ -57,8 +58,8 @@ const Spinner = ({ loading }) => {
             y2="9.89955"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#A93AFF" />
-            <stop offset="1" stopColor="#FF81FF" />
+            <stop stopColor="#A93AFF"/>
+            <stop offset="1" stopColor="#FF81FF"/>
           </linearGradient>
           <linearGradient
             id="paint3_linear_10422_12978"
@@ -68,9 +69,9 @@ const Spinner = ({ loading }) => {
             y2="0"
             gradientUnits="userSpaceOnUse"
           >
-            <stop stopColor="#FD3A84" />
-            <stop offset="0.0001" stopColor="#FD3A84" />
-            <stop offset="1" stopColor="#FFA68D" />
+            <stop stopColor="#FD3A84"/>
+            <stop offset="0.0001" stopColor="#FD3A84"/>
+            <stop offset="1" stopColor="#FFA68D"/>
           </linearGradient>
         </defs>
       </svg>
