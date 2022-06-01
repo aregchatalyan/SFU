@@ -43,9 +43,9 @@ const ClassMates = () => {
   const { isTeacher, me, classmates: users } = useContext(RoomInfoContext)
 
   const [ topTree, setTopTree ] = useState([
-    { prizeIcon: gold, avrg: 100 },
-    { prizeIcon: silver, avrg: 95 },
-    { prizeIcon: bronze, avrg: 90 },
+    { prizeIcon: gold, avg: 100 },
+    { prizeIcon: silver, avg: 95 },
+    { prizeIcon: bronze, avg: 90 },
   ])
   const [ classMates, setClassMates ] = useState([])
 
@@ -54,26 +54,26 @@ const ClassMates = () => {
     const classMates =
       (allClassMates &&
         allClassMates
-          .sort(({ avrg }, { avrg: avrgComp }) => avrgComp - avrg)
-          .filter(({ avrg, ...otherProps }) => {
-            if (avrg === 100) {
+          .sort(({ avg }, { avg: avgComp }) => avgComp - avg)
+          .filter(({ avg, ...otherProps }) => {
+            if (avg === 100) {
               setTopTree((state) => {
                 const clone = [ ...state ]
-                clone[0] = { prizeIcon: gold, avrg: 100, ...otherProps }
+                clone[0] = { prizeIcon: gold, avg: 100, ...otherProps }
                 return clone
               })
               return false
-            } else if (avrg >= 95) {
+            } else if (avg >= 95) {
               setTopTree((state) => {
                 const clone = [ ...state ]
-                clone[1] = { prizeIcon: silver, avrg: 95, ...otherProps }
+                clone[1] = { prizeIcon: silver, avg: 95, ...otherProps }
                 return clone
               })
               return false
-            } else if (avrg >= 90) {
+            } else if (avg >= 90) {
               setTopTree((state) => {
                 const clone = [ ...state ]
-                clone[2] = { prizeIcon: bronze, ...otherProps, avrg }
+                clone[2] = { prizeIcon: bronze, ...otherProps, avg }
                 return clone
               })
               return false
@@ -92,10 +92,10 @@ const ClassMates = () => {
         <Icon name="question_mark" width={16} height={16}/>
       </div>
       <div className={style.userList}>
-        {topTree.map(({ name, surname, img, id, prizeIcon, avrg }, index) => (
+        {topTree.map(({ name, surname, img, id, prizeIcon, avg }, index) => (
           <div className={style.itemWrapper} key={index}>
             <div className={style.averageNumber}>
-              <span>{avrg}</span>
+              <span>{avg}</span>
             </div>
             <Scales
               type={
@@ -145,13 +145,13 @@ const ClassMates = () => {
               absentCount,
               attendingPercent,
               id,
-              avrg,
+              avg,
             },
             index
           ) => (
             <div className={style.itemWrapper} key={index}>
               <div className={style.averageNumber}>
-                <span>{avrg}</span>
+                <span>{avg}</span>
               </div>
               <Scales type={index === classMates.length - 1 ? 'last' : ''}/>
               <div

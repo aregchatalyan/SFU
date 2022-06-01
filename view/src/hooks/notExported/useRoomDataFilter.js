@@ -61,11 +61,11 @@ export const useRoomDataFilter = (userId, socket) => {
   const getUserBoardPermission = useCallback(
     (userId) => {
       const userData =
-        roomData && roomData.teacher.id === userId
+        roomData && +roomData.teacher.id === userId
           ? roomData.teacher
           : roomData &&
           [ roomData.me, ...roomData.classmates ].filter(
-            ({ id }) => id === userId
+            ({ id }) => +id === userId
           )[0]
       return userData.boardPermission
     }, [ roomData ])

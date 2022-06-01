@@ -112,10 +112,10 @@ export const useHandleMethodes = ({
   }
 
   const handleConfirm = useCallback(() => {
-    recSocket.send(JSON.stringify({
-      action: 'start-record',
-      sessionId: recPeer.sessionId
-    }))
+    // recSocket.send(JSON.stringify({
+    //   action: 'start-record',
+    //   sessionId: recPeer.sessionId
+    // }))
 
     setIsJoining(true)
     joinRoom({
@@ -189,15 +189,15 @@ export const useHandleMethodes = ({
   })
 
   const handleLeaveMeeting = useCallback(() => {
-    recSocket.send(JSON.stringify({
-      action: 'stop-record',
-      sessionId: recPeer.sessionId
-    }))
-
-    recSocket.send(JSON.stringify({
-      action: 'start-combine',
-      sessionId: recPeer.sessionId
-    }))
+    // recSocket.send(JSON.stringify({
+    //   action: 'stop-record',
+    //   sessionId: recPeer.sessionId
+    // }))
+    //
+    // recSocket.send(JSON.stringify({
+    //   action: 'start-combine',
+    //   sessionId: recPeer.sessionId
+    // }))
 
     if (videoPlayer) {
       closeProducer('videoType', socket, setStream)
