@@ -1,4 +1,4 @@
-const { randomUUID } = require("crypto");
+const { randomUUID } = require('crypto');
 
 module.exports = class Question {
   constructor(userId, question, versions, anonymous) {
@@ -13,22 +13,27 @@ module.exports = class Question {
     this.voteList = new Map();
     this.createdAt = new Date();
   }
+
   getBroadcastData({ userId }) {
     if (this.voteList.has(userId)) {
       const versions = this.versions.map((version) => {
         const votes = [];
         let isVoted = false;
+
         this.voteList.forEach((voteId, key) => {
           if (version.id === voteId) {
             votes.push(key);
           }
         });
+
         if (version.id === this.voteList.get(userId)) {
           isVoted = true;
         }
+
         if (!this.isAnonymous) {
           version.votes = votes;
         }
+
         version.percentage = Math.round(
           (votes.length * 100) / this.voteList.size
         );
@@ -57,6 +62,7 @@ module.exports = class Question {
       };
     }
   }
+
   vote({ userId, versionId }) {
     if (!this.voteList.has(userId)) {
       this.voteList.set(userId, versionId);

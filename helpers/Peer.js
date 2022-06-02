@@ -19,13 +19,8 @@ module.exports = class Peer {
     });
   }
 
-  async createProducer(
-    producerTransportId,
-    rtpParameters,
-    kind,
-    isScreenShare
-  ) {
-    console.log("kind", kind);
+  async createProducer(producerTransportId, rtpParameters, kind, isScreenShare) {
+    console.log('kind', kind);
     let producer = await this.transports.get(producerTransportId).produce({
       kind,
       rtpParameters,
@@ -34,10 +29,8 @@ module.exports = class Peer {
 
     this.producers.set(producer.id, producer);
 
-    producer.on(
-      "transportclose",
-      function () {
-        console.log("Producer transport close", {
+    producer.on('transportclose', function () {
+        console.log('Producer transport close', {
           name: `${this.userId}`,
           consumer_id: `${producer.id}`,
         });
@@ -61,11 +54,11 @@ module.exports = class Peer {
         paused: false, //producer.kind === 'video',
       });
     } catch (error) {
-      console.error("Consume failed", error);
+      console.error('Consume failed', error);
       return;
     }
 
-    if (consumer.type === "simulcast") {
+    if (consumer.type === 'simulcast') {
       await consumer.setPreferredLayers({
         spatialLayer: 2,
         temporalLayer: 2,
@@ -74,10 +67,8 @@ module.exports = class Peer {
 
     this.consumers.set(consumer.id, consumer);
 
-    consumer.on(
-      "transportclose",
-      function () {
-        console.log("Consumer transport close", {
+    consumer.on('transportclose', function () {
+        console.log('Consumer transport close', {
           name: `${this.userId}`,
           consumer_id: `${consumer.id}`,
         });

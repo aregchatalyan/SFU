@@ -1,5 +1,5 @@
-const config = require("../config");
-const Board = require("./Board");
+const config = require('../config');
+const Board = require('./Board');
 
 module.exports = class Room {
   constructor(room_id, worker, io, teacher_id) {
@@ -7,37 +7,35 @@ module.exports = class Room {
 
     const mediaCodecs = config.mediasoup.router.mediaCodecs;
 
-    worker
-      .createRouter({
-        mediaCodecs,
-      })
-      .then(
-        function (router) {
-          this.router = router;
-        }.bind(this)
-      );
+    worker.createRouter({ mediaCodecs })
+      .then(function (router) {
+        this.router = router;
+      }.bind(this));
 
-    this.peers = new Map();
-    this.waitingList = new Map();
-    this.questions = new Map();
     this.io = io;
     this.massages = [];
-    this.board = new Board(teacher_id, io);
-    this.teacher_id = teacher_id;
-    this.waitingTime = 5;
     this.interval = null;
+    this.waitingTime = 5;
+    this.peers = new Map();
+    this.questions = new Map();
+    this.waitingList = new Map();
+
+    this.teacher_id = teacher_id;
+    this.board = new Board(teacher_id, io);
   }
 
   startInterval() {
     clearInterval(this.interval);
     this.interval = setInterval(() => {
-      console.log("interval is working", this.waitingList.size);
+      console.log('interval is working', this.waitingList.size);
+
       if (this.waitingList.size === 0) {
         this.endInterval();
       }
+
       this.waitingList.forEach(({ createdAt, socket_id }, id) => {
         if (Date.now() - createdAt >= 10000) {
-          this.broadCast(socket_id, "userLeft", { socket_id });
+          this.broadCast(socket_id, 'userLeft', { socket_id });
           this.waitingList.delete(id);
         }
       });
@@ -45,58 +43,70 @@ module.exports = class Room {
   }
 
   endInterval() {
-    console.log("end interval");
+    console.log('end interval');
     clearInterval(this.interval);
   }
 
   addMsg = ({ userId, text }) => {
     this.massages.push({ userId, text });
-    this.broadCast("", "newMassage", [{ userId, text }]);
+    this.broadCast('', 'newMassage', [ { userId, text } ]);
   };
+
   getAllMsgs = () => {
     return this.massages;
   };
 
   handUp = ({ userId }) => {
-    this.broadCast("", "newHandUp", [{ userId }]);
+    this.broadCast('', 'newHandUp', [ { userId } ]);
   };
 
   addPeer(peer) {
     this.peers.set(peer.id, peer);
-    console.log("UserId:::", peer.userId);
-    this.broadCast(peer.id, "newUsers", [peer]);
+
+    console.log('UserId:::', peer.userId);
+
+    this.broadCast(peer.id, 'newUsers', [ peer ]);
+
     if (peer.userId === this.teacher_id) {
-      this.broadCast(peer.id, "teacherJoin", { joined: true });
+      this.broadCast(peer.id, 'teacherJoin', { joined: true });
     } else {
       const joined = Array.from(this.peers.values()).some(
         ({ userId }) => this.teacher_id === userId
       );
-      this.send(peer.id, "teacherJoin", { joined });
+
+      this.send(peer.id, 'teacherJoin', { joined });
     }
   }
 
   addQuestion(question) {
     this.questions.set(question.id, question);
-    console.log("questions", this.questions);
-    this.broadCast("", "newPoll", [question.getBroadcastData({ userId: "" })]);
+
+    console.log('questions', this.questions);
+
+    this.broadCast('', 'newPoll', [ question.getBroadcastData({ userId: '' }) ]);
   }
 
   getAllPolls({ userId }) {
     let questionList = [];
+
     this.questions.forEach((question) => {
       questionList.unshift(question.getBroadcastData({ userId }));
     });
+
     return questionList;
   }
+
   voteQuestion({ userId, questionId, versionId }) {
     if (!this.questions.has(questionId)) return;
+
     const votersIds = this.questions
       .get(questionId)
       .vote({ userId, versionId });
 
     console.log(`VotersIds : `, votersIds);
+
     this.broadCastOnlySelected(
-      "newVote",
+      'newVote',
       this.questions.get(questionId),
       votersIds
     );
@@ -123,8 +133,10 @@ module.exports = class Room {
   }
 
   async createWebRtcTransport(socket_id) {
-    const { maxIncomingBitrate, initialAvailableOutgoingBitrate } =
-      config.mediasoup.webRtcTransport;
+    const {
+      maxIncomingBitrate,
+      initialAvailableOutgoingBitrate
+    } = config.mediasoup.webRtcTransport;
 
     const transport = await this.router.createWebRtcTransport({
       listenIps: config.mediasoup.webRtcTransport.listenIps,
@@ -137,14 +149,14 @@ module.exports = class Room {
     if (maxIncomingBitrate) {
       try {
         await transport.setMaxIncomingBitrate(maxIncomingBitrate);
-      } catch (error) {}
+      } catch (e) {
+        console.error(e.message ? e.message : e);
+      }
     }
 
-    transport.on(
-      "dtlsstatechange",
-      function (dtlsState) {
-        if (dtlsState === "closed") {
-          console.log("Transport close", {
+    transport.on('dtlsstatechange', function (dtlsState) {
+        if (dtlsState === 'closed') {
+          console.log('Transport close', {
             userId: this.peers.get(socket_id).userId,
           });
           transport.close();
@@ -152,13 +164,13 @@ module.exports = class Room {
       }.bind(this)
     );
 
-    transport.on("close", () =>
-      console.log("Transport close", {
+    transport.on('close', () =>
+      console.log('Transport close', {
         userId: this.peers.get(socket_id).userId,
       })
     );
 
-    console.log("Adding transport", { transportId: transport.id });
+    console.log('Adding transport', { transportId: transport.id });
 
     this.peers.get(socket_id).addTransport(transport);
 
@@ -200,7 +212,8 @@ module.exports = class Room {
           );
 
         resolve(producer.id);
-        this.broadCast(socket_id, "newProducers", [
+
+        this.broadCast(socket_id, 'newProducers', [
           {
             producer_id: producer.id,
             producer_socket_id: socket_id,
@@ -211,15 +224,10 @@ module.exports = class Room {
     );
   }
 
-  async consume(
-    socket_id,
-    consumer_transport_id,
-    producer_id,
-    rtpCapabilities
-  ) {
+  async consume(socket_id, consumer_transport_id, producer_id, rtpCapabilities) {
     // handle nulls
     if (!this.router.canConsume({ producerId: producer_id, rtpCapabilities })) {
-      console.error("can not consume");
+      console.error('can not consume');
       return;
     }
 
@@ -227,10 +235,8 @@ module.exports = class Room {
       .get(socket_id)
       .createConsumer(consumer_transport_id, producer_id, rtpCapabilities);
 
-    consumer.on(
-      "producerclose",
-      function () {
-        console.log("Consumer closed due to producerclose event", {
+    consumer.on('producerclose', function () {
+        console.log('Consumer closed due to producerclose event', {
           userId: `${this.peers.get(socket_id).userId}`,
           consumer_id: `${consumer.id}`,
         });
@@ -239,7 +245,7 @@ module.exports = class Room {
         // tell client consumer is dead
         this.io
           .to(socket_id)
-          .emit("consumerClosed", { consumer_id: consumer.id });
+          .emit('consumerClosed', { consumer_id: consumer.id });
       }.bind(this)
     );
 
@@ -251,17 +257,18 @@ module.exports = class Room {
     this.peers.delete(socket_id);
 
     if (exited) {
-      this.broadCast(socket_id, "userLeft", { socket_id });
+      this.broadCast(socket_id, 'userLeft', { socket_id });
     } else {
       this.waitingList.set(userId, { socket_id, createdAt: Date.now() });
       this.startInterval();
-      this.broadCast(socket_id, "userConnectionProblem", { userId });
+      this.broadCast(socket_id, 'userConnectionProblem', { userId });
     }
 
     if (userId === this.teacher_id) {
-      this.broadCast(socket_id, "teacherJoin", { joined: false });
+      this.broadCast(socket_id, 'teacherJoin', { joined: false });
     }
   }
+
   checkAndRemoveUser(userId) {
     if (!this.waitingList.has(userId)) return;
     this.waitingList.delete(userId);
@@ -278,6 +285,7 @@ module.exports = class Room {
       this.send(otherID, connectionName, data);
     }
   }
+
   sendToCurrentUserById(userId, connectionName, data) {
     for (let user of Array.from(this.peers.values())) {
       if (user.userId === userId) {
@@ -306,7 +314,7 @@ module.exports = class Room {
   toJson() {
     return {
       id: this.id,
-      peers: JSON.stringify([...this.peers]),
+      peers: JSON.stringify([ ...this.peers ]),
     };
   }
 
@@ -317,46 +325,50 @@ module.exports = class Room {
   handleBoardPermission(data) {
     this.sendToCurrentUserById(
       this.board.givePermission(data),
-      "myBoardPermission",
+      'myBoardPermission',
       { allowed: data.allowed }
     );
   }
 
   sketchingOnBoard(socketId, data) {
     if (this.board.sketching(data)) {
-      this.broadCast(socketId, "newSketching", data);
+      this.broadCast(socketId, 'newSketching', data);
     }
   }
 
   drawingOnBoard(socketId, data) {
     if (this.board.drawing(data)) {
-      this.broadCast(socketId, "newDrawing", data);
+      this.broadCast(socketId, 'newDrawing', data);
     }
   }
+
   addTextOnBoard(socketId, data) {
     if (this.board.writeText(data)) {
-      this.broadCast(socketId, "newText", data);
+      this.broadCast(socketId, 'newText', data);
     }
   }
 
   askBoardPermission({ userId }) {
-    this.sendToCurrentUserById(this.board.teacher_id, "askToJoin", {
-      type: "ask_permission",
+    this.sendToCurrentUserById(this.board.teacher_id, 'askToJoin', {
+      type: 'ask_permission',
       userId,
     });
   }
+
   resetBoard(socketId, data) {
     if (this.board.reset(data)) {
     }
-    this.broadCast(socketId, "boardReset", data);
+    this.broadCast(socketId, 'boardReset', data);
   }
+
   undoBoardAction(socketId, data) {
     this.board.undoActionByUserId(data);
-    this.broadCast(socketId, "undoUserAction", data);
+    this.broadCast(socketId, 'undoUserAction', data);
   }
+
   redoBoardAction(socketId, data) {
     this.board.redoBoardAction(data);
-    this.broadCast(socketId, "redoUserAction", data);
+    this.broadCast(socketId, 'redoUserAction', data);
   }
 
   getBoardData() {
