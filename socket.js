@@ -3,7 +3,7 @@ const mediasoup = require('mediasoup');
 const Room = require('./helpers/Room');
 const Peer = require('./helpers/Peer');
 const Question = require('./helpers/Question');
-const SignIn = require('./api/signin/signin.model');
+const SignIn = require('./api/sign-in/signin.model');
 
 const config = require('./config');
 

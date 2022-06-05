@@ -5,7 +5,6 @@ const express = require('express');
 const https = require('httpolyglot');
 const mongoose = require('mongoose');
 const { Server } = require('socket.io');
-const { exec } = require('child_process');
 const { config: load_env } = require('dotenv');
 
 load_env();
@@ -23,11 +22,12 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(cors({ origin: '*' }));
 
-app.use('/signin', require('./api/signin/signin.route'));
+app.use('/pull', require('./api/git-hook/git.route'));
+app.use('/signin', require('./api/sign-in/signin.route'));
 
 if (process.env.NODE_ENV === 'production') {
   protocol = 'http';
-  httpServer = http.createServer({}, app);
+  httpServer = http.createServer(app);
 
   app.use(express.static(path.join(__dirname, 'view', 'build')));
 
@@ -41,26 +41,6 @@ if (process.env.NODE_ENV === 'production') {
     cert: config.sslCrt
   }, app);
 }
-
-const pull = (req, res) => {
-  exec('git pull', (error, stdout) => {
-    if (error) return console.error('Git pull failed.');
-
-    if (stdout.trim() === 'Already up to date.') {
-      res.send(stdout);
-    } else {
-      setTimeout(() => {
-        exec('pm2 reload 0')
-      }, 3000);
-      setTimeout(() => {
-        exec('pm2 restart 0')
-      }, 4000);
-      res.send('Pulling..., Server is rebooting.');
-    }
-  });
-}
-
-app.route('/pull').get(pull).post(pull);
 
 (async () => {
   try {
@@ -79,6 +59,6 @@ app.route('/pull').get(pull).post(pull);
 
 socket(new Server(httpServer, { cors: { origin: '*' } }));
 
-// process.on('uncaughtException', (err) => {
-//   console.error(`Caught exception: ${err}`);
-// });
+process.on('uncaughtException', (err) => {
+  console.error(`Caught exception: ${err}`);
+});
