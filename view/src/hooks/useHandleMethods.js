@@ -10,7 +10,7 @@ import { firstPage } from '../constant'
 import { getStream } from '../helpers'
 import { closeProducer, exit, joinRoom, produce } from '../services'
 
-export const useHandleMethodes = ({
+export const useHandleMethods = ({
                                     socket,
                                     userId,
                                     roomId,

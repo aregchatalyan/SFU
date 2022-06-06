@@ -1,11 +1,12 @@
 const DEFAULT_CONSTRAINTS = Object.freeze({
   audio: true,
-  video: { width: 640, height: 480 }
+  video: {
+    width: { min: 640, ideal: 1280, max: 1920 },
+    height: { min: 480, ideal: 720, max: 1080 },
+  }
 });
 
 // Gets the users camera and returns the media stream
-const GUM = async () => {
-  return await navigator.mediaDevices.getUserMedia(DEFAULT_CONSTRAINTS);
-};
+const GUM = () => navigator.mediaDevices.getUserMedia(DEFAULT_CONSTRAINTS);
 
 export default GUM;

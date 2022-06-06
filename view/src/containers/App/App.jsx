@@ -16,7 +16,7 @@ import {
 import {
   useWindowDimensions,
   useStateChange,
-  useHandleMethodes,
+  useHandleMethods,
 } from '../../hooks'
 
 import PreJoin from '../../components/preJoining'
@@ -46,7 +46,7 @@ const App = () => {
     handleMicrophoneClick,
     handleConfirm,
     ...videoCallProps
-  } = useHandleMethodes({
+  } = useHandleMethods({
     socket,
     userId,
     roomId,
