@@ -49,7 +49,7 @@ if (process.env.NODE_ENV === 'production') {
 
     httpServer.listen(config.listenPort, () => {
       process.env.NODE_ENV === 'production' ?
-        console.log('Listening on https://meet.univern.org') :
+        console.log(`Open ${protocol}://${config.listenIp}:${config.listenPort}`) :
         console.log(`Listening on ${protocol}://${config.listenIp}:${config.listenPort}`);
     });
   } catch (e) {
