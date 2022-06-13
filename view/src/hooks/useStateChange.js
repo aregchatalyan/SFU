@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { io } from 'socket.io-client'
 import { useCookies } from 'react-cookie'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
 
 import { URL } from '../config'
 import { useSocketInit } from './notExported'
@@ -9,6 +9,7 @@ import { useRoomDataFilter, useProducerChange } from './notExported'
 
 export const useStateChange = () => {
   const params = useParams()
+  const location = useLocation()
   const socket = useRef(undefined)
 
   const [ cookies ] = useCookies([ 'token' ])
@@ -19,7 +20,7 @@ export const useStateChange = () => {
 
   useEffect(() => {
     const { roomId } = params;
-    const { token } = cookies;
+    const token = cookies.token || location.search.split('=')[1];
 
     if (roomId !== 'error') {
       if (!token)
@@ -47,7 +48,7 @@ export const useStateChange = () => {
           console.error(e)
         })
     }
-  }, [ cookies, params ])
+  }, [ cookies, params, location.search ])
 
   const [
     isLoading,
