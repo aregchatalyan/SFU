@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { io } from 'socket.io-client'
 import { useCookies } from 'react-cookie'
 import { useParams, useLocation } from 'react-router-dom'
@@ -9,7 +9,7 @@ import { useRoomDataFilter, useProducerChange } from './notExported'
 
 export const useStateChange = () => {
   const params = useParams()
-  const location = useLocation()
+  const { search } = useLocation()
   const socket = useRef(undefined)
 
   const [ cookies ] = useCookies([ 'token' ])
@@ -18,9 +18,13 @@ export const useStateChange = () => {
   const [ room, setRoom ] = useState({ roomId: '', userId: '' })
   const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
 
+  const queries = useMemo(() => {
+    return new URLSearchParams(search)
+  }, [search])
+
   useEffect(() => {
     const { roomId } = params;
-    const token = cookies.token || location.search.split('=')[1];
+    const token = cookies.token || queries.get('token');
 
     if (!token)
       return window.location
@@ -31,8 +35,8 @@ export const useStateChange = () => {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(response => response.json())
-      .then(({ data: { user_token_id } }) => {
-        socket.current = io(`${URL}?room_id=${roomId}&user_id=${user_token_id}`, {
+      .then(({ data: { user_id } }) => {
+        socket.current = io(`${URL}?room_id=${roomId}&user_id=${user_id}`, {
           secure: true,
           transports: [ 'websocket', 'polling' ]
         })
@@ -41,12 +45,12 @@ export const useStateChange = () => {
           socket.current.io.opts.transports = [ 'polling', 'websocket' ];
           socket.current.io.opts.upgrade = true;
         })
-        setRoom({ roomId, userId: user_token_id })
+        setRoom({ roomId, userId: user_id })
       })
       .catch(e => {
         console.error(e)
       })
-  }, [ cookies, params, location.search ])
+  }, [ cookies, params, queries ])
 
   const [
     isLoading,
