@@ -1,14 +1,13 @@
 import React from 'react'
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import Error from '../../components/pages/Error'
 import App from './App'
 
 const Container = () => (
   <BrowserRouter>
     <Switch>
-      <Route path="/:roomId" exact component={App}/>
-      <Route path="/error" component={Error}/>
-      <Redirect to="/error"/>
+      <Route path="/:roomId" component={App}/>
+      {/*<Route path="/" exact component={Error}/>*/}
     </Switch>
   </BrowserRouter>
 )
