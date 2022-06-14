@@ -407,7 +407,7 @@ module.exports = (io) => {
       });
 
     } else {
-      return socket.emit('forbidden', 'hello');
+      return socket.emit('forbidden', roomId);
     }
   });
 };

@@ -19,8 +19,8 @@ export const useSocketInit = ({
 
   useEffect(() => {
     if (socket) {
-      socket.on('forbidden', () => {
-        history.push('/error')
+      socket.on('forbidden', ({ roomId }) => {
+        history.push(`/${roomId}`)
       })
       socket.on('consumerClosed', function ({ consumer_id }) {
         console.log('Closing consumer:', consumer_id)
