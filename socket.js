@@ -51,7 +51,7 @@ module.exports = (io) => {
 
     const worker = await getMediasoupWorker();
 
-    if (roomList.has(roomId)) return socket.emit('forbidden', roomId);
+    // if (roomList.has(roomId)) return socket.emit('forbidden', roomId);
 
     roomList.set(roomId, new Room(roomId, worker, io, teacher_id));
 
