@@ -1,17 +1,22 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
 import { io } from 'socket.io-client'
 import { useCookies } from 'react-cookie'
-import { useParams, useLocation } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { URL } from '../config'
+import { useHttp } from './useHttp'
 import { useSocketInit } from './notExported'
 import { useRoomDataFilter, useProducerChange } from './notExported'
 
+const redirectURL = process.env.NODE_ENV === 'development'
+  ? URL.replace('3030', '3000')
+  : URL
+
 export const useStateChange = () => {
   const params = useParams()
-  const { search } = useLocation()
+  const history = useHistory()
+  const { request } = useHttp()
   const socket = useRef(undefined)
-
   const [ cookies ] = useCookies([ 'token' ])
 
   const [ users, setUsers ] = useState([])
@@ -19,38 +24,42 @@ export const useStateChange = () => {
   const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
 
   const queries = useMemo(() => {
-    return new URLSearchParams(search)
-  }, [search])
+    return new URLSearchParams(history.location.search)
+  }, [ history.location.search ])
 
   useEffect(() => {
-    const { roomId } = params;
-    const token = cookies.token || queries.get('token');
+    const { roomId } = params
+    const token = cookies.token || queries.get('token')
+
+    if (roomId === 'undefined') return history.push('/')
 
     if (!token)
       return window.location
-        .replace(`https://staging.univern.org/auth/login?redirect_url=${URL}/${roomId}`)
+        .replace(`https://staging.univern.org/auth/login?redirect_url=${redirectURL}/${roomId}`);
 
-    fetch(`${URL}/signin/decode`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${token}` }
-    })
-      .then(response => response.json())
-      .then(({ data: { user_id } }) => {
-        socket.current = io(`${URL}?room_id=${roomId}&user_id=${user_id}`, {
-          secure: true,
-          transports: [ 'websocket', 'polling' ]
-        })
+    (async () => {
+      const {
+        data: { user_id }
+      } = await request(
+        `${URL}/signin/decode`,
+        'GET',
+        null,
+        { Authorization: `Bearer ${token}` }
+      )
 
-        socket.current.on('connect_error', () => {
-          socket.current.io.opts.transports = [ 'polling', 'websocket' ];
-          socket.current.io.opts.upgrade = true;
-        })
-        setRoom({ roomId, userId: user_id })
+      socket.current = io(`${URL}?room_id=${roomId}&user_id=${user_id}`, {
+        secure: true,
+        transports: [ 'websocket', 'polling' ]
       })
-      .catch(e => {
-        console.error(e)
+
+      socket.current.on('connect_error', () => {
+        socket.current.io.opts.transports = [ 'polling', 'websocket' ]
+        socket.current.io.opts.upgrade = true
       })
-  }, [ cookies, params, queries ])
+
+      setRoom({ roomId, userId: user_id })
+    })()
+  }, [ cookies, history, params, request, queries ])
 
   const [
     isLoading,
