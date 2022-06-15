@@ -17,7 +17,7 @@ export const useStateChange = () => {
   const history = useHistory()
   const { request } = useHttp()
   const socket = useRef(undefined)
-  const [ cookies ] = useCookies([ 'token' ])
+  const [ cookies, setCookie ] = useCookies([ 'token' ])
 
   const [ users, setUsers ] = useState([])
   const [ room, setRoom ] = useState({ roomId: '', userId: '' })
@@ -39,7 +39,7 @@ export const useStateChange = () => {
 
     (async () => {
       const {
-        data: { user_id }
+        data: { user_id: userId } = 'undefined'
       } = await request(
         `${URL}/signin/decode`,
         'GET',
@@ -47,7 +47,7 @@ export const useStateChange = () => {
         { Authorization: `Bearer ${token}` }
       )
 
-      socket.current = io(`${URL}?room_id=${roomId}&user_id=${user_id}`, {
+      socket.current = io(`${URL}?roomId=${roomId}&userId=${userId}`, {
         secure: true,
         transports: [ 'websocket', 'polling' ]
       })
@@ -57,7 +57,7 @@ export const useStateChange = () => {
         socket.current.io.opts.upgrade = true
       })
 
-      setRoom({ roomId, userId: user_id })
+      setRoom({ roomId, userId })
     })()
   }, [ cookies, history, params, request, queries ])
 
@@ -74,6 +74,7 @@ export const useStateChange = () => {
     setUsers,
     roomData
   )
+
   const statesChangeWithSocket = useSocketInit({
     socket: socket.current,
     setUserList,

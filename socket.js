@@ -35,10 +35,10 @@ module.exports = (io) => {
     if (++nextMediasoupWorkerIdx === workers.length) nextMediasoupWorkerIdx = 0;
 
     return worker;
-  };
+  }
 
   io.on('connection', async (socket) => {
-    const { room_id: roomId, user_id: userId } = socket.handshake.query;
+    const { roomId, userId } = socket.handshake.query;
 
     const signInData = await SignIn.findOne({
       id: roomId, 'students.id': { $in: userId }
@@ -48,6 +48,12 @@ module.exports = (io) => {
     let isTeacher = false;
     let boardPermission = false;
     const teacher_id = signInData?.teacher?.id;
+
+    const worker = await getMediasoupWorker();
+
+    if (roomList.has(roomId)) return socket.emit('forbidden', roomId);
+
+    roomList.set(roomId, new Room(roomId, worker, io, teacher_id));
 
     if (roomList.has(roomId)) {
       boardPermission = roomList.get(roomId).getUserBoardPermission({ userId });
@@ -91,10 +97,6 @@ module.exports = (io) => {
           callback('already exists');
         } else {
           console.log('Created room', { room_id: room_id });
-
-          let worker = await getMediasoupWorker();
-
-          roomList.set(room_id, new Room(room_id, worker, io, teacher_id));
 
           callback(room_id);
         }
@@ -255,14 +257,10 @@ module.exports = (io) => {
       });
 
       socket.on('disconnect', async () => {
-        console.log('Disconnect', {
-          userId: `${
-            roomList.get(socket.room_id) &&
-            roomList.get(socket.room_id).getPeers().get(socket.id).userId
-          }`,
-        });
+        if (roomList.has(roomId)) return roomList.delete(roomId);
 
         if (!socket.room_id) return;
+
         await roomList
           .get(socket.room_id)
           .removePeer(
@@ -405,9 +403,8 @@ module.exports = (io) => {
         console.log('dara', data);
         roomList.get(socket.room_id).redoBoardAction(socket.id, data);
       });
-
     } else {
       return socket.emit('forbidden', roomId);
     }
   });
-};
+}
