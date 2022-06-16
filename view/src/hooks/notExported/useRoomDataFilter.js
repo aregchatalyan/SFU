@@ -25,20 +25,18 @@ export const useRoomDataFilter = (userId, socket) => {
     })
   }, [ socket, setRoomDataFunc ])
 
-  const getUserById = useCallback(
-    (userId) => {
-      console.log(roomData)
-      const userData = roomData && +roomData.teacher.id === userId
-        ? { isTeacher: true, ...roomData.teacher }
-        : roomData && [ roomData.me, ...roomData.classmates ]
-        .filter(({ id }) => +id === userId)[0]
+  const getUserById = useCallback((userId) => {
+    const userData = roomData && +roomData.teacher.id === userId
+      ? { isTeacher: true, ...roomData.teacher }
+      : roomData && [ roomData.me, ...roomData.classmates ]
+      .filter(({ id }) => +id === userId)[0]
 
-      return {
-        name: userData.name,
-        surname: userData.surname,
-        isTeacher: userData.isTeacher || false,
-      }
-    }, [ roomData ])
+    return {
+      name: userData.name,
+      surname: userData.surname,
+      isTeacher: userData.isTeacher || false,
+    }
+  }, [ roomData ])
 
   const changeUserBoardPermission = useCallback(
     ({ userId: studentId, allowed }) => {

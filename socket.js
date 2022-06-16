@@ -211,20 +211,20 @@ module.exports = (io) => {
       });
 
       socket.on('disconnect', async () => {
-        if (roomList.has(roomId)) return roomList.delete(roomId);
+        if (roomList.has(roomId)) {
 
-        console.log(roomId, 'roomId');
+          await roomList
+            .get(roomId)
+            .removePeer(socket.id, roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id).userId);
 
-        if (!roomId) return;
-
-        await roomList
-          .get(roomId)
-          .removePeer(socket.id, roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id).userId);
+          roomList.delete(roomId);
+        }
       });
 
       socket.on('producerClosed', ({ producer_id }) => {
         console.log('Producer close', { userId: `${roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id).userId}` });
-        roomList.get(roomId).closeProducer(socket.id, producer_id);
+        if (roomList.has(roomId))
+          roomList.get(roomId)?.closeProducer(socket.id, producer_id);
       });
 
       socket.on('exitRoom', async (_, callback) => {

@@ -17,10 +17,10 @@ export const useStateChange = () => {
   const history = useHistory()
   const { request } = useHttp()
   const socket = useRef(undefined)
-  const [ cookies, setCookie ] = useCookies([ 'token' ])
+  const [ cookies ] = useCookies([ 'token' ])
 
   const [ users, setUsers ] = useState([])
-  const [ room, setRoom ] = useState({ roomId: '', userId: '' })
+  const [ room, setRoom ] = useState({ roomId: params.roomId, userId: '' })
   const [ disconnectedUsers, setDisconnectedUsers ] = useState([])
 
   const queries = useMemo(() => {
