@@ -59,6 +59,6 @@ if (process.env.NODE_ENV === 'production') {
 
 socket(new Server(httpServer, { cors: { origin: '*' } }));
 
-process.on('uncaughtException', (err) => {
-  console.error(`Caught exception: ${err}`);
-});
+// process.on('uncaughtException', (err) => {
+//   console.error(`Caught exception: ${err}`);
+// });
