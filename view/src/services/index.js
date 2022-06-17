@@ -17,7 +17,9 @@ let producerTransport = null
 
 const Request = function request(type, data = {}, socket) {
   return new Promise((resolve, reject) => {
+    console.log(type, 'EMIT', data)
     socket.emit(type, data, (data) => {
+      console.log(type, 'CALLBACK', data)
       if (data.error) {
         reject(data.error)
       } else {
@@ -188,6 +190,7 @@ const join = async function (userId, room_id, socket, setUsers, getUserById) {
   )
     .then(async function (res) {
       const users = res.map((elm) => ({ ...getUserById(elm.userId), ...elm }))
+      console.log(res)
       setUsers(users)
       const data = await Request('getRouterRtpCapabilities', {}, socket)
       device = await loadDevice(data)

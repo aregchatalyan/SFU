@@ -1,41 +1,12 @@
-const mediasoup = require('mediasoup');
-
 const Room = require('./helpers/Room');
 const Peer = require('./helpers/Peer');
 const Question = require('./helpers/Question');
 const SignIn = require('./api/sign-in/signin.model');
 
-const config = require('./config');
+const getMediasoupWorker = require('./mediasoupInit');
 
 module.exports = (io) => {
-  let workers = [];
   let roomList = new Map();
-  let nextMediasoupWorkerIdx = 0;
-
-  (async () => {
-    let { CPU, worker: { logLevel, logTags, rtcMinPort, rtcMaxPort } } = config.mediasoup;
-
-    for await (const thread of CPU) {
-      const worker = await mediasoup.createWorker({
-        logLevel, logTags, rtcMinPort, rtcMaxPort
-      });
-
-      worker.on('died', () => {
-        console.error('mediasoup worker died, exiting in 2 seconds... [pid:%d]', worker.pid);
-        setTimeout(() => process.exit(1), 2000);
-      });
-
-      workers.push(worker);
-    }
-  })();
-
-  const getMediasoupWorker = () => {
-    const worker = workers[nextMediasoupWorkerIdx];
-
-    if (++nextMediasoupWorkerIdx === workers.length) nextMediasoupWorkerIdx = 0;
-
-    return worker;
-  }
 
   io.on('connection', async (socket) => {
     let { roomId, userId } = socket.handshake.query;
@@ -48,12 +19,6 @@ module.exports = (io) => {
     let isTeacher = false;
     let boardPermission = false;
     const teacher_id = signInData?.teacher?.id;
-
-    // const worker = await getMediasoupWorker();
-
-    // if (roomList.has(roomId)) return socket.emit('forbidden', roomId);
-
-    // roomList.set(roomId, new Room(roomId, worker, io, teacher_id));
 
     if (roomList.has(roomId)) {
       boardPermission = roomList.get(roomId).getUserBoardPermission({ userId });
@@ -111,9 +76,11 @@ module.exports = (io) => {
 
         const newPeer = new Peer(socket.id, userId);
 
+        const data = Array.from(roomList.get(room_id).peers.values())
+
         roomList.get(room_id).addPeer(newPeer);
 
-        cb([ newPeer, ...Array.from(roomList.get(room_id).peers.values()) ]);
+        cb([ newPeer, ...data ]);
       });
 
       socket.on('getProducers', () => {
@@ -212,7 +179,6 @@ module.exports = (io) => {
 
       socket.on('disconnect', async () => {
         if (roomList.has(roomId)) {
-
           await roomList
             .get(roomId)
             .removePeer(socket.id, roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id).userId);
@@ -222,7 +188,6 @@ module.exports = (io) => {
       });
 
       socket.on('producerClosed', ({ producer_id }) => {
-        console.log('Producer close', { userId: `${roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id).userId}` });
         if (roomList.has(roomId))
           roomList.get(roomId)?.closeProducer(socket.id, producer_id);
       });
