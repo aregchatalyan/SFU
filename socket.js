@@ -151,6 +151,8 @@ module.exports = (io) => {
 
       socket.on('consume', async ({ consumerTransportId, producerId, rtpCapabilities }, callback) => {
           //TODO null handling
+          if (!roomList.has(roomId)) return console.log('Consume', { error: 'Cant consume' })
+
           let params = await roomList.get(roomId).consume(
             socket.id,
             consumerTransportId,
@@ -181,7 +183,7 @@ module.exports = (io) => {
         if (roomList.has(roomId)) {
           await roomList
             .get(roomId)
-            .removePeer(socket.id, roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id).userId);
+            .removePeer(socket.id, roomList.get(roomId) && roomList.get(roomId).getPeers().get(socket.id)?.userId);
 
           roomList.delete(roomId);
         }
@@ -216,7 +218,7 @@ module.exports = (io) => {
           console.log('Hello', roomList.get(roomId).getPeers());
         }
 
-        roomId = null;
+        // roomId = null;
         callback('successfully exited room');
       });
 
