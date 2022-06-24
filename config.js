@@ -19,7 +19,13 @@ const getLocalIp = () => {
 module.exports = {
   listenIp: 'localhost',
   listenPort: 3030,
-  mongoUri: 'mongodb://localhost:27017/univern_call',
+  mongoUri: 'mongodb://127.0.0.1:27017/',
+  mongoOpts: {
+    dbname: 'univern_call',
+    user: 'direlli_admin',
+    pass: '1656067275032',
+    autoIndex: false,
+  },
   jwtSecret: '0x!b#(1*c877sfd$sdd73w$&azzc6p+essg7v=g80ls#z&xcx*mpemx&@9$888',
   sslCrt: fs.readFileSync(path.join(__dirname, 'ssl', 'cert.pem'), 'utf-8'),
   sslKey: fs.readFileSync(path.join(__dirname, 'ssl', 'key.pem'), 'utf-8'),

@@ -44,7 +44,7 @@ if (process.env.NODE_ENV === 'production') {
 
 (async () => {
   try {
-    await mongoose.connect(config.mongoUri);
+    await mongoose.connect(config.mongoUri, config.mongoOpts);
     console.log('Mongo connected');
 
     httpServer.listen(config.listenPort, () => {
