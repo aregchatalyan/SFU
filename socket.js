@@ -182,13 +182,16 @@ module.exports = (io) => {
       });
 
       socket.on('disconnect', async () => {
-        if (roomList.has(socket.room_id)) {
-          await roomList
-            .get(socket.room_id)
-            .removePeer(socket.id, roomList.get(socket.room_id) && roomList.get(socket.room_id).getPeers().get(socket.id)?.userId);
-
-          roomList.delete(socket.room_id);
+        if (!roomList.has(socket.room_id)) {
+          console.error({ error: 'not currently in a room' });
+          return;
         }
+
+        await roomList
+          .get(socket.room_id)
+          .removePeer(socket.id, roomList.get(socket.room_id) && roomList.get(socket.room_id).getPeers().get(socket.id)?.userId);
+
+        roomList.delete(socket.room_id);
       });
 
       socket.on('producerClosed', ({ producer_id }) => {
@@ -211,7 +214,6 @@ module.exports = (io) => {
           roomList.get(socket.room_id).getPeers().get(socket.id).userId,
           true
         );
-        // await roomList.get(socket.room_id);
 
         if (roomList.get(socket.room_id).getPeers().size === 0) {
           console.log('RoomDeleted');

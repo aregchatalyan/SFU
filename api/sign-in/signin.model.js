@@ -11,6 +11,8 @@ const TeacherSchema = new Schema({
   onlineLessons:    Number,
   conference:       Number,
   liveStream:       Number,
+}, {
+  _id: false
 });
 
 const StudentSchema = new Schema({
@@ -31,6 +33,8 @@ const StudentSchema = new Schema({
   courseName:       String,
   groupName:        String,
   level:            String,
+}, {
+  _id: false
 });
 
 const SignInSchema = new Schema({
@@ -40,7 +44,13 @@ const SignInSchema = new Schema({
   startTime:        Date,
   duration:         Date,
 }, {
-  timestamps: { currentTime: () => Date.now() },
+  versionKey:       false,
+  timestamps:       { currentTime: () => Date.now() },
+});
+
+SignInSchema.set('toJSON', {
+  virtuals:         true,
+  transform:        (doc, ret) => { delete ret._id }
 });
 
 module.exports = model('SignIn', SignInSchema);

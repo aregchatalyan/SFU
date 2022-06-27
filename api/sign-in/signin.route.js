@@ -7,8 +7,8 @@ const router = express.Router();
 router.get('/decode', _middleware, _controller.token);
 
 router.get('/:roomId', _middleware, _controller.get);
-router.post('/', _controller.create);
-router.put('/:roomId', _controller.update);
-router.delete('/:roomId', _controller.delete);
+router.post('/', _middleware, _controller.create);
+router.put('/:roomId', _middleware, _controller.update);
+router.delete('/:roomId', _middleware, _controller.delete);
 
 module.exports = router;

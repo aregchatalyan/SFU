@@ -253,7 +253,7 @@ module.exports = class Room {
   }
 
   async removePeer(socket_id, userId, exited) {
-    this.peers.get(socket_id).close();
+    this.peers.get(socket_id)?.close();
     this.peers.delete(socket_id);
 
     if (exited) {

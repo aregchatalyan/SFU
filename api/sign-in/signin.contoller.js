@@ -21,7 +21,15 @@ module.exports = {
   },
 
   create: async (req, res) => {
+    const { id } = req.body;
+
     try {
+      const candidate = await SignIn.findOne({ id });
+
+      if (candidate) {
+        return res.status(500).json({ message: 'Already Exist' });
+      }
+
       await SignIn.create({ ...req.body });
 
       res.status(201).json({ message: 'Created' });
