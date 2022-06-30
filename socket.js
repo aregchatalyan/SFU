@@ -10,7 +10,7 @@ module.exports = (io) => {
 
   io.on('connection', async (socket) => {
     let { roomId, userId } = socket.handshake.query;
-
+    console.log(socket.id)
     const signInData = await SignIn.findOne({
       id: roomId, 'students.id': { $in: userId }
     }).exec();
@@ -190,8 +190,6 @@ module.exports = (io) => {
         await roomList
           .get(socket.room_id)
           .removePeer(socket.id, roomList.get(socket.room_id) && roomList.get(socket.room_id).getPeers().get(socket.id)?.userId);
-
-        roomList.delete(socket.room_id);
       });
 
       socket.on('producerClosed', ({ producer_id }) => {

@@ -15,19 +15,15 @@ const producers = new Map()
 let consumerTransport = null
 let producerTransport = null
 
-const Request = function request(type, data = {}, socket) {
-  return new Promise((resolve, reject) => {
-    console.log(type, 'EMIT', data)
-    socket.emit(type, data, (data) => {
-      console.log(type, 'CALLBACK', data)
-      if (data.error) {
-        reject(data.error)
-      } else {
-        resolve(data)
-      }
-    })
+const request = (type, data = {}, socket) => new Promise((resolve, reject) => {
+  console.log(type, 'EMIT', data)
+
+  socket.emit(type, data, (data) => {
+    console.log(type, 'CALLBACK', data)
+
+    data.error ? reject(data.error) : resolve(data)
   })
-}
+})
 
 const loadDevice = async function (routerRtpCapabilities) {
   try {
@@ -47,7 +43,7 @@ const loadDevice = async function (routerRtpCapabilities) {
 
 const initTransports = async function (device, socket) {
   {
-    const data = await Request(
+    const data = await request(
       'createWebRtcTransport',
       {
         forceTcp: false,
@@ -66,7 +62,7 @@ const initTransports = async function (device, socket) {
     producerTransport.on(
       'connect',
       async function ({ dtlsParameters }, callback, errback) {
-        Request(
+        request(
           'connectTransport',
           {
             dtlsParameters,
@@ -87,7 +83,7 @@ const initTransports = async function (device, socket) {
         errback
       ) {
         try {
-          const { producer_id } = await Request(
+          const { producer_id } = await request(
             'produce',
             {
               producerTransportId: producerTransport.id,
@@ -127,7 +123,7 @@ const initTransports = async function (device, socket) {
 
   // init consumerTransport
   {
-    const data = await Request(
+    const data = await request(
       'createWebRtcTransport',
       {
         forceTcp: false,
@@ -145,7 +141,7 @@ const initTransports = async function (device, socket) {
     consumerTransport.on(
       'connect',
       function ({ dtlsParameters }, callback, errback) {
-        Request(
+        request(
           'connectTransport',
           {
             transport_id: consumerTransport.id,
@@ -165,7 +161,7 @@ const initTransports = async function (device, socket) {
 
         case 'connected':
           //remoteVideo.srcObject = await stream;
-          //await Request('resume');
+          //await request('resume');
           break
 
         case 'failed':
@@ -180,7 +176,7 @@ const initTransports = async function (device, socket) {
 }
 
 const join = async function (userId, room_id, socket, setUsers, getUserById) {
-  await Request(
+  await request(
     'join',
     {
       userId,
@@ -190,9 +186,8 @@ const join = async function (userId, room_id, socket, setUsers, getUserById) {
   )
     .then(async function (res) {
       const users = res.map((elm) => ({ ...getUserById(elm.userId), ...elm }))
-      console.log(res)
       setUsers(users)
-      const data = await Request('getRouterRtpCapabilities', {}, socket)
+      const data = await request('getRouterRtpCapabilities', {}, socket)
       device = await loadDevice(data)
 
       await initTransports(device, socket)
@@ -230,7 +225,7 @@ export const removeConsumer = function (consumer_id, callback) {
 
 const getConsumeStream = async function (producerId, socket) {
   const { rtpCapabilities } = device
-  const data = await Request(
+  const data = await request(
     'consume',
     {
       rtpCapabilities,
@@ -330,7 +325,7 @@ export const exit = function (offline = false, socket, callBack) {
   }
 
   if (!offline) {
-    Request('exitRoom', {}, socket)
+    request('exitRoom', {}, socket)
       .then((e) => console.log(e))
       .catch((e) => console.warn(e))
       .finally(function () {
@@ -343,7 +338,7 @@ export const exit = function (offline = false, socket, callBack) {
 }
 
 const createRoom = async function (room_id, socket) {
-  await Request(
+  await request(
     'createRoom',
     {
       room_id,
