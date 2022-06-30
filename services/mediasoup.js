@@ -1,6 +1,6 @@
 const mediasoup = require('mediasoup');
 
-const config = require('./config');
+const config = require('../config');
 
 let workers = [];
 let nextMediasoupWorkerIdx = 0;

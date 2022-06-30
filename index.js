@@ -11,7 +11,7 @@ load_env();
 
 const app = express();
 
-const socket = require('./socket');
+const socket = require('./services/socket');
 const config = require('./config');
 
 let protocol;
@@ -29,10 +29,10 @@ if (process.env.NODE_ENV === 'production') {
   protocol = 'http';
   httpServer = http.createServer(app);
 
-  app.use(express.static(path.join(__dirname, 'view', 'build')));
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'view', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
   });
 } else {
   protocol = 'https';

@@ -1,16 +1,16 @@
-const Room = require('./helpers/Room');
-const Peer = require('./helpers/Peer');
-const Question = require('./helpers/Question');
-const SignIn = require('./api/sign-in/signin.model');
+const Room = require('../helpers/Room');
+const Peer = require('../helpers/Peer');
+const Question = require('../helpers/Question');
+const SignIn = require('../api/sign-in/signin.model');
 
-const getMediasoupWorker = require('./mediasoupInit');
+const getMediasoupWorker = require('./mediasoup');
 
 module.exports = (io) => {
   let roomList = new Map();
 
   io.on('connection', async (socket) => {
-    let { roomId, userId } = socket.handshake.query;
-    console.log(socket.id)
+    const { roomId, userId } = socket.handshake.query;
+
     const signInData = await SignIn.findOne({
       id: roomId, 'students.id': { $in: userId }
     }).exec();
@@ -152,7 +152,6 @@ module.exports = (io) => {
       );
 
       socket.on('consume', async ({ consumerTransportId, producerId, rtpCapabilities }, callback) => {
-          //TODO null handling
           if (!roomList.has(socket.room_id)) return console.log('Consume', { error: 'Cant consume' })
 
           let params = await roomList.get(socket.room_id).consume(
@@ -220,7 +219,7 @@ module.exports = (io) => {
           console.log('Hello', roomList.get(socket.room_id).getPeers());
         }
 
-        // socket.room_id = null;
+        socket.room_id = null;
 
         callback('successfully exited room');
       });
