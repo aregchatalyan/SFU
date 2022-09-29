@@ -21,9 +21,9 @@ module.exports = {
   listenPort: 3030,
   mongoUri: 'mongodb://127.0.0.1:27017/',
   mongoOpts: {
-    dbname: 'univern_call',
-    user: 'direlli_admin',
-    pass: '1656067275032',
+    dbname: 'univern',
+    user: 'univern',
+    pass: '78564123',
     autoIndex: false,
   },
   jwtSecret: '0x!b#(1*c877sfd$sdd73w$&azzc6p+essg7v=g80ls#z&xcx*mpemx&@9$888',
